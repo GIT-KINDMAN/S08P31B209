@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
+import GlobalStyles from "./styles/GlobalStyles";
+import App from "./App";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+const container = document.getElementById("root");
+const root = ReactDOM.createRoot(container!);
+root.render(
   <React.StrictMode>
+    <GlobalStyles />
     <App />
   </React.StrictMode>,
 );
