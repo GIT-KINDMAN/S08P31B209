@@ -39,5 +39,5 @@ module.exports = {
     "react/button-has-type": "warn", // 버튼의 타입 지정
     "react/no-unescaped-entities": "warn", // ['>', '"', '\', '}'] 사용시 HTML escape code로 변경
   },
-  ignorePatterns: ["**/*.css", "**/*.scss", ".eslintrc.cjs"],
+  ignorePatterns: ["**/*.css", "**/*.scss", ".eslintrc.cjs", "vite.config.ts"],
 };
