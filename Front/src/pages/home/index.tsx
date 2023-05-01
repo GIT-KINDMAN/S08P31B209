@@ -7,7 +7,6 @@ const Home = () => {
   const navigate = useNavigate();
   return (
     <>
-
       {/* <HomeHeader label="Home Page" /> */}
 
       <main> main </main>
