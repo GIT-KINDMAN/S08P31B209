@@ -4,10 +4,9 @@
 // edit : 보관함 내 문서명 변경
 
 export interface StyleProps {
-  variant?: "text" | "number" | "password" | "edit";
+  variant?: "email" | "number" | "password" | "edit" | "default";
+  isChecked?: boolean;
+  capsLockFlag?: boolean;
 }
 
-export interface InputProps extends StyleProps {
-  label?: string;
-  icon?: string;
-}
+export interface InputProps extends StyleProps {}
