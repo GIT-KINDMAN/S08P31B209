@@ -6,12 +6,7 @@ const Test = () => {
   return (
     <>
       {/* <HomeHeader label="Test Page" /> */}
-      <main>
-        <Button icon="book" label="book button"></Button>
-        <TextArea variant="text" />
-        <TextArea variant="password" />
-        <TextArea variant="edit" />
-      </main>
+      <main></main>
 
       <footer>Footer</footer>
     </>
