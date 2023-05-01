@@ -4,3 +4,4 @@ export { default as DocsBox } from "./docsBox";
 export { default as ErrorPage } from "./error/errorPage";
 
 export { default as Test } from "./test";
+export { default as MainPage } from "./main";
