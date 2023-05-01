@@ -5,4 +5,5 @@ export interface StyleProps {
 }
 export interface InputProps extends StyleProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  label?: string | null;
 }
