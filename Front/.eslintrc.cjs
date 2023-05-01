@@ -13,15 +13,12 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:storybook/recommended",
     "plugin:import/recommended",
-    "plugin:jsx-a11y/recommended",
   ],
   parser: "@typescript-eslint/parser",
   settings: {
     "import/resolver": {
       typescript: {},
-      alias: {
-        map: ["@", "./src"],
-      },
+      alias: [["@", "./src"]],
     },
   },
   parserOptions: {
@@ -32,7 +29,14 @@ module.exports = {
     sourceType: "module",
     project: "tsconfig.json",
   },
-  plugins: ["react-refresh"],
+  plugins: [
+    "react",
+    "react-hooks",
+    "react-refresh",
+    "storybook",
+    "import",
+    "prettier",
+  ],
   rules: {
     "react-refresh/only-export-components": "warn",
     "prettier/prettier": "error",
@@ -42,7 +46,9 @@ module.exports = {
   ignorePatterns: [
     "**/*.css",
     "**/*.scss",
+    "**/*.config.js",
     "**/*.config.cjs",
+    "**/*.config.ts",
     ".eslintrc.cjs",
   ],
 };
