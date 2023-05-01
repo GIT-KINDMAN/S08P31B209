@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { createBrowserRouter } from "react-router-dom";
-import { Home, DocsBox, Editor } from "@/pages";
+import { Home, DocsBox, Editor, Test } from "@/pages";
 import ErrorPage from "@/pages/error/errorPage";
 
 const router = createBrowserRouter(
@@ -21,6 +21,10 @@ const router = createBrowserRouter(
     {
       path: "/editor",
       element: <Editor />,
+    },
+    {
+      path: "/test",
+      element: <Test />,
     },
   ]!,
 );

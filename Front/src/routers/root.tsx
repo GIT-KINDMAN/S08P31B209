@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 // root router, 모든 라우터의 시작점
 export default function Root() {
   return (
