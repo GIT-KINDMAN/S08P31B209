@@ -1,7 +1,7 @@
 import tw, { css, styled, theme } from "twin.macro";
-import { ButtonProps } from "./Button.types";
+import { StyleProps } from "./Button.types";
 
-const DefaultButton = styled.button(({ variant, isSmall }: ButtonProps) => [
+export const StyledButton = styled.button(({ variant, size }: StyleProps) => [
   // The common button styles added with the tw import
   tw`px-8 py-2 rounded transform duration-75`,
 
@@ -19,11 +19,12 @@ const DefaultButton = styled.button(({ variant, isSmall }: ButtonProps) => [
     tw`border-2 border-blue-600`,
   ],
   // Conditional props can be used
-  isSmall ? tw`text-sm` : tw`text-lg`,
+  size === "large" && tw`text-lg`,
+  size === "large" && tw`text-sm`,
   // The theme import can supply values from your tailwind.config.js
   css`
     color: ${theme`colors.white`};
   `,
 ]);
 
-export default DefaultButton;
+export default StyledButton;

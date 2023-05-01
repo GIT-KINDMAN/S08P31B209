@@ -1,4 +1,10 @@
-export type ButtonProps = {
+export interface StyleProps {
   variant?: "primary" | "secondary";
-  isSmall?: boolean;
-};
+  config?: "fill" | "outline";
+  size?: "large" | "medium" | "small";
+}
+
+export interface InputProps extends StyleProps {
+  label?: string;
+  icon?: string;
+}

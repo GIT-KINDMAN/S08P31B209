@@ -1,5 +1,14 @@
+import "twin.macro";
+import HomeHeader from "@/components/organisms/homeHeader";
+
 const Home = () => {
-  return <div>Home Page</div>;
+  return (
+    <>
+      <HomeHeader label="Home Page" />
+      <main> main </main>
+      <footer>Footer</footer>
+    </>
+  );
 };
 
 export default Home;
