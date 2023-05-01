@@ -13,15 +13,12 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:storybook/recommended",
     "plugin:import/recommended",
-    "plugin:jsx-a11y/recommended",
   ],
   parser: "@typescript-eslint/parser",
   settings: {
     "import/resolver": {
       typescript: {},
-      alias: {
-        map: ["@", "./src"],
-      },
+      alias: [["@", "./src"]],
     },
   },
   parserOptions: {
@@ -32,12 +29,26 @@ module.exports = {
     sourceType: "module",
     project: "tsconfig.json",
   },
-  plugins: ["react-refresh"],
+  plugins: [
+    "react",
+    "react-hooks",
+    "react-refresh",
+    "storybook",
+    "import",
+    "prettier",
+  ],
   rules: {
     "react-refresh/only-export-components": "warn",
     "prettier/prettier": "error",
     "react/button-has-type": "warn", // 버튼의 타입 지정
     "react/no-unescaped-entities": "warn", // ['>', '"', '\', '}'] 사용시 HTML escape code로 변경
   },
-  ignorePatterns: ["**/*.css", "**/*.scss", ".eslintrc.cjs", "vite.config.ts"],
+  ignorePatterns: [
+    "**/*.css",
+    "**/*.scss",
+    "**/*.config.js",
+    "**/*.config.cjs",
+    "**/*.config.ts",
+    ".eslintrc.cjs",
+  ],
 };
