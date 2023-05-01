@@ -19,8 +19,16 @@ const Test = () => {
         <TextArea variant="password" />
         <TextArea variant="edit" />
         <div>
-          <Radio checked={checked} onChange={handleRadioChange}></Radio>
-          <Radio checked={!checked} onChange={handleRadioChange}></Radio>
+          <Radio
+            checked={checked}
+            onChange={handleRadioChange}
+            label={"남자"}
+          ></Radio>
+          <Radio
+            checked={!checked}
+            onChange={handleRadioChange}
+            label={"여자"}
+          ></Radio>
         </div>
       </main>
 
