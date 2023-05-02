@@ -1,7 +1,12 @@
-import { StyledLoginButton } from "./LoginButon.styled";
+import { StyledLoginButton } from "./LoginButton.styled";
 
-const LoginButton = () => {
-  return <StyledLoginButton>로그인</StyledLoginButton>;
+const LoginButton: React.FC<{ text: string }> = (props) => {
+  console.log(props);
+  return (
+    <div>
+      <StyledLoginButton text={props.text}>{props.text}</StyledLoginButton>
+    </div>
+  );
 };
 
 export default LoginButton;

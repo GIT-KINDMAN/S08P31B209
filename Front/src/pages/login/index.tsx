@@ -12,8 +12,11 @@ const LoginPage = () => {
         <img src={LogoImg} style={{ height: "80px" }} />
         <TextArea variant="email"></TextArea>
         <TextArea variant="password"></TextArea>
-        <div>비밀번호찾기 &gt;</div>
-        <LoginButton></LoginButton>
+        <div style={{ marginBottom: "72px", color: "blue", cursor: "pointer" }}>
+          비밀번호찾기 &gt;
+        </div>
+        <LoginButton text="로그인"></LoginButton>
+        <LoginButton text="회원가입"></LoginButton>
       </form>
     </div>
   );
