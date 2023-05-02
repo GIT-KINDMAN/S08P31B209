@@ -1,7 +1,7 @@
 import tw, { css, styled, theme } from "twin.macro";
 
 const HomePage = styled.div`
-  width: 100vw;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -23,7 +23,7 @@ const TitleDocDoc = styled.div`
   @keyframes bounce {
     0%,
     100% {
-      transform: translateY(-15%);
+      transform: translateY(-10%);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
     50% {
