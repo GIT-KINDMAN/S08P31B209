@@ -1,5 +1,6 @@
-import tw, { css, styled, theme } from "twin.macro";
 import { StyleProps } from "./Radio.types";
+
+import tw, { css, styled, theme } from "twin.macro";
 
 export const StyledRadio = styled.input(({ checked }: StyleProps) => [
   tw`h-2 w-2

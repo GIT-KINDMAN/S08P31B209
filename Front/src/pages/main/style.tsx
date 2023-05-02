@@ -1,33 +1,29 @@
 import tw, { css, styled, theme } from "twin.macro";
 
 const HomePage = styled.div`
+  width: 100vw;
   display: flex;
   flex-direction: column;
   position: relative;
-  min-height: 864px;
 `;
 
 const MainTitle = styled.div`
   position: absolute;
-  top: 64px;
-  left: 227px;
+  left: 10vw;
   font-weight: bold;
-  font-size: 80px;
-  margin-top: 24px;
+  font-size: 6vw;
+  margin-top: 2vh;
 `;
 
 const TitleDocDoc = styled.div`
-  position: absolute;
-  top: 64px;
-  left: 227px;
+  top: 2rem;
   font-weight: bold;
-  font-size: 80px;
-  margin-top: 24px;
+  /* font-size: 7vh; */
   animation: bounce 1s infinite;
   @keyframes bounce {
     0%,
     100% {
-      transform: translateY(-25%);
+      transform: translateY(-15%);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
     50% {
@@ -38,7 +34,8 @@ const TitleDocDoc = styled.div`
 `;
 const HomePage3 = styled.div`
   display: flex;
-  height: 864px;
+  width: 100vw;
+  min-height: 864px;
   flex-direction: column;
   position: relative;
   background: linear-gradient(to right, #cee2f3, #f9f4ff);
@@ -46,11 +43,11 @@ const HomePage3 = styled.div`
 
 const Page3Title = styled.div`
   position: absolute;
-  top: 80px;
-  left: 160px;
+  top: 5rem;
+  left: 10rem;
   font-weight: bold;
-  font-size: 64px;
-  margin-top: 24px;
+  font-size: 5vw;
+  margin-top: 1.5rem;
   color: #2e6888;
 `;
 

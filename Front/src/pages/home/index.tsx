@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
-import { useNavigate } from "react-router-dom";
 // import HomeHeader from "@/components/organisms/homeHeader";
 
 const Home = () => {

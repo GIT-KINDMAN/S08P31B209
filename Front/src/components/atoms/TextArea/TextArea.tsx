@@ -1,5 +1,6 @@
 import StyledTextArea from "./TextArea.styled";
 import { InputProps } from "./TextArea.types";
+
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { useState } from "react";
 
@@ -11,7 +12,7 @@ const TextArea = ({ variant }: InputProps) => {
   };
   const [capsLockFlag, setCapsLockFlag] = useState(false);
   const checkCapsLock = (e: any) => {
-    let capsLock = e.getModifierState("CapsLock");
+    const capsLock = e.getModifierState("CapsLock");
     setCapsLockFlag(capsLock);
   };
 
