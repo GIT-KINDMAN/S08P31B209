@@ -87,7 +87,10 @@ module.exports = {
       },
     },
     fontfamily: {},
-    extend: {},
+    extend: {
+      width: { 480: "480px" },
+      padding: { 480: "480px" },
+    },
   },
   plugins: [],
 };

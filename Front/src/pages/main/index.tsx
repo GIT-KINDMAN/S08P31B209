@@ -1,17 +1,18 @@
-import { useNavigate } from "react-router-dom";
+import Knock from "../../assets/Main/Knock.png";
 // import { MainNav } from "../../components/index";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
-import Knock from "../../assets/Main/Knock.png";
 import content1 from "../../assets/Main/content1.png";
 import {
   HomePage,
-  MainTitle,
-  TitleDocDoc,
   HomePage3,
+  MainTitle,
   Page3Title,
+  TitleDocDoc,
 } from "./style";
-import { useRef, useEffect, useState } from "react";
+
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const navigate = useNavigate();

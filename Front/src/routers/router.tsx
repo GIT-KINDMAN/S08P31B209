@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createBrowserRouter } from "react-router-dom";
-import { Home, DocsBox, Editor, Test, MainPage, LoginPage } from "@/pages";
+import { DocsBox, Editor, Home, LoginPage, MainPage, Test } from "@/pages";
 import ErrorPage from "@/pages/error/errorPage";
+
+import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter(
   [

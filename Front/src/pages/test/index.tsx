@@ -1,7 +1,8 @@
-import "twin.macro";
-import { useState } from "react";
 // import HomeHeader from "@/components/organisms/homeHeader";
-import { Button, TextArea, Radio } from "@/components/atoms";
+import { Button, Radio, TextArea } from "@/components/atoms";
+
+import { useState } from "react";
+import "twin.macro";
 
 const Test = () => {
   const [checked, setChecked] = useState(false);

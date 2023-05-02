@@ -1,5 +1,6 @@
-import tw, { css, styled, theme } from "twin.macro";
 import { StyleProps } from "./TextArea.types";
+
+import tw, { css, styled, theme } from "twin.macro";
 
 const StyledTextArea = styled.input(
   ({ variant, isChecked, capsLockFlag }: StyleProps) => [
