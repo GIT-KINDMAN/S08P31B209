@@ -1,5 +1,6 @@
 // import HomeHeader from "@/components/organisms/homeHeader";
-import { Button, Radio, TextArea } from "@/components/atoms";
+
+import { Button, Radio, TableHeader, TextArea } from "@/components/atoms";
 
 import { useState } from "react";
 import "twin.macro";
@@ -16,7 +17,7 @@ const Test = () => {
 
       <main>
         <Button icon="book" label="book button"></Button>
-        <TextArea variant="email" />
+        <TextArea variant="number" />
         <TextArea variant="password" />
         <TextArea variant="edit" />
         <div>
@@ -30,6 +31,7 @@ const Test = () => {
             onChange={handleRadioChange}
             label={"여자"}
           ></Radio>
+          <TableHeader label="보관함"></TableHeader>
         </div>
       </main>
 
