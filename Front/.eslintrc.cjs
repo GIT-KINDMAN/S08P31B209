@@ -18,7 +18,10 @@ module.exports = {
   settings: {
     "import/resolver": {
       typescript: {},
-      alias: [["@", "./src"]],
+      alias: [
+        ["@", "./src"],
+        ["@atomic", "./src/component"],
+      ],
     },
   },
   parserOptions: {

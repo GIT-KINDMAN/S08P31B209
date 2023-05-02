@@ -8,6 +8,19 @@ module.exports = {
   trailingComma: "all",
   endOfLine: "auto",
   bracketSpacing: true,
-  plugins: [require('prettier-plugin-tailwindcss')],
-  tailwindConfig: './tailwind.config.cjs',
-}
+  plugins: [
+    require("prettier-plugin-tailwindcss"),
+    require("@trivago/prettier-plugin-sort-imports"),
+  ],
+  tailwindConfig: "./tailwind.config.cjs",
+  importOrder: [
+    "^@core/(.*)$",
+    "^@ui/(.*)$",
+    "^@atomic/(.*)$",
+    "^@/(.*)$",
+    "^[./]",
+    "^",
+  ],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+};
