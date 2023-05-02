@@ -1,4 +1,8 @@
 // import HomeHeader from "@/components/organisms/homeHeader";
+
+import { Button, Radio, TableHeader, TextArea } from "@/components/atoms";
+import { TableViewHeader } from "@/components/molecules";
+
 import {
   Button,
   CheckBox,
@@ -9,11 +13,16 @@ import {
 } from "@/components/atoms";
 import { getSize, size } from "@/constants";
 
+
 import { useState } from "react";
 import "twin.macro";
 
 const Test = () => {
   const [checked, setChecked] = useState(false);
+
+  const handleTableHeaderChange = (isChecked: boolean) => {
+    setChecked((prevChecked) => !prevChecked);
+  };
 
   const handleRadioChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(e.target.checked);
@@ -27,6 +36,13 @@ const Test = () => {
       {/* <HomeHeader label="Test Page" /> */}
 
       <main>
+
+        <TableViewHeader
+          checked={checked}
+          icon="check"
+          onChange={handleTableHeaderChange}
+        ></TableViewHeader>
+=======
         <CheckBox
           checked={checked}
           icon="check"
