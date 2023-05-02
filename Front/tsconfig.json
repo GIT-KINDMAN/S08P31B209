@@ -25,6 +25,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@atomic/*": ["./src/components/*"],
       "#root/*": ["./*"]
     }
   },
