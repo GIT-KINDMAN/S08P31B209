@@ -23,24 +23,27 @@ const MainPage = () => {
     <div>
       {/* <MainNav /> */}
       <HomePage>
-        <img src={MainImg1} style={{ height: "864px" }} />
-        <MainTitle>빠르고</MainTitle>
-        <MainTitle style={{ marginTop: "120px" }}>간편하게</MainTitle>
-        <TitleDocDoc
-          style={{ marginTop: "240px", fontSize: "96px", color: "#3D779A" }}
-        >
+        <img src={MainImg1} style={{ width: "100vw" }} />
+        <MainTitle style={{ marginTop: "12vh" }}>
+          <p> 빠르고</p>
+          <p> 간편하게</p>
+
+          <TitleDocDoc style={{ fontSize: "10vw", color: "#3D779A" }}>
+            똑똑
+          </TitleDocDoc>
+        </MainTitle>
+        {/* <TitleDocDoc style={{ fontSize: "12vh", color: "#3D779A" }}>
           똑똑
-        </TitleDocDoc>
+        </TitleDocDoc> */}
       </HomePage>
       <HomePage>
-        <img src={MainImg2} style={{ height: "864px" }} />
-        <MainTitle style={{ marginTop: "40px" }}> 서류 제출</MainTitle>
-        <MainTitle style={{ marginTop: "160px" }}> 놓치지 말고</MainTitle>
-        <TitleDocDoc
-          style={{ marginTop: "280px", fontSize: "96px", color: "#3D779A" }}
-        >
-          똑똑
-        </TitleDocDoc>
+        <img src={MainImg2} style={{ width: "100vw" }} />
+        <MainTitle style={{ marginTop: "12vh" }}>
+          <p> 서류 제출</p>
+          <p> 놓치지 말고 </p>
+
+          <TitleDocDoc style={{ fontSize: "10vw", color: "#3D779A" }}>똑똑</TitleDocDoc>
+        </MainTitle>
       </HomePage>
       <HomePage3>
         {carouselState === 0 ? <Page3Title>문서를 보내나요?</Page3Title> : null}
