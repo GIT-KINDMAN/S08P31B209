@@ -5,3 +5,4 @@ export { default as ErrorPage } from "./error/errorPage";
 
 export { default as Test } from "./test";
 export { default as MainPage } from "./main";
+export { default as LoginPage } from "./login";
