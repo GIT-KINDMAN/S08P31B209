@@ -6,7 +6,6 @@ export const StyledCheckBox = styled.div(({ checked }: StyleProps) => [
   tw`h-5 w-5
   m-1
   rounded-md
-  border
   flex-none`,
   checked === true && tw`bg-blue-100`,
   checked === false && [
