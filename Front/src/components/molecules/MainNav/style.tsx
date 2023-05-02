@@ -1,4 +1,4 @@
-import tw, { css, styled, theme } from "twin.macro";
+import { styled } from "twin.macro";
 
 const Nav = styled.div`
   width: 100%;

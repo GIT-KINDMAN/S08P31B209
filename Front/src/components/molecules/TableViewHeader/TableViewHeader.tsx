@@ -1,8 +1,6 @@
 import { CheckBox } from "@/components/atoms";
 import { InputProps } from "@/components/atoms/CheckBox/CheckBox.types";
 
-import { styled } from "twin.macro";
-
 export const TableViewHeader = ({ checked, icon, onChange }: InputProps) => {
   return (
     <div tw="pl-2 h-9 flex items-center">

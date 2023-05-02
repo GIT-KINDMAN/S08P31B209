@@ -3,7 +3,6 @@ import { LoginButton, TextArea } from "@/components/atoms";
 
 import LogoImg from "../../assets/DocDoc.png";
 
-import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 const LoginPage = () => {

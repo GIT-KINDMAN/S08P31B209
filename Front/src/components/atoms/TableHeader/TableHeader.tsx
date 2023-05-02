@@ -1,7 +1,7 @@
 import StyledTableHeader from "./TableHeader.styles";
 import { InputProps } from "./TableHeader.types";
 
-import tw, { css, styled, theme } from "twin.macro";
+import "twin.macro";
 
 const TableHeader = ({ label }: InputProps) => {
   return (

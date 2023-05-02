@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import tw, { GlobalStyles as BaseStyles, styled, theme } from "twin.macro";
+import tw, { GlobalStyles as BaseStyles, styled } from "twin.macro";
 
 const html = styled.html(() => [tw`h-full`]);
 

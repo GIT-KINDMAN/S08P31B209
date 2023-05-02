@@ -1,8 +1,10 @@
+import { MainNav } from "@/components/molecules";
+
 import Knock from "../../assets/Main/Knock.png";
 // import { MainNav } from "../../components/index";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
-import content1 from "../../assets/Main/content1.png";
+// import content1 from "../../assets/Main/content1.png";
 import {
   HomePage,
   HomePage3,
@@ -11,8 +13,7 @@ import {
   TitleDocDoc,
 } from "./style";
 
-import { MainNav } from "@/components/molecules";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
@@ -43,7 +44,9 @@ const MainPage = () => {
           <p> 서류 제출</p>
           <p> 놓치지 말고 </p>
 
-          <TitleDocDoc style={{ fontSize: "10vw", color: "#3D779A" }}>똑똑</TitleDocDoc>
+          <TitleDocDoc style={{ fontSize: "10vw", color: "#3D779A" }}>
+            똑똑
+          </TitleDocDoc>
         </MainTitle>
       </HomePage>
       <HomePage3>

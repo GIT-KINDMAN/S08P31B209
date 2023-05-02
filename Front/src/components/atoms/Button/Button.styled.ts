@@ -19,7 +19,6 @@ export const StyledButton = styled.button(({ variant, size }: StyleProps) => [
     `,
     tw`border-2 border-blue-600`,
     // MainNav에 활용
-
   ],
   // Conditional props can be used
   size === "large" && tw`text-lg`,
@@ -28,8 +27,7 @@ export const StyledButton = styled.button(({ variant, size }: StyleProps) => [
   css`
     color: ${theme`colors.white`};
   `,
-  variant === "mainnav" && [tw`w-28 bg-[#f2921f]`]
-
+  variant === "mainnav" && [tw`w-28 bg-[#f2921f]`],
 ]);
 
 export default StyledButton;

@@ -2,7 +2,7 @@ import { getSize } from "@/constants";
 
 import { StyleProps } from "./TextBox.types";
 
-import tw, { css, styled, theme } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 export const StyledTextBox = styled.div((props: StyleProps) => [
   tw`text-darkgray-700 w-fit `,

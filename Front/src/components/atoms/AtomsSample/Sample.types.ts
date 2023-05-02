@@ -1,7 +1,7 @@
 export interface StyleProps {
-  checked?: boolean;
+  variable?: "type1" | "type2" | "type3";
 }
+
 export interface InputProps extends StyleProps {
-  icon?: string;
-  onChange?: () => void;
+  label?: string;
 }
