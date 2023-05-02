@@ -9,4 +9,4 @@ export interface StyleProps {
   capsLockFlag?: boolean;
 }
 
-export interface InputProps extends StyleProps {}
+export type InputProps = StyleProps;

@@ -1,5 +1,6 @@
-import tw, { css, styled, theme } from "twin.macro";
 import { StyleProps } from "./Button.types";
+
+import tw, { css, styled, theme } from "twin.macro";
 
 export const StyledButton = styled.button(({ variant, size }: StyleProps) => [
   // The common button styles added with the tw import
