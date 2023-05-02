@@ -11,6 +11,7 @@ import {
   TitleDocDoc,
 } from "./style";
 
+import { MainNav } from "@/components/molecules";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +22,7 @@ const MainPage = () => {
 
   return (
     <div>
-      {/* <MainNav /> */}
+      <MainNav />
       <HomePage>
         <img src={MainImg1} style={{ width: "100vw" }} />
         <MainTitle style={{ marginTop: "12vh" }}>
