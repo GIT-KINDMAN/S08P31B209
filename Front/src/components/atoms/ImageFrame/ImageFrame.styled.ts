@@ -1,5 +1,24 @@
-import tw, { styled } from "twin.macro";
+import { InputProps } from "./ImageFrame.types";
 
-export const StyledImageFrame = styled.img(tw`w-32 h-40`);
+import tw, { css, styled } from "twin.macro";
+
+export const StyledImageFrame = styled.div(
+  ({ width, height, unit = "rem" }: InputProps) => [
+    typeof width === "undefined"
+      ? tw`w-fit`
+      : css`
+          width: ${width}${unit};
+        `,
+    typeof height === "undefined"
+      ? tw`h-fit`
+      : css`
+          height: ${height}${unit};
+        `,
+  ],
+);
+
+export const StyledImage = styled.img(() => [
+  tw`[object-fit: fill] w-full h-full`,
+]);
 
 export default StyledImageFrame;

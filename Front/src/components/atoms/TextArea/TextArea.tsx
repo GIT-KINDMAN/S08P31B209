@@ -35,6 +35,7 @@ const TextArea = ({ variant }: InputProps) => {
           <StyledTextArea
             variant={variant}
             placeholder={variant}
+            // placeholder="아이디(이메일)"
             onChange={(e) => {
               setInputText(e.target.value), console.log(inputText);
             }}
@@ -49,6 +50,7 @@ const TextArea = ({ variant }: InputProps) => {
               type="password"
               variant={variant}
               placeholder={variant}
+              // placeholder="비밀번호"
               autoComplete="current-password"
               onKeyDown={(e) => checkCapsLock(e)}
               onChange={(e) => {
@@ -78,6 +80,7 @@ const TextArea = ({ variant }: InputProps) => {
         {variant === "name" ? (
           <StyledTextArea
             variant={variant}
+            // placeholder="이름"
             placeholder={variant}
             onChange={(e) => {
               setInputText(e.target.value), console.log(inputText);
@@ -90,6 +93,7 @@ const TextArea = ({ variant }: InputProps) => {
         {variant === "birth" ? (
           <StyledTextArea
             variant={variant}
+            // placeholder="생년월일"
             placeholder={variant}
             onChange={(e) => {
               setInputText(e.target.value), console.log(inputText);
