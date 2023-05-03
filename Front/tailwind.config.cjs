@@ -88,6 +88,8 @@ module.exports = {
     },
     fontfamily: {},
     extend: {
+      margin: { 72: "72px" },
+      height: { 160: "160px" },
       width: { 480: "480px" },
       padding: { 480: "480px" },
     },
