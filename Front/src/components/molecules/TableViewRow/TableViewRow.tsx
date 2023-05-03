@@ -6,7 +6,6 @@ import tw, { styled } from "twin.macro";
 
 const Wrapper = styled.div(tw`flex w-fit p-2`);
 let iconColor = tw`text-lightgray-400`;
-let iconType = "sr";
 export const TableViewRow = ({
   icon = "document",
   checked,
@@ -18,7 +17,6 @@ export const TableViewRow = ({
 }: InputProps) => {
   if (icon === "picture") {
     iconColor = tw`text-orange-400`;
-    iconType = "br";
   } else if (icon === "folder") {
     iconColor = tw`text-blue-500`;
   }
