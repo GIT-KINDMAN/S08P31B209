@@ -80,7 +80,7 @@ const TextArea = ({ variant }: InputProps) => {
         {variant === "name" ? (
           <StyledTextArea
             variant={variant}
-            placeholder={variant}
+            placeholder="이름"
             onChange={(e) => {
               setInputText(e.target.value), console.log(inputText);
             }}
@@ -92,7 +92,7 @@ const TextArea = ({ variant }: InputProps) => {
         {variant === "birth" ? (
           <StyledTextArea
             variant={variant}
-            placeholder={variant}
+            placeholder="생년월일"
             onChange={(e) => {
               setInputText(e.target.value), console.log(inputText);
             }}
