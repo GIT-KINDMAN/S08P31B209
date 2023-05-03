@@ -1,6 +1,6 @@
 import { MainNav } from "@/components/molecules";
-import { Slider } from "@/components/molecules/index";
 
+// import { Slider } from "@/components/molecules/index";
 import Knock from "../../assets/Main/Knock.png";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
