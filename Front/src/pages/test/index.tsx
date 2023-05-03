@@ -7,7 +7,7 @@ import {
   TextArea,
   TextBox,
 } from "@/components/atoms";
-import { TableView } from "@/components/organisms";
+import { TableViewHeader, TableViewRow } from "@/components/molecules";
 
 import { useState } from "react";
 import "twin.macro";
@@ -24,13 +24,33 @@ const Test = () => {
       {/* <HomeHeader label="Test Page" /> */}
 
       <main>
-        <TableView
+        <TableViewHeader
           checked={checked}
           isBookmarkActive={true}
-          size="xl"
-          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          size="lg"
           isAsc={true}
-        ></TableView>
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+        ></TableViewHeader>
+        <TableViewRow
+          icon="folder"
+          checked={true}
+          isBookmarkActive={true}
+          size="lg"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+        />
+        <TableViewRow
+          icon="star"
+          checked={true}
+          isBookmarkActive={true}
+          size="lg"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+        />
+        <TableViewRow
+          checked={true}
+          isBookmarkActive={true}
+          size="lg"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+        />
         <CheckBox checked={checked} icon="check"></CheckBox>
         <Button icon="book" label="book button"></Button>
         <TextArea variant="number" />
