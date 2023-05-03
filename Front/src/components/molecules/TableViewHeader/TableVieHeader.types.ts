@@ -1,10 +1,10 @@
 import { size } from "@/constants";
 
-export interface StyleProps {
+export interface InputProps {
   checked?: boolean;
   size?: size;
-}
-export interface InputProps extends StyleProps {
-  icon?: string;
+  labels?: string[];
+  isAsc?: boolean;
+  isBookmarkActive: boolean;
   onClick?: () => void;
 }

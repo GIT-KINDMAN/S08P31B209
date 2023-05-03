@@ -7,7 +7,7 @@ import {
   TextArea,
   TextBox,
 } from "@/components/atoms";
-import { TableViewHeader } from "@/components/molecules";
+import { TableViewHeader, TableViewRow } from "@/components/molecules";
 
 import { useState } from "react";
 import "twin.macro";
@@ -19,14 +19,51 @@ const Test = () => {
     setChecked(e.target.checked);
   };
 
+  const handleCheckClick = () => {
+    setChecked(!checked);
+  };
+
   return (
     <>
       {/* <HomeHeader label="Test Page" /> */}
 
       <main>
-        <TableViewHeader checked={checked} icon="check"></TableViewHeader>
-        =======
-        <CheckBox checked={checked} icon="check"></CheckBox>
+        <TableViewHeader
+          checked={checked}
+          isBookmarkActive={true}
+          size="lg"
+          isAsc={true}
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
+        ></TableViewHeader>
+        <TableViewRow
+          icon="folder"
+          checked={true}
+          isBookmarkActive={true}
+          size="lg"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
+        />
+        <TableViewRow
+          icon="star"
+          checked={true}
+          isBookmarkActive={true}
+          size="lg"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
+        />
+        <TableViewRow
+          checked={true}
+          isBookmarkActive={true}
+          size="lg"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
+        />
+        <CheckBox
+          checked={checked}
+          icon="check"
+          onClick={handleCheckClick}
+        ></CheckBox>
         <Button icon="book" label="book button"></Button>
         <TextArea variant="number" />
         <TextArea variant="password" />
