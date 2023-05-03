@@ -10,7 +10,7 @@ export const StyledLoginButton = styled.button(({ text }: StyleProps) => [
 
   text === "비밀번호 재설정" && tw`bg-blue-600 text-white mt-16`,
 
-  text === "확인하고 로그인 하기" && tw`bg-blue-600 text-white`,
+  text === "확인하고 로그인 하기" && tw`bg-blue-600 text-white mt-16`,
 
   text === "회원가입" && tw`bg-white text-blue-600 border-blue-600 border-2`,
 
