@@ -11,7 +11,7 @@ const meta: Meta<typeof Button> = {
       control: "inline-radio",
       options: ["primary", "secondary"],
     },
-    isSmall: {
+    size: {
       description: "A small version of the button",
       type: "boolean",
     },
@@ -30,5 +30,5 @@ export const Secondary: Story = {
 };
 
 export const Small: Story = {
-  args: { isSmall: true, children: "Small" },
+  args: { size: "small", children: "Small" },
 };

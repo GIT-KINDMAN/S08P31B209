@@ -1,6 +1,6 @@
 import { StyleProps } from "./LoginButton.types";
 
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 export const StyledLoginButton = styled.button(({ text }: StyleProps) => [
   tw`rounded mb-6 `,

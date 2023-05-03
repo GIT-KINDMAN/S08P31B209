@@ -1,6 +1,6 @@
 import { StyleProps } from "./TextArea.types";
 
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 const StyledTextArea = styled.input(({ variant }: StyleProps) => [
   tw`w-80 h-10 border-[#ABB6BE] border-2 rounded-lg mx-auto outline-none px-4 my-2`,
@@ -12,10 +12,10 @@ const StyledTextArea = styled.input(({ variant }: StyleProps) => [
   //   }
   // `,
 
-  // variant === "email" && tw`border-[#ABB6BE] px-4 `,
-  // variant === "password" &&
-  //   tw`w-80 h-10 border-2 border-[#ABB6BE] rounded-lg mx-auto px-4 `,
-  // variant === "edit" && tw`w-40 h-7 px-2 mx-auto`,
+  variant === "email" && tw`border-[#ABB6BE] px-4 `,
+  variant === "password" &&
+    tw`w-80 h-10 border-2 border-[#ABB6BE] rounded-lg mx-auto px-4 `,
+  variant === "edit" && tw`w-40 h-7 px-2 mx-auto`,
 ]);
 
 export default StyledTextArea;

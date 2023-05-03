@@ -34,8 +34,8 @@ const TextArea = ({ variant }: InputProps) => {
         {variant === "email" ? (
           <StyledTextArea
             variant={variant}
-            // placeholder={variant}
-            placeholder="아이디(이메일)"
+            placeholder={variant}
+            // placeholder="아이디(이메일)"
             onChange={(e) => {
               setInputText(e.target.value), console.log(inputText);
             }}
@@ -49,8 +49,8 @@ const TextArea = ({ variant }: InputProps) => {
             <StyledTextArea
               type="password"
               variant={variant}
-              // placeholder={variant}
-              placeholder="비밀번호"
+              placeholder={variant}
+              // placeholder="비밀번호"
               autoComplete="current-password"
               onKeyDown={(e) => checkCapsLock(e)}
               onChange={(e) => {

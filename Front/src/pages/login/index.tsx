@@ -1,5 +1,5 @@
 // import LoginButton from "@/components/atoms/LoginButton/LoginButton";
-import { LoginArea, LoginButton, TextArea } from "@/components/atoms";
+import { LoginButton, TextArea } from "@/components/atoms";
 
 import LogoImg from "../../assets/DocDoc.png";
 
