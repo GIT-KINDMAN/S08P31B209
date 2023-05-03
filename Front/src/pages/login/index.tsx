@@ -10,7 +10,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div tw="flex justify-center ">
+    <div tw="flex justify-center">
       <form>
         <img src={LogoImg} tw="mt-14 mb-6" />
         {/* <div tw="mt-14  h-160 w-480 bg-[url('../../assets/DocDoc.png')]"></div> */}

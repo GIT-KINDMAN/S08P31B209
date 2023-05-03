@@ -7,10 +7,12 @@ import "twin.macro";
 
 const FindPasswordPage = () => {
   return (
-    <div>
+    <div tw="flex justify-center">
       <form>
-        <img src={LogoImg} style={{ height: "80px" }} />
-        <h2>비밀번호찾기</h2>
+        <img src={LogoImg} tw="mt-14 mb-6" />
+        <div tw="font-bold text-2xl border-b-[#ABB6BE] border-b-2 py-4 mb-14">
+          비밀번호찾기
+        </div>
         <TextArea variant="email" />
         <TextArea variant="name" />
         <TextArea variant="birth" />
