@@ -1,10 +1,10 @@
 import StyledCheckBox from "./CheckBox.styled";
 import { InputProps } from "./CheckBox.types";
 
-const CheckBox = ({ checked, icon, onChange }: InputProps) => {
+const CheckBox = ({ checked, icon, onChange, size }: InputProps) => {
   return (
     <>
-      <StyledCheckBox checked={checked} onClick={onChange}>
+      <StyledCheckBox size={size} checked={checked} onClick={onChange}>
         {checked && icon ? (
           <i
             style={{ paddingLeft: "1px" }}
