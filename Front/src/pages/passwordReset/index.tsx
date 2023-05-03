@@ -5,20 +5,19 @@ import LogoImg from "../../assets/DocDoc.png";
 
 import "twin.macro";
 
-const FindPasswordPage = () => {
+const PasswordResetPage = () => {
   return (
     <div>
       <form>
         <img src={LogoImg} style={{ height: "80px" }} />
-        <h2>비밀번호찾기</h2>
-        <TextArea variant="email" />
-        <TextArea variant="name" />
-        <TextArea variant="birth" />
-        <LoginButton text="비밀번호 재설정"></LoginButton>
+        <h2>비밀번호 재설정</h2>
+        <TextArea variant="password" />
+        <TextArea variant="password" />
+        <LoginButton text="확인하고 로그인 하기"></LoginButton>
         <LoginButton text="회원가입"></LoginButton>
       </form>
     </div>
   );
 };
 
-export default FindPasswordPage;
+export default PasswordResetPage;

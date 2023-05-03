@@ -10,6 +10,7 @@ const LoginPage = () => {
     <div>
       <form>
         <img src={LogoImg} style={{ height: "80px" }} />
+        <h2>비밀번호찾기</h2>
         <TextArea variant="email"></TextArea>
         <TextArea variant="password"></TextArea>
         <div style={{ marginBottom: "72px", color: "blue", cursor: "pointer" }}>

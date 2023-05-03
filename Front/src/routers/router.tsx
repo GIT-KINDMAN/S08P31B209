@@ -6,6 +6,7 @@ import {
   Home,
   LoginPage,
   MainPage,
+  PasswordReset,
   Test,
 } from "@/pages";
 import ErrorPage from "@/pages/error/errorPage";
@@ -46,6 +47,10 @@ const router = createBrowserRouter(
     {
       path: "/find-password",
       element: <FindPasswordPage />,
+    },
+    {
+      path: "password-reset",
+      element: <PasswordReset />,
     },
   ]!,
 );
