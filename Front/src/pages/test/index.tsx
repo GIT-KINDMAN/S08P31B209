@@ -7,7 +7,7 @@ import {
   TextArea,
   TextBox,
 } from "@/components/atoms";
-import { TableView } from "@/components/molecules";
+import { TableView } from "@/components/organisms";
 
 import { useState } from "react";
 import "twin.macro";
@@ -24,7 +24,13 @@ const Test = () => {
       {/* <HomeHeader label="Test Page" /> */}
 
       <main>
-        <TableView checked={checked} icon="check"></TableView>
+        <TableView
+          checked={checked}
+          isBookmarkActive={true}
+          size="xl"
+          labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          isAsc={true}
+        ></TableView>
         <CheckBox checked={checked} icon="check"></CheckBox>
         <Button icon="book" label="book button"></Button>
         <TextArea variant="number" />
