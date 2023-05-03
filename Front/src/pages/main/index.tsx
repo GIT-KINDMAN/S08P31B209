@@ -1,7 +1,7 @@
 import { MainNav } from "@/components/molecules";
+import { Slider } from "@/components/molecules/index";
 
 import Knock from "../../assets/Main/Knock.png";
-// import { MainNav } from "../../components/index";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
 // import content1 from "../../assets/Main/content1.png";
@@ -13,19 +13,26 @@ import {
   TitleDocDoc,
 } from "./style";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const navigate = useNavigate();
 
-  const [carouselState, setCarouselState] = useState(0);
+  const mainPage1 = useRef<HTMLDivElement>(null);
+  // const mainPage2 = useRef<HTMLDivElement>(null);
+  // const mainPage3 = useRef<HTMLDivElement>(null);
+
+  const handleRef = () => {
+    const location = mainPage1.current?.offsetTop;
+    console.log(location);
+  };
 
   return (
     <div>
       <MainNav />
       <HomePage>
-        <img src={MainImg1} style={{ width: "100vw" }} />
+        <img src={MainImg1} style={{ width: "100vw" }} onClick={handleRef} />
         <MainTitle style={{ marginTop: "12vh" }}>
           <p> 빠르고</p>
           <p> 간편하게</p>
@@ -50,7 +57,7 @@ const MainPage = () => {
         </MainTitle>
       </HomePage>
       <HomePage3>
-        {carouselState === 0 ? <Page3Title>문서를 보내나요?</Page3Title> : null}
+        {/* {carouselState === 0 ? <Page3Title>문서를 보내나요?</Page3Title> : null}
         {carouselState === 1 ? <Page3Title>문서를 받았나요?</Page3Title> : null}
         {carouselState === 2 ? (
           <Page3Title>제출된 문서확인까지</Page3Title>
@@ -78,7 +85,8 @@ const MainPage = () => {
           }}
         >
           &gt;
-        </button>
+        </button> */}
+        <Slider />
       </HomePage3>
       <HomePage>
         <img
