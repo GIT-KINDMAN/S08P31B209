@@ -12,12 +12,12 @@ export const TableViewHeader = ({
   size,
   labels,
   isAsc,
-  onChange,
+  onClick,
 }: InputProps) => {
   return (
-    <div tw="pl-4 h-12 flex items-center">
+    <div tw="pl-4 h-12 flex items-center border-b-2">
       <Wrapper>
-        <CheckBox checked={checked} icon="check" onChange={onChange} />
+        <CheckBox checked={checked} icon="check" onClick={onClick} />
       </Wrapper>
       <Wrapper tw="justify-center">
         {isBookmarkActive ? (
@@ -44,14 +44,14 @@ export const TableViewHeader = ({
           size={size}
           label={labels && labels.length > 0 ? labels[0] : undefined}
           isAsc={isAsc}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[1] : undefined}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
@@ -59,7 +59,7 @@ export const TableViewHeader = ({
           size={size}
           label={labels && labels.length > 0 ? labels[2] : undefined}
           isAsc={isAsc}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
@@ -67,14 +67,14 @@ export const TableViewHeader = ({
           size={size}
           label={labels && labels.length > 0 ? labels[3] : undefined}
           isAsc={isAsc}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[4] : undefined}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
     </div>

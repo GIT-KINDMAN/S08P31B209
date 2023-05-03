@@ -6,5 +6,5 @@ export interface InputProps {
   labels?: string[];
   isAsc?: boolean;
   isBookmarkActive: boolean;
-  onChange?: () => void;
+  onClick?: () => void;
 }
