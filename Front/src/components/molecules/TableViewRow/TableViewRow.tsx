@@ -13,7 +13,7 @@ export const TableViewRow = ({
   size,
   labels,
   isAsc,
-  onChange,
+  onClick,
 }: InputProps) => {
   if (icon === "picture") {
     iconColor = tw`text-orange-400`;
@@ -23,7 +23,7 @@ export const TableViewRow = ({
   return (
     <div tw="pl-4 h-10 flex items-center">
       <Wrapper>
-        <CheckBox checked={checked} icon="check" onChange={onChange} />
+        <CheckBox checked={checked} icon="check" onClick={onClick} />
       </Wrapper>
       <Wrapper tw="justify-center">
         {isBookmarkActive ? (
@@ -55,14 +55,14 @@ export const TableViewRow = ({
           size={size}
           label={labels && labels.length > 0 ? labels[0] : undefined}
           isAsc={isAsc}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[1] : undefined}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
@@ -70,7 +70,7 @@ export const TableViewRow = ({
           size={size}
           label={labels && labels.length > 0 ? labels[2] : undefined}
           isAsc={isAsc}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
@@ -78,14 +78,14 @@ export const TableViewRow = ({
           size={size}
           label={labels && labels.length > 0 ? labels[3] : undefined}
           isAsc={isAsc}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
       <Wrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[4] : undefined}
-          onChange={onChange}
+          onClick={onClick}
         />
       </Wrapper>
     </div>

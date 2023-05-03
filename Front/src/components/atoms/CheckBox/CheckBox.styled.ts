@@ -8,7 +8,7 @@ export const StyledCheckBox = styled.div((props: StyleProps) => [
   tw`h-5 w-5
   m-1
   rounded-md
-  flex-none`,
+  flex-none cursor-pointer`,
   props.checked
     ? tw`bg-blue-100`
     : [

@@ -6,5 +6,5 @@ export interface StyleProps {
 export interface InputProps extends StyleProps {
   label?: string;
   isAsc?: boolean;
-  onChange?: () => void;
+  onClick?: () => void;
 }
