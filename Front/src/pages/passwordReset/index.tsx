@@ -3,13 +3,20 @@ import { LoginButton, TextArea } from "@/components/atoms";
 
 import LogoImg from "../../assets/DocDoc.png";
 
+import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 const PasswordResetPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div tw="flex justify-center">
       <form>
-        <img src={LogoImg} tw="mt-14 mb-6" />
+        <img
+          src={LogoImg}
+          tw="mt-14 mb-6 cursor-pointer "
+          onClick={() => navigate("/main")}
+        />
         <div tw="font-bold text-2xl border-b-[#ABB6BE] border-b-2 py-4 mb-14">
           비밀번호 재설정
         </div>
