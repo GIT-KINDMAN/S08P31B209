@@ -1,7 +1,13 @@
-import tw, { styled } from "twin.macro";
+import { StyledProps } from "./TableHeader.types";
 
-export const StyledTableHeader = styled.div((): any => [
-  tw`w-[1280px] h-20 border-b-2 flex items-center`,
-]);
+import tw, { css, styled } from "twin.macro";
+
+export const StyledTableHeader = styled.div(
+  ({ width = "80rem", height = "5rem" }: StyledProps) => css`
+    width: ${width};
+    height: ${height};
+    ${tw`border-b-2 flex items-center`}
+  `,
+);
 
 export default StyledTableHeader;
