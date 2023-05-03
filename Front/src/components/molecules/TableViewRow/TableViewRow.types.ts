@@ -1,8 +1,10 @@
 import { size } from "@/constants";
 
+import { TwStyle } from "twin.macro";
+
 export interface InputProps {
-  height?: stirng;
-  width?: string;
+  icon?: string;
+  iconColor?: TwStyle;
   checked?: boolean;
   size?: size;
   labels?: string[];

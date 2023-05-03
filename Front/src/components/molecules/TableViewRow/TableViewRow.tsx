@@ -1,14 +1,14 @@
 import { CheckBox, Icon, TextBox } from "@/components/atoms";
 
-import { InputProps } from "./TableView.types";
+import { InputProps } from "./TableViewRow.types";
 
 import tw, { styled } from "twin.macro";
 
 const Wrapper = styled.div(tw`flex w-fit p-2`);
-
-export const TableView = ({
-  height,
-  width,
+let iconColor = tw`text-lightgray-400`;
+let iconType = "sr";
+export const TableViewRow = ({
+  icon = "document",
   checked,
   isBookmarkActive,
   size,
@@ -16,8 +16,14 @@ export const TableView = ({
   isAsc,
   onChange,
 }: InputProps) => {
+  if (icon === "picture") {
+    iconColor = tw`text-orange-400`;
+    iconType = "br";
+  } else if (icon === "folder") {
+    iconColor = tw`text-blue-500`;
+  }
   return (
-    <div tw="pl-4 h-12 flex items-center h-fit">
+    <div tw="pl-4 h-10 flex items-center">
       <Wrapper>
         <CheckBox checked={checked} icon="check" onChange={onChange} />
       </Wrapper>
@@ -37,6 +43,14 @@ export const TableView = ({
             iconColor={tw`text-lightgray-400`}
           />
         )}
+      </Wrapper>
+      <Wrapper tw="justify-center">
+        <Icon
+          icon={icon}
+          size={size}
+          iconType={icon === "picture" ? "br" : "sr"}
+          iconColor={iconColor}
+        />
       </Wrapper>
       <Wrapper tw="w-80 ">
         <TextBox
@@ -80,4 +94,4 @@ export const TableView = ({
   );
 };
 
-export default TableView;
+export default TableViewRow;
