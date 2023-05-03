@@ -74,6 +74,30 @@ const TextArea = ({ variant }: InputProps) => {
           </div>
         ) : null}
 
+        {/* 이름 입력 */}
+        {variant === "name" ? (
+          <StyledTextArea
+            variant={variant}
+            placeholder={variant}
+            onChange={(e) => {
+              setInputText(e.target.value), console.log(inputText);
+            }}
+            onClick={checkArea}
+          />
+        ) : null}
+
+        {/* 생년월일 입력 */}
+        {variant === "birth" ? (
+          <StyledTextArea
+            variant={variant}
+            placeholder={variant}
+            onChange={(e) => {
+              setInputText(e.target.value), console.log(inputText);
+            }}
+            onClick={checkArea}
+          />
+        ) : null}
+
         {/* 보관함 내 문서이름 변경시 */}
         {variant === "edit" ? (
           <StyledTextArea

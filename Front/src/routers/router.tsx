@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { DocsBox, Editor, Home, LoginPage, MainPage, Test } from "@/pages";
+import {
+  DocsBox,
+  Editor,
+  FindPasswordPage,
+  Home,
+  LoginPage,
+  MainPage,
+  PasswordReset,
+  Test,
+} from "@/pages";
 import ErrorPage from "@/pages/error/errorPage";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -34,6 +43,14 @@ const router = createBrowserRouter(
     {
       path: "/login",
       element: <LoginPage />,
+    },
+    {
+      path: "/find-password",
+      element: <FindPasswordPage />,
+    },
+    {
+      path: "password-reset",
+      element: <PasswordReset />,
     },
   ]!,
 );

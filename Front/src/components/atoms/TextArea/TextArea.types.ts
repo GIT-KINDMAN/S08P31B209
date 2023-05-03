@@ -4,7 +4,14 @@
 // edit : 보관함 내 문서명 변경
 
 export interface StyleProps {
-  variant?: "email" | "number" | "password" | "edit" | "default";
+  variant?:
+    | "email"
+    | "number"
+    | "password"
+    | "name"
+    | "birth"
+    | "edit"
+    | "default";
   isChecked?: boolean;
   capsLockFlag?: boolean;
 }
