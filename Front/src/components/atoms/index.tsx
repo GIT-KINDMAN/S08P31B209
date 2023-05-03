@@ -7,4 +7,3 @@ export { default as LoginButton } from "./LoginButton/LoginButton";
 export { default as TableHeader } from "./TableHeader/TableHeader";
 export { default as TextArea } from "./TextArea/TextArea";
 export { default as TextBox } from "./TextBox/TextBox";
-export { default as LoginArea } from "./LoginArea/LoginArea";
