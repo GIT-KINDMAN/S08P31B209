@@ -11,7 +11,13 @@ export const TextBox = ({ size, label, isAsc, onChange }: InputProps) => {
       <StyledTextBox size={size} onClick={onChange}>
         {label}
       </StyledTextBox>
-      {isAsc === undefined ? null : (
+      {isAsc === undefined ? (
+        <Icon
+          size={size}
+          icon={isAsc ? "caret-up" : "caret-down"}
+          iconColor="#ffffff"
+        ></Icon>
+      ) : (
         <Icon size={size} icon={isAsc ? "caret-up" : "caret-down"}></Icon>
       )}
     </div>
