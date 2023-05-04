@@ -1,23 +1,86 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { EditorContent } from "@/components/organisms";
-import { Editor } from "@/pages/index";
+import {
+  AddressBox,
+  Auth,
+  DocsBox,
+  Editor,
+  FindPassword,
+  Home,
+  Intro,
+  Login,
+  PasswordReset,
+  Register,
+  Setting,
+} from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/editor",
-    element: <Editor />,
-    children: [
-      {
-        path: "/editor/create",
-        element: <></>,
-      },
-      {
-        path: "/editor/edit",
-        element: <Editor />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Intro />,
+    },
+    {
+      path: "/auth",
+      element: <Auth />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "find-password",
+          element: <FindPassword />,
+        },
+        {
+          path: "password-reset",
+          element: <PasswordReset />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+        },
+      ],
+    },
+    {
+      path: "/home",
+      element: <Home />,
+      children: [
+        {
+          path: "/home",
+          element: <DocsBox />,
+        },
+        {
+          path: "/home/mybox",
+          element: <DocsBox />,
+        },
+        {
+          path: "/home/address",
+          element: <AddressBox />,
+        },
+        {
+          path: "/home/setting",
+          element: <Setting />,
+        },
+      ],
+    },
+    {
+      path: "/editor",
+      element: <Editor />,
+      children: [
+        {
+          path: "/editor/create",
+          element: <></>,
+        },
+        {
+          path: "/editor/edit",
+          element: <EditorContent />,
+        },
+      ],
+    },
+  ]!,
+);
 
 export default router;

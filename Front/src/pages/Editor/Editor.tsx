@@ -1,5 +1,4 @@
-import { EditorContent } from "@/components/organisms";
-
+import { Outlet } from "react-router-dom";
 import tw, { styled } from "twin.macro";
 
 const Wrapper = styled.div(tw`border border-black`);
@@ -12,7 +11,7 @@ const Editor = () => {
         <Wrapper tw="ml-auto"> Step</Wrapper>
       </Wrapper>
       <Wrapper tw="text-center">
-        <EditorContent />
+        <Outlet />
       </Wrapper>
       <Wrapper tw="fixed bottom-0 text-center w-screen">
         {" "}
