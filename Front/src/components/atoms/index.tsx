@@ -8,3 +8,5 @@ export { default as Radio } from "./Radio/Radio";
 export { default as TableHeader } from "./TableHeader/TableHeader";
 export { default as TextArea } from "./TextArea/TextArea";
 export { default as TextBox } from "./TextBox/TextBox";
+export { default as Carousel } from "./Carousel/Carousel";
+export { default as MainTitle } from "./MainTitle/MainTitle";

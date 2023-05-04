@@ -92,6 +92,9 @@ module.exports = {
       height: { 160: "160px" },
       width: { 480: "480px" },
       padding: { 480: "480px" },
+      screens: {
+        xs: "320px",
+      },
     },
   },
   plugins: [],
