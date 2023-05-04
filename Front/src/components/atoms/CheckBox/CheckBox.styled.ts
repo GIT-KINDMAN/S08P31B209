@@ -1,4 +1,4 @@
-import { getSize } from "@/constants";
+import { getFontSize } from "@/constants";
 
 import { StyleProps } from "./CheckBox.types";
 
@@ -13,7 +13,7 @@ export const StyledCheckBox = styled.div((props: StyleProps) => [
     ? tw`bg-blue-100`
     : [
         tw`bg-lightgray-400`,
-        getSize[props.size ?? "md"],
+        getFontSize[props.size ?? "md"],
         css`
           box-shadow: inset 0px 0px 4px rgba (0, 0, 0, 0.1);
         `,

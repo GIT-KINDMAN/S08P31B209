@@ -15,7 +15,7 @@ export type size =
   | "8xl"
   | "9xl";
 
-export const getSize = {
+export const getFontSize = {
   xs: tw`text-xs`,
   sm: tw`text-sm`,
   md: tw`text-base`,
