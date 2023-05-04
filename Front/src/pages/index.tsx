@@ -8,3 +8,4 @@ export { default as MainPage } from "./main";
 export { default as LoginPage } from "./login";
 export { default as FindPasswordPage } from "./findPassword";
 export { default as PasswordReset } from "./passwordReset";
+export { default as RegisterPage } from "./register";

@@ -1,4 +1,5 @@
-import { MainNav } from "@/components/molecules";
+import { MainInfo, MainNav, Slider } from "@/components/molecules/index";
+import { MainCarousel } from "@/components/organisms";
 
 // import { Slider } from "@/components/molecules/index";
 import Knock from "../../assets/Main/Knock.png";
@@ -18,8 +19,6 @@ import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const navigate = useNavigate();
-
-  const [carouselState, setCarouselState] = useState(0);
 
   const mainPage1 = useRef<HTMLDivElement>(null);
   // const mainPage2 = useRef<HTMLDivElement>(null);
@@ -59,41 +58,10 @@ const MainPage = () => {
         </MainTitle>
       </HomePage>
       <HomePage3>
-        {carouselState === 0 ? <Page3Title>문서를 보내나요?</Page3Title> : null}
-        {carouselState === 1 ? <Page3Title>문서를 받았나요?</Page3Title> : null}
-        {carouselState === 2 ? (
-          <Page3Title>제출된 문서확인까지</Page3Title>
-        ) : null}
-        <button
-          onClick={() => {
-            if (0 < carouselState && carouselState <= 2) {
-              setCarouselState(carouselState - 1);
-            }
-            if (carouselState === 0) {
-              setCarouselState(2);
-            }
-          }}
-        >
-          &lt;
-        </button>
-        <button
-          onClick={() => {
-            if (0 <= carouselState && carouselState < 2) {
-              setCarouselState(carouselState + 1);
-            }
-            if (carouselState === 2) {
-              setCarouselState(0);
-            }
-          }}
-        >
-          &gt;
-        </button>
+        <MainCarousel />
       </HomePage3>
       <HomePage>
-        <img
-          src={Knock}
-          style={{ width: "535px", marginTop: "80px", marginLeft: "240px" }}
-        />
+        <img src={Knock} style={{ width: "535px", marginTop: "80px" }} />
         {/* <MainTitle>똑똑</MainTitle>
         <MainTitle>시작할까요?</MainTitle> */}
       </HomePage>
