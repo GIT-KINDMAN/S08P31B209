@@ -11,53 +11,55 @@
 //   Test,
 // } from "@/pages";
 // import ErrorPage from "@/pages/error/errorPage";
+import { Editor } from "@/pages/index";
 
-// import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
-// const router = createBrowserRouter(
-//   [
-//     {
-//       path: "/",
-//       element: <Home />,
-//       errorElement: <ErrorPage />,
-//     },
-//     {
-//       path: "/home",
-//       element: <Home />,
-//     },
-//     {
-//       path: "/mybox",
-//       element: <DocsBox />,
-//     },
-//     {
-//       path: "/editor",
-//       element: <Editor />,
-//     },
-//     {
-//       path: "/test",
-//       element: <Test />,
-//     },
-//     {
-//       path: "/main",
-//       element: <MainPage />,
-//     },
-//     {
-//       path: "/login",
-//       element: <LoginPage />,
-//     },
-//     {
-//       path: "/find-password",
-//       element: <FindPasswordPage />,
-//     },
-//     {
-//       path: "password-reset",
-//       element: <PasswordReset />,
-//     },
-//     {
-//       path: "register",
-//       element: <RegisterPage />,
-//     },
-//   ]!,
-// );
+const router = createBrowserRouter(
+  [
+    //     {
+    //       path: "/",
+    //       element: <Home />,
+    //       errorElement: <ErrorPage />,
+    //     },
+    //     {
+    //       path: "/home",
+    //       element: <Home />,
+    //     },
+    //     {
+    //       path: "/mybox",
+    //       element: <DocsBox />,
+    //     },
+    //     {
+    //       path: "/editor",
+    //       element: <Editor />,
+    //     },
+    //     {
+    //       path: "/test",
+    //       element: <Test />,
+    //     },
+    //     {
+    //       path: "/main",
+    //       element: <MainPage />,
+    //     },
+    //     {
+    //       path: "/login",
+    //       element: <LoginPage />,
+    //     },
+    //     {
+    //       path: "/find-password",
+    //       element: <FindPasswordPage />,
+    //     },
+    //     {
+    //       path: "password-reset",
+    //       element: <PasswordReset />,
+    //     },
+    //     {
+    //       path: "register",
+    //       element: <RegisterPage />,
+    //     },
+    { path: "/editor", element: <Editor /> },
+  ]!,
+);
 
-// export default router;
+export default router;
