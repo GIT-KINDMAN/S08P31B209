@@ -6,5 +6,5 @@ export interface StyleProps {
 }
 export interface InputProps extends StyleProps {
   icon?: string;
-  onChange?: () => void;
+  onClick?: () => void;
 }

@@ -19,6 +19,10 @@ const Test = () => {
     setChecked(e.target.checked);
   };
 
+  const handleCheckClick = () => {
+    setChecked(!checked);
+  };
+
   return (
     <>
       {/* <HomeHeader label="Test Page" /> */}
@@ -30,6 +34,7 @@ const Test = () => {
           size="lg"
           isAsc={true}
           labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
         ></TableViewHeader>
         <TableViewRow
           icon="folder"
@@ -37,6 +42,7 @@ const Test = () => {
           isBookmarkActive={true}
           size="lg"
           labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
         />
         <TableViewRow
           icon="star"
@@ -44,14 +50,20 @@ const Test = () => {
           isBookmarkActive={true}
           size="lg"
           labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
         />
         <TableViewRow
           checked={true}
           isBookmarkActive={true}
           size="lg"
           labels={["문서이름", "상태", "문서보관일", "문서마감일", "더보기"]}
+          onClick={handleCheckClick}
         />
-        <CheckBox checked={checked} icon="check"></CheckBox>
+        <CheckBox
+          checked={checked}
+          icon="check"
+          onClick={handleCheckClick}
+        ></CheckBox>
         <Button icon="book" label="book button"></Button>
         <TextArea variant="number" />
         <TextArea variant="password" />

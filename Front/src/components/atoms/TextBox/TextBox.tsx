@@ -5,10 +5,10 @@ import { InputProps } from "./TextBox.types";
 
 import "twin.macro";
 
-export const TextBox = ({ size, label, isAsc, onChange }: InputProps) => {
+export const TextBox = ({ size, label, isAsc, onClick }: InputProps) => {
   return (
     <div tw="flex space-x-1 p-1">
-      <StyledTextBox size={size} onClick={onChange}>
+      <StyledTextBox size={size} onClick={onClick}>
         {label}
       </StyledTextBox>
       {isAsc === undefined ? (
@@ -16,6 +16,7 @@ export const TextBox = ({ size, label, isAsc, onChange }: InputProps) => {
           size={size}
           icon={isAsc ? "caret-up" : "caret-down"}
           iconColor="#ffffff"
+          tw="cursor-pointer"
         ></Icon>
       ) : (
         <Icon size={size} icon={isAsc ? "caret-up" : "caret-down"}></Icon>

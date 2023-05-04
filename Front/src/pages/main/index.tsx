@@ -1,6 +1,7 @@
 import { MainInfo, MainNav, Slider } from "@/components/molecules/index";
 import { MainCarousel } from "@/components/organisms";
 
+// import { Slider } from "@/components/molecules/index";
 import Knock from "../../assets/Main/Knock.png";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
@@ -18,6 +19,15 @@ import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const navigate = useNavigate();
+
+  const mainPage1 = useRef<HTMLDivElement>(null);
+  // const mainPage2 = useRef<HTMLDivElement>(null);
+  // const mainPage3 = useRef<HTMLDivElement>(null);
+
+  const handleRef = () => {
+    const location = mainPage1.current?.offsetTop;
+    console.log(location);
+  };
 
   const mainPage1 = useRef<HTMLDivElement>(null);
   // const mainPage2 = useRef<HTMLDivElement>(null);
@@ -79,6 +89,7 @@ const MainPage = () => {
           <button onClick={() => navigate("/editor")}> 에디터로 이동</button>
         </div>
       </HomePage>
+      <Slider />
     </div>
   );
 };
