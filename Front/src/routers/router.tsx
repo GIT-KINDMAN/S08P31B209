@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { EditorContent } from "@/components/organisms";
 import {
   AddressBox,
   Auth,
   DocsBox,
+  Editor,
   FindPassword,
   Home,
   Intro,
@@ -61,6 +63,20 @@ const router = createBrowserRouter(
         {
           path: "/home/setting",
           element: <Setting />,
+        },
+      ],
+    },
+    {
+      path: "/editor",
+      element: <Editor />,
+      children: [
+        {
+          path: "/editor/create",
+          element: <></>,
+        },
+        {
+          path: "/editor/edit",
+          element: <EditorContent />,
         },
       ],
     },
