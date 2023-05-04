@@ -36,7 +36,7 @@ const HomePage3 = styled.div`
   display: flex;
   width: 100vw;
   min-height: 864px;
-  flex-direction: column;
+  /* flex-direction: column; */
   position: relative;
   background: linear-gradient(to right, #cee2f3, #f9f4ff);
 `;
