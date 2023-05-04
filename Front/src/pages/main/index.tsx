@@ -29,15 +29,6 @@ const MainPage = () => {
     console.log(location);
   };
 
-  const mainPage1 = useRef<HTMLDivElement>(null);
-  // const mainPage2 = useRef<HTMLDivElement>(null);
-  // const mainPage3 = useRef<HTMLDivElement>(null);
-
-  const handleRef = () => {
-    const location = mainPage1.current?.offsetTop;
-    console.log(location);
-  };
-
   return (
     <div>
       <MainNav />
