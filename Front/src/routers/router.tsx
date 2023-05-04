@@ -11,9 +11,7 @@
 //   Test,
 // } from "@/pages";
 // import ErrorPage from "@/pages/error/errorPage";
-
 // import { createBrowserRouter } from "react-router-dom";
-
 // const router = createBrowserRouter(
 //   [
 //     {
@@ -59,5 +57,30 @@
 //     },
 //   ]!,
 // );
-
 // export default router;
+import { FindPassword, Login, PasswordReset, Register } from "@/pages";
+
+import { createBrowserRouter } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+    children: [
+      {
+        path: "/login/find-password",
+        element: <FindPassword />,
+      },
+      {
+        path: "/login/password-reset",
+        element: <PasswordReset />,
+      },
+      {
+        path: "/login/register",
+        element: <Register />,
+      },
+    ],
+  },
+]);
+
+export default router;
