@@ -1,63 +1,33 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-// import {
-//   DocsBox,
-//   Editor,
-//   FindPasswordPage,
-//   Home,
-//   LoginPage,
-//   MainPage,
-//   PasswordReset,
-//   RegisterPage,
-//   Test,
-// } from "@/pages";
-// import ErrorPage from "@/pages/error/errorPage";
+import { AddressBox, DocsBox, Home, Setting } from "@/pages";
 
-// import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
-// const router = createBrowserRouter(
-//   [
-//     {
-//       path: "/",
-//       element: <Home />,
-//       errorElement: <ErrorPage />,
-//     },
-//     {
-//       path: "/home",
-//       element: <Home />,
-//     },
-//     {
-//       path: "/mybox",
-//       element: <DocsBox />,
-//     },
-//     {
-//       path: "/editor",
-//       element: <Editor />,
-//     },
-//     {
-//       path: "/test",
-//       element: <Test />,
-//     },
-//     {
-//       path: "/main",
-//       element: <MainPage />,
-//     },
-//     {
-//       path: "/login",
-//       element: <LoginPage />,
-//     },
-//     {
-//       path: "/find-password",
-//       element: <FindPasswordPage />,
-//     },
-//     {
-//       path: "password-reset",
-//       element: <PasswordReset />,
-//     },
-//     {
-//       path: "register",
-//       element: <RegisterPage />,
-//     },
-//   ]!,
-// );
+const router = createBrowserRouter(
+  [
+    {
+      path: "/home",
+      element: <Home />,
+      children: [
+        {
+          path: "/home",
+          element: <DocsBox />,
+        },
+        {
+          path: "/home/mybox",
+          element: <DocsBox />,
+        },
+        {
+          path: "/home/address",
+          element: <AddressBox />,
+        },
+        {
+          path: "/home/setting",
+          element: <Setting />,
+        },
+      ],
+    },
+  ]!,
+);
 
-// export default router;
+export default router;
