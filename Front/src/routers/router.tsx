@@ -71,11 +71,11 @@ const router = createBrowserRouter(
       element: <Editor />,
       children: [
         {
-          path: "/editor/create",
+          path: "create",
           element: <></>,
         },
         {
-          path: "/editor/edit",
+          path: "edit",
           element: <EditorContent />,
         },
       ],
