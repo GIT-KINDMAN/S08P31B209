@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { AddressBox, DocsBox, Home, Setting } from "@/pages";
+import { AddressBox, DocsBox, Home, Intro, Setting } from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter(
   [
+    {
+      path: "/",
+      element: <Intro />,
+    },
     {
       path: "/home",
       element: <Home />,
