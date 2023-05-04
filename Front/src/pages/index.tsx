@@ -1,4 +1,5 @@
-export { default as Login } from "./Login/Login";
-export { default as FindPassword } from "./Login/FindPassword";
-export { default as PasswordReset } from "./Login/PasswordReset";
-export { default as Register } from "./Login/Register";
+export { default as Auth } from "./Auth/Auth";
+export { default as Login } from "./Auth/Login/Login";
+export { default as FindPassword } from "./Auth/FindPassword/FindPassword";
+export { default as PasswordReset } from "./Auth/PasswordReset/PasswordReset";
+export { default as Register } from "./Auth/Register/Register";

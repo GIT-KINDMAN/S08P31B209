@@ -6,17 +6,14 @@ const PasswordReset = () => {
   return (
     <>
       <Wrapper>
-        <Wrapper>DocDocLogo</Wrapper>
-      </Wrapper>
-      <Wrapper>
         <div>
           <Wrapper> 비밀번호 재설정 </Wrapper>
         </div>
       </Wrapper>
       <Wrapper>
         <div>
-          <Wrapper> 비밀번호 입력 </Wrapper>
-          <Wrapper> 비밀번호확인 입력 </Wrapper>
+          <Wrapper> 비밀번호 입력(필수) </Wrapper>
+          <Wrapper> 비밀번호확인 입력(필수) </Wrapper>
         </div>
       </Wrapper>
       <Wrapper>

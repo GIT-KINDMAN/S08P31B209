@@ -6,18 +6,15 @@ const FindPassword = () => {
   return (
     <>
       <Wrapper>
-        <Wrapper>DocDocLogo</Wrapper>
-      </Wrapper>
-      <Wrapper>
         <div>
           <Wrapper> 비밀번호 찾기 </Wrapper>
         </div>
       </Wrapper>
       <Wrapper>
         <div>
-          <Wrapper> 이메일 입력 </Wrapper>
-          <Wrapper> 비밀번호 입력 </Wrapper>
-          <Wrapper> 생년월일 입력 </Wrapper>
+          <Wrapper> 이메일 입력(필수) </Wrapper>
+          <Wrapper> 비밀번호 입력(필수) </Wrapper>
+          <Wrapper> 생년월일 입력(필수) </Wrapper>
         </div>
       </Wrapper>
       <Wrapper>

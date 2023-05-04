@@ -1,82 +1,26 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-// import {
-//   DocsBox,
-//   Editor,
-//   FindPasswordPage,
-//   Home,
-//   LoginPage,
-//   MainPage,
-//   PasswordReset,
-//   RegisterPage,
-//   Test,
-// } from "@/pages";
-// import ErrorPage from "@/pages/error/errorPage";
-// import { createBrowserRouter } from "react-router-dom";
-// const router = createBrowserRouter(
-//   [
-//     {
-//       path: "/",
-//       element: <Home />,
-//       errorElement: <ErrorPage />,
-//     },
-//     {
-//       path: "/home",
-//       element: <Home />,
-//     },
-//     {
-//       path: "/mybox",
-//       element: <DocsBox />,
-//     },
-//     {
-//       path: "/editor",
-//       element: <Editor />,
-//     },
-//     {
-//       path: "/test",
-//       element: <Test />,
-//     },
-//     {
-//       path: "/main",
-//       element: <MainPage />,
-//     },
-//     {
-//       path: "/login",
-//       element: <LoginPage />,
-//     },
-//     {
-//       path: "/find-password",
-//       element: <FindPasswordPage />,
-//     },
-//     {
-//       path: "password-reset",
-//       element: <PasswordReset />,
-//     },
-//     {
-//       path: "register",
-//       element: <RegisterPage />,
-//     },
-//   ]!,
-// );
-// export default router;
-import { FindPassword, Login, PasswordReset, Register } from "@/pages";
+import { Auth, FindPassword, Login, PasswordReset, Register } from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />,
+    path: "/auth",
+    element: <Auth />,
     children: [
       {
-        path: "/login/find-password",
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "find-password",
         element: <FindPassword />,
       },
       {
-        path: "/login/password-reset",
+        path: "password-reset",
         element: <PasswordReset />,
       },
       {
-        path: "/login/register",
+        path: "register",
         element: <Register />,
       },
     ],
