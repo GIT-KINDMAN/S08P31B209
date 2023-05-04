@@ -11,6 +11,7 @@
 //   Test,
 // } from "@/pages";
 // import ErrorPage from "@/pages/error/errorPage";
+// import { Intro } from "@/pages";
 
 // import { createBrowserRouter } from "react-router-dom";
 
@@ -57,7 +58,13 @@
 //       path: "register",
 //       element: <RegisterPage />,
 //     },
-//   ]!,
+
+//intro
+//   {
+//     path: "/intro",
+//     element: <Intro />,
+//   },
+// ]!,
 // );
 
 // export default router;
