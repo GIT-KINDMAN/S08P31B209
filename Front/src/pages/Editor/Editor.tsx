@@ -1,3 +1,5 @@
+import { EditorContent } from "@/components/organisms";
+
 import tw, { styled } from "twin.macro";
 
 const Wrapper = styled.div(tw`border border-black`);
@@ -5,14 +7,14 @@ const Wrapper = styled.div(tw`border border-black`);
 const Editor = () => {
   return (
     <Wrapper>
-      <Wrapper tw="top-0 flex">
+      <Wrapper tw="top-0 fixed flex">
         Header
         <Wrapper tw="ml-auto"> Step</Wrapper>
       </Wrapper>
       <Wrapper tw="text-center">
-        <div> content</div>
+        <EditorContent />
       </Wrapper>
-      <Wrapper tw="bottom-0 text-center">
+      <Wrapper tw="fixed bottom-0 text-center w-screen">
         {" "}
         footer
         <div tw="flex mx-2 ">
