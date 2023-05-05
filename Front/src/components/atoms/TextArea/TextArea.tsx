@@ -112,6 +112,17 @@ const TextArea = ({ variant }: InputProps) => {
             placeholder="기존 파일명"
           ></StyledTextArea>
         ) : null}
+
+        {/* 보관함 내 문서이름 변경시 */}
+        {variant === "search" ? (
+          <StyledTextArea
+            variant={variant}
+            placeholder="Search"
+            onChange={(e) => {
+              setInputText(e.target.value), console.log(inputText);
+            }}
+          ></StyledTextArea>
+        ) : null}
       </div>
     </>
   );
