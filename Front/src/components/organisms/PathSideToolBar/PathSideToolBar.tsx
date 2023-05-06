@@ -5,7 +5,7 @@ import tw from "twin.macro";
 const PathSideToolBar = () => {
   return (
     <>
-      <div tw="flex space-x-2">
+      <div tw="flex space-x-2 p-2">
         <Icon
           iconColor={tw`text-lightgray-600`}
           size="lg"
