@@ -15,7 +15,7 @@ export const TableViewHeader = ({
   onClick,
 }: InputProps) => {
   return (
-    <div tw="pl-4 h-12 flex items-center border-b-2">
+    <div tw="pl-4 h-12 w-[80rem] flex items-center border-b-2">
       <Wrapper>
         <CheckBox checked={checked} icon="check" onClick={onClick} />
       </Wrapper>

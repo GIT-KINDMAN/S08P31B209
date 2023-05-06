@@ -6,7 +6,7 @@ export const StyledTableHeader = styled.div(
   ({ width = "80rem", height = "5rem" }: StyledProps) => css`
     width: ${width};
     height: ${height};
-    ${tw`border-b-2 flex items-center`}
+    ${tw`flex items-center`}
   `,
 );
 
