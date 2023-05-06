@@ -18,6 +18,14 @@ const DocsBox = () => {
   //   "10",
   // ]; // 시험용 임시데이터
   const tableData: string[] = [];
+  const lables: string[] = [
+    "문서 이름",
+    "상태",
+    "문서 수정일",
+    "문서 공유일",
+    "문서 마감일",
+    "더보기",
+  ];
   return (
     <>
       <div tw=" w-full" className="header">
@@ -39,14 +47,7 @@ const DocsBox = () => {
             <div>
               <TableViewHeader
                 isBookmarkActive={true}
-                labels={[
-                  "문서 이름",
-                  "상태",
-                  "문서 수정일",
-                  "문서 공유일",
-                  "문서 마감일",
-                  "더보기",
-                ]}
+                labels={lables}
                 isAsc={true}
               ></TableViewHeader>
             </div>
