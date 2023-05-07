@@ -12,8 +12,14 @@ import {
   TextArea,
   TextBox,
 } from "@/components/atoms";
+import {
+  MainInfo,
+  MainNav,
+  Slider,
+  TableViewHeader,
+  TableViewRow,
+} from "@/components/molecules";
 
-// import { TableViewHeader, TableViewRow } from "@/components/molecules";
 // import { EmptyDocs, PathSideToolBar, SearchBar } from "@/components/organisms";
 import LogoImg from "../../assets/DocDoc.png";
 
@@ -52,7 +58,6 @@ const Test = () => {
           <Wrapper>
             <b>TableHeader</b>
             <div>
-              {" "}
               <TableHeader label="내 보관함" height="3.5rem" size="2xl" />
             </div>
           </Wrapper>
@@ -161,9 +166,41 @@ const Test = () => {
       </Wrapper>
       <Wrapper>
         <div>
-          <Wrapper> 이메일 입력(필수) </Wrapper>
-          <Wrapper> 비밀번호 입력(필수) </Wrapper>
-          <Wrapper> 생년월일 입력(필수) </Wrapper>
+          <h1>Molecules</h1>
+          <Wrapper>
+            <b>MainInfo</b>
+            <div>
+              <MainInfo currentSlide={0} />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>MainNav</b>
+            <div>
+              <MainNav />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>Slider</b>
+            <div>
+              <Slider />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>TableViewHeader</b>
+            <div>
+              <TableViewHeader
+                isBookmarkActive={true}
+                labels={lables}
+                isAsc={true}
+              ></TableViewHeader>
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>TableViewRow</b>
+            <div>
+              <TableViewRow key={0} isBookmarkActive={true}></TableViewRow>
+            </div>
+          </Wrapper>
         </div>
       </Wrapper>
       <Wrapper>
