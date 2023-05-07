@@ -13,6 +13,11 @@ export interface StyleProps {
    * icon 색상 지정
    */
   iconColor?: TwStyle | CSSProp;
+
+  /**
+   * icon Custom
+   */
+  custom?: TwStyle | CSSProp;
 }
 
 export interface InputProps extends StyleProps {
@@ -25,4 +30,9 @@ export interface InputProps extends StyleProps {
    * flaticon-uicons 스타일
    */
   iconType?: "rs" | "rr" | "bs" | "br" | "ss" | "sr" | "ts" | "tr";
+
+  /**
+   * icon onclick event
+   */
+  onclick?: () => void;
 }
