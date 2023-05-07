@@ -12,6 +12,7 @@ import {
   PasswordReset,
   Register,
   Setting,
+  Test,
 } from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -79,6 +80,10 @@ const router = createBrowserRouter(
           element: <EditorContent />,
         },
       ],
+    },
+    {
+      path: "/test",
+      element: <Test />,
     },
   ]!,
 );
