@@ -19,8 +19,14 @@ import {
   TableViewHeader,
   TableViewRow,
 } from "@/components/molecules";
+import {
+  EditorContent,
+  EmptyDocs,
+  MainCarousel,
+  PathSideToolBar,
+  SearchBar,
+} from "@/components/organisms";
 
-// import { EmptyDocs, PathSideToolBar, SearchBar } from "@/components/organisms";
 import LogoImg from "../../assets/DocDoc.png";
 
 import tw, { styled } from "twin.macro";
@@ -201,8 +207,37 @@ const Test = () => {
       </Wrapper>
       <Wrapper>
         <div>
-          <Wrapper> 비밀번호 재설정 </Wrapper>
-          <Wrapper> 회원가입 </Wrapper>
+          <h1>Organisms</h1>
+          <Wrapper>
+            <b>EditorContent</b>
+            <div>
+              <EditorContent />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>EmptyDocs</b>
+            <div>
+              <EmptyDocs />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>MainCarousel</b>
+            <div>
+              <MainCarousel />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>PathSideToolBar</b>
+            <div>
+              <PathSideToolBar />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>SearchBar</b>
+            <div>
+              <SearchBar />
+            </div>
+          </Wrapper>
         </div>
       </Wrapper>
     </>
