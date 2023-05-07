@@ -1,7 +1,20 @@
-import { Button, Carousel, TableHeader } from "@/components/atoms";
-import { TableViewHeader, TableViewRow } from "@/components/molecules";
-import { EmptyDocs, PathSideToolBar, SearchBar } from "@/components/organisms";
+import {
+  Button,
+  Carousel,
+  CheckBox,
+  Icon,
+  ImageFrame,
+  Label,
+  LoginButton,
+  MainTitle,
+  Radio,
+  TableHeader,
+  TextArea,
+  TextBox,
+} from "@/components/atoms";
 
+// import { TableViewHeader, TableViewRow } from "@/components/molecules";
+// import { EmptyDocs, PathSideToolBar, SearchBar } from "@/components/organisms";
 import LogoImg from "../../assets/DocDoc.png";
 
 import tw, { styled } from "twin.macro";
@@ -70,6 +83,78 @@ const Test = () => {
             <b>Carousel</b>
             <div>
               <Carousel image={LogoImg} />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>CheckBox</b>
+            <div>
+              <CheckBox checked={false} />
+            </div>
+            <div>
+              <CheckBox checked={true} />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>Icon</b>
+            <div>
+              <Icon icon="wind" iconType="rr" size="5xl" />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>ImageFrame</b>
+            <div>
+              <ImageFrame />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>Label</b>
+            <div>
+              <Label />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>TextArea</b>
+            <div>
+              <TextArea variant="email" />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>LoginButton</b>
+            <div>
+              <div>
+                <LoginButton text="로그인" />
+              </div>
+              <div>
+                <LoginButton text="회원가입" />
+              </div>
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>MainTitle</b>
+            <div>
+              <MainTitle title="Test" />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>Radio</b>
+            <div>
+              <Radio checked={true} />
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>TableHeader</b>
+            <div tw="border-b-2 border-b-blue-700 h-[3.5rem]  items-center">
+              <TableHeader
+                label="내 보관함"
+                height="3.5rem"
+                size="2xl"
+              ></TableHeader>
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <b>TextBox</b>
+            <div>
+              <TextBox label="TextBox" />
             </div>
           </Wrapper>
         </div>
