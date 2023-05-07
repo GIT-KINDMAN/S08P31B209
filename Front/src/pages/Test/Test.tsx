@@ -149,11 +149,7 @@ const Test = () => {
           <Wrapper>
             <b>TableHeader</b>
             <div tw="border-b-2 border-b-blue-700 h-[3.5rem]  items-center">
-              <TableHeader
-                label="내 보관함"
-                height="3.5rem"
-                size="2xl"
-              ></TableHeader>
+              <TableHeader label="내 보관함" height="3.5rem" size="2xl" />
             </div>
           </Wrapper>
           <Wrapper>
@@ -192,13 +188,13 @@ const Test = () => {
                 isBookmarkActive={true}
                 labels={lables}
                 isAsc={true}
-              ></TableViewHeader>
+              />
             </div>
           </Wrapper>
           <Wrapper>
             <b>TableViewRow</b>
             <div>
-              <TableViewRow key={0} isBookmarkActive={true}></TableViewRow>
+              <TableViewRow key={0} isBookmarkActive={true} />
             </div>
           </Wrapper>
         </div>
