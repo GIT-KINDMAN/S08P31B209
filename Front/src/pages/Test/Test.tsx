@@ -4,17 +4,17 @@ import {
   CheckBox,
   Icon,
   ImageFrame,
+  IntroTitle,
   Label,
   LoginButton,
-  MainTitle,
   Radio,
   TableHeader,
   TextArea,
   TextBox,
 } from "@/components/atoms";
 import {
-  MainInfo,
-  MainNav,
+  IntroInfo,
+  IntroNav,
   Slider,
   TableViewHeader,
   TableViewRow,
@@ -22,7 +22,7 @@ import {
 import {
   EditorContent,
   EmptyDocs,
-  MainCarousel,
+  IntroCarousel,
   PathSideToolBar,
   SearchBar,
 } from "@/components/organisms";
@@ -84,7 +84,7 @@ const Test = () => {
               />
               <Button
                 label="button"
-                variant="mainnav"
+                variant="intronav"
                 icon="test"
                 size="small"
               />
@@ -141,9 +141,9 @@ const Test = () => {
             </div>
           </Wrapper>
           <Wrapper>
-            <b>MainTitle</b>
+            <b>IntroTitle</b>
             <div>
-              <MainTitle title="Test" />
+              <IntroTitle title="Test" />
             </div>
           </Wrapper>
           <Wrapper>
@@ -170,15 +170,15 @@ const Test = () => {
         <div>
           <h1>Molecules</h1>
           <Wrapper>
-            <b>MainInfo</b>
+            <b>IntroInfo</b>
             <div>
-              <MainInfo currentSlide={0} />
+              <IntroInfo currentSlide={0} />
             </div>
           </Wrapper>
           <Wrapper>
-            <b>MainNav</b>
+            <b>IntroNav</b>
             <div>
-              <MainNav />
+              <IntroNav />
             </div>
           </Wrapper>
           <Wrapper>
@@ -221,9 +221,9 @@ const Test = () => {
             </div>
           </Wrapper>
           <Wrapper>
-            <b>MainCarousel</b>
+            <b>IntroCarousel</b>
             <div>
-              <MainCarousel />
+              <IntroCarousel />
             </div>
           </Wrapper>
           <Wrapper>
