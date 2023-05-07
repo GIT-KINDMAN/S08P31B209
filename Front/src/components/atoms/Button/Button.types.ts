@@ -1,5 +1,5 @@
 export interface StyleProps {
-  variant?: "primary" | "secondary" | "mainnav";
+  variant?: "primary" | "secondary" | "mainnav" | "previous" | "next";
   config?: "fill" | "outline";
   size?: "large" | "medium" | "small";
 }

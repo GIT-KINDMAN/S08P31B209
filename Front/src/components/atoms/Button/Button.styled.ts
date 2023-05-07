@@ -28,6 +28,8 @@ export const StyledButton = styled.button(({ variant, size }: StyleProps) => [
     color: ${theme`colors.white`};
   `,
   variant === "mainnav" && [tw`w-28 bg-[#f2921f]`],
+  variant === "previous" && tw`font-bold text-black bg-white border-black`,
+  variant === "next" && tw`bg-[#f2921f] text-black border-black font-bold`,
 ]);
 
 export default StyledButton;
