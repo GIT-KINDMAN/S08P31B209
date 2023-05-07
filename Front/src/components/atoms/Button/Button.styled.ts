@@ -31,7 +31,9 @@ export const StyledButton = styled.button(({ variant, size }: StyleProps) => [
   variant === "previous" && tw`font-bold text-black bg-white border-black`,
   variant === "next" && tw`bg-[#f2921f] text-black border-black font-bold`,
   variant === "editorcreate" &&
-    tw`bg-[#f2921f] text-black border-black font-bold`,
+    tw`w-80 h-20 bg-white text-[#657077] border-2 border-[#657077] font-bold text-xl`,
+  variant === "editorcreate" &&
+    tw`hocus:(scale-110 text-[#f2921fz] bg-lightgray-200)`,
 ]);
 
 export default StyledButton;

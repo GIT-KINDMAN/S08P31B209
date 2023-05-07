@@ -27,7 +27,12 @@ const TextArea = ({ variant }: InputProps) => {
         ) : null} */}
         {/* <StyledTextArea /> */}
         {variant === "default" ? (
-          <StyledTextArea placeholder={variant}></StyledTextArea>
+          <StyledTextArea
+            onChange={(e) => {
+              setInputText(e.target.value), console.log(inputText);
+            }}
+            onClick={checkArea}
+          ></StyledTextArea>
         ) : null}
 
         {/* 문자 입력 */}
