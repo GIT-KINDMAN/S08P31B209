@@ -1,9 +1,9 @@
-import { InfoContent, InfoTitle } from "./MainInfo.styled";
-import { inputProps } from "./MainInfo.types";
+import { InfoContent, InfoTitle } from "./IntroInfo.styled";
+import { inputProps } from "./IntroInfo.types";
 
 import tw from "twin.macro";
 
-const MainInfo = ({ currentSlide }: inputProps) => {
+const IntroInfo = ({ currentSlide }: inputProps) => {
   return (
     <div tw=" ml-40 h-20">
       <div tw="flex">
@@ -17,4 +17,4 @@ const MainInfo = ({ currentSlide }: inputProps) => {
   );
 };
 
-export default MainInfo;
+export default IntroInfo;

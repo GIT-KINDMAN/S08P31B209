@@ -7,7 +7,7 @@ const HomePage = styled.div`
   position: relative;
 `;
 
-const MainTitle = styled.div`
+const IntroTitle = styled.div`
   position: absolute;
   left: 10vw;
   font-weight: bold;
@@ -51,4 +51,4 @@ const Page3Title = styled.div`
   color: #2e6888;
 `;
 
-export { HomePage, MainTitle, TitleDocDoc, HomePage3, Page3Title };
+export { HomePage, IntroTitle, TitleDocDoc, HomePage3, Page3Title };

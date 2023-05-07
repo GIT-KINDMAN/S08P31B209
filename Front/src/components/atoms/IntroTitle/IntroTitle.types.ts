@@ -3,5 +3,5 @@ export interface inputProps {
 }
 
 export interface styleProps {
-  type: "main" | "sub" | "content" | "fixed";
+  type: "intro" | "sub" | "content" | "fixed";
 }

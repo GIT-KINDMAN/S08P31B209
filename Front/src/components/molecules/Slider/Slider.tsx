@@ -1,6 +1,6 @@
 import MainImg1 from "../../../assets/Main/MainImg1.jpg";
 import content1 from "../../../assets/Main/content1.png";
-import { Carousel, MainTitle } from "../../atoms/index";
+import { Carousel, IntroTitle } from "../../atoms/index";
 import { Button, Container, SliderContainer } from "./styled";
 
 import { useEffect, useRef, useState } from "react";
@@ -34,13 +34,13 @@ const Slider = () => {
   return (
     <div>
       {currentSlide === 0 ? (
-        <MainTitle title={"문서를 보냈나요?"}></MainTitle>
+        <IntroTitle title={"문서를 보냈나요?"}></IntroTitle>
       ) : null}
       {currentSlide === 1 ? (
-        <MainTitle title={"문서를 받았나요?"}></MainTitle>
+        <IntroTitle title={"문서를 받았나요?"}></IntroTitle>
       ) : null}
       {currentSlide === 2 ? (
-        <MainTitle title={"제출한 문서확인까지!"}></MainTitle>
+        <IntroTitle title={"제출한 문서확인까지!"}></IntroTitle>
       ) : null}
       <Container>
         {currentSlide}

@@ -1,5 +1,11 @@
 export interface StyleProps {
-  variant?: "primary" | "secondary" | "mainnav" | "previous" | "next";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "intronav"
+    | "previous"
+    | "next"
+    | "editorcreate";
   config?: "fill" | "outline";
   size?: "large" | "medium" | "small";
 }

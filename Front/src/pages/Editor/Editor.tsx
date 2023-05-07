@@ -11,16 +11,9 @@ const Editor = () => {
     <Wrapper>
       <EditorHeader></EditorHeader>
 
-      <Outlet tw="text-center" />
-
-      {/* <Wrapper tw="fixed bottom-0 text-center w-screen">
-        {" "}
-        footer
-        <div tw="flex mx-2 ">
-          <Wrapper> 이 전</Wrapper>
-          <Wrapper> 다 음</Wrapper>
-        </div>
-      </Wrapper> */}
+      <div tw="py-10">
+        <Outlet />
+      </div>
       <EditorFooter></EditorFooter>
     </Wrapper>
   );
