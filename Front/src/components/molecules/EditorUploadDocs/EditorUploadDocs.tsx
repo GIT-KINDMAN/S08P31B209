@@ -50,14 +50,18 @@ const EditorUploadDocs = () => {
         ) : null}
       </div>
       <UploadBox>
-        <p>
-          <i className="fi-rs-cloud-upload"></i> upload할 파일(docs, pdf, png,
-          jpg)을
-        </p>
-        <p>여기에 끌어다 놓거나 또는 upload 버튼을 누르세요.</p>
-        {/* {fileUrl?.endsWith(".pdf") ? (
+        {file === null ? (
+          <div>
+            <p>
+              <i className="fi-rs-cloud-upload"></i> upload할 파일(docs, pdf,
+              png, jpg)을
+            </p>
+            <p>여기에 끌어다 놓거나 또는 upload 버튼을 누르세요.</p>
+          </div>
+        ) : null}
+        {fileUrl?.endsWith(".jpg") ? (
           <iframe src={fileUrl} width="800" height="600" title="Preview" />
-        ) : null} */}
+        ) : null}
         {file !== null ? (
           <div>
             <p>{file.name}</p>
