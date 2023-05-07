@@ -1,4 +1,4 @@
-import { styleProps } from "./MainInfo.types";
+import { styleProps } from "./IntroInfo.types";
 
 import tw, { css, styled } from "twin.macro";
 

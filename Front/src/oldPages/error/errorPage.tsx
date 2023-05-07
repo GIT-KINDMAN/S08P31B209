@@ -8,7 +8,7 @@ const ErrorPage = () => {
   // unknown인 이유는 error의 정의 타입을 커스텀 할 수 있도록 하기 위함
   // const error의 타입을 unknown으로 정의
   const error: unknown = useRouteError();
-  console.error(error);
+  .error(error);
 
   return (
     <div id="error-page">

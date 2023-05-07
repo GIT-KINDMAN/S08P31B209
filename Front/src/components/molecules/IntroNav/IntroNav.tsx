@@ -1,10 +1,10 @@
 import DocDoc from "../../../assets/DocDoc.png";
 import { Button } from "../../atoms/index";
-import { Logo, Nav } from "./style";
+import { Logo, Nav } from "./Intro.styled";
 
 import { useNavigate } from "react-router-dom";
 
-const MainNav = () => {
+const IntroNav = () => {
   const navigate = useNavigate();
   return (
     <div>
@@ -15,7 +15,7 @@ const MainNav = () => {
       >
         <Button
           label={"로그인"}
-          variant={"mainnav"}
+          variant={"intronav"}
           size={"large"}
           icon={"none"}
           onClick={() => navigate("/login")}
@@ -25,4 +25,4 @@ const MainNav = () => {
   );
 };
 
-export default MainNav;
+export default IntroNav;

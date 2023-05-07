@@ -15,6 +15,8 @@ import {
   Test,
 } from "@/pages";
 
+import EditorCreate from "../components/organisms/EditorCreate/EditorCreate";
+
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter(
@@ -73,7 +75,7 @@ const router = createBrowserRouter(
       children: [
         {
           path: "create",
-          element: <></>,
+          element: <EditorCreate />,
         },
         {
           path: "edit",

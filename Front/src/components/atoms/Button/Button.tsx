@@ -11,12 +11,13 @@ const Button = ({
   size,
   variant,
   icon,
+  onClick,
 }: React.PropsWithChildren<InputProps>) => {
   return (
     <>
       <div>
         {icon ? <i className={"fi fi-rr-" + { icon }.icon}></i> : null}
-        <StyledButton variant={variant} size={size}>
+        <StyledButton variant={variant} size={size} onClick={onClick}>
           {label}
         </StyledButton>
       </div>

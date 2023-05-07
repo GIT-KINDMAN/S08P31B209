@@ -5,7 +5,6 @@ const Wrapper = styled.div(tw`border border-black`);
 const EditorContent = () => {
   return (
     <Wrapper tw="h-full">
-      11
       <Wrapper>
         <div>상단 뭔가 도구들</div>
       </Wrapper>

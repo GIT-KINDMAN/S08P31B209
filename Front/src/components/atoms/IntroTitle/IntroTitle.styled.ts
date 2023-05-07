@@ -1,4 +1,4 @@
-import { styleProps } from "./MainTitle.types";
+import { styleProps } from "./IntroTitle.types";
 
 import tw, { styled } from "twin.macro";
 
