@@ -1,6 +1,11 @@
 import { TableHeader } from "@/components/atoms";
 import { TableViewHeader, TableViewRow } from "@/components/molecules";
-import { EmptyDocs, PathSideToolBar, SearchBar } from "@/components/organisms";
+import {
+  EmptyDocs,
+  PathSideToolBar,
+  ProgressItemBar,
+  SearchBar,
+} from "@/components/organisms";
 
 import "twin.macro";
 
@@ -40,7 +45,8 @@ const DocsBox = () => {
           <div tw="flex  justify-end h-[5rem] mr-[3rem]">
             <SearchBar />
           </div>
-          <div tw="flex   justify-end m-[0.5rem] mr-[3rem]">
+          <div tw="flex flex-row  justify-end m-[0.5rem] mr-[3rem] space-x-4">
+            <ProgressItemBar />
             <PathSideToolBar />
           </div>
           <div className="table" tw="flex grow flex-col items-center">
