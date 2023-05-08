@@ -1,63 +1,60 @@
-import { IntroInfo, IntroNav, Slider } from "@/components/molecules/index";
-import { IntroCarousel } from "@/components/organisms";
+import Logo from "@/assets/DocDoc.png";
 
 import Knock from "../../assets/Main/Knock.png";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
-import {
-  HomePage,
-  HomePage3,
-  IntroTitle,
-  Page3Title,
-  TitleDocDoc,
-} from "./Intro.styled";
 
 import { useNavigate } from "react-router-dom";
-import tw, { styled } from "twin.macro";
-
-const Wrapper = styled.div(tw`border border-black flex justify-center`);
+import tw, { css } from "twin.macro";
 
 const Intro = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <IntroNav />
+      <div className="NavBar" tw="z-50 fixed w-full top-0 flex justify-between">
+        <img src={Logo} />
+        <button
+          className="LoginBtn"
+          tw="m-2 p-2 rounded-[0.5rem] bg-gray-400"
+          onClick={() => navigate("/auth/login")}
+        >
+          로그인 버튼
+        </button>
+      </div>
       {/* 첫번째 페이지 */}
-      <HomePage>
-        <img src={MainImg1} />
-        <IntroTitle style={{ marginTop: "12vh" }}>
-          <p> 빠르고</p>
-          <p> 간편하게</p>
-
-          <TitleDocDoc style={{ fontSize: "8vw", color: "#3D779A" }}>
-            똑똑
-          </TitleDocDoc>
-        </IntroTitle>
-      </HomePage>
-      <HomePage>
-        <img src={MainImg2} />
-        <IntroTitle style={{ marginTop: "12vh" }}>
-          <p> 서류 제출</p>
-          <p> 놓치지 말고 </p>
-
-          <TitleDocDoc style={{ fontSize: "8vw", color: "#3D779A" }}>
-            똑똑
-          </TitleDocDoc>
-        </IntroTitle>
-      </HomePage>
-      <Wrapper>
-        <div>
-          <Wrapper> Intro-Page3-Text </Wrapper>
-          <Wrapper> Intro-Page3-carousel </Wrapper>
-          <Wrapper> Intro-Page3-Text </Wrapper>
+      <div tw="relative h-fit">
+        <div tw="absolute bottom-0">
+          <p>빠르고</p>
+          <p>간편하게</p>
+          <div>똑똑</div>
         </div>
-      </Wrapper>
-      <Wrapper>
-        <div>
-          <Wrapper> Intro-Page4-Text </Wrapper>
-          <Wrapper> Intro-Page4-Image </Wrapper>
-          <Wrapper> Intro-Page4-LoginButton </Wrapper>
+        <img src={MainImg1} tw="w-full min-w-[50rem]" />
+      </div>
+      {/* 두번째 페이지 */}
+      <div tw="relative h-fit">
+        <div tw="absolute bottom-0">
+          <p>서류 제출</p>
+          <p>놓치지 말고</p>
+          <div>똑똑</div>
         </div>
-      </Wrapper>
+        <img src={MainImg2} tw="w-full min-w-[50rem]" />
+      </div>
+      {/* 캐러셀 영역*/}
+      <div>
+        <div>
+          <div> Intro-Page3-Text </div>
+          <div> Intro-Page3-carousel </div>
+          <div> Intro-Page3-Text </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div> Intro-Page4-Text </div>
+          <div> Intro-Page4-Image </div>
+          <div> Intro-Page4-LoginButton </div>
+        </div>
+      </div>
     </>
   );
 };

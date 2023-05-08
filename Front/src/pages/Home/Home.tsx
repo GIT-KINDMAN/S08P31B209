@@ -1,5 +1,4 @@
-import { Sidebar } from "@atomic/organisms";
-
+// import { Sidebar } from "@atomic/organisms";
 import { Outlet, redirect } from "react-router-dom";
 import tw, { styled } from "twin.macro";
 
@@ -9,13 +8,14 @@ const Home = () => {
   return (
     <>
       <Wrapper tw="flex-row h-screen">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Wrapper tw="w-full" className="content">
           <Outlet />
         </Wrapper>
       </Wrapper>
     </>
   );
+  // <button className="navbutton" tw={ } onClick={}> </button>
 };
 
 export default Home;
