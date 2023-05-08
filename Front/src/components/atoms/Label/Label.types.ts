@@ -15,19 +15,14 @@ export interface StyleProps {
   labelColor?: TwStyle | CSSProp;
 
   /**
-   * label 배경 색상 지정
-   */
-  bgColor?: TwStyle | CSSProp;
-
-  /**
    * label Bold
    */
   isBold?: boolean;
 
   /**
-   * label Style
+   * label Custom
    */
-  fontStyle?: "normal" | "italic" | "oblique" | "initial" | "inherit";
+  custom?: TwStyle | CSSProp;
 }
 
 export interface InputProps extends StyleProps {
@@ -35,5 +30,9 @@ export interface InputProps extends StyleProps {
    * label 명칭
    */
   text?: string;
+
+  /**
+   * label onclick event
+   */
   onclick?: () => void;
 }

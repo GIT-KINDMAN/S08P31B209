@@ -6,10 +6,10 @@ export const Title = styled.div(({ type }: styleProps) => [
   tw`my-20 ml-10`,
   type === "main" &&
     tw`font-bold text-5xl text-[#2e6888] 
-  lg:text-5xl 
-  md:text-4xl 
-  sm:text-2xl
-  xs:text-xl
+  // lg:text-5xl 
+  // md:text-4xl 
+  // sm:text-2xl
+  // xs:text-xl
   `,
 
   type === "fixed" && tw` top-40 right-60 font-bold text-4xl text-black `,

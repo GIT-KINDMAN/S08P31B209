@@ -1,6 +1,6 @@
 import UploadButton from "@/assets/UploadButton.png";
 import deleteButton from "@/assets/deleteButton.png";
-import { ImageFrame } from "@/components/atoms";
+import { Image } from "@/components/atoms";
 
 import { UploadBox, UploadDocs } from "./EditorUpdloadDocs.styled";
 
@@ -25,7 +25,7 @@ const EditorUploadDocs = () => {
     setFileUrl(null);
   };
 
-  let fileSize = file && Math.round(file.size / 1024);
+  const fileSize = file && Math.round(file.size / 1024);
 
   return (
     <UploadDocs>
@@ -33,7 +33,7 @@ const EditorUploadDocs = () => {
         <div tw="mr-4">문서 업로드</div>
         <div tw="mr-2 cursor-pointer">
           <label htmlFor="file-input">
-            <ImageFrame width={6} height={1.5} imageUrl={UploadButton} />
+            <Image imageUrl={UploadButton} />
             <input
               id="file-input"
               type="file"
@@ -45,7 +45,7 @@ const EditorUploadDocs = () => {
         </div>
         {file !== null ? (
           <div tw="cursor-pointer" onClick={handleFileDelete}>
-            <ImageFrame width={6} height={1.5} imageUrl={deleteButton} />
+            <Image imageUrl={deleteButton} />
           </div>
         ) : null}
       </div>
