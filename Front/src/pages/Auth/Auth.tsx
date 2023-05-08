@@ -1,14 +1,16 @@
 import Logo from "@/assets/DocDoc.png";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import "twin.macro";
 
 const Auth = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div>
         <div className="AuthHeader" tw="flex justify-center">
-          <img src={Logo} />
+          <img src={Logo} onClick={() => navigate("/")} />
         </div>
         <div tw="flex w-full justify-center">
           <Outlet />

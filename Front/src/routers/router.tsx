@@ -7,9 +7,9 @@ import {
   Editor,
   Home,
   Intro,
-  Register,
   Setting,
   SignIn,
+  SignUp,
   Test,
 } from "@/pages";
 
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         },
         {
           path: "signup",
-          element: <Register />,
+          element: <SignUp />,
         },
       ],
     },

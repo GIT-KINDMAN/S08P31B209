@@ -2,7 +2,7 @@ export { default as Editor } from "./Editor/Editor";
 
 export { default as Auth } from "./Auth/Auth";
 export { default as SignIn } from "./Auth/SignIn/SignIn";
-export { default as Register } from "./Auth/Register/Register";
+export { default as SignUp } from "./Auth/SignUp/SignUp";
 
 export { default as Intro } from "./Intro/Intro";
 

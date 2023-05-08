@@ -11,10 +11,14 @@ const Login = () => {
     <>
       <div tw="flex flex-col w-[30rem]">
         <div className="LoginForm" tw="flex flex-col">
-          <label> 이메일 </label>
-          <input type="email" tw="border-2"></input>
-          <label> 비밀번호 </label>
-          <input type="password" tw="border-2"></input>
+          <div className="InputField" tw="flex flex-col">
+            <label> 이메일 </label>
+            <input type="email" tw="border-2"></input>
+          </div>
+          <div className="InputField" tw="flex flex-col">
+            <label> 비밀번호 </label>
+            <input type="password" tw="border-2"></input>
+          </div>
         </div>
         <div className="ButtonWrap" tw="flex flex-col">
           <button
