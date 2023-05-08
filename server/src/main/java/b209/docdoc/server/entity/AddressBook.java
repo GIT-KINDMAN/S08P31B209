@@ -3,12 +3,26 @@ package b209.docdoc.server.entity;
 import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class AddressBook  extends BaseDateTime implements Serializable {
+@DynamicInsert
+@DynamicUpdate
+@Entity
+@Table(name = "addressbook")
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AddressBook extends BaseDateTime implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long addressIdx;
@@ -42,7 +56,6 @@ public class AddressBook  extends BaseDateTime implements Serializable {
 	public void prePersist() {
 		super.prePersist();
 	}
-
 
 
 }
