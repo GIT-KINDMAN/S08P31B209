@@ -1,6 +1,6 @@
 package b209.docdoc.server.entity;
 
-import b209.docdoc.server.config.utils.BaseAtTime;
+import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
 import b209.docdoc.server.dto.member.SignModReqDTO;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member extends BaseAtTime implements Serializable {
+public class Member extends BaseDateTime implements Serializable {
 
 	// 사용자 Idx
 	@Id

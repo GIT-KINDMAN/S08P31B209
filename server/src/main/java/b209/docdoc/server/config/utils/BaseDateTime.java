@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @DynamicInsert
-public class BaseAtTime {
+public class BaseDateTime {
     @CreatedDate
     private LocalDateTime createdDate;
     @LastModifiedDate

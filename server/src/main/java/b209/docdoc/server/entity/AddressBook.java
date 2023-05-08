@@ -1,6 +1,6 @@
 package b209.docdoc.server.entity;
 
-import b209.docdoc.server.config.utils.BaseAtTime;
+import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class AddressBook  extends BaseAtTime implements Serializable {
+public class AddressBook  extends BaseDateTime implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long addressIdx;
