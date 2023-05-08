@@ -49,7 +49,7 @@ const DocsBox = () => {
             <ProgressItemBar />
             <PathSideToolBar />
           </div>
-          <div className="table" tw="flex grow flex-col items-center">
+          <div className="table" tw="flex grow flex-col items-center mt-[2rem]">
             <div>
               <TableViewHeader
                 isBookmarkActive={true}
