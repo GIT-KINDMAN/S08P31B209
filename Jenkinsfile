@@ -7,12 +7,12 @@ pipeline {
         SOURCECODE_JENKINS_CREDENTIAL_ID = 'donghun'
         SOURCE_CODE_URL = 'https://lab.ssafy.com/s08-final/S08P31B209.git'
         RELEASE_BRANCH = 'release-server'
-        datasource = credentials('datasource')
+        datasource = 'k8b209.p.ssafy.io'
         dbUser = credentials('dbUser')
         dbPwd = credentials('dbPwd')
         redisPwd = credentials('redisPwd')
         jwt_secret_key = credentials('jwt_secret_key')
-        schema = credentials('schema')
+        schema = 'devdb'
     }
     stages {
 
