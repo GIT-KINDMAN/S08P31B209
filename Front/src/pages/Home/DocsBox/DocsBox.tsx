@@ -10,19 +10,19 @@ import {
 import "twin.macro";
 
 const DocsBox = () => {
-  // const tableData: string[] = [
-  //   "1",
-  //   "2",
-  //   "3",
-  //   "4",
-  //   "5",
-  //   "6",
-  //   "7",
-  //   "8",
-  //   "9",
-  //   "10",
-  // ]; // 시험용 임시데이터
-  const tableData: string[] = [];
+  const tableData: string[] = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+  ]; // 시험용 임시데이터
+  // const tableData: string[] = [];
   const lables: string[] = [
     "문서 이름",
     "상태",
