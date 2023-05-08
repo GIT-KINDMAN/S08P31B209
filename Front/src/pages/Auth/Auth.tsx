@@ -12,7 +12,7 @@ const Auth = () => {
         <div className="AuthHeader" tw="flex justify-center">
           <img src={Logo} onClick={() => navigate("/")} />
         </div>
-        <div tw="flex w-full justify-center">
+        <div className="ContentWrap" tw="flex w-full justify-center">
           <Outlet />
         </div>
       </div>

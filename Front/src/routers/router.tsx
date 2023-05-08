@@ -64,12 +64,24 @@ const router = createBrowserRouter(
       element: <Editor />,
       children: [
         {
+          path: "/editor",
+          element: <EditorCreate />,
+        },
+        {
           path: "create",
           element: <EditorCreate />,
         },
         {
           path: "edit",
           element: <EditorContent />,
+        },
+        {
+          path: "invite",
+          element: <EditorCreate />,
+        },
+        {
+          path: "finish",
+          element: <EditorCreate />,
         },
       ],
     },
