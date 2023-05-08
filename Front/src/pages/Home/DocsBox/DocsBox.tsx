@@ -1,23 +1,28 @@
 import { TableHeader } from "@/components/atoms";
 import { TableViewHeader, TableViewRow } from "@/components/molecules";
-import { EmptyDocs, PathSideToolBar, SearchBar } from "@/components/organisms";
+import {
+  EmptyDocs,
+  PathSideToolBar,
+  ProgressItemBar,
+  SearchBar,
+} from "@/components/organisms";
 
 import "twin.macro";
 
 const DocsBox = () => {
-  // const tableData: string[] = [
-  //   "1",
-  //   "2",
-  //   "3",
-  //   "4",
-  //   "5",
-  //   "6",
-  //   "7",
-  //   "8",
-  //   "9",
-  //   "10",
-  // ]; // 시험용 임시데이터
-  const tableData: string[] = [];
+  const tableData: string[] = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+  ]; // 시험용 임시데이터
+  // const tableData: string[] = [];
   const lables: string[] = [
     "문서 이름",
     "상태",
@@ -40,10 +45,11 @@ const DocsBox = () => {
           <div tw="flex  justify-end h-[5rem] mr-[3rem]">
             <SearchBar />
           </div>
-          <div tw="flex   justify-end m-[0.5rem] mr-[3rem]">
+          <div tw="flex flex-row  justify-end m-[0.5rem] mr-[3rem] space-x-4">
+            <ProgressItemBar />
             <PathSideToolBar />
           </div>
-          <div className="table" tw="flex grow flex-col items-center">
+          <div className="table" tw="flex grow flex-col items-center mt-[2rem]">
             <div>
               <TableViewHeader
                 isBookmarkActive={true}

@@ -4,7 +4,7 @@ import { InputProps } from "./TableVieHeader.types";
 
 import tw, { styled } from "twin.macro";
 
-const Wrapper = styled.div(tw`flex w-fit p-2`);
+const Swrapper = styled.div(tw`flex w-fit p-2`);
 
 export const TableViewHeader = ({
   checked,
@@ -15,11 +15,11 @@ export const TableViewHeader = ({
   onClick,
 }: InputProps) => {
   return (
-    <div tw="pl-4 h-12 w-[80rem] flex items-center border-b-2">
-      <Wrapper>
+    <div tw="flex w-[73.2rem] pl-4 h-12 items-center border-b-2">
+      <Swrapper>
         <CheckBox checked={checked} icon="check" onClick={onClick} />
-      </Wrapper>
-      <Wrapper tw="justify-center">
+      </Swrapper>
+      <Swrapper tw="justify-center">
         {isBookmarkActive ? (
           <Icon
             icon="star"
@@ -35,48 +35,55 @@ export const TableViewHeader = ({
             iconColor={tw`text-lightgray-400`}
           />
         )}
-      </Wrapper>
-      <Wrapper tw="justify-center">
+      </Swrapper>
+      <Swrapper tw="justify-center">
         <Icon iconColor={tw`text-white`} />
-      </Wrapper>
-      <Wrapper tw="w-80 ">
+      </Swrapper>
+      <Swrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[0] : undefined}
           isAsc={isAsc}
           onClick={onClick}
         />
-      </Wrapper>
-      <Wrapper>
+      </Swrapper>
+      <Swrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[1] : undefined}
           onClick={onClick}
         />
-      </Wrapper>
-      <Wrapper>
+      </Swrapper>
+      <Swrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[2] : undefined}
           isAsc={isAsc}
           onClick={onClick}
         />
-      </Wrapper>
-      <Wrapper>
+      </Swrapper>
+      <Swrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[3] : undefined}
           isAsc={isAsc}
           onClick={onClick}
         />
-      </Wrapper>
-      <Wrapper>
+      </Swrapper>
+      <Swrapper>
         <TextBox
           size={size}
           label={labels && labels.length > 0 ? labels[4] : undefined}
           onClick={onClick}
         />
-      </Wrapper>
+      </Swrapper>
+      <Swrapper>
+        <TextBox
+          size={size}
+          label={labels && labels.length > 0 ? labels[5] : undefined}
+          onClick={onClick}
+        />
+      </Swrapper>
     </div>
   );
 };

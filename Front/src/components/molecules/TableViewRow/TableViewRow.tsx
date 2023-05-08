@@ -21,7 +21,7 @@ export const TableViewRow = ({
     iconColor = tw`text-blue-500`;
   }
   return (
-    <div tw="pl-4 h-10 flex items-center w-[80rem]">
+    <div tw="pl-4 h-10 flex items-center w-[73.2rem]">
       <Wrapper>
         <CheckBox checked={checked} icon="check" onClick={onClick} />
       </Wrapper>
