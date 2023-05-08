@@ -8,41 +8,35 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class AddressBook  extends BaseDateTime implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long addressIdx;
+public class AddressBook extends BaseDateTime implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long addressIdx;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_idx")
-	private Member memberIdx;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_idx")
+    private Member memberIdx;
 
-	@NotNull
-	@Column(length = 10)
-	private String addressName;
+    @NotNull
+    @Column(length = 10)
+    private String addressName;
 
+    @NotNull
+    @Column(length = 30)
+    private String addresEmail;
 
-	@NotNull
-	@Column(length = 30)
-	private String addresEmail;
+    @NotNull
+    @Column(length = 15)
+    private String addressPhone;
 
+    @Convert(converter = BooleanToYNConverter.class)
+    private Boolean addressSent;
 
-	@NotNull
-	@Column(length = 15)
-	private String addressPhone;
+    @Convert(converter = BooleanToYNConverter.class)
+    private Boolean addressRegister;
 
-
-	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean addressSent;
-
-	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean addressRegister;
-
-	@Override
-	public void prePersist() {
-		super.prePersist();
-	}
-
-
-
+    @Override
+    public void prePersist() {
+        super.prePersist();
+    }
 }
