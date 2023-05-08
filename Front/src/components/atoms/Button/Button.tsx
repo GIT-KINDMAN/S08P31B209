@@ -1,26 +1,84 @@
+/**
+ * button 정의
+ * button은 상호작용을 위한 최소한의 컴포넌트 단위이다.
+ *
+ * 1. button은 크기를 정의할 수 있어야 한다.
+ * 2. button은 텍스트 또는 다른 태그를 포함할 수 있어야 한다.
+ * 3. button은 색상을 정의 할 수 있어야 한다.
+ * 4. button은 onclick 이벤트를 처리할 수 있어야 한다.
+ * 5. 그외의 나머지 속성을 custom 할 수 있어야 한다.
+ */
 import StyledButton from "./Button.styled";
 import { InputProps } from "./Button.types";
 
-import "@flaticon/flaticon-uicons/css/all/all.css";
-
-// hook, state, return해서 나오는 component
-// style과 관련된 내용은 styled.ts안에 넣어서 분리
+import { css } from "twin.macro";
 
 const Button = ({
-  label,
-  size,
+  children = "Button",
+  size = "md",
   variant,
-  icon,
+  isOutline = false,
+  // type = "button",
+  buttonColor,
+  focusColor,
+  bgColor,
+  isDisabled = false,
+  custom,
   onClick,
 }: React.PropsWithChildren<InputProps>) => {
+  let color = buttonColor;
+  if (typeof buttonColor == "string") {
+    color = css`
+      color: ${buttonColor};
+    `;
+  }
+
+  let bg = bgColor;
+  if (typeof bgColor == "string") {
+    bg = css`
+      background-color: ${bgColor};
+    `;
+  }
+
+  let focus = focusColor;
+  if (typeof focusColor == "string") {
+    if (isOutline) {
+      focus = css`
+        &:hover,
+        &:focus {
+          background-color: ${focusColor};
+        }
+      `;
+    } else {
+      focus = css`
+        &:hover,
+        &:focus {
+          color: ${focusColor};
+        }
+      `;
+    }
+  }
+
+  if (isDisabled) {
+    variant = "disabled";
+  }
+
   return (
     <>
-      <div>
-        {icon ? <i className={"fi fi-rr-" + { icon }.icon}></i> : null}
-        <StyledButton variant={variant} size={size} onClick={onClick}>
-          {label}
-        </StyledButton>
-      </div>
+      <StyledButton
+        variant={variant}
+        isOutline={isOutline}
+        buttonColor={color}
+        focusColor={focus}
+        bgColor={bg}
+        size={size}
+        // type={type}
+        custom={custom}
+        onClick={onClick}
+        disabled={isDisabled}
+      >
+        {children}
+      </StyledButton>
     </>
   );
 };
