@@ -15,9 +15,9 @@ const Intro = () => {
       <div className="NavBar" tw="z-50 fixed w-full top-0 flex justify-between">
         <img src={Logo} />
         <button
-          className="LoginBtn"
+          className="SignInBtn"
           tw="m-2 p-2 rounded-[0.5rem] bg-gray-400"
-          onClick={() => navigate("/auth/login")}
+          onClick={() => navigate("/auth")}
         >
           로그인 버튼
         </button>

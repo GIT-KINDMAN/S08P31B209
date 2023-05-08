@@ -5,13 +5,11 @@ import {
   Auth,
   DocsBox,
   Editor,
-  FindPassword,
   Home,
   Intro,
-  Login,
-  PasswordReset,
   Register,
   Setting,
+  SignIn,
   Test,
 } from "@/pages";
 
@@ -30,19 +28,11 @@ const router = createBrowserRouter(
       element: <Auth />,
       children: [
         {
-          path: "login",
-          element: <Login />,
+          path: "/auth",
+          element: <SignIn />,
         },
         {
-          path: "find-password",
-          element: <FindPassword />,
-        },
-        {
-          path: "password-reset",
-          element: <PasswordReset />,
-        },
-        {
-          path: "register",
+          path: "signup",
           element: <Register />,
         },
       ],
