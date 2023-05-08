@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 @DynamicInsert
 public class BaseAtTime {
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
     @LastModifiedDate
-    private LocalDateTime modifiedAt;
+    private LocalDateTime updatedDate;
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-//        this.modifiedAt = LocalDateTime.now();
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = LocalDateTime.now();
     }
 }

@@ -35,7 +35,7 @@ public class Member extends BaseAtTime implements Serializable {
 	@Column(length = 50)
 	private String memberPassword; // 사용자 pwd
 
-	@NotNull
+	@NotBlank
 	@Column(length = 10)
 	private String memberName; // 사용자 name
 
@@ -47,7 +47,7 @@ public class Member extends BaseAtTime implements Serializable {
 	@Column(length = 15)
 	private String memberPhone; // 사용자 연락처
 
-	@NotNull
+	@NotBlank
 	@Column(length = 10)
 	private String memberGender;//사용자 성별
 
