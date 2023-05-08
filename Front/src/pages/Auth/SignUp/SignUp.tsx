@@ -44,11 +44,21 @@ const Register = () => {
             <label> 성별 입력 </label>
             <div tw="flex flex-row justify-around">
               <div className="RadioItem">
-                <input type="radio" tw="border-2" value="남자"></input>
+                <input
+                  type="radio"
+                  tw="border-2"
+                  value="남자"
+                  name="gender"
+                ></input>
                 <label> 남자 </label>
               </div>
               <div className="RadioItem">
-                <input type="radio" tw="border-2" value="여자"></input>
+                <input
+                  type="radio"
+                  tw="border-2"
+                  value="여자"
+                  name="gender"
+                ></input>
                 <label> 여자 </label>
               </div>
             </div>
