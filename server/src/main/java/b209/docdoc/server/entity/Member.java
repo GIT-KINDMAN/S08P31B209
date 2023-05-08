@@ -1,6 +1,6 @@
 package b209.docdoc.server.entity;
 
-import b209.docdoc.server.config.utils.BaseAtTime;
+import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
 import b209.docdoc.server.dto.member.SignModReqDTO;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @DynamicInsert
@@ -23,59 +25,60 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member extends BaseAtTime implements Serializable {
+public class Member extends BaseDateTime implements Serializable {
 
-    // 사용자 Idx
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+	// 사용자 Idx
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long memberIdx;
 
-    @NotBlank
-    @Column(name = "member_id", unique = true)
-    private String memberId; // 사용자 ID
+	@NotNull
+	@Column(length = 50)
+	private String memberPassword; // 사용자 pwd
 
-    @NotBlank
-    private String password; // 사용자 pwd
+	@NotBlank
+	@Column(length = 10)
+	private String memberName; // 사용자 name
 
-    @NotBlank
-    private String name; // 사용자 name
+	@NotNull
+	@Column(length = 30)
+	private String memberEmail; // 사용자 email
 
-    @NotBlank
-    private String email; // 사용자 email
+	@NotNull
+	@Column(length = 15)
+	private String memberPhone; // 사용자 연락처
 
-    @NotBlank
-    private String tel; // 사용자 전화번호
+	@NotBlank
+	@Column(length = 10)
+	private String memberGender;//사용자 성별
 
-    @ColumnDefault("0")
-    private Integer warn; // 사용자가 신고받은 횟수
+    @Column(length=10)
+    private String memberGroup;
 
-    @Convert(converter = BooleanToYNConverter.class)
-    private Boolean ban; // 사용자 제재 여부
+    @Column(length = 100)
+    private String memberAddress;
 
-    @ColumnDefault("'ROLE_MEMBER'")
-    private String role;
+    @Column(length = 10)
+    private String memberPosition;
 
-    @Column(name = "fcm_token")
-    private String fcmToken; // fcm 알림을 받을 token
+    @Column(length = 10)
+    private String memberBirthday;
 
+	@Convert(converter = BooleanToYNConverter.class)
+	private Boolean memberIsDeleted; //사용자 삭제여부
 
-    @Override
-    public void prePersist() {
-        super.prePersist();
-        this.warn = 0;
-        this.role = "ROLE_MEMBER";
-        this.ban = false;
-        this.fcmToken = "";
-    }
+	@Override
+	public void prePersist() {
+		super.prePersist();
+	}
+//    public void update(SignModReqDTO signModReqDTO) {
+//        this.memberName = signModReqDTO.getName();
+//        this.memberEmail = signModReqDTO.getEmail();
+//        this.tel = signModReqDTO.getTel();
+//    }
 
-    public void update(SignModReqDTO signModReqDTO) {
-        this.name = signModReqDTO.getName();
-        this.email = signModReqDTO.getEmail();
-        this.tel = signModReqDTO.getTel();
-    }
-
-    public void update(String newPassword) {
-        this.password = newPassword;
-    }
+//    public void update(String newPassword) {
+//        this.password = newPassword;
+//    }
 
 }
