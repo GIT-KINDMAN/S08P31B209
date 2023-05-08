@@ -1,6 +1,7 @@
 package b209.docdoc.server.dto.member;
 
 
+import b209.docdoc.server.entity.Member;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;

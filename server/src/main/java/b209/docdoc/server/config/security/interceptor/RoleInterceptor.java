@@ -31,51 +31,26 @@ public class RoleInterceptor implements HandlerInterceptor {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final String adminRole;
 	private final String memberRole;
-	private final String markerRole;
-	private final String callRole;
-	private final String roomRole;
-	private final String coinRole;
 
 	private final String adminURL;
 	private final String memberURL;
-	private final String markerURL;
-	private final String callURL;
-	private final String roomURL;
-	private final String coinURL;
 
 	@Autowired
 	public RoleInterceptor(DecodeEncodeHandler decodeEncodeHandler, JwtTokenProvider jwtTokenProvider,
 						   @Value(value = "${user.role.admin}") String adminRole,
 						   @Value(value = "${user.role.member}") String memberRole,
-						   @Value(value = "${user.role.marker}") String markerRole,
-						   @Value(value = "${user.role.call}") String callRole,
-						   @Value(value = "${user.role.room}") String roomRole,
-						   @Value(value = "${user.role.coin}") String coinRole,
 						   @Value(value = "${user.url.admin}") String adminURL,
-						   @Value(value = "${user.url.member}") String memberURL,
-						   @Value(value = "${user.url.marker}") String markerURL,
-						   @Value(value = "${user.url.call}") String callURL,
-						   @Value(value = "${user.url.room}") String roomURL,
-						   @Value(value = "${user.url.coin}") String coinURL) {
+						   @Value(value = "${user.url.member}") String memberURL) {
 		this.decodeEncodeHandler = decodeEncodeHandler;
 		this.jwtTokenProvider = jwtTokenProvider;
 		this.adminRole = adminRole;
 		this.memberRole = memberRole;
-		this.markerRole = markerRole;
-		this.callRole = callRole;
-		this.roomRole = roomRole;
-		this.coinRole = coinRole;
 		this.adminURL = adminURL;
 		this.memberURL = memberURL;
-		this.markerURL = markerURL;
-		this.callURL = callURL;
-		this.roomURL = roomURL;
-		this.coinURL = coinURL;
 	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//		System.out.println("여기 왔니");
 		log.info(METHOD_NAME + "- preHandle() ...");
 		boolean result = false;
 		try {
@@ -84,16 +59,12 @@ public class RoleInterceptor implements HandlerInterceptor {
 			Outer:
 			{
 				if (jwtTokenProvider.validateToken(token)) {
-//					System.out.println("여기 왔니");   OOO
 					log.info("Token validate - success");
 					String memberId = jwtTokenProvider.getUserPk(token);
-
 					if (decodeEncodeHandler.memberIdValid(memberId)) {
 						log.info("Member validate - Success");
 						String role = decodeEncodeHandler.roleValid(memberId);
-//						System.out.println("여기 왔니"); OOO
 						if (request.getRequestURI().startsWith(adminURL)) {
-//							System.out.println("여기 왔니");    XXXX
 							log.info("ADMIN role validate ...");
 							if (role != null && role.equals(adminRole)) {
 								log.info("ADMIN role validate - Success");
@@ -106,7 +77,6 @@ public class RoleInterceptor implements HandlerInterceptor {
 							break Outer;
 						}
 						if (request.getRequestURI().startsWith(memberURL)) {
-//							System.out.println("여기 왔니");  XXXX
 							log.info("MEMBER role validate ...");
 							if (role != null && (role.equals(memberRole) || role.equals(adminRole))) {
 								log.info("MEMBER role validate - Success");
@@ -118,70 +88,15 @@ public class RoleInterceptor implements HandlerInterceptor {
 							}
 							break Outer;
 						}
-						if (request.getRequestURI().startsWith(markerURL)) {
-//							System.out.println("여기 왔니");  XXXX
-							log.info("MEMBER role validate ...");
-							if (role != null && (role.equals(memberRole) || role.equals(adminRole) || role.equals(markerRole))) {
-								log.info("MEMBER role validate - Success");
-								result = true;
-							} else {
-								log.warn("MEMBER role validate - Fail");
-								response.setContentType("text/html; charset=UTF-8");
-								response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_MEMBER_ROLE));
-							}
-							break Outer;
-						}
-						if (request.getRequestURI().startsWith(callURL)) {
-//							System.out.println("여기 왔니");  XXXX
-							log.info("MEMBER role validate ...");
-							if (role != null && (role.equals(memberRole) || role.equals(adminRole) || role.equals(markerRole) || role.equals(callRole))) {
-								log.info("MEMBER role validate - Success");
-								result = true;
-							} else {
-								log.warn("MEMBER role validate - Fail");
-								response.setContentType("text/html; charset=UTF-8");
-								response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_MEMBER_ROLE));
-							}
-							break Outer;
-						}
-						if (request.getRequestURI().startsWith(roomURL)) {
-//							System.out.println("여기 왔니");  XXXX
-							log.info("MEMBER role validate ...");
-							if (role != null && (role.equals(memberRole) || role.equals(adminRole) || role.equals(markerRole) || role.equals(callRole) || role.equals(roomRole))) {
-								log.info("MEMBER role validate - Success");
-								result = true;
-							} else {
-								log.warn("MEMBER role validate - Fail");
-								response.setContentType("text/html; charset=UTF-8");
-								response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_MEMBER_ROLE));
-							}
-							break Outer;
-						}
-						if (request.getRequestURI().startsWith(coinURL)) {
-//							System.out.println("여기 왔니");  XXXX
-							log.info("MEMBER role validate ...");
-							if (role != null && (role.equals(memberRole) || role.equals(adminRole) || role.equals(markerRole) || role.equals(callRole) || role.equals(roomRole)  || role.equals(coinRole))) {
-								log.info("MEMBER role validate - Success");
-								result = true;
-							} else {
-								log.warn("MEMBER role validate - Fail");
-								response.setContentType("text/html; charset=UTF-8");
-								response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_MEMBER_ROLE));
-							}
-							break Outer;
-						}
-						System.out.println("여기 왔니");
 						log.warn("Unverified role ACCESS ... ");
 						response.setContentType("text/html; charset=UTF-8");
 						response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_UNVERIFIED_SERVER_ADDRESS));
 					} else {
-//						System.out.println("여기 왔니");  XXX
 						log.warn("Request User is not exist " + METHOD_NAME);
 						response.setContentType("text/html; charset=UTF-8");
 						response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_MEMBER_ROLE));
 					}
 				} else {
-//					System.out.println("여기 왔니");   당연 XXX
 					log.warn("Token validate - Fail");
 					response.setContentType("text/html; charset=UTF-8");
 					response.getWriter().write(new ResponseHandler().convertResult(HttpStatus.BAD_REQUEST, FAIL_TOKEN_VALIDATE));

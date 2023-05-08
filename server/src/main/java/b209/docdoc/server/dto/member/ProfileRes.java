@@ -1,5 +1,6 @@
 package b209.docdoc.server.dto.member;
 
+import b209.docdoc.server.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
