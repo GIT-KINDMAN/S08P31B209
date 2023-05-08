@@ -1,5 +1,6 @@
 package b209.docdoc.server.service;
 
+import b209.docdoc.server.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,10 +14,5 @@ public class AdminService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final MemberRepository memberRepository;
-
-    @Value(value = "${year.current}")
-    private String year;
-
-
 
 }

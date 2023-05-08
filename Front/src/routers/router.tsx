@@ -1,15 +1,21 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { EditorContent } from "@/components/organisms";
 import {
+  AddressBox,
+  Auth,
   DocsBox,
   Editor,
-  FindPasswordPage,
+  FindPassword,
   Home,
-  LoginPage,
-  MainPage,
+  Intro,
+  Login,
   PasswordReset,
+  Register,
+  Setting,
   Test,
 } from "@/pages";
-import ErrorPage from "@/pages/error/errorPage";
+
+import EditorCreate from "../components/organisms/EditorCreate/EditorCreate";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -17,40 +23,69 @@ const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <Home />,
-      errorElement: <ErrorPage />,
+      element: <Intro />,
+    },
+    {
+      path: "/auth",
+      element: <Auth />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "find-password",
+          element: <FindPassword />,
+        },
+        {
+          path: "password-reset",
+          element: <PasswordReset />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+        },
+      ],
     },
     {
       path: "/home",
       element: <Home />,
-    },
-    {
-      path: "/mybox",
-      element: <DocsBox />,
+      children: [
+        {
+          path: "/home",
+          element: <DocsBox />,
+        },
+        {
+          path: "/home/mybox",
+          element: <DocsBox />,
+        },
+        {
+          path: "/home/address",
+          element: <AddressBox />,
+        },
+        {
+          path: "/home/setting",
+          element: <Setting />,
+        },
+      ],
     },
     {
       path: "/editor",
       element: <Editor />,
+      children: [
+        {
+          path: "create",
+          element: <EditorCreate />,
+        },
+        {
+          path: "edit",
+          element: <EditorContent />,
+        },
+      ],
     },
     {
       path: "/test",
       element: <Test />,
-    },
-    {
-      path: "/main",
-      element: <MainPage />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/find-password",
-      element: <FindPasswordPage />,
-    },
-    {
-      path: "password-reset",
-      element: <PasswordReset />,
     },
   ]!,
 );

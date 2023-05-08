@@ -1,5 +1,12 @@
 package b209.docdoc.server.controller;
 
+import b209.docdoc.server.config.security.auth.PrincipalDetails;
+import b209.docdoc.server.config.utils.Msg;
+import b209.docdoc.server.config.utils.ResponseDTO;
+import b209.docdoc.server.dto.member.SignModReqDTO;
+import b209.docdoc.server.dto.member.mod;
+import b209.docdoc.server.dto.member.modPw;
+import b209.docdoc.server.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,16 +44,16 @@ public class MemberController {
     /**
      * 회원 프로필 조회
      */
-    @GetMapping("/profile/read")
-    public ResponseEntity<ResponseDTO> readProfile(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_PROFILE, memberService.readProfile(principalDetails.getMember().getIdx())));
-    }
+//    @GetMapping("/profile/read")
+//    public ResponseEntity<ResponseDTO> readProfile(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_PROFILE, memberService.readProfile(principalDetails.getMember().getIdx())));
+//    }
 
     /**
      * 회원 마이페이지
      */
-    @GetMapping("/profile/mypage")
-    public ResponseEntity<ResponseDTO> myPage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MYPAGE, memberService.readMyPage(principalDetails.getMember().getIdx())));
-    }
+//    @GetMapping("/profile/mypage")
+//    public ResponseEntity<ResponseDTO> myPage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MYPAGE, memberService.readMyPage(principalDetails.getMember().getIdx())));
+//    }
 }

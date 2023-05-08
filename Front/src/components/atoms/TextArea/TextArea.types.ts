@@ -11,6 +11,7 @@ export interface StyleProps {
     | "name"
     | "birth"
     | "edit"
+    | "search"
     | "default";
   isChecked?: boolean;
   capsLockFlag?: boolean;

@@ -1,9 +1,10 @@
 import MainImg1 from "../../../assets/Main/MainImg1.jpg";
 import content1 from "../../../assets/Main/content1.png";
-import { Carousel } from "../../atoms/index";
+import { Carousel, IntroTitle } from "../../atoms/index";
 import { Button, Container, SliderContainer } from "./styled";
 
 import { useEffect, useRef, useState } from "react";
+import tw from "twin.macro";
 
 const Slider = () => {
   const TOTAL_SLIDES = 2;
@@ -31,16 +32,30 @@ const Slider = () => {
     }
   }, [currentSlide]);
   return (
-    <Container>
-      {currentSlide}
-      <SliderContainer ref={slideRef}>
-        <Carousel key={1} image={content1} />
-        <Carousel key={2} image={MainImg1} />
-        <Carousel key={3} image={content1} />
-      </SliderContainer>
-      <Button onClick={prevSlide}>Previous Slide</Button>
-      <Button onClick={nextSlide}>Next Slide</Button>
-    </Container>
+    <div>
+      {currentSlide === 0 ? (
+        <IntroTitle title={"문서를 보냈나요?"}></IntroTitle>
+      ) : null}
+      {currentSlide === 1 ? (
+        <IntroTitle title={"문서를 받았나요?"}></IntroTitle>
+      ) : null}
+      {currentSlide === 2 ? (
+        <IntroTitle title={"제출한 문서확인까지!"}></IntroTitle>
+      ) : null}
+      <Container>
+        {currentSlide}
+
+        <Button onClick={prevSlide}>&lt;</Button>
+        <Button onClick={nextSlide} tw="ml-16">
+          &gt;
+        </Button>
+        <SliderContainer ref={slideRef}>
+          <Carousel key={1} image={content1} />
+          <Carousel key={2} image={MainImg1} />
+          <Carousel key={3} image={content1} />
+        </SliderContainer>
+      </Container>
+    </div>
   );
 };
 

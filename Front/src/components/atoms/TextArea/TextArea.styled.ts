@@ -16,6 +16,7 @@ const StyledTextArea = styled.input(({ variant }: StyleProps) => [
   variant === "password" &&
     tw`w-80 h-10 border-2 border-[#ABB6BE] rounded-lg mx-auto px-4 `,
   variant === "edit" && tw`w-40 h-7 px-2 mx-auto`,
+  variant === "search" && tw`w-[12rem] border-0`,
 ]);
 
 export default StyledTextArea;

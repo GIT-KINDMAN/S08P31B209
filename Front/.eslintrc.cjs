@@ -45,6 +45,12 @@ module.exports = {
     "prettier/prettier": "error",
     "react/button-has-type": "warn", // 버튼의 타입 지정
     "react/no-unescaped-entities": "warn", // ['>', '"', '\', '}'] 사용시 HTML escape code로 변경
+    "react/no-children-prop": [
+      "warn",
+      {
+        allowFunctions: true,
+      },
+    ],
   },
   ignorePatterns: [
     "**/*.css",

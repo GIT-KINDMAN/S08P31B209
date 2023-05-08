@@ -1,5 +1,8 @@
 package b209.docdoc.server.entity;
 
+import b209.docdoc.server.config.utils.BaseAtTime;
+import b209.docdoc.server.config.utils.BooleanToYNConverter;
+import b209.docdoc.server.dto.member.SignModReqDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

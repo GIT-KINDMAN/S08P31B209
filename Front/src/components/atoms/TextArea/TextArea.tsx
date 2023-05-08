@@ -27,7 +27,12 @@ const TextArea = ({ variant }: InputProps) => {
         ) : null} */}
         {/* <StyledTextArea /> */}
         {variant === "default" ? (
-          <StyledTextArea placeholder={variant}></StyledTextArea>
+          <StyledTextArea
+            onChange={(e) => {
+              setInputText(e.target.value), console.log(inputText);
+            }}
+            onClick={checkArea}
+          ></StyledTextArea>
         ) : null}
 
         {/* 문자 입력 */}
@@ -110,6 +115,17 @@ const TextArea = ({ variant }: InputProps) => {
               setInputText(e.target.value), console.log(inputText);
             }}
             placeholder="기존 파일명"
+          ></StyledTextArea>
+        ) : null}
+
+        {/* 보관함 내 문서이름 변경시 */}
+        {variant === "search" ? (
+          <StyledTextArea
+            variant={variant}
+            placeholder="Search"
+            onChange={(e) => {
+              setInputText(e.target.value), console.log(inputText);
+            }}
           ></StyledTextArea>
         ) : null}
       </div>
