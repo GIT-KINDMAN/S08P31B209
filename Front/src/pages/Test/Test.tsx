@@ -3,10 +3,9 @@ import {
   Carousel,
   CheckBox,
   Icon,
-  ImageFrame,
+  Image,
   IntroTitle,
   Label,
-  LoginButton,
   Radio,
   TableHeader,
   TextArea,
@@ -31,7 +30,7 @@ import LogoImg from "../../assets/DocDoc.png";
 
 import tw, { styled } from "twin.macro";
 
-const Wrapper = styled.div(tw`border border-black flex justify-center`);
+const Wrapper = styled.div(tw`border border-black flex justify-center p-2`);
 
 // const tableData: string[] = [
 //   "1",
@@ -70,24 +69,9 @@ const Test = () => {
           <Wrapper>
             <b>Button</b>
             <div>
-              <Button
-                label="button"
-                variant="primary"
-                icon="test"
-                size="small"
-              />
-              <Button
-                label="button"
-                variant="secondary"
-                icon="test"
-                size="small"
-              />
-              <Button
-                label="button"
-                variant="intronav"
-                icon="test"
-                size="small"
-              />
+              <Button children="test1" variant="primary" />
+              <Button children="test2" variant="secondary" />
+              <Button children="test3" isDisabled={true} />
             </div>
           </Wrapper>
           <Wrapper>
@@ -114,7 +98,7 @@ const Test = () => {
           <Wrapper>
             <b>ImageFrame</b>
             <div>
-              <ImageFrame />
+              <Image />
             </div>
           </Wrapper>
           <Wrapper>
@@ -133,10 +117,10 @@ const Test = () => {
             <b>LoginButton</b>
             <div>
               <div>
-                <LoginButton text="로그인" />
+                <Button children="로그인"></Button>
               </div>
               <div>
-                <LoginButton text="회원가입" />
+                <Button children="회원가입"></Button>
               </div>
             </div>
           </Wrapper>

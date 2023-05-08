@@ -39,15 +39,15 @@ export interface StyleProps {
 }
 
 export interface InputProps extends StyleProps {
-  /**
-   * 버튼에 포함되는 텍스트 또는 태그
-   */
+  // /**
+  //  * 버튼에 포함되는 텍스트 또는 태그
+  //  */
   children?: string | React.ReactNode;
 
-  /**
-   * button Type
-   */
-  type?: "submit" | "button";
+  // /**
+  //  * button Type
+  //  */
+  // type?: "submit" | "button";
 
   /**
    * button Disabled

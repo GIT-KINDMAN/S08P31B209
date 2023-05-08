@@ -9,10 +9,15 @@ const EditorCreateContent = () => {
     <div tw="flex flex-col justify-center  ">
       <div tw="flex  pb-6 ">
         <div tw="m-4">
-          <Button variant="editorcreate" label="템플릿 생성" />
+          <Button variant="primary" isOutline={true} children="템플릿 생성" />
         </div>
         <div tw="m-4">
-          <Button variant="editorcreate" label="템플릿 불러오기" />
+          <Button
+            variant="primary"
+            isOutline={true}
+            children="템플릿 불러오기"
+            custom={tw`w-[10rem] h-full`}
+          />
         </div>
       </div>
     </div>

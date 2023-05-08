@@ -3,7 +3,7 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{html,js,cjs,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontfamily: {},
+      fontfamily: [],
       colors: {
         black: "#000000",
         white: "#ffffff",
@@ -89,6 +89,9 @@ module.exports = {
         },
       },
     },
+  },
+  corePlugins: {
+    preflight: true,
   },
   plugins: [],
 };

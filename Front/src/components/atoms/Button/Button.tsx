@@ -18,7 +18,7 @@ const Button = ({
   size = "md",
   variant,
   isOutline = false,
-  type = "button",
+  // type = "button",
   buttonColor,
   focusColor,
   bgColor,
@@ -72,7 +72,7 @@ const Button = ({
         focusColor={focus}
         bgColor={bg}
         size={size}
-        type={type}
+        // type={type}
         custom={custom}
         onClick={onClick}
         disabled={isDisabled}

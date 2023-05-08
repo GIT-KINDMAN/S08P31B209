@@ -1,6 +1,6 @@
 import { StyleProps } from "./Button.types";
 
-import tw, { styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
 
 const getVariant = {
   primary: [
@@ -40,7 +40,7 @@ const getSize = {
 export const StyledButton = styled.button((props: StyleProps) => [
   tw`px-4 py-2 rounded`,
 
-  tw`duration-75`,
+  tw`scale-100 duration-75`,
   tw`hocus:(scale-110)`,
 
   props.size && getSize[props.size],
