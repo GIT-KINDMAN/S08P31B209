@@ -12,8 +12,7 @@ import {
   SignUp,
   Test,
 } from "@/pages";
-
-import EditorCreate from "../components/organisms/EditorCreate/EditorCreate";
+import EditorCreate from "@/pages/Editor/EditorCreate/EditorCreate";
 
 import { createBrowserRouter } from "react-router-dom";
 
