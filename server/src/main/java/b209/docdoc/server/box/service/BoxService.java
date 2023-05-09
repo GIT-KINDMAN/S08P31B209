@@ -24,7 +24,6 @@ public class BoxService {
 
     @Transactional
     public Page<Template> getTemplates(List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
-        // Here we assume that the list of keywords has only one element for simplicity.
         String keyword = keywords.size() > 0 ? keywords.get(0) : "";
 
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
