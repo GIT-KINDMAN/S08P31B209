@@ -47,7 +47,7 @@ const Editor = () => {
           </div>
         </div>
       </div>
-      <div className="packing" tw="pt-[3rem] pb-[4rem]">
+      <div className="packing" tw="flex min-h-screen pt-[3rem] pb-[4rem]">
         <div className="ContentWrap" tw="flex w-full justify-center">
           <Outlet />
         </div>

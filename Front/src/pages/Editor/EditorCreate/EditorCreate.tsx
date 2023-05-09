@@ -2,6 +2,12 @@ import "@flaticon/flaticon-uicons/css/all/all.css";
 import "twin.macro";
 
 const EditorCreate = () => {
+  const createTemplate = () => console.log("CreateTemplate");
+  const loadTemplate = () => console.log("LoadTemplate");
+
+  const fileUpload = () => console.log("FileUpload");
+  const fileDelete = () => console.log("FileDelete");
+
   return (
     <div className="EditorCreate">
       <div className="CreateButtonWrap" tw="flex flex-row justify-center py-4">
@@ -9,14 +15,14 @@ const EditorCreate = () => {
           <button
             className="CreateTemplateBtn"
             tw=" m-2 p-2 w-[20rem]  rounded-[0.5rem] border-2 border-blue-600 text-blue-600 font-bold"
-            onClick={() => {}}
+            onClick={() => createTemplate()}
           >
             템플릿 생성하기
           </button>
           <button
             className="LoadTemplateBtn"
             tw="m-2 p-2 w-[20rem]  rounded-[0.5rem] border-2 border-blue-600 text-blue-600 font-bold"
-            onClick={() => {}}
+            onClick={() => loadTemplate()}
           >
             템플릿 불러오기
           </button>
@@ -55,7 +61,7 @@ const EditorCreate = () => {
             className="UploadButton"
             tw="px-4 py-1 mx-2 border-2 border-blue-700 rounded-[4px] bg-blue-700 text-white text-sm font-bold "
             // onClick -> 파일 추가
-            onClick={() => {}}
+            onClick={() => fileUpload()}
           >
             <i className="fi fi-rs-upload" tw="mx-1 align-middle" />
             upload
@@ -64,10 +70,7 @@ const EditorCreate = () => {
             className="DeleteButton"
             tw="px-4 py-1 mx-2 border-2 border-blue-700 rounded-[4px] bg-white text-blue-700 text-sm font-bold"
             // onClick -> 파일 업로드 취소
-            onClick={() => {
-              {
-              }
-            }}
+            onClick={() => fileDelete()}
           >
             <i className="fi fi-rr-trash" tw="mx-1 align-middle" />
             Delete
