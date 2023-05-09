@@ -1,4 +1,4 @@
-package b209.docdoc.server.exception;
+package b209.docdoc.server.exception;//package b209.docdoc.server.exception;
 
 public class MyPageHistoryException extends DocdocServerException {
     public MyPageHistoryException(ErrorCode errorCode) {
