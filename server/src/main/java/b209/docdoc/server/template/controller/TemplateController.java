@@ -19,8 +19,8 @@ public class TemplateController {
 	private final TemplateService templateService;
 
 	@PostMapping("/save")
-	public ResponseEntity<ResponseDTO> save(){
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, 0));
+	public ResponseEntity<ResponseDTO> saveTemplate(){
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateService.saveTemplate()));
 	}
 
 	@GetMapping("/all")

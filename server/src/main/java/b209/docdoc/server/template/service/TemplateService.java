@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +26,11 @@ public class TemplateService {
 
 	public List<String> getAllName(String memberEmail){
 		return templateRepository.findTemplateNamesByMemberEmail(memberEmail);
+	}
+
+	@Transactional
+	public Object saveTemplate(){
+
+		return null;
 	}
 }
