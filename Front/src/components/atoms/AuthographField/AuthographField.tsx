@@ -2,12 +2,13 @@ import tw, { styled } from "twin.macro";
 
 const Wrapper = styled.div(tw`border border-black`);
 
-const PdfViewer = () => {
+const AuthographField = () => {
   return (
     <Wrapper>
-      <div>PDF Viwer</div>
+      <div>서명 필드</div>
+      <div>이름 서명(필수)</div>
     </Wrapper>
   );
 };
 
-export default PdfViewer;
+export default AuthographField;
