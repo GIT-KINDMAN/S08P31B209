@@ -1,4 +1,6 @@
 export { default as Editor } from "./Editor/Editor";
+export { default as EditorCreate } from "./Editor/EditorCreate/EditorCreate";
+export { default as EditorInvite } from "./Editor/EditorInvite/EditorInvite";
 
 export { default as Auth } from "./Auth/Auth";
 export { default as SignIn } from "./Auth/SignIn/SignIn";

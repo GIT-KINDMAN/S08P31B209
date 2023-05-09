@@ -13,6 +13,7 @@ import {
   Test,
 } from "@/pages";
 import EditorCreate from "@/pages/Editor/EditorCreate/EditorCreate";
+import EditorInvite from "@/pages/Editor/EditorInvite/EditorInvite";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -76,7 +77,7 @@ const router = createBrowserRouter(
         },
         {
           path: "invite",
-          element: <EditorCreate />,
+          element: <EditorInvite />,
         },
         {
           path: "finish",
