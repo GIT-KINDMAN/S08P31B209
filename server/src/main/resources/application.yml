@@ -54,6 +54,25 @@ spring:
   web:
     resources:
       add-mappings: false
+  #mail\
+  mail:
+    host: smtp.gmail.com
+    port: ${mail.smtp.port}
+    username: ${AdminMail.id}
+    password: ${AdminMail.password}
+    properties:
+      mail:
+        smtp:
+          auth: ${mail.smtp.auth}
+          starttls:
+            enable: ${mail.smtp.starttls.enable}
+            required: ${mail.smtp.starttls.required}
+          socketFactory:
+            port: ${mail.smtp.socketFactory.port}
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: ${mail.smtp.socketFactory.fallback}
+    default-encoding: UTF-8
+
 
 jwt:
   header:
@@ -100,3 +119,6 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+file:
+  upload-dir: "/files/"
