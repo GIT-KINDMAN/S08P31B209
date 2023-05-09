@@ -27,6 +27,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -55,51 +56,44 @@ public class TemplateServiceImpl implements TemplateService {
     @Transactional
     public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) {
         MultipartFile pdfFile = documentTemplateSaveReqDTO.getTemplateFile();
-        Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+        Member member = memberRepository.findByMemberEmail(memberEmail)
+                .orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+
         String fileName = StringUtils.cleanPath(pdfFile.getOriginalFilename());
+        File memberDir = new File(uploadDir + "/" + memberEmail);
+        if (!memberDir.exists()) {
+            memberDir.mkdirs();
+        }
 
         try {
-            File memberDir = new File(uploadDir + "/" + memberEmail);
-            if (!memberDir.exists()) {
-                memberDir.mkdirs();
-            }
-
-            File file = new File(memberDir.getPath() + "/" + fileName);
-            pdfFile.transferTo(file);
+            pdfFile.transferTo(new File(memberDir, fileName));
         } catch (IOException e) {
             throw new SaveFileException(ErrorCode.MEMBER_NOT_FOUND);
         }
 
         String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
         String templateType;
-        switch (fileExtension) {
-            case "pdf":
-                templateType = "PDF";
-                break;
-            case "doc":
-            case "docx":
-                templateType = "WORD";
-                break;
-            case "xls":
-            case "xlsx":
-                templateType = "EXCEL";
-                break;
-            default:
-                templateType = "UNKNOWN";
+        if (fileExtension.equalsIgnoreCase("pdf")) {
+            templateType = "PDF";
+        } else if (fileExtension.equalsIgnoreCase("doc") || fileExtension.equalsIgnoreCase("docx")) {
+            templateType = "WORD";
+        } else if (fileExtension.equalsIgnoreCase("xls") || fileExtension.equalsIgnoreCase("xlsx")) {
+            templateType = "EXCEL";
+        } else {
+            templateType = "UNKNOWN";
         }
 
-        //TemplateFile 저장
+        String uuid = UUIDGenerator.generateUUID();
         Templatefile templatefile = Templatefile.builder()
                 .templatefileOriginalName(fileName)
                 .templatefileSavedName(memberEmail + "/" + fileName)
                 .build();
         templateFileRepository.save(templatefile);
 
-        String uuid = UUIDGenerator.generateUUID();
-        // Template 저장
-        Template template = Template.builder().member(member)
+        Template template = Template.builder()
+                .member(member)
                 .templatefileIdx(templatefile)
-                .templateUuid(uuid) // 임시 random uuid generator
+                .templateUuid(uuid)
                 .templateType(templateType)
                 .templateName(documentTemplateSaveReqDTO.getTemplateName())
                 .templateIsFavorite(false)
@@ -113,21 +107,19 @@ public class TemplateServiceImpl implements TemplateService {
                 .build();
         templateRepository.save(template);
 
-        List<TemplateWidgetDTO>	templateWidget =  documentTemplateSaveReqDTO.getTemplateWidget();
+        List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
+        List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget -> TemplateWidget.builder()
+                        .templateX(widget.getX())
+                        .templateDx(widget.getDx())
+                        .templateY(widget.getY())
+                        .templateDy(widget.getDy())
+                        .templateType(widget.getType())
+                        .templateInputText(widget.getInputText())
+                        .templateUuid(uuid)
+                        .build())
+                .collect(Collectors.toList());
 
-        //TemplateWidget 저장
-        for (TemplateWidgetDTO widget : templateWidget) {
-            TemplateWidget tempWidget = TemplateWidget.builder()
-                    .templateX(widget.getX())
-                    .templateDx(widget.getDx())
-                    .templateY(widget.getY())
-                    .templateDy(widget.getDy())
-                    .templateType(widget.getType())
-                    .templateInputText(widget.getInputText())
-                    .templateUuid(uuid)
-                    .build();
-            templateWidgetRepository.save(tempWidget);
-        }
+        templateWidgetRepository.saveAll(templateWidgets);
 
         String to = "receiver@example.com";
         String subject = "템플릿 저장 완료";
@@ -135,4 +127,5 @@ public class TemplateServiceImpl implements TemplateService {
         emailService.sendEmail(to, subject, text);
         return null;
     }
+
 }
