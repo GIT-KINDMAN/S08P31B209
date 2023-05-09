@@ -6,6 +6,7 @@ import {
   Editor,
   EditorCreate,
   EditorEdit,
+  EditorFinish,
   EditorInvite,
   Home,
   Intro,
@@ -81,7 +82,7 @@ const router = createBrowserRouter(
         },
         {
           path: "finish",
-          element: <EditorCreate />,
+          element: <EditorFinish />,
         },
       ],
     },

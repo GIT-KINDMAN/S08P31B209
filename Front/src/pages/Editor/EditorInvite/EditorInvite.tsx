@@ -4,7 +4,9 @@ import "twin.macro";
 
 const EditorInvite = () => {
   const [isSearch, setIsSearch] = useState(false);
-  const [isDisable, setIsDisable] = useState(true);
+  const [isSelfDisable, setIsSelfDisable] = useState(true);
+
+  let localDate = new Date();
 
   return (
     <>
@@ -13,8 +15,32 @@ const EditorInvite = () => {
         tw="flex flex-col px-4 bg-white"
         onBlur={() => setIsSearch(false)}
       >
-        <div className="InviteCount" tw="py-4 text-xl font-bold">
-          수신인원 ??명
+        <div tw="flex justify-between">
+          <div className="InviteCount" tw="py-4 text-xl font-bold">
+            수신인원 ??명
+          </div>
+          <div className="SetDeadline" tw="py-4 text-base ">
+            <span className="DeadlineLabel" tw="font-bold">
+              문서 마감일 설정
+            </span>
+            <div>
+              <input
+                type="radio"
+                name="deadline"
+                tw="mx-2"
+                onChange={(e) => console.log(e.target.value)}
+              />
+              <span> 해당없음 </span>
+            </div>
+            <div>
+              <input type="radio" tw="mx-2" name="deadline" />
+              <input
+                type="date"
+                tw="border-2 px-2"
+                min={localDate.toISOString().split("T")[0]}
+              />
+            </div>
+          </div>
         </div>
         {/* 수신인 추가 박스 */}
         <div className="InviteBoxWrap">
@@ -71,17 +97,20 @@ const EditorInvite = () => {
                 className="InvitePhoneTag"
                 tw="w-44 border border-lightgray-500   my-3 px-4 text-xl"
                 placeholder="연락처"
-                disabled={isDisable}
+                disabled={isSelfDisable}
               />
               <input
                 className="InviteGenderTag"
                 tw="w-44 border border-lightgray-500 my-3 px-4 text-xl"
                 placeholder="소속"
-                disabled={isDisable}
+                disabled={isSelfDisable}
               />
             </div>
             <div className="InviteCheckBox" tw="mx-4 align-middle">
-              <input type="checkbox" onClick={() => setIsDisable(!isDisable)} />
+              <input
+                type="checkbox"
+                onClick={() => setIsSelfDisable(!isSelfDisable)}
+              />
               <span tw="text-xs relative bottom-0.5 font-bold">
                 직접 입력할게요
               </span>

@@ -89,6 +89,9 @@ module.exports = {
           a700: "#F47413",
         },
       },
+      Width: {
+        640: "640px",
+      },
     },
   },
   corePlugins: {
