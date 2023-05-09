@@ -1,4 +1,5 @@
 import Logo from "@/assets/DocDoc-white.png";
+import ThumbnailDump from "@/assets/react.svg";
 
 import { Outlet, useNavigate } from "react-router-dom";
 import "twin.macro";
@@ -36,7 +37,7 @@ const Home = () => {
               >
                 <div className="UserThumbnail">
                   <img
-                    src={"src/assets/react.svg"}
+                    src={ThumbnailDump}
                     tw="m-2 w-[2.5rem] h-[2.5rem] border rounded-[50%] border-white"
                   />
                 </div>
@@ -127,7 +128,7 @@ const Home = () => {
                   <li className="SettingMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
-                      onClick={() => navigate("/setting")}
+                      onClick={() => navigate("/home/setting")}
                     >
                       <i
                         className="fi fi-sr-settings"
@@ -201,8 +202,11 @@ const Home = () => {
               <label tw="text-xs text-white pl-4">{footerCopyRight}</label>
             </div>
           </div>
-          <div className="ContentWrap" tw="flex w-full justify-center">
-            {/* <Outlet /> */}
+          <div
+            className="ContentWrap"
+            tw="flex w-full min-w-[40rem] justify-center bg-lightgray-800"
+          >
+            <Outlet />
           </div>
         </div>
       </div>
