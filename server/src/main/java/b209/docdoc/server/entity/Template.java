@@ -36,6 +36,9 @@ public class Template extends BaseDateTime implements Serializable {
 	@JoinColumn(name = "templatefile_idx")
 	private Templatefile templatefileIdx;
 
+	@NotNull
+	@Column(length = 50)
+	private String templateUuid;
 
 	@NotNull
 	@Column(length = 100)
