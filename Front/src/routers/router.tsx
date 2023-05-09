@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { EditorContent } from "@/components/organisms";
 import {
   AddressBox,
   Auth,
   DocsBox,
   Editor,
+  EditorCreate,
+  EditorInvite, // EditorEdit,
   Home,
   Intro,
   Setting,
@@ -12,8 +13,6 @@ import {
   SignUp,
   Test,
 } from "@/pages";
-import EditorCreate from "@/pages/Editor/EditorCreate/EditorCreate";
-import EditorInvite from "@/pages/Editor/EditorInvite/EditorInvite";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -71,10 +70,10 @@ const router = createBrowserRouter(
           path: "create",
           element: <EditorCreate />,
         },
-        {
-          path: "edit",
-          element: <EditorContent />,
-        },
+        // {
+        //   path: "edit",
+        //   element: <EditorEdit />,
+        // },
         {
           path: "invite",
           element: <EditorInvite />,
