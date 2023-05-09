@@ -44,25 +44,23 @@ public class Member extends BaseDateTime implements Serializable {
 	@Column(length = 30)
 	private String memberEmail; // 사용자 email
 
-	@NotNull
 	@Column(length = 15)
 	private String memberPhone; // 사용자 연락처
 
-	@NotBlank
 	@Column(length = 10)
 	private String memberGender;//사용자 성별
 
-    @Column(length=10)
-    private String memberGroup;
+	@Column(length = 10)
+	private String memberGroup;
 
-    @Column(length = 100)
-    private String memberAddress;
+	@Column(length = 100)
+	private String memberAddress;
 
-    @Column(length = 10)
-    private String memberPosition;
+	@Column(length = 10)
+	private String memberPosition;
 
-    @Column(length = 10)
-    private String memberBirthday;
+	@Column(length = 10)
+	private String memberBirthday;
 
 	@Convert(converter = BooleanToYNConverter.class)
 	private Boolean memberIsDeleted; //사용자 삭제여부

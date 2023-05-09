@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,59 +17,59 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "docs")
+@Table(name = "template")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Docs extends BaseDateTime implements Serializable {
+public class Template extends BaseDateTime implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long docsIdx;
+	private Long templateIdx;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_idx")
 	private Member memberIdx;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "docsfile_idx")
-	private Docsfile docsfileIdx;
+	@JoinColumn(name = "templatefile_idx")
+	private Templatefile templatefileIdx;
 
 	@NotNull
 	@Column(length = 100)
-	private String docsType;
+	private String templateType;
 
 	@NotNull
 	@Column(length = 50)
-	private String docsName;
+	private String templateName;
 
 	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean docsIsFavorite;
+	private Boolean templateIsFavorite;
 
 	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean docsIsCompleted;
+	private Boolean templateIsCompleted;
 
 	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean docsIsDeleted;
+	private Boolean templateIsDeleted;
 
 	@Column(columnDefinition = "DATETIME")
-	private LocalDateTime docsDeadline;
+	private LocalDateTime templateDeadline;
 
 	@NotNull
 	@Column(length = 10)
-	private String docsToName;
+	private String templateToName;
 
 	@NotNull
 	@Column(length = 30)
-	private String docsToEmail;
+	private String templateToEmail;
 
 	@NotNull
 	@Column(length = 10)
-	private String docsFromName;
+	private String templateFromName;
 
 	@NotNull
 	@Column(length = 30)
-	private String docsFromEmail;
+	private String templateFromEmail;
 
 
 

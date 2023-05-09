@@ -23,7 +23,7 @@ public class Trash {
     private Long trashIdx;
 
 //    @ManyToOne
-//    @JoinColumn(name="docs_idx")
-//    private Docs docs;
+//    @JoinColumn(name="template_idx")
+//    private Docs template;
 }
 
