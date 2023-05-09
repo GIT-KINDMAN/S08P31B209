@@ -26,6 +26,7 @@ public class Imagefile extends BaseDateTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "imagefile_idx")
     Long imagefileIdx;
 
     @NotNull

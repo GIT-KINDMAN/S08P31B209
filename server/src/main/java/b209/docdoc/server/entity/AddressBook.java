@@ -29,8 +29,8 @@ public class AddressBook extends BaseDateTime implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_idx")
-    private Member memberIdx;
-
+    private Member member;
+    
     @NotNull
     @Column(length = 10)
     private String addressName;
