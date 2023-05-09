@@ -24,6 +24,7 @@ public class Templatefile extends BaseDateTime implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "templatefile_idx")
 	private  Long templatefileIdx;
 
 	@NotBlank

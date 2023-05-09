@@ -12,12 +12,11 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "template")
+@Table(name = "templates")
 @Getter
 @Builder
 @NoArgsConstructor
@@ -29,8 +28,7 @@ public class Template extends BaseDateTime implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_idx")
-	private Member memberIdx;
-
+	private Member member;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "templatefile_idx")
@@ -57,8 +55,10 @@ public class Template extends BaseDateTime implements Serializable {
 	@Convert(converter = BooleanToYNConverter.class)
 	private Boolean templateIsDeleted;
 
-	@Column(columnDefinition = "DATETIME")
-	private LocalDateTime templateDeadline;
+//	@Column(columnDefinition = "DATETIME")
+	@NotNull
+	@Column(length = 20)
+	private String templateDeadline;
 
 	@NotNull
 	@Column(length = 10)

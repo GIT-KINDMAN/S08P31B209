@@ -25,6 +25,14 @@ public class Profile extends BaseDateTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileIdx;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="imagefile_idx")
+    private Imagefile imagefile;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_idx")
+    private Member member;
+
     @NotNull
     @Column(length = 50)
     private String profileName;
@@ -33,12 +41,5 @@ public class Profile extends BaseDateTime {
     @Column(length = 10)
     private String profilePosition;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="imagefile_idx")
-    private Imagefile imagefile;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_idx")
-    private Member member;
 
 }

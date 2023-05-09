@@ -27,6 +27,7 @@ public class Member extends BaseDateTime implements Serializable {
 	// 사용자 Idx
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="member_idx")
 	private Long memberIdx;
 
 	@NotNull
