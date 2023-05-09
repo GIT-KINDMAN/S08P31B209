@@ -5,7 +5,8 @@ import {
   DocsBox,
   Editor,
   EditorCreate,
-  EditorInvite, // EditorEdit,
+  EditorEdit,
+  EditorInvite,
   Home,
   Intro,
   Setting,
@@ -70,10 +71,10 @@ const router = createBrowserRouter(
           path: "create",
           element: <EditorCreate />,
         },
-        // {
-        //   path: "edit",
-        //   element: <EditorEdit />,
-        // },
+        {
+          path: "edit",
+          element: <EditorEdit />,
+        },
         {
           path: "invite",
           element: <EditorInvite />,
