@@ -32,7 +32,7 @@ public class Docs extends BaseDateTime implements Serializable {
 	@JoinColumn(name = "member_idx")
 	private Member memberIdx;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "docsfile_idx")
 	private Docsfile docsfileIdx;
 
