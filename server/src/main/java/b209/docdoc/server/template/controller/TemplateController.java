@@ -1,4 +1,4 @@
-//package b209.docdoc.server.controller;
+//package b209.docdoc.server.template.controller;
 //
 //import b209.docdoc.server.config.utils.Msg;
 //import b209.docdoc.server.config.utils.ResponseDTO;
