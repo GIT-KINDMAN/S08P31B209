@@ -25,10 +25,11 @@ public class EmailConfig {
     private boolean startlls_required;
     @Value("${mail.smtp.socketFactory.fallback}")
     private boolean fallback;
-    @Value("${AdminMail.id}")
+    @Value("${mail.AdminMail.id}")
     private String id;
-    @Value("${AdminMail.password}")
+    @Value("${mail.AdminMail.password}")
     private String password;
+
 
     @Bean
     public JavaMailSender javaMailService() {
@@ -41,15 +42,15 @@ public class EmailConfig {
         javaMailSender.setDefaultEncoding("UTF-8");
         return javaMailSender;
     }
-    private Properties getMailProperties()
-    {
+    private Properties getMailProperties() {
         Properties pt = new Properties();
         pt.put("mail.smtp.socketFactory.port", socketPort);
         pt.put("mail.smtp.auth", auth);
         pt.put("mail.smtp.starttls.enable", starttls);
         pt.put("mail.smtp.starttls.required", startlls_required);
-        pt.put("mail.smtp.socketFactory.fallback",fallback);
+        pt.put("mail.smtp.socketFactory.fallback", fallback);
         pt.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         return pt;
     }
+
 }
