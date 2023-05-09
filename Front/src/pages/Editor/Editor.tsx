@@ -13,7 +13,6 @@ const Editor = () => {
       <Wrapper tw="text-center">
         <Outlet />
       </Wrapper>
-      <Wrapper tw="fixed bottom-0 text-center w-screen">
         {" "}
         footer
         <div tw="flex mx-2 ">
