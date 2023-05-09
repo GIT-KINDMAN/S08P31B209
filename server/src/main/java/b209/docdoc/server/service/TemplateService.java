@@ -1,4 +1,4 @@
-package b209.docdoc.server.service;
-
-public class TemplateService {
-}
+//package b209.docdoc.server.service;
+//
+//public class TemplateService {
+//}
