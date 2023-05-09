@@ -16,7 +16,7 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "templates")
+@Table(name = "template")
 @Getter
 @Builder
 @NoArgsConstructor
