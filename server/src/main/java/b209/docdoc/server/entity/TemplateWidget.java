@@ -9,8 +9,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document(collection = "docswidget")
-public class DocsWidget {
+@Document(collection = "templatewidget")
+public class TemplateWidget {
 	private String id;
 	private String identifierCode;
 	private String baseDocumentUri;

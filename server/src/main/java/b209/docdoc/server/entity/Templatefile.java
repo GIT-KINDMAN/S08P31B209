@@ -15,24 +15,24 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "docsfile")
+@Table(name = "templatefile")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Docsfile extends BaseDateTime implements Serializable {
+public class Templatefile extends BaseDateTime implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private  Long docsfileIdx;
+	private  Long templatefileIdx;
 
 	@NotBlank
 	@Column(length = 50)
-	private String docsfileOriginalName; // 문서 name
+	private String templatefileOriginalName; // 문서 name
 
 	@NotBlank
 	@Column(length = 50)
-	private String docsfileSavedName; // 문서 name
+	private String templatefileSavedName; // 문서 name
 
 	@Override
 	public void prePersist(){super.prePersist();}
