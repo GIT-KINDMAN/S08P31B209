@@ -31,9 +31,11 @@ public class Template extends BaseDateTime implements Serializable {
 	@JoinColumn(name = "member_idx")
 	private Member memberIdx;
 
-	@OneToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "templatefile_idx")
 	private Templatefile templatefileIdx;
+
 
 	@NotNull
 	@Column(length = 100)
@@ -70,8 +72,6 @@ public class Template extends BaseDateTime implements Serializable {
 	@NotNull
 	@Column(length = 30)
 	private String templateFromEmail;
-
-
 
 
 	@Override
