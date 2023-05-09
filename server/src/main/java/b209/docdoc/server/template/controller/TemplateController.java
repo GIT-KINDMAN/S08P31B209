@@ -2,7 +2,8 @@ package b209.docdoc.server.template.controller;
 
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
-import b209.docdoc.server.template.service.TemplateService;
+import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
+import b209.docdoc.server.template.service.Impl.TemplateServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,16 +16,17 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TemplateController {
 	private static final String METHOD_NAME = TemplateController.class.getName();
-	private final TemplateService templateService;
+	private final TemplateServiceImpl templateServiceImpl;
 
+	private String principalDetails = "ssafy@ssafy.com";
 	@PostMapping("/save")
-	public ResponseEntity<ResponseDTO> save(){
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, 0));
+	public ResponseEntity<ResponseDTO> saveTemplate(@RequestBody DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO){//@AuthenticationPrincipal PrincipalDetails principalDetails,
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.saveTemplate(documentTemplateSaveReqDTO, principalDetails)));
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<ResponseDTO> getAllTemplateName(){
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateService.getAllName()));
+	public ResponseEntity<ResponseDTO> getAllTemplateName(){//@AuthenticationPrincipal PrincipalDetails principalDetails
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.getAllName(principalDetails)));
 	}
 	@GetMapping("/{template_id}")
 	public ResponseEntity<ResponseDTO> getTemplate(@PathVariable String template_id){
