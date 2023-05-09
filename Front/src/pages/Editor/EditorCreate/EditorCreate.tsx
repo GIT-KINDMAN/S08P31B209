@@ -139,12 +139,34 @@ const EditorCreate = () => {
                   </div>
                   {isDocsList === true ? (
                     <div className="w-fit DocsList" tw="flex justify-center ">
-                      <div
-                        tw=" border-b-2 border-dashed py-1 bg-white absolute overflow-y-auto font-bold"
-                        onClick={() => setIsDocsList(false)}
-                      >
-                        <div className="DocsName" tw="mx-2">
-                          삼성 청년 SW 아카데미 결석 소명서
+                      <div tw=" border-b-2 border-dashed py-1 bg-white absolute overflow-y-auto font-bold">
+                        <div
+                          className="DocsName"
+                          tw="mx-2"
+                          onClick={() => setIsDocsList(false)}
+                        >
+                          삼성 청년
+                        </div>
+                        <div
+                          className="DocsName"
+                          tw="mx-2"
+                          onClick={() => setIsDocsList(false)}
+                        >
+                          삼성 청년 SW
+                        </div>
+                        <div
+                          className="DocsName"
+                          tw="mx-2"
+                          onClick={() => setIsDocsList(false)}
+                        >
+                          삼성 청년 SW 아카데미
+                        </div>
+                        <div
+                          className="DocsName"
+                          tw="mx-2"
+                          onClick={() => setIsDocsList(false)}
+                        >
+                          삼성 청년 SW 아카데미 결석
                         </div>
                       </div>
                     </div>
