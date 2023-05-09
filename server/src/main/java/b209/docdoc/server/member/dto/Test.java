@@ -1,4 +1,4 @@
-package b209.docdoc.server.template.dto;
+package b209.docdoc.server.member.dto;
 
 public class Test {
 }

@@ -1,4 +1,4 @@
-package b209.docdoc.server.template.service;
+package b209.docdoc.server.address.service;
 
 public class TestService {
 }
