@@ -1,8 +1,7 @@
 FROM node:18.16.0
 WORKDIR /front
-COPY --chown=node:node ./package*.json /front/
-COPY --chown=node:node ./package-lock.json /front/
-RUN npm install --quiet
+COPY ./package*.json /front/
+RUN npm install
 RUN npm install -g serve@14.2.0
 RUN npm install -g typescript@5.0.2
 COPY --chown=node:node ./ /front/
