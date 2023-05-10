@@ -20,10 +20,10 @@ public class Widget {
     private Long templateIdx;
     private String widgetType;
     private String widgetName;
-    private Integer widgetIdxSx;
-    private Integer widgetIdxSy;
-    private Integer widgetIdxDx;
-    private Integer widgetIdxDy;
+    private Integer widgetSx;
+    private Integer widgetSy;
+    private Integer widgetDx;
+    private Integer widgetDy;
     private String widgetContent;
     private Boolean widgetIsBase;
     private Boolean widgetIsDeleted;
