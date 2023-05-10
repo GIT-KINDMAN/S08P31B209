@@ -28,10 +28,10 @@ public class BoxService {
         String keyword = keywords.size() > 0 ? keywords.get(0) : "";
 
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdAt"))
-                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedAt"));
+                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"));
 
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
         return boxRepository.findAllByKeyword(userEmail, keyword, sortedPageable);
     }

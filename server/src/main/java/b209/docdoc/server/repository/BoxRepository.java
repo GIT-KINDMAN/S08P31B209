@@ -9,5 +9,4 @@ import org.springframework.data.repository.query.Param;
 
 public interface BoxRepository extends JpaRepository<Template, Long> {
     @Query("SELECT t FROM Template t JOIN t.member m WHERE t.templateName LIKE %:keyword% AND m.memberEmail = :userEmail")
-    Page<Template> findAllByKeyword(@Param("userEmail") String userEmail, @Param("keyword") String keyword, Pageable pageable);
-}
+    Page<Template> findAllByKeyword(@Param("userEmail") String userEmail, @Param("keyword") String keyword, Pageable pageable);}
