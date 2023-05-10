@@ -83,34 +83,56 @@ public class TemplateServiceImpl implements TemplateService {
 			templateType = "UNKNOWN";
 		}
 
-		String uuid = UUIDGenerator.generateUUID();
-		Templatefile templatefile = Templatefile.builder().templatefileOriginalName(fileName).templatefileSavedName(fromEmail + "/" + fileName).build();
+		// 기존 템플릿을 사용할 경우 기존 템플릿을 가져오는 기능 추가 필요
+		// 템플릿 파일 생성
+		Templatefile templatefile = Templatefile.builder().
+				templatefileOriginalName(fileName).
+				templatefileSavedName(fromEmail + "/" + fileName).
+				build();
 		templateFileRepository.save(templatefile);
 
-		Template template = Template.builder().member(member).templatefileIdx(templatefile).templateUuid(uuid).templateType(templateType).templateName(documentTemplateSaveReqDTO.getTemplateName()).templateIsFavorite(false).templateIsCompleted(false).templateIsDeleted(false).templateDeadline(documentTemplateSaveReqDTO.getTemplateDeadline()).templateToName(documentTemplateSaveReqDTO.getToName().get(0)) // index 0으로 해둠
-				.templateToEmail(documentTemplateSaveReqDTO.getToEmail().get(0)) // index 0으로 해둠
-				.templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
-		templateRepository.save(template);
+		// 템플릿 파일은 수신자 모두가 공유하고 사용자 위젯만 서로 다름
+		for (int i = 0; i < documentTemplateSaveReqDTO.getTemplateName().length(); i++) { // 수신자들에게 템플릿 전송
+			String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
+			String templateName = documentTemplateSaveReqDTO.getTemplateName(); // 템플릿 이름
+			String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline(); // 템플릿 마감일
+			String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
+			String toEmail = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이메일
 
-		List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
-		List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget -> TemplateWidget.builder().templateX(widget.getX()).templateDx(widget.getDx()).templateY(widget.getY()).templateDy(widget.getDy()).templateType(widget.getType()).templateInputText(widget.getInputText()).templateUuid(uuid).build()).collect(Collectors.toList());
+			// 사용자 템플릿 생성
+			Template template = Template.builder().
+					member(member)
+					.templatefileIdx(templatefile) // 템플릿 파일
+					.templateUuid(uuid) // 템플릿 uuid
+					.templateType(templateType) // 템플릿 종류
+					.templateName(templateName) // 템플릿 파일 이름
+					.templateIsFavorite(false) // 즐겨 찾기 안함
+					.templateIsCompleted(false) // 작성 완료 안함
+					.templateIsDeleted(false) // 삭제 안함
+					.templateDeadline(templateDeadline) // 마감일
+					.templateToName(toName) // 수신자 이름
+					.templateToEmail(toEmail) // 수신자 이메일
+					.templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
+			templateRepository.save(template);
 
-		templateWidgetRepository.saveAll(templateWidgets);
+			// 사용자 위젯 생성
+			List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
+			List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget ->
+					TemplateWidget.builder()
+							.templateX(widget.getX()) // 왼쪽위 x 좌표
+							.templateDx(widget.getDx()) // 가로 길이
+							.templateY(widget.getY()) // 왼쪽위 y 좌표
+							.templateDy(widget.getDy()) // 세로 길이
+							.templateType(widget.getType()) //  위젯 종류
+							.templateInputText(widget.getInputText()) // 위젯 내용
+							.templateUuid(uuid) // 템플릿 uuid
+							.build())
+					.collect(Collectors.toList());
+			templateWidgetRepository.saveAll(templateWidgets);
 
-		String to = "receiver@example.com";
-		String subject = "템플릿 저장 완료";
-		String text = "템플릿 저장이 완료되었습니다.";
-//		emailService.sendEmail(to, subject, text);
-		String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline();
+			emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
+		}
 
-		String toName = documentTemplateSaveReqDTO.getToName().get(0);
-		String toEmail = documentTemplateSaveReqDTO.getToName().get(0);
-
-		emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline);
-
-		// 1. 이메일 docdoc 계정
-		// 2. 이메일 보내는 부분
-		// 3. 수신자 개수 만큼 Template 저장
 		return null;
 	}
 

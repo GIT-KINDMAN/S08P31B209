@@ -117,7 +117,8 @@ public class EmailServiceImpl implements EmailService {
         return message;
     }
 
-    public String sendTamplateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline) throws Exception {
+    @Override
+    public String sendTemplateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline) throws Exception {
         // TODO Auto-generated method stub
         MimeMessage message = templateMessage(uuid, toName, toEmail, fromEmail, templateDeadline);
         try{//예외처리
