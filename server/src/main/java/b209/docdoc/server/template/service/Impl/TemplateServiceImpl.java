@@ -82,41 +82,40 @@ public class TemplateServiceImpl implements TemplateService {
 		} else {
 			templateType = "UNKNOWN";
 		}
+		return null;
+//
+//		Templatefile templatefile = Templatefile.builder().
+//				templatefileOriginalName(fileName).
+//				templatefileSavedName(fromEmail + "/" + fileName).
+//				build();
+//		templateFileRepository.save(templatefile);
 
-		// 기존 템플릿을 사용할 경우 기존 템플릿을 가져오는 기능 추가 필요
-		// 템플릿 파일 생성
-		Templatefile templatefile = Templatefile.builder().
-				templatefileOriginalName(fileName).
-				templatefileSavedName(fromEmail + "/" + fileName).
-				build();
-		templateFileRepository.save(templatefile);
+//		// 템플릿 파일은 수신자 모두가 공유하고 사용자 위젯만 서로 다름
+//		for (int i = 0; i < documentTemplateSaveReqDTO.getTemplateName().length(); i++) { // 수신자들에게 템플릿 전송
+//			String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
+//			String templateName = documentTemplateSaveReqDTO.getTemplateName(); // 템플릿 이름
+//			String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline(); // 템플릿 마감일
+//			String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
+//			String toEmail = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이메일
+//
+//			// 사용자 템플릿 생성
+//			Template template = Template.builder().
+//					member(member)
+//					.templatefileIdx(templatefile) // 템플릿 파일
+//					.templateUuid(uuid) // 템플릿 uuid
+//					.templateType(templateType) // 템플릿 종류
+//					.templateName(templateName) // 템플릿 파일 이름
+//					.templateIsFavorite(false) // 즐겨 찾기 안함
+//					.templateIsCompleted(false) // 작성 완료 안함
+//					.templateIsDeleted(false) // 삭제 안함
+//					.templateDeadline(templateDeadline) // 마감일
+//					.templateToName(toName) // 수신자 이름
+//					.templateToEmail(toEmail) // 수신자 이메일
+//					.templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
+//			templateRepository.save(template);
 
-		// 템플릿 파일은 수신자 모두가 공유하고 사용자 위젯만 서로 다름
-		for (int i = 0; i < documentTemplateSaveReqDTO.getTemplateName().length(); i++) { // 수신자들에게 템플릿 전송
-			String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
-			String templateName = documentTemplateSaveReqDTO.getTemplateName(); // 템플릿 이름
-			String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline(); // 템플릿 마감일
-			String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
-			String toEmail = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이메일
-
-			// 사용자 템플릿 생성
-			Template template = Template.builder().
-					member(member)
-					.templatefileIdx(templatefile) // 템플릿 파일
-					.templateUuid(uuid) // 템플릿 uuid
-					.templateType(templateType) // 템플릿 종류
-					.templateName(templateName) // 템플릿 파일 이름
-					.templateIsFavorite(false) // 즐겨 찾기 안함
-					.templateIsCompleted(false) // 작성 완료 안함
-					.templateIsDeleted(false) // 삭제 안함
-					.templateDeadline(templateDeadline) // 마감일
-					.templateToName(toName) // 수신자 이름
-					.templateToEmail(toEmail) // 수신자 이메일
-					.templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
-			templateRepository.save(template);
-
-			// 사용자 위젯 생성
-			List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
+		// 사용자 위젯 생성
+//			List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
 //			List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget ->
 //					TemplateWidget.builder()
 //							.templateX(widget.getX()) // 왼쪽위 x 좌표
@@ -130,11 +129,12 @@ public class TemplateServiceImpl implements TemplateService {
 //					.collect(Collectors.toList());
 //			templateWidgetRepository.saveAll(templateWidgets);
 
-			emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
-		}
-
-		return null;
+//			emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
+//		}
+//		return null;
 	}
 
+
 }
+
 
