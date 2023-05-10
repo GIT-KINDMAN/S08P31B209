@@ -15,6 +15,7 @@ import b209.docdoc.server.repository.TemplateRepository;
 //import b209.docdoc.server.repository.TemplateWidgetRepository;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.template.dto.Request.TemplateWidgetDTO;
+import b209.docdoc.server.template.dto.Response.TemplateNameResDTO;
 import b209.docdoc.server.template.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +51,8 @@ public class TemplateServiceImpl implements TemplateService {
 	@Value("${file.upload-dir}") // application.properties에 설정된 파일 업로드 디렉터리 경로
 	private String uploadDir;
 
-	public List<String> getAllName(String memberEmail) {
-		return templateRepository.findTemplateNamesByMemberEmail(memberEmail);
+	public List<TemplateNameResDTO> getAllName(String memberEmail) {
+		return templateRepository.findTemplatesByMemberEmail(memberEmail);
 	}
 
 	@Transactional
