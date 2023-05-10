@@ -9,6 +9,14 @@ server:
       pattern: '%{yyyy-MM-dd HH:mm:ss}t\t%s\t%r\t%{User-Agent}i\t%{Referer}i\t%a\t%b'
 
 spring:
+  data:
+    mongodb:
+      host: ${datasource}
+      port: 27017
+      authentication-database: admin
+      database: ${schema}
+      username: ${dbUser}
+      password: ${dbPwd}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${datasource}/${schema}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -92,3 +100,22 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+file:
+  upload-dir: "/files/"
+
+mail:
+  smtp:
+    port: 465
+    socketFactory:
+      port: 465
+      fallback: false
+      class: javax.net.ssl.SSLSocketFactory
+    auth: true
+    starttls:
+      enable: true
+      required: true
+
+  AdminMail:
+    id: 'ssafy@ssafy.com'
+    password: '1234'

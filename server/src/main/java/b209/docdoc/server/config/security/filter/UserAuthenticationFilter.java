@@ -1,13 +1,12 @@
 package b209.docdoc.server.config.security.filter;
 
 import b209.docdoc.server.config.jwt.JwtTokenProvider;
+import b209.docdoc.server.config.jwt.dto.CommonTokenDTO;
+import b209.docdoc.server.config.redis.RedisRepository;
 import b209.docdoc.server.config.security.handler.ResponseHandler;
 import b209.docdoc.server.config.security.handler.UserLoginFailureHandler;
-import b209.docdoc.server.dto.token.CommonTokenDTO;
 import b209.docdoc.server.entity.Member;
-import b209.docdoc.server.entity.Token;
 import b209.docdoc.server.repository.MemberRepository;
-import b209.docdoc.server.repository.TokenRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
@@ -40,16 +39,16 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 	private static final String METHOD_NAME = UserAuthenticationFilter.class.getName();
 	private UserAuthenticationManager userAuthenticationManager;
 	private JwtTokenProvider jwtTokenProvider;
-	private TokenRepository tokenRepository;
+	private RedisRepository redisRepository;
 	private MemberRepository memberRepository;
 	private String headerKeyAccess;
 	private String typeAccess;
 
-	public UserAuthenticationFilter(UserAuthenticationManager userAuthenticationManager, JwtTokenProvider jwtTokenProvider, TokenRepository tokenRepository) {
+	public UserAuthenticationFilter(UserAuthenticationManager userAuthenticationManager, JwtTokenProvider jwtTokenProvider, RedisRepository redisRepository) {
 		super(userAuthenticationManager);
 		this.userAuthenticationManager = userAuthenticationManager;
 		this.jwtTokenProvider = jwtTokenProvider;
-		this.tokenRepository = tokenRepository;
+		this.redisRepository = redisRepository;
 	}
 
 	@Override
@@ -58,7 +57,7 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 		try {
 			Member member = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).readValue(request.getInputStream(), Member.class);
 
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getMemberId(), member.getPassword());
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getMemberEmail(), member.getMemberPassword());
 
 			return userAuthenticationManager.authenticate(authenticationToken);
 		} catch (IOException ie) {
@@ -83,7 +82,7 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 
 		try {
 			String principal = String.valueOf(authResult.getPrincipal());
-			Token token = tokenRepository.findByMemberId(principal);
+			String token = redisRepository.getValue(principal);
 			if (token != null) {
 				log.info("Token Set Existed - Token issuance");
 				CommonTokenDTO commonTokenDTO = jwtTokenProvider.generateToken(principal);

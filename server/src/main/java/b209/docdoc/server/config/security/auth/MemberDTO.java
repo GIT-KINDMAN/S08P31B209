@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Convert;
 
 @Setter
@@ -15,45 +14,43 @@ import javax.persistence.Convert;
 @NoArgsConstructor
 public class MemberDTO {
     private Long idx;
-    private String memberId;
     private String password;
     private String name;
     private String email;
-    private String tel;
-    private String role;
-    private Integer warn; // 사용자가 신고받은 횟수
+    private String phone;
+    private String gender;
+    private String address;
+    private String position;
+    private String birthday;
     @Convert(converter = BooleanToYNConverter.class)
-    private Boolean ban; // 사용자 제재 여부
-
-    @Column(name = "fcm_token")
-    private String fcmToken; // fcm 알림을 받을 token
+    private Boolean isDeleted;
 
     @Builder
-    public MemberDTO(Long idx, String memberId, String password, String name, String email, String tel, String role, Integer warn, Boolean ban, String fcmToken) {
+    public MemberDTO(Long idx, String password, String name, String email, String phone, String gender, String address, String position, String birthday, Boolean isDeleted) {
         this.idx = idx;
-        this.memberId = memberId;
         this.password = password;
         this.name = name;
         this.email = email;
-        this.tel = tel;
-        this.role = role;
-        this.warn = warn;
-        this.ban = ban;
-        this.fcmToken = fcmToken;
+        this.phone = phone;
+        this.gender = gender;
+        this.address = address;
+        this.position = position;
+        this.birthday = birthday;
+        this.isDeleted = isDeleted;
     }
 
     public MemberDTO of(Member member) {
         return MemberDTO.builder()
-                .idx(member.getIdx())
-                .memberId(member.getMemberId())
-                .password(member.getPassword())
-                .name(member.getName())
-                .email(member.getEmail())
-                .tel(member.getTel())
-                .role(member.getRole())
-                .warn(member.getWarn())
-                .ban(member.getBan())
-                .fcmToken(member.getFcmToken())
+                .idx(member.getMemberIdx())
+                .password(member.getMemberPassword())
+                .name(member.getMemberName())
+                .email(member.getMemberEmail())
+                .phone(member.getMemberPhone())
+                .gender(member.getMemberGender())
+                .address(member.getMemberAddress())
+                .position(member.getMemberPosition())
+                .birthday(member.getMemberBirthday())
+                .isDeleted(member.getMemberIsDeleted())
                 .build();
     }
 }

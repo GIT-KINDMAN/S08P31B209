@@ -1,6 +1,8 @@
 package b209.docdoc.server.config.security.auth;
 
 import b209.docdoc.server.entity.Member;
+import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.MemberNotFoundException;
 import b209.docdoc.server.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +21,9 @@ public class PrincipalDetailService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info(METHOD_NAME + "- loadUserByUsername() ...");
-        Member member = memberRepository.findByMemberId(username);
+        Member member = memberRepository.findByMemberEmail(email).orElseThrow(()->new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
         MemberDTO memberDTO = MemberDTO.builder().build().of(member);
 

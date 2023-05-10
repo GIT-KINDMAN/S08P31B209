@@ -1,6 +1,8 @@
 package b209.docdoc.server.config.security.handler;
 
 import b209.docdoc.server.entity.Member;
+import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.MemberNotFoundException;
 import b209.docdoc.server.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +25,24 @@ public class DecodeEncodeHandler {
 		return passwordEncoder.encode(password);
 	}
 
-	public String roleValid(String memberId) {
-		log.info(METHOD_NAME + "- roleValid() ...");
-		if (memberRepository.existsByMemberId(memberId)) {
-			log.info("Member memberId Validate - Success");
-			Member member = memberRepository.findByMemberId(memberId);
-			return member.getRole();
-		}
-		log.warn("Member memberId Validate - Fail");
-		return null;
-	}
+//	public String roleValid(String email) {
+//		log.info(METHOD_NAME + "- roleValid() ...");
+//		if (memberRepository.existsByMemberEmail(email)) {
+//			log.info("Member memberId Validate - Success");
+//			Member member = memberRepository.findByMemberEmail(email);
+//			return member.getRole();
+//		}
+//		log.warn("Member memberId Validate - Fail");
+//		return null;
+//	}
 
-	public boolean memberIdValid(String memberId) {
+	public boolean memberEmailValid(String memberEmail) {
 		log.info(METHOD_NAME + "- emailValid() ...");
 		try {
-			Member member = memberRepository.findByMemberId(memberId);
+			Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 			if (member != null) {
-				log.info("Memeber Validate - Success");
-				if (member.getEmail() != null) {
+				log.info("Member Validate - Success");
+				if (member.getMemberEmail() != null) {
 					log.info("Member memberId Validate - Success");
 					return true;
 				} else log.warn("Member memberId Validate - Fail");
@@ -51,11 +53,11 @@ public class DecodeEncodeHandler {
 		return false;
 	}
 
-	public boolean passwordValid(String memberId, String password) {
+	public boolean passwordValid(String memberEmail, String password) {
 		log.info(METHOD_NAME + "- passwordValid() ...");
 		try {
-			Member member = memberRepository.findByMemberId(memberId);
-			if (passwordEncoder.matches(password, member.getPassword())) {
+			Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+			if (passwordEncoder.matches(password, member.getMemberPassword())) {
 				log.info("Password validate - Success");
 				return true;
 			} else log.warn("Password validate - Fail");

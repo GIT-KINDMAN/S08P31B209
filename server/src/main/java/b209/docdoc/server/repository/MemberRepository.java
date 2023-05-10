@@ -6,15 +6,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Member findByMemberId(String memberId);
+    Optional<Member> findByMemberEmail(String memberEmail);
 
-    boolean existsByMemberId(String memberId);
+    boolean existsByMemberEmail(String memberEmail);
 
-    @Query("update Member m set m.name = :name, m.email = :email, m.tel = :tel where m.idx= :idx")
+    @Query("update Member m set m.memberName = :name, m.memberPhone = :phone where m.memberIdx= :idx")
     @Modifying(clearAutomatically = true)
-    int updateMember(@Param("name") String name, @Param("email") String email, @Param("tel") String tel, @Param("idx") long idx);
+    int updateMember(@Param("name") String name, @Param("phone") String phone, @Param("idx") long idx);
 
-    @Query("select m.idx from Member m where m.memberId like :memberId")
-    Long findIdxByMemberId(String memberId);
+    @Query("select m.memberIdx from Member m where m.memberEmail like :memberEmail")
+    Long findIdxByMemberEmail(String memberEmail);
 }

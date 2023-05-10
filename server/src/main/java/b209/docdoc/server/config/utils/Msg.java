@@ -65,4 +65,7 @@ public interface Msg {
 	// test
 	String SUCCESS_TEST_API = "테스트 성공";
 	String FAIL_TEST_API = "테스트 실패";
+
+    String SUCCESS_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 성공하였습니다.";
+	String FAIL_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 실패하였습니다.";
 }

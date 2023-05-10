@@ -27,19 +27,19 @@ public class UserAuthenticationManager implements AuthenticationManager {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		log.info(METHOD_NAME + "- authenticate() ...");
 		try {
-			String memberId = String.valueOf(authentication.getPrincipal());
-			String password = String.valueOf(authentication.getCredentials());
+			String memberEmail = String.valueOf(authentication.getPrincipal());
+			String memberPassword = String.valueOf(authentication.getCredentials());
 
-			if (memberId == null || memberId.equals("")) {
-				log.warn("Member memberId validate - Empty or null");
+			if (memberEmail == null || memberEmail.equals("")) {
+				log.warn("Member memberEmail validate - Empty or null");
 				throw new NullPointerException();
-			} else if (password == null || password.equals("")) {
-				log.warn("Member password validate - Empty or null");
+			} else if (memberPassword == null || memberPassword.equals("")) {
+				log.warn("Member memberPassword validate - Empty or null");
 				throw new NullPointerException();
 			} else {
-				if (decodeEncodeHandler.memberIdValid(memberId)) {
-					if (decodeEncodeHandler.passwordValid(memberId, password))
-						return new UsernamePasswordAuthenticationToken(memberId, password);
+				if (decodeEncodeHandler.memberEmailValid(memberEmail)) {
+					if (decodeEncodeHandler.passwordValid(memberEmail, memberPassword))
+						return new UsernamePasswordAuthenticationToken(memberEmail, memberPassword);
 				}
 			}
 		} catch (LockedException le) {

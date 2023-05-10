@@ -27,12 +27,12 @@ public class PrincipalDetails implements UserDetails {
 	}
 
 	/**
-	 * String member_id 반환
+	 * String member_email 반환
 	 * @return
 	 */
 	@Override
 	public String getUsername() {
-		return member.getMemberId();
+		return member.getEmail();
 	}
 
 	@Override

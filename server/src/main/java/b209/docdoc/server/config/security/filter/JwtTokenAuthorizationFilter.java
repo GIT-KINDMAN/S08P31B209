@@ -1,9 +1,9 @@
 package b209.docdoc.server.config.security.filter;
 
 import b209.docdoc.server.config.jwt.JwtTokenProvider;
+import b209.docdoc.server.config.jwt.dto.TokenResDTO;
 import b209.docdoc.server.config.security.auth.PrincipalDetailService;
 import b209.docdoc.server.config.security.handler.ResponseHandler;
-import b209.docdoc.server.dto.token.TokenResDTO;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
