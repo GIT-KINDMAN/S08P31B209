@@ -1,21 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { EditorContent } from "@/components/organisms";
 import {
   AddressBox,
   Auth,
   DocsBox,
   Editor,
-  FindPassword,
+  EditorCreate,
+  EditorEdit,
+  EditorFinish,
+  EditorInvite,
   Home,
   Intro,
-  Login,
-  PasswordReset,
-  Register,
   Setting,
+  SignIn,
+  SignUp,
   Test,
 } from "@/pages";
-
-import EditorCreate from "../components/organisms/EditorCreate/EditorCreate";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -30,20 +29,12 @@ const router = createBrowserRouter(
       element: <Auth />,
       children: [
         {
-          path: "login",
-          element: <Login />,
+          path: "/auth",
+          element: <SignIn />,
         },
         {
-          path: "find-password",
-          element: <FindPassword />,
-        },
-        {
-          path: "password-reset",
-          element: <PasswordReset />,
-        },
-        {
-          path: "register",
-          element: <Register />,
+          path: "signup",
+          element: <SignUp />,
         },
       ],
     },
@@ -74,12 +65,24 @@ const router = createBrowserRouter(
       element: <Editor />,
       children: [
         {
+          path: "/editor",
+          element: <EditorCreate />,
+        },
+        {
           path: "create",
           element: <EditorCreate />,
         },
         {
           path: "edit",
-          element: <EditorContent />,
+          element: <EditorEdit />,
+        },
+        {
+          path: "invite",
+          element: <EditorInvite />,
+        },
+        {
+          path: "finish",
+          element: <EditorFinish />,
         },
       ],
     },
