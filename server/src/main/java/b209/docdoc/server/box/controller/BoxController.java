@@ -12,10 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,18 +27,20 @@ public class BoxController {
 
     private final BoxService boxService;
 
-    @GetMapping("/templates")
+    @GetMapping("/{path}/templates")
     public ResponseEntity<ResponseDTO> getTemplates(
+            @PathVariable("path") String path,
             @RequestParam(value = "keywords", required = false) List<String> keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
+            @AuthenticationPrincipal String userEmail,
             @PageableDefault(size = 9, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getTemplates(keywords, nameSort, createdDateSort, updatedDateSort, pageable)));
+                        boxService.getTemplates(path, userEmail, keywords, nameSort, createdDateSort, updatedDateSort, pageable)));
     }
 
 

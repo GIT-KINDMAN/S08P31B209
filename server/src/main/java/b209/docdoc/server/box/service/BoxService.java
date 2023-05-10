@@ -23,7 +23,7 @@ public class BoxService {
     }
 
     @Transactional
-    public Page<Template> getTemplates(List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
+    public Page<Template> getTemplates(String path, String userEmail, List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
         String keyword = keywords.size() > 0 ? keywords.get(0) : "";
 
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
@@ -32,6 +32,13 @@ public class BoxService {
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
 
-        return boxRepository.findAllWithKeyword(keyword, sortedPageable);
+        // Check path and call the appropriate method
+        if (path.equals("sent-box")) {
+            return boxRepository.findAllSentWithKeyword(userEmail, keyword, sortedPageable);
+        } else if (path.equals("received-box")) {
+            return boxRepository.findAllReceivedWithKeyword(userEmail, keyword, sortedPageable);
+        } else {
+            throw new IllegalArgumentException("Invalid path");
+        }
     }
 }
