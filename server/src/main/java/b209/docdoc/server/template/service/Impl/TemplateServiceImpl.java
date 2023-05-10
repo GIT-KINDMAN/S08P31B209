@@ -112,7 +112,7 @@ public class TemplateServiceImpl implements TemplateService {
             templateRepository.save(template);
 
             // 사용자 위젯 생성
-            List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
+//            List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
 //			List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget ->
 //					TemplateWidget.builder()
 //							.templateX(widget.getX()) // 왼쪽위 x 좌표
