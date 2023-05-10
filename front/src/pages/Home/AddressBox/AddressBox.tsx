@@ -1,7 +1,14 @@
-import { redirect } from "react-router-dom";
+import AddModal from "./AddModal";
+
+import "@flaticon/flaticon-uicons/css/all/all.css";
+import { useState } from "react";
 import "twin.macro";
 
 const AddressBox = () => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const handelToggleModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
   return (
     <>
       <div tw=" bg-white w-full h-full flex flex-col">
@@ -17,6 +24,7 @@ const AddressBox = () => {
             <div className="GroupWrap" tw="text-xl font-bold my-4">
               그룹 보기
             </div>
+
             <div
               className="GroupsBox"
               tw="border-2 text-start min-h-[30rem] max-h-[30rem] text-xl overflow-y-scroll"
@@ -37,9 +45,15 @@ const AddressBox = () => {
           </div>
 
           {/* 그룹별 그룹원 부분 */}
-          <div tw="flex flex-col   min-w-[32rem] max-w-[32rem] mx-auto">
-            <div className="MemberWrap" tw="text-xl font-bold my-4 ml-8">
-              그룹원 보기
+          <div tw="flex flex-col   min-w-[40rem] max-w-[32rem] mx-auto">
+            <div
+              className="MemberWrap"
+              tw="flex text-xl font-bold my-4 ml-8 justify-between"
+            >
+              <div>그룹원 보기</div>
+              <div tw=" text-sm pt-2" onClick={() => handelToggleModal()}>
+                주소록 추가 <i className="fi fi-br-plus-small" />
+              </div>
             </div>
             <div
               className="MembersBox"
@@ -61,6 +75,7 @@ const AddressBox = () => {
                 <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
                   전화번호
                 </div>
+                <div tw="py-4  max-w-[10rem] break-words"></div>
               </div>
               <ul
                 className="MemberItem"
@@ -78,6 +93,9 @@ const AddressBox = () => {
                 <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
                   010-1234-5678
                 </li>
+                <li tw="py-4">
+                  <i className="fi fi-br-menu-dots" />
+                </li>
               </ul>
               <ul
                 className="MemberItem"
@@ -95,6 +113,9 @@ const AddressBox = () => {
                 <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words break-words">
                   010-1234-5678
                 </li>
+                <li tw="py-4">
+                  <i className="fi fi-br-menu-dots" />
+                </li>
               </ul>
               <ul
                 className="MemberItem"
@@ -111,11 +132,17 @@ const AddressBox = () => {
                 </li>
                 <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
                   010-1234-5678
+                </li>
+                <li tw="py-4">
+                  <i className="fi fi-br-menu-dots" />
                 </li>
               </ul>
             </div>
           </div>
         </div>
+        {isOpenModal === true ? (
+          <AddModal handelToggleModal={handelToggleModal} />
+        ) : null}
       </div>
     </>
   );
