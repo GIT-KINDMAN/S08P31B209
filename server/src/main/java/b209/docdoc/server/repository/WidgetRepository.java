@@ -1,10 +1,10 @@
-//package b209.docdoc.server.repository;
-//
-//import b209.docdoc.server.entity.Widget;
-//import org.springframework.data.mongodb.repository.MongoRepository;
-//
-//import java.util.Optional;
-//
-//public interface WidgetRepository extends MongoRepository<Widget, String> {
-//    Optional<Widget> findById(String idx);
-//}
+package b209.docdoc.server.repository;
+
+import b209.docdoc.server.entity.Widget;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
+
+public interface WidgetRepository extends MongoRepository<Widget, String> {
+    Optional<Widget> findById(String idx);
+}
