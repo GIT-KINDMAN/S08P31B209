@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @DynamicInsert
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Imagefile extends BaseDateTime {
+public class Imagefile extends BaseDateTime implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

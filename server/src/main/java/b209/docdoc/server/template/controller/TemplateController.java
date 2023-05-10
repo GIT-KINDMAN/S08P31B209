@@ -29,8 +29,8 @@ public class TemplateController {
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.getAllName(principalDetails)));
 	}
 	@GetMapping("/{template_id}")
-	public ResponseEntity<ResponseDTO> getTemplate(@PathVariable String template_id){
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, 0));
+	public ResponseEntity<ResponseDTO> getTemplate(@PathVariable long templateId){
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.getTemplateByTemplateId(templateId)));
 	}
 
 	@GetMapping("/uuid/{template_uuid}")
