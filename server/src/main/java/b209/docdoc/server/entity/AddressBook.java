@@ -43,11 +43,15 @@ public class AddressBook extends BaseDateTime implements Serializable {
     @Column(length = 15)
     private String addressPhone;
 
-    @Convert(converter = BooleanToYNConverter.class)
-    private Boolean addressSent;
+    @NotNull
+    @Column(length = 20)
+    private String addressGroup;
 
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean addressRegister;
+
+    @Convert(converter = BooleanToYNConverter.class)
+    private Boolean addressIsDeleted;
 
     @Override
     public void prePersist() {
