@@ -8,6 +8,7 @@ import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.token.Token;
 import org.springframework.stereotype.Component;
 
@@ -187,6 +188,16 @@ public class JwtTokenProvider {
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         return cookie;
+    }
+
+    public ResponseCookie generateResponseCookie(String refreshToken) {
+        log.info(METHOD_NAME + "- generateResponseCookie() ...");
+        return ResponseCookie.from("rtk", refreshToken)
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(refreshValidTime)
+                .build();
     }
 
     public Long getMemberIdx(String token) {

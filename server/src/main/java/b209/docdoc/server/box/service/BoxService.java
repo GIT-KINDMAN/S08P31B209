@@ -33,12 +33,13 @@ public class BoxService {
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
 
         // Check path and call the appropriate method
-        if (path.equals("sent-box")) {
-            return boxRepository.findAllSentWithKeyword(userEmail, keyword, sortedPageable);
-        } else if (path.equals("received-box")) {
-            return boxRepository.findAllReceivedWithKeyword(userEmail, keyword, sortedPageable);
-        } else {
-            throw new IllegalArgumentException("Invalid path");
-        }
+//        if (path.equals("sent-box")) {
+//            return boxRepository.findAllSentWithKeyword(userEmail, keyword, sortedPageable);
+//        } else if (path.equals("received-box")) {
+//            return boxRepository.findAllReceivedWithKeyword(userEmail, keyword, sortedPageable);
+//        } else {
+//            throw new IllegalArgumentException("Invalid path");
+//        }
+        return null;
     }
 }

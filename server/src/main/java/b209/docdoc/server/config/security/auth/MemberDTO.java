@@ -39,7 +39,7 @@ public class MemberDTO {
         this.isDeleted = isDeleted;
     }
 
-    public MemberDTO of(Member member) {
+    public static MemberDTO of(Member member) {
         return MemberDTO.builder()
                 .idx(member.getMemberIdx())
                 .password(member.getMemberPassword())
