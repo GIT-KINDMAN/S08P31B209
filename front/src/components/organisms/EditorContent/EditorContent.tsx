@@ -1,19 +1,25 @@
+import { PdfToolbar } from "@/components/atoms";
+
+// import { PdfViewer, WidgetAttribute, WidgetList } from "@/components/molecules";
 import tw, { styled } from "twin.macro";
 
 const Wrapper = styled.div(tw`border border-black`);
 
 const EditorContent = () => {
   return (
-    <Wrapper tw="h-full">
-      <Wrapper>
-        <div>상단 뭔가 도구들</div>
-      </Wrapper>
-      <Wrapper tw="grid grid-cols-6">
-        <Wrapper>왼쪽 도구</Wrapper>
-        <Wrapper tw="col-span-4">가운데 도구</Wrapper>
-        <Wrapper>오른쪽 도구</Wrapper>
-      </Wrapper>
-    </Wrapper>
+    // <Wrapper tw="h-full">
+    //   <Wrapper>
+    //     <PdfToolbar />
+    //   </Wrapper>
+    //   <Wrapper tw="grid grid-cols-6">
+    //     <WidgetList />
+    //     <div tw="col-span-4">
+    //       <PdfViewer tw="col-span-4" />
+    //     </div>
+    //     <WidgetAttribute />
+    //   </Wrapper>
+    // </Wrapper>
+    <></>
   );
 };
 
