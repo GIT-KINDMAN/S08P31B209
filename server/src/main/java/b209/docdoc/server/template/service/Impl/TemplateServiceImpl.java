@@ -4,17 +4,19 @@ import b209.docdoc.server.config.utils.UUIDGenerator;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.entity.Template;
-//import b209.docdoc.server.entity.TemplateWidget;
 import b209.docdoc.server.entity.Templatefile;
+import b209.docdoc.server.entity.Widget;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberNotFoundException;
 import b209.docdoc.server.exception.SaveFileException;
+import b209.docdoc.server.exception.TemplateNotFoundException;
 import b209.docdoc.server.repository.MemberRepository;
 import b209.docdoc.server.repository.TemplateFileRepository;
 import b209.docdoc.server.repository.TemplateRepository;
-//import b209.docdoc.server.repository.TemplateWidgetRepository;
+import b209.docdoc.server.repository.WidgetRepository;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
-import b209.docdoc.server.template.dto.Request.TemplateWidgetDTO;
+import b209.docdoc.server.template.dto.Response.TemplateResDTO;
+import b209.docdoc.server.template.dto.Response.WidgetResDTO;
 import b209.docdoc.server.template.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -35,88 +36,83 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TemplateServiceImpl implements TemplateService {
-	private static final String METHOD_NAME = TemplateServiceImpl.class.getName();
-	private final TemplateRepository templateRepository;
+    private static final String METHOD_NAME = TemplateServiceImpl.class.getName();
+    private final TemplateRepository templateRepository;
+    private final TemplateFileRepository templateFileRepository;
+    private final MemberRepository memberRepository;
+    private final EmailService emailService;
+    private final WidgetRepository widgetRepository;
 
-//	private final TemplateWidgetRepository templateWidgetRepository;
+    @Value("${file.upload-dir}") // application.properties에 설정된 파일 업로드 디렉터리 경로
+    private String uploadDir;
 
-	private final TemplateFileRepository templateFileRepository;
+    public List<String> getAllName(String memberEmail) {
+        return templateRepository.findTemplateNamesByMemberEmail(memberEmail);
+    }
 
-	private final MemberRepository memberRepository;
+    @Transactional
+    public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
+        MultipartFile pdfFile = documentTemplateSaveReqDTO.getTemplateFile();
+        Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
-	private final EmailService emailService;
+        String fileName = StringUtils.cleanPath(pdfFile.getOriginalFilename());
+        File memberDir = new File(uploadDir + "/" + fromEmail);
+        if (!memberDir.exists()) {
+            memberDir.mkdirs();
+        }
 
+        try {
+            pdfFile.transferTo(new File(memberDir, fileName));
+        } catch (IOException e) {
+            throw new SaveFileException(ErrorCode.MEMBER_NOT_FOUND);
+        }
 
-	@Value("${file.upload-dir}") // application.properties에 설정된 파일 업로드 디렉터리 경로
-	private String uploadDir;
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        String templateType;
+        if (fileExtension.equalsIgnoreCase("pdf")) {
+            templateType = "PDF";
+        } else if (fileExtension.equalsIgnoreCase("doc") || fileExtension.equalsIgnoreCase("docx")) {
+            templateType = "WORD";
+        } else if (fileExtension.equalsIgnoreCase("xls") || fileExtension.equalsIgnoreCase("xlsx")) {
+            templateType = "EXCEL";
+        } else {
+            templateType = "UNKNOWN";
+        }
 
-	public List<String> getAllName(String memberEmail) {
-		return templateRepository.findTemplateNamesByMemberEmail(memberEmail);
-	}
+        // 기존 템플릿을 사용할 경우 기존 템플릿을 가져오는 기능 추가 필요
+        // 템플릿 파일 생성
+        Templatefile templatefile = Templatefile.builder().
+                templatefileOriginalName(fileName).
+                templatefileSavedName(fromEmail + "/" + fileName).
+                build();
+        templateFileRepository.save(templatefile);
 
-	@Transactional
-	public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
-		MultipartFile pdfFile = documentTemplateSaveReqDTO.getTemplateFile();
-		Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+        // 템플릿 파일은 수신자 모두가 공유하고 사용자 위젯만 서로 다름
+        for (int i = 0; i < documentTemplateSaveReqDTO.getTemplateName().length(); i++) { // 수신자들에게 템플릿 전송
+            String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
+            String templateName = documentTemplateSaveReqDTO.getTemplateName(); // 템플릿 이름
+            String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline(); // 템플릿 마감일
+            String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
+            String toEmail = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이메일
 
-		String fileName = StringUtils.cleanPath(pdfFile.getOriginalFilename());
-		File memberDir = new File(uploadDir + "/" + fromEmail);
-		if (!memberDir.exists()) {
-			memberDir.mkdirs();
-		}
+            // 사용자 템플릿 생성
+            Template template = Template.builder().
+                    member(member)
+                    .templatefileIdx(templatefile) // 템플릿 파일
+                    .templateUuid(uuid) // 템플릿 uuid
+                    .templateType(templateType) // 템플릿 종류
+                    .templateName(templateName) // 템플릿 파일 이름
+                    .templateIsFavorite(false) // 즐겨 찾기 안함
+                    .templateIsCompleted(false) // 작성 완료 안함
+                    .templateIsDeleted(false) // 삭제 안함
+                    .templateDeadline(templateDeadline) // 마감일
+                    .templateToName(toName) // 수신자 이름
+                    .templateToEmail(toEmail) // 수신자 이메일
+                    .templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
+            templateRepository.save(template);
 
-		try {
-			pdfFile.transferTo(new File(memberDir, fileName));
-		} catch (IOException e) {
-			throw new SaveFileException(ErrorCode.MEMBER_NOT_FOUND);
-		}
-
-		String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
-		String templateType;
-		if (fileExtension.equalsIgnoreCase("pdf")) {
-			templateType = "PDF";
-		} else if (fileExtension.equalsIgnoreCase("doc") || fileExtension.equalsIgnoreCase("docx")) {
-			templateType = "WORD";
-		} else if (fileExtension.equalsIgnoreCase("xls") || fileExtension.equalsIgnoreCase("xlsx")) {
-			templateType = "EXCEL";
-		} else {
-			templateType = "UNKNOWN";
-		}
-
-		// 기존 템플릿을 사용할 경우 기존 템플릿을 가져오는 기능 추가 필요
-		// 템플릿 파일 생성
-		Templatefile templatefile = Templatefile.builder().
-				templatefileOriginalName(fileName).
-				templatefileSavedName(fromEmail + "/" + fileName).
-				build();
-		templateFileRepository.save(templatefile);
-
-		// 템플릿 파일은 수신자 모두가 공유하고 사용자 위젯만 서로 다름
-		for (int i = 0; i < documentTemplateSaveReqDTO.getTemplateName().length(); i++) { // 수신자들에게 템플릿 전송
-			String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
-			String templateName = documentTemplateSaveReqDTO.getTemplateName(); // 템플릿 이름
-			String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline(); // 템플릿 마감일
-			String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
-			String toEmail = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이메일
-
-			// 사용자 템플릿 생성
-			Template template = Template.builder().
-					member(member)
-					.templatefileIdx(templatefile) // 템플릿 파일
-					.templateUuid(uuid) // 템플릿 uuid
-					.templateType(templateType) // 템플릿 종류
-					.templateName(templateName) // 템플릿 파일 이름
-					.templateIsFavorite(false) // 즐겨 찾기 안함
-					.templateIsCompleted(false) // 작성 완료 안함
-					.templateIsDeleted(false) // 삭제 안함
-					.templateDeadline(templateDeadline) // 마감일
-					.templateToName(toName) // 수신자 이름
-					.templateToEmail(toEmail) // 수신자 이메일
-					.templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
-			templateRepository.save(template);
-
-			// 사용자 위젯 생성
-			List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
+            // 사용자 위젯 생성
+            List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
 //			List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget ->
 //					TemplateWidget.builder()
 //							.templateX(widget.getX()) // 왼쪽위 x 좌표
@@ -130,11 +126,37 @@ public class TemplateServiceImpl implements TemplateService {
 //					.collect(Collectors.toList());
 //			templateWidgetRepository.saveAll(templateWidgets);
 
-			emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
-		}
+            emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
+        }
 
-		return null;
-	}
+        return null;
+    }
+
+    @Transactional
+    public TemplateResDTO getTemplateByTemplateId(long templateId) {
+        Template template = templateRepository.findById(templateId)
+                .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
+
+        List<Widget> widgets = widgetRepository.findByTemplateIdx(templateId);
+
+        List<WidgetResDTO> widgetDTOs = widgets.stream().map(widget ->
+                new WidgetResDTO(
+                        widget.getWidgetIdx(),
+                        widget.getTemplateIdx(),
+                        widget.getWidgetType(),
+                        widget.getWidgetName(),
+                        widget.getWidgetSx(),
+                        widget.getWidgetSy(),
+                        widget.getWidgetDx(),
+                        widget.getWidgetDy(),
+                        widget.getWidgetContent(),
+                        widget.getWidgetIsBase(),
+                        widget.getWidgetIsDeleted()
+                )
+        ).collect(Collectors.toList());
+
+        return new TemplateResDTO(templateId, widgetDTOs);
+    }
 
 }
 
