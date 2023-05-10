@@ -32,7 +32,7 @@ public class Member extends BaseDateTime implements Serializable {
 	private Long memberIdx;
 
 	@NotNull
-	@Column(length = 100)
+	@Column(length = 255)
 	private String memberPassword; // 사용자 pwd
 
 	@NotBlank
