@@ -3,6 +3,14 @@ import { useState } from "react";
 import "twin.macro";
 
 const EditorFinish = () => {
+  const [docsLink, setDocsLink] = useState("www.google.com");
+  const handleClipCopy = (docsLink: string | null) => {
+    docsLink &&
+      navigator.clipboard.writeText(docsLink).then(() => {
+        alert("복사완료");
+      });
+  };
+
   return (
     <div className="EditorFinish" tw="flex flex-col bg-white px-4 ">
       <div tw="flex mt-10">
@@ -23,7 +31,13 @@ const EditorFinish = () => {
           />
         </div>
         <button tw=" px-4 py-2 mx-2 rounded-[16px] bg-green-200">
-          <i className="fi fi-br-link" tw=" text-blue-500 text-2xl" />
+          <i
+            className="fi fi-br-link"
+            tw=" text-blue-500 text-2xl"
+            onClick={() => {
+              console.log(docsLink), handleClipCopy(docsLink);
+            }}
+          />
         </button>
       </div>
       <div className="FinishWrap" tw="flex flex-col text-center mt-10">
