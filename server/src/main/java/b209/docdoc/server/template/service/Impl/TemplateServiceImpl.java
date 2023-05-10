@@ -4,7 +4,7 @@ import b209.docdoc.server.config.utils.UUIDGenerator;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.entity.Template;
-import b209.docdoc.server.entity.TemplateWidget;
+//import b209.docdoc.server.entity.TemplateWidget;
 import b209.docdoc.server.entity.Templatefile;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberNotFoundException;
@@ -12,7 +12,7 @@ import b209.docdoc.server.exception.SaveFileException;
 import b209.docdoc.server.repository.MemberRepository;
 import b209.docdoc.server.repository.TemplateFileRepository;
 import b209.docdoc.server.repository.TemplateRepository;
-import b209.docdoc.server.repository.TemplateWidgetRepository;
+//import b209.docdoc.server.repository.TemplateWidgetRepository;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.template.dto.Request.TemplateWidgetDTO;
 import b209.docdoc.server.template.service.TemplateService;
@@ -38,7 +38,7 @@ public class TemplateServiceImpl implements TemplateService {
 	private static final String METHOD_NAME = TemplateServiceImpl.class.getName();
 	private final TemplateRepository templateRepository;
 
-	private final TemplateWidgetRepository templateWidgetRepository;
+//	private final TemplateWidgetRepository templateWidgetRepository;
 
 	private final TemplateFileRepository templateFileRepository;
 
@@ -117,18 +117,18 @@ public class TemplateServiceImpl implements TemplateService {
 
 			// 사용자 위젯 생성
 			List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
-			List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget ->
-					TemplateWidget.builder()
-							.templateX(widget.getX()) // 왼쪽위 x 좌표
-							.templateDx(widget.getDx()) // 가로 길이
-							.templateY(widget.getY()) // 왼쪽위 y 좌표
-							.templateDy(widget.getDy()) // 세로 길이
-							.templateType(widget.getType()) //  위젯 종류
-							.templateInputText(widget.getInputText()) // 위젯 내용
-							.templateUuid(uuid) // 템플릿 uuid
-							.build())
-					.collect(Collectors.toList());
-			templateWidgetRepository.saveAll(templateWidgets);
+//			List<TemplateWidget> templateWidgets = templateWidget.stream().map(widget ->
+//					TemplateWidget.builder()
+//							.templateX(widget.getX()) // 왼쪽위 x 좌표
+//							.templateDx(widget.getDx()) // 가로 길이
+//							.templateY(widget.getY()) // 왼쪽위 y 좌표
+//							.templateDy(widget.getDy()) // 세로 길이
+//							.templateType(widget.getType()) //  위젯 종류
+//							.templateInputText(widget.getInputText()) // 위젯 내용
+//							.templateUuid(uuid) // 템플릿 uuid
+//							.build())
+//					.collect(Collectors.toList());
+//			templateWidgetRepository.saveAll(templateWidgets);
 
 			emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
 		}
