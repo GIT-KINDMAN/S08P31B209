@@ -3,7 +3,6 @@ package b209.docdoc.server.template.service.Impl;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.entity.Template;
-import b209.docdoc.server.entity.Templatefile;
 import b209.docdoc.server.entity.Widget;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberNotFoundException;
@@ -167,8 +166,4 @@ public class TemplateServiceImpl implements TemplateService {
 
         return new TemplateResDTO(templateId, widgetDTOs, templatefileDTO);
     }
-
-
 }
-
-
