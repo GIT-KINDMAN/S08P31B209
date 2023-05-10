@@ -40,7 +40,7 @@ public class Member extends BaseDateTime implements Serializable {
 	private String memberName; // 사용자 name
 
 	@NotNull
-	@Column(length = 30)
+	@Column(length = 50)
 	private String memberEmail; // 사용자 email
 
 	@Column(length = 15)

@@ -30,52 +30,20 @@ public class Template extends BaseDateTime implements Serializable {
 	@JoinColumn(name = "member_idx")
 	private Member member;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "templatefile_idx")
-	private Templatefile templatefileIdx;
-
 	@NotNull
 	@Column(length = 50)
 	private String templateUuid;
 
 	@NotNull
-	@Column(length = 100)
-	private String templateType;
-
-	@NotNull
 	@Column(length = 50)
 	private String templateName;
 
-	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean templateIsFavorite;
-
-	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean templateIsCompleted;
-
-	@Convert(converter = BooleanToYNConverter.class)
-	private Boolean templateIsDeleted;
-
-//	@Column(columnDefinition = "DATETIME")
 	@NotNull
 	@Column(length = 20)
 	private String templateDeadline;
 
-	@NotNull
-	@Column(length = 10)
-	private String templateToName;
-
-	@NotNull
-	@Column(length = 30)
-	private String templateToEmail;
-
-	@NotNull
-	@Column(length = 10)
-	private String templateFromName;
-
-	@NotNull
-	@Column(length = 30)
-	private String templateFromEmail;
-
+	@Convert(converter = BooleanToYNConverter.class)
+	private Boolean templateIsDeleted;
 
 	@Override
 	public void prePersist() {
