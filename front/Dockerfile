@@ -1,4 +1,4 @@
-FROM node:16.18.0
+FROM node:18.16.0
 WORKDIR /front
 COPY ./package*.json /front
 COPY / /front
