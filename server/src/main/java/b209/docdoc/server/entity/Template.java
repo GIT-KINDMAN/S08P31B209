@@ -45,6 +45,10 @@ public class Template extends BaseDateTime implements Serializable {
 	@Convert(converter = BooleanToYNConverter.class)
 	private Boolean templateIsDeleted;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "templatefile_idx")
+	private Templatefile templatefile;
+
 	@Override
 	public void prePersist() {
 		super.prePersist();

@@ -34,7 +34,7 @@ public class BoxController {
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
             @AuthenticationPrincipal String userEmail,
-            @PageableDefault(size = 9, page = 1) Pageable pageable) {
+            @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,

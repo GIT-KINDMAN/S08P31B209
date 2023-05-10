@@ -3,6 +3,7 @@ package b209.docdoc.server.template.service.Impl;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.entity.Template;
+import b209.docdoc.server.entity.Templatefile;
 import b209.docdoc.server.entity.Widget;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberNotFoundException;
@@ -14,6 +15,7 @@ import b209.docdoc.server.repository.TemplateRepository;
 import b209.docdoc.server.repository.WidgetRepository;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.template.dto.Response.TemplateResDTO;
+import b209.docdoc.server.template.dto.Response.TemplatefileResDTO;
 import b209.docdoc.server.template.dto.Response.WidgetResDTO;
 import b209.docdoc.server.template.service.TemplateService;
 import lombok.RequiredArgsConstructor;
@@ -131,7 +133,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Transactional
-    public TemplateResDTO getTemplateByTemplateId(long templateId) {
+    public TemplateResDTO getTemplateByTemplateId(Long templateId) {
         Template template = templateRepository.findById(templateId)
                 .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
 
@@ -153,6 +155,15 @@ public class TemplateServiceImpl implements TemplateService {
                 )
         ).collect(Collectors.toList());
 
-        return new TemplateResDTO(templateId, widgetDTOs);
+        Templatefile templatefile = template.getTemplatefile();
+
+        TemplatefileResDTO templatefileDTO = new TemplatefileResDTO(
+                templatefile.getTemplatefileIdx(),
+                templatefile.getTemplatefileOriginalName(),
+                templatefile.getTemplatefileSavedName(),
+                templatefile.getTemplatefileSavedPath()
+        );
+
+        return new TemplateResDTO(templateId, widgetDTOs, templatefileDTO);
     }
 }
