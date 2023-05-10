@@ -1,8 +1,14 @@
+<<<<<<< HEAD:Front/src/pages/Home/Home.tsx
 import Logo from "@/assets/DocDoc-white.png";
 import ThumbnailDump from "@/assets/react.svg";
 
 import { Outlet, useNavigate } from "react-router-dom";
 import "twin.macro";
+=======
+// import { Sidebar } from "@atomic/organisms";
+import { Outlet, redirect } from "react-router-dom";
+import tw, { styled } from "twin.macro";
+>>>>>>> 67da9cf5b1bc9d04796b4d640b1b3b354a5a93f5:front/src/pages/Home/Home.tsx
 
 const footerCopyRight = "© 2023-2023. ssafy B209. All rights reserved";
 const footerCSInfo = "문의: support @ssafy.com";
@@ -12,6 +18,7 @@ const Home = () => {
 
   return (
     <>
+<<<<<<< HEAD:Front/src/pages/Home/Home.tsx
       <div>
         <div tw="flex flex-row ">
           <div
@@ -210,6 +217,14 @@ const Home = () => {
           </div>
         </div>
       </div>
+=======
+      <Wrapper tw="flex-row h-screen">
+        {/* <Sidebar /> */}
+        <Wrapper tw="w-full" className="content">
+          <Outlet />
+        </Wrapper>
+      </Wrapper>
+>>>>>>> 67da9cf5b1bc9d04796b4d640b1b3b354a5a93f5:front/src/pages/Home/Home.tsx
     </>
   );
 };
