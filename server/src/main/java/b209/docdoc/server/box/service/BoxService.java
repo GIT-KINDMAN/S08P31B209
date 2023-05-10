@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class BoxService {
+
     private final BoxRepository boxRepository;
 
     public BoxService(BoxRepository boxRepository) {
@@ -23,23 +24,15 @@ public class BoxService {
     }
 
     @Transactional
-    public Page<Template> getTemplates(String path, String userEmail, List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
+    public Page<Template> getTemplates(String userEmail, List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
         String keyword = keywords.size() > 0 ? keywords.get(0) : "";
 
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
-                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"));
+                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdAt"))
+                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedAt"));
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
 
-        // Check path and call the appropriate method
-//        if (path.equals("sent-box")) {
-//            return boxRepository.findAllSentWithKeyword(userEmail, keyword, sortedPageable);
-//        } else if (path.equals("received-box")) {
-//            return boxRepository.findAllReceivedWithKeyword(userEmail, keyword, sortedPageable);
-//        } else {
-//            throw new IllegalArgumentException("Invalid path");
-//        }
-        return null;
+        return boxRepository.findAllByKeyword(userEmail, keyword, sortedPageable);
     }
 }
