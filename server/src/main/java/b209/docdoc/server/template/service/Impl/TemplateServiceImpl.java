@@ -155,8 +155,7 @@ public class TemplateServiceImpl implements TemplateService {
                 )
         ).collect(Collectors.toList());
 
-        // Templatefile 정보를 추가합니다.
-        Templatefile templatefile = template.getTemplatefile(); // assuming you have a getTemplatefile method in Template entity
+        Templatefile templatefile = template.getTemplatefile();
 
         TemplatefileResDTO templatefileDTO = new TemplatefileResDTO(
                 templatefile.getTemplatefileIdx(),
