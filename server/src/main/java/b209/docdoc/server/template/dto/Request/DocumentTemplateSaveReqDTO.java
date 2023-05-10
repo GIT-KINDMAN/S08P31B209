@@ -15,32 +15,27 @@ public class DocumentTemplateSaveReqDTO {
 	List<String> toEmail;
 	List<String> toName;
 	MultipartFile templateFile;
-	String	templateDeadline;
-	List<TemplateWidgetDTO>	templateWidget;
-	String	templateName;
+	String templateDeadline;
+	String templateName;
 
 	@Builder
 	public DocumentTemplateSaveReqDTO(List<String> toEmail, List<String> toName, MultipartFile templateFile,
-										  String templateDeadline, List<TemplateWidgetDTO> templateWidgets, String templateName) {
+									  String templateDeadline, String templateName) {
 		this.toEmail = toEmail;
 		this.toName = toName;
 		this.templateFile = templateFile;
 		this.templateDeadline = templateDeadline;
-		this.templateWidget = templateWidgets;
 		this.templateName = templateName;
 	}
 
 	public static DocumentTemplateSaveReqDTO of(List<String> toEmail, List<String> toName, MultipartFile templateFile,
-													String templateDeadline, List<TemplateWidgetDTO> templateWidgets, String templateName) {
+												String templateDeadline, String templateName) {
 		return DocumentTemplateSaveReqDTO.builder()
 				.toEmail(toEmail)
 				.toName(toName)
 				.templateFile(templateFile)
 				.templateDeadline(templateDeadline)
-				.templateWidgets(templateWidgets)
 				.templateName(templateName)
 				.build();
 	}
-
-
 }
