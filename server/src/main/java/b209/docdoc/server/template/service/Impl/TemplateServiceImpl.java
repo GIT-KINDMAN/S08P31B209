@@ -54,7 +54,7 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	@Transactional
-	public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) {
+	public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) throws Exception {
 		MultipartFile pdfFile = documentTemplateSaveReqDTO.getTemplateFile();
 		Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
@@ -99,7 +99,8 @@ public class TemplateServiceImpl implements TemplateService {
 		String to = "receiver@example.com";
 		String subject = "템플릿 저장 완료";
 		String text = "템플릿 저장이 완료되었습니다.";
-		emailService.sendEmail(to, subject, text);
+//		emailService.sendEmail(to, subject, text);
+		emailService.sendSimpleMessage(memberEmail);
 
 		// 1. 이메일 docdoc 계정
 		// 2. 이메일 보내는 부분

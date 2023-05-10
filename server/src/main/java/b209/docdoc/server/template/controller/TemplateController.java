@@ -20,12 +20,13 @@ public class TemplateController {
 
 	private String principalDetails = "ssafy@ssafy.com";
 	@PostMapping("/save")
-	public ResponseEntity<ResponseDTO> saveTemplate(@RequestBody DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO){//@AuthenticationPrincipal PrincipalDetails principalDetails,
+	public ResponseEntity<ResponseDTO> saveTemplate(@RequestBody DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO) throws Exception {//@AuthenticationPrincipal PrincipalDetails principalDetails,
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.saveTemplate(documentTemplateSaveReqDTO, principalDetails)));
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<ResponseDTO> getAllTemplateName(){//@AuthenticationPrincipal PrincipalDetails principalDetails
+		System.out.println("aaa");
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.getAllName(principalDetails)));
 	}
 	@GetMapping("/{template_id}")

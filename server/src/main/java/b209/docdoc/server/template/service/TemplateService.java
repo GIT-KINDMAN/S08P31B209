@@ -8,7 +8,7 @@ public interface TemplateService {
 
     List<String> getAllName(String memberEmail);
 
-    public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail);
+    public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) throws Exception;
 
 
 }
