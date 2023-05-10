@@ -58,7 +58,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO login(LoginReqDTO loginReqDTO) {
 		Member member = memberRepository.findByMemberEmail(loginReqDTO.getEmail()).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
-		if (!decodeEncodeHandler.passwordValid(member.getMemberPassword(), loginReqDTO.getPassword())) throw new PasswordNotMatchException(ErrorCode.PW_NOT_MATCH);
+		if (!decodeEncodeHandler.passwordValid(loginReqDTO.getEmail(), loginReqDTO.getPassword())) throw new PasswordNotMatchException((ErrorCode.PW_NOT_MATCH));
 		return MemberDTO.of(member);
 	}
+
+
 }
