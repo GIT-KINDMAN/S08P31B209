@@ -1,6 +1,8 @@
 package b209.docdoc.server.config.security.handler;
 
 import b209.docdoc.server.entity.Member;
+import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.MemberNotFoundException;
 import b209.docdoc.server.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class DecodeEncodeHandler {
 	public boolean memberEmailValid(String memberEmail) {
 		log.info(METHOD_NAME + "- emailValid() ...");
 		try {
-			Member member = memberRepository.findByMemberEmail(memberEmail);
+			Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 			if (member != null) {
 				log.info("Member Validate - Success");
 				if (member.getMemberEmail() != null) {
@@ -54,7 +56,7 @@ public class DecodeEncodeHandler {
 	public boolean passwordValid(String memberEmail, String password) {
 		log.info(METHOD_NAME + "- passwordValid() ...");
 		try {
-			Member member = memberRepository.findByMemberEmail(memberEmail);
+			Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 			if (passwordEncoder.matches(password, member.getMemberPassword())) {
 				log.info("Password validate - Success");
 				return true;
