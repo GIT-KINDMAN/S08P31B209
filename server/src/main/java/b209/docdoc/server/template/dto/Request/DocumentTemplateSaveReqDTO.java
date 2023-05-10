@@ -12,15 +12,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class DocumentTemplateSaveReqDTO {
-	String	toEmail;
-	String	toName;
+	List<String> toEmail;
+	List<String> toName;
 	MultipartFile templateFile;
 	String	templateDeadline;
 	List<TemplateWidgetDTO>	templateWidget;
 	String	templateName;
 
 	@Builder
-	public DocumentTemplateSaveReqDTO(String toEmail, String toName, MultipartFile templateFile,
+	public DocumentTemplateSaveReqDTO(List<String> toEmail, List<String> toName, MultipartFile templateFile,
 										  String templateDeadline, List<TemplateWidgetDTO> templateWidgets, String templateName) {
 		this.toEmail = toEmail;
 		this.toName = toName;
@@ -30,7 +30,7 @@ public class DocumentTemplateSaveReqDTO {
 		this.templateName = templateName;
 	}
 
-	public static DocumentTemplateSaveReqDTO of(String toEmail, String toName, MultipartFile templateFile,
+	public static DocumentTemplateSaveReqDTO of(List<String> toEmail, List<String> toName, MultipartFile templateFile,
 													String templateDeadline, List<TemplateWidgetDTO> templateWidgets, String templateName) {
 		return DocumentTemplateSaveReqDTO.builder()
 				.toEmail(toEmail)
