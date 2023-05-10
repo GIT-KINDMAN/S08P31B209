@@ -27,7 +27,7 @@ const AddressBox = () => {
               <div className="GroupItem" tw="border-b border-dashed mx-4 my-2">
                 그룹없음
               </div>
-              <div className="GroupItem" tw="border-b border-dashed mx-4 my-2">
+              <div className="GroupItem" tw="border-b border-dashed mx-4 my-2 ">
                 서울 1반
               </div>
               <div className="GroupItem" tw="border-b border-dashed mx-4 my-2">
@@ -43,32 +43,76 @@ const AddressBox = () => {
             </div>
             <div
               className="MembersBox"
-              tw="border-2 text-center min-w-[16rem]  min-h-[30rem] max-h-[30rem] text-xl overflow-y-scroll"
+              tw="border-2 text-center min-w-[54rem]  min-h-[30rem] max-h-[30rem] text-xl overflow-y-scroll"
             >
               <div
                 className="MemberHeader"
-                tw="border-b border-b-2 mx-4 my-2 flex justify-between px-4"
+                tw="border-b border-b-2 px-8 my-2 flex justify-between px-4"
               >
-                <div tw="max-w-[16rem] overflow-x-auto "> 이름 </div>
-                <div tw="max-w-[16rem] overflow-x-auto"> 조직 </div>
-                <div tw="min-w-[12rem] max-w-[12rem] overflow-x-auto">
+                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words ">
+                  이름
+                </div>
+                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  조직
+                </div>
+                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
                   이메일
                 </div>
-                <div tw="max-w-[16rem] overflow-x-auto"> 전화번호 </div>
+                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  전화번호
+                </div>
               </div>
-              <div
+              <ul
                 className="MemberItem"
-                tw="text-sm border-b border-dashed mx-4 my-2 flex justify-around"
+                tw="text-sm border-b border-dashed  my-2 flex justify-around"
               >
-                <div tw="max-w-[16rem] overflow-x-auto mx-auto"> 홍길동 </div>
-                <div tw="max-w-[16rem] overflow-x-auto mx-auto"> 대전 1반 </div>
-                <div tw="min-w-[12rem] max-w-[12rem] overflow-x-auto mx-auto">
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  홍길동
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  대전 1반
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
                   gindong123@naver.com
-                </div>
-                <div tw="max-w-[16rem] overflow-x-auto mx-auto">
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
                   010-1234-5678
-                </div>
-              </div>
+                </li>
+              </ul>
+              <ul
+                className="MemberItem"
+                tw="text-sm border-b border-dashed  my-2 flex justify-around"
+              >
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  홍길동
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  대전 1반
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words break-words">
+                  gindong123@naver.com
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words break-words">
+                  010-1234-5678
+                </li>
+              </ul>
+              <ul
+                className="MemberItem"
+                tw="text-sm border-b border-dashed  my-2 flex justify-around"
+              >
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  홍길동
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  대전 1반
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  gindong123@naver.com
+                </li>
+                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                  010-1234-5678
+                </li>
+              </ul>
             </div>
           </div>
         </div>
