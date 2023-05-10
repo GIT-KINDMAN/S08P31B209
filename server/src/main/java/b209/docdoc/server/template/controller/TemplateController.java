@@ -20,7 +20,7 @@ public class TemplateController {
 
 	private String principalDetails = "ssafy@ssafy.com";
 	@PostMapping("/save")
-	public ResponseEntity<ResponseDTO> saveTemplate(@RequestBody DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO){//@AuthenticationPrincipal PrincipalDetails principalDetails,
+	public ResponseEntity<ResponseDTO> saveTemplate(@RequestBody DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO) throws Exception {//@AuthenticationPrincipal PrincipalDetails principalDetails,
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateServiceImpl.saveTemplate(documentTemplateSaveReqDTO, principalDetails)));
 	}
 
@@ -31,5 +31,10 @@ public class TemplateController {
 	@GetMapping("/{template_id}")
 	public ResponseEntity<ResponseDTO> getTemplate(@PathVariable String template_id){
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, 0));
+	}
+
+	@GetMapping("/uuid/{template_uuid}")
+	public void getMemberTemplate(@PathVariable String template_uuid){
+		//  template_uuid인 템플릿의 편집 페이지로 이동
 	}
 }

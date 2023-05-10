@@ -62,6 +62,8 @@ public interface Msg {
 	String SUCCESS_COIN_EXCHANGE = "코인 환전에 성공하였습니다.";
 	String SUCCESS_COIN_READ = "코인 조회에 성공하였습니다.";
 
-    String SUCCESS_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 성공하였습니다.";
+	// box
+	String SUCCESS_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 성공하였습니다.";
 	String FAIL_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 실패하였습니다.";
+
 }
