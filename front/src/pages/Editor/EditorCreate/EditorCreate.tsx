@@ -127,7 +127,9 @@ const EditorCreate = () => {
                     readOnly
                     placeholder="불러올 템플릿을 선택하세요"
                     tw="px-6 border-b border-lightgray-500 outline-none w-[39rem] relative"
-                    onChange={(e) => {}}
+                    onChange={() => {
+                      console.log("load template");
+                    }}
                   />
                   <div tw="text-end text-2xl border-2">
                     <i
