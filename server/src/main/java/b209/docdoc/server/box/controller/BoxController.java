@@ -30,11 +30,6 @@ public class BoxController {
     private final BoxService boxService;
 
     @GetMapping("/templates")
-    @ApiOperation(value = "Get templates", notes = "Get templates with optional filter")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success"),
-            @ApiResponse(code = 500, message = "Server error"),
-    })
     public ResponseEntity<ResponseDTO> getTemplates(
             @RequestParam(value = "keywords", required = false) List<String> keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
