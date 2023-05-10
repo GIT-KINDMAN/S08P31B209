@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import tw, { styled } from "twin.macro";
 
 const EditorEdit = () => {
+  const dummyFunc = () => console.log("func call");
+
   return (
     <>
       <div tw="flex flex-row grow">
@@ -10,16 +12,16 @@ const EditorEdit = () => {
         </div>
         <div className="CenterSidebar" tw="w-full">
           <div tw="flex justify-center items-center bg-blue-900">
-            <div className="ZoomOut" tw="mx-2 onClick={() => { }}">
+            <div className="ZoomOut" tw="mx-2" onClick={() => dummyFunc()}>
               <i className="fi fi-bs-zoom-out"></i>
             </div>
             <input
               type="text"
               value={"100%"}
               tw="min-w-[4rem] max-w-[4rem] text-center bg-inherit"
-              onClick={() => {}}
+              onClick={() => dummyFunc()}
             />
-            <div className="ZoomIn" tw="mx-2 onClick={() => { }}">
+            <div className="ZoomIn" tw="mx-2" onClick={() => dummyFunc()}>
               <i className="fi fi-bs-zoom-in"></i>
             </div>
           </div>
