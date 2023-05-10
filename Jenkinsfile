@@ -22,7 +22,7 @@ pipeline {
         stage('frontend dockerizing') {
             steps {
                 sh "pwd"
-                sh "docker build -t Front ./Front"
+                sh "docker build -t front ./front"
             }
         }
 
