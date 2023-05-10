@@ -3,6 +3,7 @@ package b209.docdoc.server.template.service.Impl;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.entity.Template;
+import b209.docdoc.server.entity.Templatefile;
 import b209.docdoc.server.entity.Widget;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberNotFoundException;
@@ -132,7 +133,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Transactional
-    public TemplateResDTO getTemplateByTemplateId(long templateId) {
+    public TemplateResDTO getTemplateByTemplateId(Long templateId) {
         Template template = templateRepository.findById(templateId)
                 .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
 

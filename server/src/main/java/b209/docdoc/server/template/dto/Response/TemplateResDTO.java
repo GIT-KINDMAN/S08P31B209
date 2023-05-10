@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class TemplateResDTO {
-    private long templateId;
+    private Long templateId;
     private List<WidgetResDTO> widgets;
     private TemplatefileResDTO templatefile;
 

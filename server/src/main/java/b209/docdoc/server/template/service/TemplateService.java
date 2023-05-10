@@ -11,6 +11,6 @@ public interface TemplateService {
 
     public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) throws Exception;
 
-    public TemplateResDTO getTemplateByTemplateId(long templateId);
+    public TemplateResDTO getTemplateByTemplateId(Long templateId);
 
 }
