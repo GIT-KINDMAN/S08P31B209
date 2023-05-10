@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("properties에 입력한 이메일","limjunho"));//보내는 사람
+        message.setFrom(new InternetAddress("docdocb209@gmail.com","똑똑 관리자"));//보내는 사람
 
         return message;
     }
@@ -76,6 +76,50 @@ public class EmailServiceImpl implements EmailService {
     public String sendSimpleMessage(String to)throws Exception {
         // TODO Auto-generated method stub
         MimeMessage message = createMessage(to);
+        try{//예외처리
+            emailSender.send(message);
+        }catch(MailException es){
+            es.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+        return ePw;
+    }
+
+    private MimeMessage templateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline)throws Exception{
+        System.out.println("보내는 대상 : "+ toEmail);
+//        System.out.println("인증 번호 : "+ePw);
+        MimeMessage  message = emailSender.createMimeMessage();
+        String host = "https://k8b209.p.ssafy.io";
+        String uri = host + "/api/template/uuid/" + uuid;
+
+        message.addRecipients(RecipientType.TO, toEmail);//보내는 대상
+        message.setSubject("템플릿 전송 테스트");//제목
+
+        String msgg="";
+        msgg+= "<div style='margin:20px;'>";
+        msgg+= "<h1> 안녕하세요. " + toName + " 님! 똑똑입니다. </h1>";
+        msgg+= "<br>";
+        msgg+= fromEmail;
+        msgg+= "<p> 님이 탬플릿을 공유하였습니다<p>";
+        msgg+= "<br>";
+        msgg+= "<p> 템플릿 마감일은 " + templateDeadline + " 입니다<p>";
+        msgg+= "<br>";
+        msgg+= "<p>감사합니다.<p>";
+        msgg+= "<br>";
+        msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msgg+= "<h3 style='color:blue;'>템플릿 접속 링크입니다.</h3>";
+        msgg+= "<div style='font-size:130%'>";
+        msgg+= "<a href=" + uri + ">템플릿 접속</a><div><br/> ";
+        msgg+= "</div>";
+        message.setText(msgg, "utf-8", "html");//내용
+        message.setFrom(new InternetAddress("docdocb209@gmail.com","똑똑 관리자"));//보내는 사람
+
+        return message;
+    }
+
+    public String sendTamplateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline) throws Exception {
+        // TODO Auto-generated method stub
+        MimeMessage message = templateMessage(uuid, toName, toEmail, fromEmail, templateDeadline);
         try{//예외처리
             emailSender.send(message);
         }catch(MailException es){

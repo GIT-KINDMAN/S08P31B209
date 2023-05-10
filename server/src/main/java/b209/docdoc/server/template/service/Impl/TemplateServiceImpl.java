@@ -20,10 +20,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -54,12 +55,12 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	@Transactional
-	public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) throws Exception {
+	public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
 		MultipartFile pdfFile = documentTemplateSaveReqDTO.getTemplateFile();
-		Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+		Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
 		String fileName = StringUtils.cleanPath(pdfFile.getOriginalFilename());
-		File memberDir = new File(uploadDir + "/" + memberEmail);
+		File memberDir = new File(uploadDir + "/" + fromEmail);
 		if (!memberDir.exists()) {
 			memberDir.mkdirs();
 		}
@@ -83,12 +84,12 @@ public class TemplateServiceImpl implements TemplateService {
 		}
 
 		String uuid = UUIDGenerator.generateUUID();
-		Templatefile templatefile = Templatefile.builder().templatefileOriginalName(fileName).templatefileSavedName(memberEmail + "/" + fileName).build();
+		Templatefile templatefile = Templatefile.builder().templatefileOriginalName(fileName).templatefileSavedName(fromEmail + "/" + fileName).build();
 		templateFileRepository.save(templatefile);
 
 		Template template = Template.builder().member(member).templatefileIdx(templatefile).templateUuid(uuid).templateType(templateType).templateName(documentTemplateSaveReqDTO.getTemplateName()).templateIsFavorite(false).templateIsCompleted(false).templateIsDeleted(false).templateDeadline(documentTemplateSaveReqDTO.getTemplateDeadline()).templateToName(documentTemplateSaveReqDTO.getToName().get(0)) // index 0으로 해둠
 				.templateToEmail(documentTemplateSaveReqDTO.getToEmail().get(0)) // index 0으로 해둠
-				.templateFromName(member.getMemberName()).templateFromEmail(memberEmail).build();
+				.templateFromName(member.getMemberName()).templateFromEmail(fromEmail).build();
 		templateRepository.save(template);
 
 		List<TemplateWidgetDTO> templateWidget = documentTemplateSaveReqDTO.getTemplateWidget();
@@ -100,7 +101,12 @@ public class TemplateServiceImpl implements TemplateService {
 		String subject = "템플릿 저장 완료";
 		String text = "템플릿 저장이 완료되었습니다.";
 //		emailService.sendEmail(to, subject, text);
-		emailService.sendSimpleMessage(memberEmail);
+		String templateDeadline = documentTemplateSaveReqDTO.getTemplateDeadline();
+
+		String toName = documentTemplateSaveReqDTO.getToName().get(0);
+		String toEmail = documentTemplateSaveReqDTO.getToName().get(0);
+
+		emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline);
 
 		// 1. 이메일 docdoc 계정
 		// 2. 이메일 보내는 부분
