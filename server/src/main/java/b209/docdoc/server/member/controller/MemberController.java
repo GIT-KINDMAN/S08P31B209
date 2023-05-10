@@ -6,6 +6,7 @@ import b209.docdoc.server.config.jwt.dto.CommonTokenDTO;
 import b209.docdoc.server.config.security.auth.MemberDTO;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
+import b209.docdoc.server.config.utils.SecurityManager;
 import b209.docdoc.server.member.dto.Request.LoginReqDTO;
 import b209.docdoc.server.member.dto.Request.SignupReqDTO;
 import b209.docdoc.server.member.dto.Request.UpdateUserReqDTO;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -50,6 +52,11 @@ public class MemberController {
 		return ResponseEntity.ok()
 				.header(HttpHeaders.SET_COOKIE, cookie.toString())
 				.body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_IN, commonTokenDTO.getAccessToken()));
+	}
+
+	@GetMapping
+	public ResponseEntity<ResponseDTO> getMyInfo() {
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_PROFILE, SecurityManager.getCurrentMember()));
 	}
 
 
