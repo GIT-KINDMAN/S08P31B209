@@ -1,5 +1,5 @@
 import Logo from "@/assets/DocDoc.png";
-import { Image, Label, TextInput } from "@/components/atoms";
+import { Image } from "@/components/atoms";
 
 import { Outlet, useNavigate } from "react-router-dom";
 import "twin.macro";

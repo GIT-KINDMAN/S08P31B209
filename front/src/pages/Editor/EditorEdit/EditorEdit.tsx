@@ -2,8 +2,8 @@ import LeftSideBar from "./LeftSideBar/LeftSideBar";
 import RightSideBar from "./RightSideBar/RightSideBar";
 import ViewerToolBar from "./ViewerToolBar/ViewerToolBar";
 
-import { useNavigate } from "react-router-dom";
-import tw, { styled } from "twin.macro";
+// import { useNavigate } from "react-router-dom";
+import "twin.macro";
 
 const EditorEdit = () => {
   return (
