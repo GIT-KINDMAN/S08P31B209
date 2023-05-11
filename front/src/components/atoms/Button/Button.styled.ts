@@ -1,6 +1,6 @@
 import { StyleProps } from "./Button.types";
 
-import tw, { css, styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 
 const getVariant = {
   primary: [

@@ -1,15 +1,21 @@
-import { Outlet } from "react-router-dom";
-import tw, { styled } from "twin.macro";
+import Logo from "@/assets/DocDoc.png";
 
-const Wrapper = styled.div(tw`border border-black flex justify-center`);
+import { Outlet, useNavigate } from "react-router-dom";
+import "twin.macro";
 
 const Auth = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Wrapper>
-        <Wrapper>DocDocLogo</Wrapper>
-      </Wrapper>
-      <Outlet />
+      <div>
+        <div className="AuthHeader" tw="flex justify-center">
+          <img src={Logo} onClick={() => navigate("/")} />
+        </div>
+        <div className="ContentWrap" tw="flex w-full justify-center">
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 };

@@ -1,6 +1,6 @@
 // import HomeHeader from "@/components/organisms/homeHeader";
 import {
-  Button,
+  // Button,
   CheckBox,
   Radio,
   TableHeader,
@@ -64,7 +64,7 @@ const Test = () => {
           icon="check"
           onClick={handleCheckClick}
         ></CheckBox>
-        <Button icon="book" label="book button"></Button>
+        {/* <Button icon="book" label="book button"></Button> */}
         <TextArea variant="number" />
         <TextArea variant="password" />
         <TextArea variant="edit" />

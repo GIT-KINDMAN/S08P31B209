@@ -4,7 +4,7 @@ import tw, { styled } from "twin.macro";
 
 export const Title = styled.div(({ type }: styleProps) => [
   tw`my-20 ml-10`,
-  type === "main" &&
+  type === "intro" &&
     tw`font-bold text-5xl text-[#2e6888] 
   // lg:text-5xl 
   // md:text-4xl 

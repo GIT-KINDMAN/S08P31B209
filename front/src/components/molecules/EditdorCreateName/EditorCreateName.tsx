@@ -2,7 +2,7 @@ import { TextArea } from "@/components/atoms";
 
 import { CreateName } from "./EditorCreateName.styled";
 
-import tw from "twin.macro";
+// import tw from "twin.macro";
 
 const EditorCreateName = () => {
   return (

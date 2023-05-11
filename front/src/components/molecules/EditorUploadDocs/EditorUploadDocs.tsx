@@ -5,7 +5,8 @@ import { Image } from "@/components/atoms";
 import { UploadBox, UploadDocs } from "./EditorUpdloadDocs.styled";
 
 import { ChangeEvent, useState } from "react";
-import tw from "twin.macro";
+
+// import tw from "twin.macro";
 
 const EditorUploadDocs = () => {
   const [file, setFile] = useState<File | null>(null);

@@ -1,4 +1,4 @@
-import { IntroInfo, IntroNav, Slider } from "@/components/molecules/index";
+import { IntroNav, Slider } from "@/components/molecules/index";
 import { IntroCarousel } from "@/components/organisms";
 
 // import { Slider } from "@/components/molecules/index";
@@ -6,15 +6,9 @@ import Knock from "../../assets/Main/Knock.png";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
 // import content1 from "../../assets/Main/content1.png";
-import {
-  HomePage,
-  HomePage3,
-  IntroTitle,
-  Page3Title,
-  TitleDocDoc,
-} from "./style";
+import { HomePage, HomePage3, IntroTitle, TitleDocDoc } from "./style";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const IntroPage = () => {

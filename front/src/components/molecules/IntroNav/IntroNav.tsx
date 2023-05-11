@@ -1,11 +1,11 @@
 import DocDoc from "../../../assets/DocDoc.png";
-import { Button } from "../../atoms/index";
+// import { Button } from "../../atoms/index";
 import { Logo, Nav } from "./Intro.styled";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const IntroNav = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <div>
       <Nav style={{ zIndex: 15 }} />
@@ -13,13 +13,13 @@ const IntroNav = () => {
       <div
         style={{ textAlign: "right", zIndex: 16, position: "fixed", right: 0 }}
       >
-        <Button
+        {/* <Button
           label={"로그인"}
           variant={"intronav"}
           size={"large"}
           icon={"none"}
           onClick={() => navigate("/login")}
-        ></Button>
+        ></Button> */}
       </div>
     </div>
   );

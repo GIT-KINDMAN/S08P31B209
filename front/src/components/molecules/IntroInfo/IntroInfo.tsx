@@ -1,7 +1,7 @@
 import { InfoContent, InfoTitle } from "./IntroInfo.styled";
 import { inputProps } from "./IntroInfo.types";
 
-import tw from "twin.macro";
+// import tw from "twin.macro";
 
 const IntroInfo = ({ currentSlide }: inputProps) => {
   return (

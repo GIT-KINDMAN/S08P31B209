@@ -23,6 +23,7 @@ public enum ErrorCode {
     ROOM_IMG_NOT_FOUND(404, "회의실의 이미지를 찾을 수 없습니다."),
     ROOM_NOT_FOUND(404, "회의실을 찾을 수 없습니다."),
     PW_NOT_MATCH(404, "기존 패스워드가 일치하지 않습니다."),
+    REFRESH_TOKEN_NOT_FOUND(404, "리프레쉬 토큰을 찾을 수 없습니다."),
 
     //500
     INTERNAL_SERVER_ERROR(500, "내부 서버 오류 입니다."),
@@ -43,8 +44,9 @@ public enum ErrorCode {
 
     SOCKET_NOT_CLOSE_ERROR(500, "소켓이 정상적으로 종료되지 않았습니다."),
 
-    MYPAGE_HISTORY_ERROR(500, "거래 내역 조회 에러입니다.");
+    MYPAGE_HISTORY_ERROR(500, "거래 내역 조회 에러입니다."),
 
+    TEMPLATE_NOT_FOUND(500, "템플릿이 존재하지 않습니다.");
 
     private final int status;
     private final String message;

@@ -44,7 +44,7 @@ const Wrapper = styled.div(tw`border border-black flex justify-center p-2`);
 //   "9",
 //   "10",
 // ]; // 시험용 임시데이터
-const tableData: string[] = [];
+// const tableData: string[] = [];
 const lables: string[] = [
   "문서 이름",
   "상태",

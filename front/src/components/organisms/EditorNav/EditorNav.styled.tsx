@@ -1,4 +1,4 @@
-import tw, { styled } from "twin.macro";
+import { styled } from "twin.macro";
 
 export const NavHeader = styled.div`
   width: 100%;

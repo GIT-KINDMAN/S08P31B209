@@ -2,6 +2,7 @@ package b209.docdoc.server.entity;
 
 import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
+import b209.docdoc.server.member.dto.Request.UpdateUserReqDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class Member extends BaseDateTime implements Serializable {
 	private Long memberIdx;
 
 	@NotNull
-	@Column(length = 50)
+	@Column(length = 255)
 	private String memberPassword; // 사용자 pwd
 
 	@NotBlank
@@ -39,7 +40,7 @@ public class Member extends BaseDateTime implements Serializable {
 	private String memberName; // 사용자 name
 
 	@NotNull
-	@Column(length = 30)
+	@Column(length = 50)
 	private String memberEmail; // 사용자 email
 
 	@Column(length = 15)
@@ -67,11 +68,13 @@ public class Member extends BaseDateTime implements Serializable {
 	public void prePersist() {
 		super.prePersist();
 	}
-//    public void update(SignModReqDTO signModReqDTO) {
-//        this.memberName = signModReqDTO.getName();
-//        this.memberEmail = signModReqDTO.getEmail();
-//        this.tel = signModReqDTO.getTel();
-//    }
+
+    public void update(UpdateUserReqDTO updateUserReqDTO) {
+        this.memberPhone = updateUserReqDTO.getPhone();
+        this.memberAddress = updateUserReqDTO.getGroup();
+        this.memberGroup = updateUserReqDTO.getGroup();
+		this.memberPosition = updateUserReqDTO.getPosition();
+    }
 
 //    public void update(String newPassword) {
 //        this.password = newPassword;

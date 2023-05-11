@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{html,js,cjs,jsx,ts,tsx}"],
+  important: true,
   theme: {
     extend: {
       fontfamily: [],
@@ -87,6 +88,9 @@ module.exports = {
           a400: "#F5951E",
           a700: "#F47413",
         },
+      },
+      Width: {
+        640: "640px",
       },
     },
   },

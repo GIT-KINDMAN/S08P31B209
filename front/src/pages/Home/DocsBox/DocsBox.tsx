@@ -59,12 +59,15 @@ const DocsBox = () => {
             </div>
             <div tw="flex flex-col justify-center">
               {tableData.length > 0 ? (
-                tableData.map((data, index) => (
-                  <TableViewRow
-                    key={index}
-                    isBookmarkActive={true}
-                  ></TableViewRow>
-                ))
+                tableData.map((data, index) => {
+                  console.log(data);
+                  return (
+                    <TableViewRow
+                      key={index}
+                      isBookmarkActive={true}
+                    ></TableViewRow>
+                  );
+                })
               ) : (
                 <EmptyDocs />
               )}

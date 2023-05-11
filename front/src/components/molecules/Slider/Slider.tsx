@@ -4,7 +4,8 @@ import { Carousel, IntroTitle } from "../../atoms/index";
 import { Button, Container, SliderContainer } from "./styled";
 
 import { useEffect, useRef, useState } from "react";
-import tw from "twin.macro";
+
+// import tw from "twin.macro";
 
 const Slider = () => {
   const TOTAL_SLIDES = 2;

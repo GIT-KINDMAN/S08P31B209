@@ -8,7 +8,7 @@ export interface StyleProps {
   size?: "sm" | "md" | "lg";
 
   /**
-   * button variant 지정
+  ` * button variant 지정
    */
   variant?: "primary" | "secondary" | "disabled" | "none";
 
