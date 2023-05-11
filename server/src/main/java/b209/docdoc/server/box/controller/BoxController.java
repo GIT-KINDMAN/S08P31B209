@@ -29,6 +29,7 @@ public class BoxController {
 
     @GetMapping("/received-templates")
     public ResponseEntity<ResponseDTO> getReceivedTemplates(
+            @RequestParam(value = "keywords", required = false) String keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
@@ -39,11 +40,12 @@ public class BoxController {
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getReceivedTemplates(receiverEmail, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
+                        boxService.getReceivedTemplates(receiverEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
 
     @GetMapping("/sent-templates")
     public ResponseEntity<ResponseDTO> getSentTemplates(
+            @RequestParam(value = "keywords", required = false) String keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
@@ -54,6 +56,6 @@ public class BoxController {
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getSentTemplates(memberEmail, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
+                        boxService.getSentTemplates(memberEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
 }

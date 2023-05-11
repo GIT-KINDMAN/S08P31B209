@@ -25,7 +25,7 @@ public class BoxService {
     }
 
     @Transactional
-    public Page<Receiver> getReceivedTemplates(String receiverEmail, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+    public Page<Receiver> getReceivedTemplates(String receiverEmail, String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
                 .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
@@ -33,11 +33,11 @@ public class BoxService {
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
-        return boxRepository.findAllReceivedByReceiverEmail(receiverEmail, sortedPageable);
+        return boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
     }
 
     @Transactional
-    public Page<Template> getSentTemplates(String memberEmail, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+    public Page<Template> getSentTemplates(String memberEmail, String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
                 .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
@@ -45,6 +45,6 @@ public class BoxService {
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
-        return boxRepository.findAllSentByMemberEmail(memberEmail, sortedPageable);
+        return boxRepository.findAllSentByMemberEmail(memberEmail, keywords, sortedPageable);
     }
 }
