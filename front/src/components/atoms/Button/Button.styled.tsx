@@ -1,4 +1,6 @@
-import { StyleProps } from "./Button.types";
+import { getFontSize } from "@/constants";
+
+import { SProps } from "./Button.types";
 
 import tw, { css, styled } from "twin.macro";
 
@@ -31,30 +33,22 @@ const getOutlineVariant = {
   none: tw``,
 };
 
-const getSize = {
-  sm: tw`text-xs [font-weight: bold]`,
-  md: tw`text-base [font-weight: bold]`,
-  lg: tw`text-xl [font-weight: bold]`,
-};
+export const SButton = styled.button((props: SProps) => [
+  tw`w-fit h-fit`,
+  tw`px-2 py-1`,
+  tw`rounded-[0.5rem]`,
 
-export const StyledButton = styled.button((props: StyleProps) => [
-  tw`px-4 py-2 rounded`,
-
-  tw`scale-100 duration-75`,
-  tw`hocus:(scale-110)`,
-
-  props.size && getSize[props.size],
+  tw`duration-100`,
+  tw`hover:(scale-[103%] bg-lightgray-600)`,
 
   props.variant &&
     (props.isOutline
       ? getOutlineVariant[props.variant]
       : getVariant[props.variant]),
 
-  props.buttonColor,
-  props.focusColor,
-  props.bgColor,
-
+  props.isBold && tw`font-bold`,
+  props.fontSize && getFontSize[props.fontSize],
   props.custom,
 ]);
 
-export default StyledButton;
+export default SButton;

@@ -9,20 +9,7 @@ import tw from "twin.macro";
 const meta: Meta<typeof Button> = {
   title: "atoms/Button",
   component: Button,
-  argTypes: {
-    buttonColor: {
-      control: "color",
-      description: "font Color",
-    },
-    bgColor: {
-      control: "color",
-      description: " background Color",
-    },
-    focusColor: {
-      control: "color",
-      description: "focus Color",
-    },
-  },
+  argTypes: {},
 };
 
 export default meta;
@@ -38,8 +25,8 @@ export const Secondary: Story = {
 
 const chlid: React.ReactNode = (
   <div className="flex">
-    <Icon icon="info" iconType="sr" size="xl" custom={tw`mx-1`} />
-    <Label text="IconButton" size="xl" custom={tw`mx-1`} />
+    <Icon icon="sr-info" size="xl" custom={tw`mx-1`} />
+    <Label text="IconButton" fontSize="xl" custom={tw`mx-1`} />
   </div>
 );
 
