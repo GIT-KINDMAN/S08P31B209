@@ -17,8 +17,8 @@ public interface BoxService {
 
 	Object deleteReceiverTemplates(Long receiverId);
 
-    Long saveFile(MultipartFile file);
-//    Long saveFile(MultipartFile file, Long receiverId);
+//    Long saveFile(MultipartFile file);
+    Long saveFile(MultipartFile file, String receiverEmail);
 
     Docsfile getFile(Long id);
 

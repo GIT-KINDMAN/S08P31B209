@@ -96,8 +96,8 @@ public class BoxServiceImpl implements BoxService {
     }
 
     @Transactional
-    public Long saveFile(MultipartFile file) {
-//    public Long saveFile(MultipartFile file, Long receiverId) {
+//    public Long saveFile(MultipartFile file) {
+    public Long saveFile(MultipartFile file, String receiverEmail) {
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
         String savedFileName = UUID.randomUUID().toString() + "_" + originalFileName;
         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
@@ -127,14 +127,14 @@ public class BoxServiceImpl implements BoxService {
         }
 
         // 파일 정보 DB에 저장
-//        Receiver receiver = receiverRepository.findById(receiverId)
-//                .orElseThrow(() -> new RuntimeException("Receiver not found"));
+        Receiver receiver = receiverRepository.findByReceiverEmail(receiverEmail)
+                .orElseThrow(() -> new RuntimeException("Receiver not found"));
 
         Docsfile docsfile = Docsfile.builder()
                 .docsfileOriginalName(originalFileName)
                 .docsfileSavedName(savedFileName)
                 .docsfileSavedPath(savePath.toString())
-//                .receiver(receiver)
+                .receiver(receiver)
                 .build();
 
         docsfileRepository.save(docsfile);
