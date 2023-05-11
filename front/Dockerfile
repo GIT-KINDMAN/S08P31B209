@@ -3,8 +3,10 @@ WORKDIR /front
 COPY ./package*.json /front/
 COPY / /front
 RUN npm install
-RUN npm install -g serve@14.2.0
-RUN npm install -g typescript@5.0.2
-EXPOSE 5173
 RUN npm run build
-CMD ["npx", "serve", "-s", "build"]
+
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /front/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
