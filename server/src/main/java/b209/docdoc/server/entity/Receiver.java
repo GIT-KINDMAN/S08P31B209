@@ -70,4 +70,8 @@ public class Receiver extends BaseDateTime implements Serializable {
     public void prePersist() {
         super.prePersist();
     }
+
+    public void updateDelete(boolean templateIsDeleted) {
+        this.templateIsDeleted = templateIsDeleted;
+    }
 }

@@ -2,6 +2,7 @@ package b209.docdoc.server.box.service.Impl;
 
 import b209.docdoc.server.box.service.BoxService;
 import b209.docdoc.server.config.utils.SecurityManager;
+import b209.docdoc.server.entity.Receiver;
 import b209.docdoc.server.entity.Template;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.TemplateNotFoundException;
@@ -57,6 +58,16 @@ public class BoxServiceImpl implements BoxService {
                 .orElseThrow(InvalidParameterException::new);
         template.updateDelete(true);
         boxRepository.save(template);
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Object deleteReceiverTemplates(Long receiverId) {
+        Receiver template = receiverRepository.findById(receiverId)
+                .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
+        template.updateDelete(true);
+        receiverRepository.save(template);
         return null;
     }
 }

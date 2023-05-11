@@ -11,4 +11,7 @@ public interface BoxService {
 	Page<Template> getTemplates(String userEmail, List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable);
 
 	Object deleteTemplates(Long templateId);
+
+	Object deleteReceiverTemplates(Long receiverId);
+
 }

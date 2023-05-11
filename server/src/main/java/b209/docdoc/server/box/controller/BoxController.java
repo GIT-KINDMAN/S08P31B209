@@ -44,4 +44,9 @@ public class BoxController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxServiceImpl.deleteTemplates(templateId)));
     }
 
+    @DeleteMapping("/received/{receiver_id}")
+    public ResponseEntity<ResponseDTO> deleteReceiverTemplates(@PathVariable("receiver_id") Long receiverId){
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxServiceImpl.deleteReceiverTemplates(receiverId)));
+    }
+
 }
