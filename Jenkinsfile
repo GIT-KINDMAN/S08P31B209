@@ -19,6 +19,17 @@ pipeline {
             }
         }
 
+        stage('frontend build') {
+            steps {
+                dir('front') {
+                    nodejs(nodeJSInstallationName: 'NodeJS18') {
+                        sh "npm install --legacy-peer-deps"
+                        sh "npm run build"
+                    }
+                }
+            }
+        }
+
         stage('frontend dockerizing') {
             steps {
                 sh "pwd"
