@@ -53,7 +53,7 @@ public class MemberController {
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_PROFILE, SecurityManager.getCurrentMember()));
 	}
 
-	@GetMapping
+	@GetMapping("/logout")
 	public ResponseEntity<ResponseDTO> logout(@RequestHeader(value = "Authorization")String accessToken) {
 		if (jwtTokenProvider.banAccessToken(accessToken) && jwtTokenProvider.deleteRefresh(SecurityManager.getCurrentMember().getEmail())) {
 			return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_OUT));
