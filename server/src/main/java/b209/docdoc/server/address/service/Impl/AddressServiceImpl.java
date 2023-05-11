@@ -1,7 +1,9 @@
 package b209.docdoc.server.address.service.Impl;
 
 import b209.docdoc.server.address.dto.AddressInfo;
+import b209.docdoc.server.address.dto.AddressInfoBool;
 import b209.docdoc.server.address.dto.Request.AddressRegisterReq;
+import b209.docdoc.server.address.dto.Response.AddressBoolListRes;
 import b209.docdoc.server.address.dto.Response.AddressListRes;
 import b209.docdoc.server.address.service.AddressService;
 import b209.docdoc.server.entity.AddressBook;
@@ -51,5 +53,23 @@ public class AddressServiceImpl implements AddressService {
         }
 
         return AddressListRes.of(result);
+    }
+
+    @Override
+    public AddressBoolListRes getAddressBoolList(String name, String memberEmail) {
+        List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWith(name);
+        List<AddressInfoBool> result = new ArrayList<>();
+
+        for (AddressBook address: list) {
+            result.add(new AddressInfoBool(
+                    address.getAddressName(),
+                    address.getAddresEmail(),
+                    address.getAddressPhone(),
+                    address.getAddressGroup(),
+                    address.getAddresEmail().equals(memberEmail)
+            ));
+        }
+
+        return AddressBoolListRes.of(result);
     }
 }

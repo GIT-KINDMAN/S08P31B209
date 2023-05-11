@@ -34,4 +34,9 @@ public class AddressController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, addressService.getAddressList(group, principalDetails)));
     }
 
+    @PostMapping("/list/editor")
+    public ResponseEntity<ResponseDTO> getAddressListEditor(@RequestBody String name) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, addressService.getAddressBoolList(name, principalDetails)));
+    }
+
 }
