@@ -204,7 +204,7 @@ const Home = () => {
           </div>
           <div
             className="ContentWrap"
-            tw="flex w-full min-w-[40rem] justify-center bg-lightgray-800"
+            tw="flex w-full min-w-[40rem] justify-center bg-white"
           >
             <Outlet />
           </div>
