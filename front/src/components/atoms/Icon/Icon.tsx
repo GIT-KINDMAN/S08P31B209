@@ -21,7 +21,7 @@ const Icon = ({
   isHidden = false,
   onClick,
 }: IProps) => {
-  const iconName = className + " fi fi-" + icon;
+  const iconName = className + " fi " + icon;
   return (
     <>
       <SIcon
