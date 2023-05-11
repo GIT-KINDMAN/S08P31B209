@@ -1,5 +1,6 @@
 package b209.docdoc.server.box.service;
 
+import b209.docdoc.server.entity.Receiver;
 import b209.docdoc.server.entity.Template;
 import b209.docdoc.server.repository.BoxRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +25,26 @@ public class BoxService {
     }
 
     @Transactional
-    public Page<Template> getTemplates(String userEmail, List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
-        String keyword = keywords.size() > 0 ? keywords.get(0) : "";
-
-        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
+    public Page<Receiver> getReceivedTemplates(String receiverEmail, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
                 .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
-                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"));
+                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"));
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
-        return boxRepository.findAllByKeyword(userEmail, keyword, sortedPageable);
+        return boxRepository.findAllReceivedByReceiverEmail(receiverEmail, sortedPageable);
+    }
+
+    @Transactional
+    public Page<Template> getSentTemplates(String memberEmail, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
+                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"));
+
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+
+        return boxRepository.findAllSentByMemberEmail(memberEmail, sortedPageable);
     }
 }

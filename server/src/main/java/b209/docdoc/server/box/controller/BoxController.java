@@ -27,18 +27,33 @@ public class BoxController {
 
     private final BoxService boxService;
 
-    @GetMapping("/templates")
-    public ResponseEntity<ResponseDTO> getTemplates(
-            @RequestParam(value = "keywords", required = false) List<String> keywords,
+    @GetMapping("/received-templates")
+    public ResponseEntity<ResponseDTO> getReceivedTemplates(
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
-            @AuthenticationPrincipal String userEmail,
+            @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
+            @AuthenticationPrincipal String receiverEmail,
             @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getTemplates(userEmail, keywords, nameSort, createdDateSort, updatedDateSort, pageable)));
+                        boxService.getReceivedTemplates(receiverEmail, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
+    }
+
+    @GetMapping("/sent-templates")
+    public ResponseEntity<ResponseDTO> getSentTemplates(
+            @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
+            @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
+            @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
+            @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
+            @AuthenticationPrincipal String memberEmail,
+            @PageableDefault(size = 10, page = 1) Pageable pageable) {
+
+        return ResponseEntity.ok()
+                .body(ResponseDTO.of(HttpStatus.OK,
+                        Msg.SUCCESS_TEMPLATE_SEARCH,
+                        boxService.getSentTemplates(memberEmail, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
 }
