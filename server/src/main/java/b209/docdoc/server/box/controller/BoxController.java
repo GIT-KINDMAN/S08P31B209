@@ -1,11 +1,9 @@
 package b209.docdoc.server.box.controller;
 
 import b209.docdoc.server.box.service.BoxService;
+import b209.docdoc.server.box.service.Impl.BoxServiceImpl;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -58,4 +56,15 @@ public class BoxController {
                         Msg.SUCCESS_TEMPLATE_SEARCH,
                         boxService.getSentTemplates(memberEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
+
+    @DeleteMapping("/sent/{template_id}")
+    public ResponseEntity<ResponseDTO> deleteTemplates(@PathVariable("template_id") Long templateId){
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteTemplates(templateId)));
+    }
+
+    @DeleteMapping("/received/{receiver_id}")
+    public ResponseEntity<ResponseDTO> deleteReceiverTemplates(@PathVariable("receiver_id") Long receiverId){
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteReceiverTemplates(receiverId)));
+    }
+
 }

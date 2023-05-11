@@ -6,8 +6,8 @@ const EditorInvite = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
 
+  const [deadline, setDeadline] = useState("");
   const localDate = new Date();
-
   return (
     <>
       <div
@@ -38,8 +38,9 @@ const EditorInvite = () => {
                 type="date"
                 tw="border-2 px-2"
                 min={localDate.toISOString().split("T")[0]}
-                value={localDate.toISOString().split("T")[0]}
+                defaultValue={localDate.toISOString().split("T")[0]}
                 onKeyDown={(e) => e.preventDefault()}
+                onChange={(e) => setDeadline(e.target.value)}
               />
             </div>
           </div>
