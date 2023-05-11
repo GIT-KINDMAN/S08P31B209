@@ -31,13 +31,6 @@ public class MemberController {
 	private final MemberService memberService;
 	private final JwtTokenProvider jwtTokenProvider;
 
-	private String principalDetails = "ssafy@ssafy.com";
-
-	@PutMapping
-	public ResponseEntity<ResponseDTO> updateUser(@RequestBody UpdateUserReqDTO updateUserReqDTO) {//@AuthenticationPrincipal PrincipalDetails principalDetails
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, memberService.updateUser(updateUserReqDTO, principalDetails)));
-	}
-
 	@PostMapping("/sign")
 	public ResponseEntity<ResponseDTO> signup(@RequestBody SignupReqDTO signupReqDTO) {
 		memberService.signupUser(signupReqDTO);
@@ -49,6 +42,7 @@ public class MemberController {
 		MemberDTO memberDTO = memberService.login(loginReqDTO);
 		CommonTokenDTO commonTokenDTO = jwtTokenProvider.generateToken(memberDTO.getEmail());
 		ResponseCookie cookie = jwtTokenProvider.generateResponseCookie(commonTokenDTO.getReIssuanceTokenDTO().getRefreshToken());
+		jwtTokenProvider.saveRefresh(commonTokenDTO.getReIssuanceTokenDTO());
 		return ResponseEntity.ok()
 				.header(HttpHeaders.SET_COOKIE, cookie.toString())
 				.body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_IN, commonTokenDTO.getAccessToken()));
@@ -57,6 +51,14 @@ public class MemberController {
 	@GetMapping
 	public ResponseEntity<ResponseDTO> getMyInfo() {
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_PROFILE, SecurityManager.getCurrentMember()));
+	}
+
+	@GetMapping("/logout")
+	public ResponseEntity<ResponseDTO> logout(@RequestHeader(value = "Authorization")String accessToken) {
+		if (jwtTokenProvider.banAccessToken(accessToken) && jwtTokenProvider.deleteRefresh(SecurityManager.getCurrentMember().getEmail())) {
+			return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_OUT));
+		}
+		return ResponseEntity.internalServerError().body(ResponseDTO.of(HttpStatus.INTERNAL_SERVER_ERROR, Msg.FAIL_SIGN_OUT));
 	}
 
 
