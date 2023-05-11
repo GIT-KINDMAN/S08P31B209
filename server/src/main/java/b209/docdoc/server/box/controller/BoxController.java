@@ -1,11 +1,8 @@
 package b209.docdoc.server.box.controller;
 
-import b209.docdoc.server.box.service.BoxService;
+import b209.docdoc.server.box.service.Impl.BoxServiceImpl;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +22,7 @@ public class BoxController {
 
     private static final String METHOD_NAME = BoxController.class.getName();
 
-    private final BoxService boxService;
+    private final BoxServiceImpl boxServiceImpl;
 
     @GetMapping("/templates")
     public ResponseEntity<ResponseDTO> getTemplates(
@@ -39,6 +36,12 @@ public class BoxController {
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getTemplates(userEmail, keywords, nameSort, createdDateSort, updatedDateSort, pageable)));
+                        boxServiceImpl.getTemplates(userEmail, keywords, nameSort, createdDateSort, updatedDateSort, pageable)));
     }
+
+    @DeleteMapping("/sent/{template_id}")
+    public ResponseEntity<ResponseDTO> deleteTemplates(@PathVariable("template_id") Long templateId){
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxServiceImpl.deleteTemplates(templateId)));
+    }
+
 }
