@@ -1,8 +1,9 @@
-import { Button, TextInput, Wrapper } from "@/components/atoms";
-import { DropZone } from "@/components/molecules";
+import { Button, Icon, TextInput, Wrapper } from "@/components/atoms";
 
+// import { DropZone } from "@/components/molecules";
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { ChangeEvent, useState } from "react";
+import Dropzone, { DropEvent, FileRejection } from "react-dropzone";
 import tw from "twin.macro";
 
 const TemplateCreateForm = () => {
@@ -10,16 +11,10 @@ const TemplateCreateForm = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
 
-  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files && event.target.files[0];
-    console.log("selectedFile : ", selectedFile);
-    if (selectedFile) {
-      setFile(selectedFile);
-      const url = URL.createObjectURL(selectedFile);
-      setFileUrl(url);
-      console.log("url : ", url);
-      console.log("fileUrl", fileUrl);
-    }
+  const handleFileUpload = <T extends File>(acceptedFiles: T[]) => {
+    setFile(acceptedFiles[0]);
+    const url = URL.createObjectURL(acceptedFiles[0]);
+    setFileUrl(url);
   };
 
   const handleFileDelete = () => {
@@ -27,87 +22,96 @@ const TemplateCreateForm = () => {
     setFileUrl(null);
   };
 
-  const fileSize = file && Math.round(file.size / 1024);
+  const fileSize =
+    file &&
+    (file.size / 1024 / 1024 > 1
+      ? Math.ceil(file.size / 1024 / 1024) + "MB"
+      : Math.ceil(file.size / 1024) + "KB");
 
   return (
     <>
       <div className="TemplateCreateForm">
-        <Wrapper>
-          <label tw="text-lg mx-2">템플릿 이름</label>
-          <div className="CreateNameInput" tw="flex justify-center w-full">
+        <Wrapper custom={tw`min-h-[8rem]`}>
+          <label tw="mx-2 mb-4 text-lg font-bold text-lightgray-700">
+            템플릿 이름
+          </label>
+          <div tw="flex justify-center w-full">
+            {/* 해당부분 코드를 나중에 적절한 molecule을 만들어 수정해야함 */}
             <TextInput
-              onChange={(e) => {
+              custom={tw`mx-2`}
+              placeholder="새 템플릿의 이름을 작성해 주세요."
+              onBlur={(e) => {
                 console.log(e.target.value);
               }}
             />
-            <div
-              className="InputField"
-              tw="flex flex-col justify-center my-4 w-full"
-            >
-              <i className="fi fi-bs-pencil" tw="absolute z-20 mt-4" />
-              <label tw=" ml-6 mt-1"> 문서 이름(기본값) </label>
-              <input
-                type="text"
-                tw="px-6 border-b border-lightgray-500 outline-none relative"
-                onChange={(e) => console.log(e.target.value)}
-              ></input>
-            </div>
           </div>
         </Wrapper>
         {/* 템플릿 업로드 박스 */}
 
         <Wrapper>
-          <div className="UploadButtonWrap" tw="flex m-4 items-center">
-            <label className="CreateNameTitle" tw="text-xl">
-              문서업로드
-            </label>
-            <label
-              htmlFor="file-input"
-              tw="px-4 py-1 mx-2 border-2 border-blue-700 rounded-[4px] bg-blue-700 text-white text-sm font-bold"
+          <label tw="mx-2 mb-4 text-lg font-bold text-lightgray-700">
+            문서 업로드
+          </label>
+
+          {file === null ? (
+            <Dropzone
+              multiple={false}
+              onDrop={(acceptedFiles) => handleFileUpload(acceptedFiles)}
             >
-              <i className="fi fi-rs-upload" tw="mx-1 align-middle" />
-              <input
-                id="file-input"
-                type="file"
-                accept=".docx,.jpeg,.jpg,.png,.pdf"
-                onChange={handleFileUpload}
-                style={{ display: "none" }}
-              />
-              Upload
-            </label>
-            <div
-              className="DeleteButton"
-              tw="px-4 py-1 mx-2 border-2 border-blue-700 rounded-[4px] bg-white text-blue-700 text-sm font-bold"
-              // onClick -> 파일 업로드 취소
-              onClick={handleFileDelete}
-            >
-              <i className="fi fi-rr-trash" tw="mx-1 align-middle" />
-              Delete
-            </div>
-          </div>
-          <DropZone></DropZone>
-          <div
-            className="uploadPreviewBox"
-            tw="flex flex-col border-2 border-dashed text-center mx-14 my-4 p-4 rounded-2xl bg-lightgray-300 text-blue-600"
-          >
-            {file === null ? (
-              <div>
-                <p>
-                  <i className="fi-rs-cloud-upload" /> upload할 파일(docs, pdf,
-                  png, jpg)을
-                </p>
-                <p>여기에 끌어다 놓거나 또는 upload 버튼을 누르세요.</p>
-              </div>
-            ) : (
-              <div>{fileUrl && <img src={fileUrl} alt="Uploaded file" />}</div>
-            )}
-            {file !== null ? (
-              <div>
-                <div className="FileName"> {file?.name}</div>
-                <div className="FileSize"> {fileSize}KB</div>
-              </div>
-            ) : null}
-          </div>
+              {({ getRootProps, getInputProps }) => (
+                <Wrapper
+                  custom={tw`border-dashed text-base text-center items-center my-4 border-blue-600 bg-lightgray-300 text-blue-600`}
+                >
+                  <div {...getRootProps()} tw="w-full h-full">
+                    <input {...getInputProps()} />
+                    <p>
+                      <Icon
+                        icon="fi-rs-cloud-upload"
+                        size="xs"
+                        custom={tw`mx-1`}
+                      />
+                      upload할 파일(docs, pdf, png, jpg)을
+                    </p>
+                    <p>
+                      여기에 끌어다 놓거나 또는 아래의 upload 버튼을 누르세요.
+                    </p>
+                    <Button
+                      fontSize="md"
+                      isBold={true}
+                      custom={tw`mt-2 px-4 bg-blue-700 text-white rounded-[0.25rem] hocus:(scale-[97%] bg-blue-400)`}
+                    >
+                      <Icon icon="fi-rs-upload" size="xs" custom={tw`mx-1`} />
+                      <label>Upload</label>
+                    </Button>
+                  </div>
+                </Wrapper>
+              )}
+            </Dropzone>
+          ) : (
+            <section>
+              <Wrapper
+                custom={tw`border-dashed text-base text-center items-center my-4 border-blue-600 bg-lightgray-300 text-blue-600`}
+              >
+                <img
+                  src={fileUrl ?? "미리보기 없음.png"}
+                  alt="Uploaded file"
+                  tw="rounded-[0.5rem]"
+                />
+                <div>
+                  <p>
+                    {file?.name}
+                    <Icon
+                      icon="fi-bs-cross-small"
+                      size="xs"
+                      custom={tw`mx-1`}
+                      onClick={() => handleFileDelete()}
+                    />
+                  </p>
+                  <div className="FileSize"> {fileSize} </div>
+                </div>
+              </Wrapper>
+            </section>
+          )}
         </Wrapper>
       </div>
     </>
