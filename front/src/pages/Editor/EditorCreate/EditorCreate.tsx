@@ -61,7 +61,7 @@ const EditorCreate = () => {
           <div className="TemplateCreateForm">
             <div
               className="CreateNameWrap"
-              tw=" border-2 border-lightgray-500 w-[42rem] rounded-[4px] my-4"
+              tw=" border-2 border-lightgray-500 w-[42rem] rounded-[4px] my-4 py-4"
             >
               <label className="CreateNameTitle" tw="text-xl mx-4 ">
                 템플릿 이름
@@ -158,60 +158,45 @@ const EditorCreate = () => {
                   tw="flex flex-col justify-center  my-4"
                 >
                   {/* <label tw=" ml-6 mt-1 "> 문서를 선택하세요 </label> */}
-                  <input
-                    type="text"
-                    readOnly
-                    placeholder="불러올 템플릿을 선택하세요"
-                    tw="px-6 border-b border-lightgray-500 outline-none w-[39rem] relative"
-                    onChange={() => {
-                      console.log("load template");
-                    }}
-                  />
-                  <div
-                    tw="text-end text-2xl border-2 cursor-pointer"
+
+                  <select
+                    tw="text-start text-2xl border-2 px-6 cursor-pointer min-w-[39rem]"
                     onClick={() => {
                       setIsDocsList(!isDocsList);
                     }}
                   >
-                    <i className="fi fi-rs-caret-down" />
-                  </div>
-                  {isDocsList === true ? (
-                    <div className="w-fit DocsList" tw="flex justify-center ">
-                      <div tw=" border-b-2 border-dashed py-1 bg-white absolute overflow-y-auto font-bold">
-                        <div
-                          className="DocsName"
-                          tw="mx-2 cursor-pointer"
-                          onClick={() => setIsDocsList(false)}
-                        >
-                          삼성 청년
-                        </div>
-                        <hr />
-                        <div
-                          className="DocsName"
-                          tw="mx-2 cursor-pointer"
-                          onClick={() => setIsDocsList(false)}
-                        >
-                          삼성 청년 SW
-                        </div>
-                        <hr />
-                        <div
-                          className="DocsName"
-                          tw="mx-2 cursor-pointer"
-                          onClick={() => setIsDocsList(false)}
-                        >
-                          삼성 청년 SW 아카데미
-                        </div>
-                        <hr />
-                        <div
-                          className="DocsName"
-                          tw="mx-2 cursor-pointer"
-                          onClick={() => setIsDocsList(false)}
-                        >
-                          삼성 청년 SW 아카데미 결석
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
+                    <option
+                      value="List 1"
+                      tw="mx-2 cursor-pointer"
+                      onClick={() => setIsDocsList(false)}
+                    >
+                      삼성 청년
+                    </option>
+                    <hr />
+                    <option
+                      value="List 2"
+                      tw="mx-2 cursor-pointer"
+                      onClick={() => setIsDocsList(false)}
+                    >
+                      삼성 청년 SW
+                    </option>
+                    <hr />
+                    <option
+                      value="List 3"
+                      tw="mx-2 cursor-pointer"
+                      onClick={() => setIsDocsList(false)}
+                    >
+                      삼성 청년 SW 아카데미
+                    </option>
+                    <hr />
+                    <option
+                      value="List 4"
+                      tw="mx-2 cursor-pointer"
+                      onClick={() => setIsDocsList(false)}
+                    >
+                      삼성 청년 SW 아카데미 결석
+                    </option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -225,8 +210,6 @@ const EditorCreate = () => {
                 tw="flex flex-col border-2 border-dashed text-center mx-14 my-4 p-4 rounded-2xl bg-lightgray-300 text-blue-600"
               >
                 <p>미리보기</p>
-
-                <div className="FileName"> 파일 이름</div>
               </div>
             </div>{" "}
           </div>
