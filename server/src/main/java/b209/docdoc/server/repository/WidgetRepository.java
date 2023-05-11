@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface WidgetRepository extends MongoRepository<Widget, String> {
     Optional<Widget> findById(String idx);
 
-    List<Widget> findByTemplateIdx(long templateId);
+    List<Widget> findByTemplateIdx(Long templateIdx);
 }
