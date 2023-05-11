@@ -1,8 +1,7 @@
-import { getSize } from "@/constants";
+import { getFontSize } from "@/constants";
 
-import { StyleProps } from "./TextInput.types";
+import { SProps } from "./TextInput.types";
 
-import "@flaticon/flaticon-uicons/css/all/all.css";
 import tw, { styled } from "twin.macro";
 
 const getVariant = {
@@ -13,17 +12,18 @@ const getVariant = {
   none: tw``,
 };
 
-export const StyledTextInput = styled.input((props: StyleProps) => [
-  tw`inline-block px-4 w-full h-fit border-b-2`,
+export const STextInput = styled.input((props: SProps) => [
+  tw`w-full h-fit`,
+  tw`px-2`,
+  tw`text-base`,
+  tw`border-b border-lightgray-400`,
 
-  tw`duration-75`,
+  tw`duration-100`,
   tw`focus:(outline-0 border-b-2 border-black)`,
 
-  props.fontSize && getSize[props.fontSize],
-
   props.variant && getVariant[props.variant],
-
+  props.fontSize && getFontSize[props.fontSize],
   props.custom,
 ]);
 
-export default StyledTextInput;
+export default STextInput;
