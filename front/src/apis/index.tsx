@@ -1,7 +1,7 @@
-import { AppDispatch, RootState } from "../store";
-
+// import { AppDispatch, RootState } from "../store";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+
+// import { useDispatch } from "react-redux";
 
 const BASE_URL = "https://K8b209.p.ssafy.io/api/";
 
