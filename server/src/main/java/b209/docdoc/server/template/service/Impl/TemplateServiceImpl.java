@@ -79,16 +79,17 @@ public class TemplateServiceImpl implements TemplateService {
             throw new SaveFileException(ErrorCode.FOLDER_NOT_FOUND);
         }
 
+        String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
+
 
         //2. 문서파일 위치와 원본이름 DB 저장
         Templatefile templatefile = Templatefile.builder().
                 templatefileOriginalName(fileName).
-                templatefileSavedName(fileName).
-                templatefileSavedPath(memberDir+"/"+fileName).
+                templatefileSavedName(uuid).
+                templatefileSavedPath(memberDir+"/"+uuid).
                 build();
         templateFileRepository.save(templatefile);
 
-        String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
         // 4. 사용자 위젯 생성 및 저장
         List<WidgetResDTO> templateWidget = documentTemplateSaveReqDTO.getWidgetResDTO();
 
@@ -123,9 +124,9 @@ public class TemplateServiceImpl implements TemplateService {
         widgetRepository.saveAll(templateWidgets);
 
         // 5. 수신자 이메일 전송 및 Receiver DB저장
-        for (int i = 0; i < documentTemplateSaveReqDTO.getTemplateName().length(); i++) { // 수신자들에게 템플릿 전송
+        for (int i = 0; i < documentTemplateSaveReqDTO.getToName().size(); i++) { // 수신자들에게 템플릿 전송
             String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
-            String toEmail = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이메일
+            String toEmail = documentTemplateSaveReqDTO.getToEmail().get(i); // 수신자 이메일
 
             //수신자가 회원가입한 멤버인지 확인
             boolean isMemmber = memberRepository.findByMemberEmail(toEmail).isPresent();
@@ -145,7 +146,7 @@ public class TemplateServiceImpl implements TemplateService {
 
             receiverRepository.save(receiver);
             //이메일 전송
-            emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline); // 이메일로 템플릿 전송
+            emailService.sendTemplateMessage(uuid, toName, toEmail, fromEmail, templateDeadline, templateName); // 이메일로 템플릿 전송
         }
         return null;
     }
