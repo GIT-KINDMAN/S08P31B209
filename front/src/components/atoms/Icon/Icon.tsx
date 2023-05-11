@@ -14,7 +14,7 @@ import { IProps } from "./Icon.types";
 const Icon = ({
   id,
   className,
-  icon = "rs-home",
+  icon = "fi-rs-home",
   size = "md",
   custom,
   isDisabled = false,
