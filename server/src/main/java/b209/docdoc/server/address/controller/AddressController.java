@@ -1,5 +1,6 @@
 package b209.docdoc.server.address.controller;
 
+import b209.docdoc.server.address.dto.Request.AddressEditorReq;
 import b209.docdoc.server.address.dto.Request.AddressRegisterReq;
 import b209.docdoc.server.address.service.AddressService;
 import b209.docdoc.server.config.utils.Msg;
@@ -9,10 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/address")
@@ -25,18 +23,23 @@ public class AddressController {
 
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO> saveOneAddress(@RequestBody AddressRegisterReq req) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
-        addressService.saveOneaddress(req, principalDetails);
+        addressService.saveOneAddress(req, principalDetails);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD));
     }
 
-    @PostMapping("/list")
-    public ResponseEntity<ResponseDTO> getAddressList(@RequestBody String group) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, addressService.getAddressList(group, principalDetails)));
+    @GetMapping("/list")
+    public ResponseEntity<ResponseDTO> getAddressList(@RequestParam("group") String group) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, addressService.getAddressListByGroup(group, principalDetails)));
     }
 
-    @PostMapping("/list/editor")
-    public ResponseEntity<ResponseDTO> getAddressListEditor(@RequestBody String name) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, addressService.getAddressBoolList(name, principalDetails)));
+    @GetMapping("/list/editor")
+    public ResponseEntity<ResponseDTO> getAddressListEditor(@RequestParam("name") String name) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, addressService.getAddressBoolListByName(name, principalDetails)));
     }
 
+    @PostMapping("/save/editor")
+    public ResponseEntity<ResponseDTO> saveAddressListEditor(@RequestBody AddressEditorReq req) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        addressService.saveAddressEditor(req, principalDetails);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD));
+    }
 }

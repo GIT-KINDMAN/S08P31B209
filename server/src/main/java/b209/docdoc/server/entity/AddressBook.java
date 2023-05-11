@@ -48,9 +48,6 @@ public class AddressBook extends BaseDateTime implements Serializable {
     private String addressGroup;
 
     @Convert(converter = BooleanToYNConverter.class)
-    private Boolean addressRegister;
-
-    @Convert(converter = BooleanToYNConverter.class)
     private Boolean addressIsDeleted;
 
     @Override
