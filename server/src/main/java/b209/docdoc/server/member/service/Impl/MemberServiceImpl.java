@@ -28,15 +28,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Transactional
 	@Override
-	public Object updateUser(UpdateUserReqDTO userUpdatePostReq, String memberEmail) {
-		Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
-		member.update(userUpdatePostReq);
-		memberRepository.save(member);
-		return null;
-	}
-
-	@Transactional
-	@Override
 	public void signupUser(SignupReqDTO signupReqDTO) {
 		if (memberRepository.existsByMemberEmail(signupReqDTO.getEmail())) throw new MemberAlreadyExistException(ErrorCode.MEMBER_ALREADY_EXIST);
 		String password = decodeEncodeHandler.passwordEncode(signupReqDTO.getPassword());

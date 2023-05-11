@@ -4,7 +4,6 @@ package b209.docdoc.server.member.controller;
 import b209.docdoc.server.config.jwt.JwtTokenProvider;
 import b209.docdoc.server.config.jwt.dto.CommonTokenDTO;
 import b209.docdoc.server.config.security.auth.MemberDTO;
-import b209.docdoc.server.config.security.auth.PrincipalDetails;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
 import b209.docdoc.server.config.utils.SecurityManager;
@@ -21,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/member")
@@ -29,11 +30,6 @@ public class MemberController {
 	private static final String METHOD_NAME = MemberController.class.getName();
 	private final MemberService memberService;
 	private final JwtTokenProvider jwtTokenProvider;
-
-	@PutMapping
-	public ResponseEntity<ResponseDTO> updateUser(@RequestBody UpdateUserReqDTO updateUserReqDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {//@AuthenticationPrincipal PrincipalDetails principalDetails
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, memberService.updateUser(updateUserReqDTO, principalDetails.getUsername())));
-	}
 
 	@PostMapping("/sign")
 	public ResponseEntity<ResponseDTO> signup(@RequestBody SignupReqDTO signupReqDTO) {
@@ -46,6 +42,7 @@ public class MemberController {
 		MemberDTO memberDTO = memberService.login(loginReqDTO);
 		CommonTokenDTO commonTokenDTO = jwtTokenProvider.generateToken(memberDTO.getEmail());
 		ResponseCookie cookie = jwtTokenProvider.generateResponseCookie(commonTokenDTO.getReIssuanceTokenDTO().getRefreshToken());
+		jwtTokenProvider.saveRefresh(commonTokenDTO.getReIssuanceTokenDTO());
 		return ResponseEntity.ok()
 				.header(HttpHeaders.SET_COOKIE, cookie.toString())
 				.body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_IN, commonTokenDTO.getAccessToken()));
@@ -54,6 +51,14 @@ public class MemberController {
 	@GetMapping
 	public ResponseEntity<ResponseDTO> getMyInfo() {
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_PROFILE, SecurityManager.getCurrentMember()));
+	}
+
+	@GetMapping("/logout")
+	public ResponseEntity<ResponseDTO> logout(@RequestHeader(value = "Authorization")String accessToken) {
+		if (jwtTokenProvider.banAccessToken(accessToken) && jwtTokenProvider.deleteRefresh(SecurityManager.getCurrentMember().getEmail())) {
+			return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_OUT));
+		}
+		return ResponseEntity.internalServerError().body(ResponseDTO.of(HttpStatus.INTERNAL_SERVER_ERROR, Msg.FAIL_SIGN_OUT));
 	}
 
 
