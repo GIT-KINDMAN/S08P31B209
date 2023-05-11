@@ -33,7 +33,7 @@ pipeline {
         stage('frontend dockerizing') {
             steps {
                 sh "pwd"
-                sh "docker build -t front ./front"
+                sh "docker build --no-cache -t front ./front"
             }
         }
 
