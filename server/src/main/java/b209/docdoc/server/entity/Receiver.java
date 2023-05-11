@@ -66,6 +66,10 @@ public class Receiver extends BaseDateTime implements Serializable {
     @Column(length = 50)
     String receiverEmail;
 
+    @NotNull
+    @Column(length = 10)
+    String receiverName;
+
     @Override
     public void prePersist() {
         super.prePersist();
