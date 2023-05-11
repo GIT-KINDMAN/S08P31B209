@@ -4,6 +4,7 @@ package b209.docdoc.server.member.controller;
 import b209.docdoc.server.config.jwt.JwtTokenProvider;
 import b209.docdoc.server.config.jwt.dto.CommonTokenDTO;
 import b209.docdoc.server.config.security.auth.MemberDTO;
+import b209.docdoc.server.config.security.auth.PrincipalDetails;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
 import b209.docdoc.server.config.utils.SecurityManager;
@@ -20,8 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-
 @Slf4j
 @RestController
 @RequestMapping(value = "/member")
@@ -31,11 +30,9 @@ public class MemberController {
 	private final MemberService memberService;
 	private final JwtTokenProvider jwtTokenProvider;
 
-	private String principalDetails = "ssafy@ssafy.com";
-
 	@PutMapping
-	public ResponseEntity<ResponseDTO> updateUser(@RequestBody UpdateUserReqDTO updateUserReqDTO) {//@AuthenticationPrincipal PrincipalDetails principalDetails
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, memberService.updateUser(updateUserReqDTO, principalDetails)));
+	public ResponseEntity<ResponseDTO> updateUser(@RequestBody UpdateUserReqDTO updateUserReqDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {//@AuthenticationPrincipal PrincipalDetails principalDetails
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, memberService.updateUser(updateUserReqDTO, principalDetails.getUsername())));
 	}
 
 	@PostMapping("/sign")
