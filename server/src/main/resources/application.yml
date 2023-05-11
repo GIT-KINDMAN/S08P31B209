@@ -110,6 +110,8 @@ logging:
 
 file:
   upload-dir: "classpath:static/files/"
+  upload_dir: "classpath:static/files/"
+  upload_dir2: "static/files/"
 
 mail:
   smtp:

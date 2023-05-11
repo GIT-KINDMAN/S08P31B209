@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -73,10 +74,11 @@ public class BoxController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteReceiverTemplates(receiverId)));
     }
 
-    @PostMapping("/docsfile/save")
-    public ResponseEntity<ResponseDTO> saveFile(@RequestParam("file") MultipartFile file) {
-        Long savedFileId = boxService.saveFile(file);
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, savedFileId));
+
+    @PostMapping(value = "/docsfile/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) {
+//        Long savedFileId = boxService.saveFile(file, receiverId);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file)));
     }
 
     @GetMapping("/docsfile/{docsfileIdx}")

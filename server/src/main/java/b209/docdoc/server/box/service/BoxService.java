@@ -5,10 +5,7 @@ import b209.docdoc.server.entity.Receiver;
 import b209.docdoc.server.entity.Template;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 public interface BoxService {
 
@@ -21,6 +18,7 @@ public interface BoxService {
 	Object deleteReceiverTemplates(Long receiverId);
 
     Long saveFile(MultipartFile file);
+//    Long saveFile(MultipartFile file, Long receiverId);
 
     Docsfile getFile(Long id);
 
