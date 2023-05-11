@@ -7,15 +7,29 @@
  */
 import DefaultImg from "@/assets/react.svg";
 
-import { StyledImage, StyledImageFrame } from "./Image.styled";
-import { InputProps } from "./Image.types";
+import { SImage, SImageFrame } from "./Image.styled";
+import { IProps } from "./Image.types";
 
-const Image = ({ imageUrl = DefaultImg, custom, onclick }: InputProps) => {
+const Image = ({
+  id,
+  className,
+  imageUrl = DefaultImg,
+  custom,
+  isDisabled = false,
+  isHidden = false,
+  onClick,
+}: IProps) => {
   return (
     <>
-      <StyledImageFrame custom={custom} onClick={onclick}>
-        <StyledImage src={imageUrl} />
-      </StyledImageFrame>
+      <SImageFrame
+        id={id}
+        className={className}
+        custom={custom}
+        onClick={isDisabled === true ? () => null : onClick}
+        hidden={isHidden}
+      >
+        <SImage src={imageUrl} />
+      </SImageFrame>
     </>
   );
 };

@@ -8,77 +8,44 @@
  * 4. button은 onclick 이벤트를 처리할 수 있어야 한다.
  * 5. 그외의 나머지 속성을 custom 할 수 있어야 한다.
  */
-import StyledButton from "./Button.styled";
-import { InputProps } from "./Button.types";
-
-import { css } from "twin.macro";
+import SButton from "./Button.styled";
+import { IProps } from "./Button.types";
 
 const Button = ({
   children = "Button",
-  size = "md",
-  variant,
-  isOutline = false,
+  id,
+  className,
   // type = "button",
-  buttonColor,
-  focusColor,
-  bgColor,
-  isDisabled = false,
+  fontSize = "md",
+  isBold = false,
+  isOutline = false,
+  variant,
   custom,
+  isDisabled = false,
+  isHidden = false,
   onClick,
-}: React.PropsWithChildren<InputProps>) => {
-  let color = buttonColor;
-  if (typeof buttonColor == "string") {
-    color = css`
-      color: ${buttonColor};
-    `;
-  }
-
-  let bg = bgColor;
-  if (typeof bgColor == "string") {
-    bg = css`
-      background-color: ${bgColor};
-    `;
-  }
-
-  let focus = focusColor;
-  if (typeof focusColor == "string") {
-    if (isOutline) {
-      focus = css`
-        &:hover,
-        &:focus {
-          background-color: ${focusColor};
-        }
-      `;
-    } else {
-      focus = css`
-        &:hover,
-        &:focus {
-          color: ${focusColor};
-        }
-      `;
-    }
-  }
-
+}: React.PropsWithChildren<IProps>) => {
   if (isDisabled) {
     variant = "disabled";
   }
 
   return (
     <>
-      <StyledButton
-        variant={variant}
-        isOutline={isOutline}
-        buttonColor={color}
-        focusColor={focus}
-        bgColor={bg}
-        size={size}
+      <SButton
+        id={id}
+        className={className}
         // type={type}
+        fontSize={fontSize}
+        isBold={isBold}
+        isOutline={isOutline}
+        variant={variant}
         custom={custom}
-        onClick={onClick}
+        onClick={isDisabled === true ? () => null : onClick}
         disabled={isDisabled}
+        hidden={isHidden}
       >
         {children}
-      </StyledButton>
+      </SButton>
     </>
   );
 };
