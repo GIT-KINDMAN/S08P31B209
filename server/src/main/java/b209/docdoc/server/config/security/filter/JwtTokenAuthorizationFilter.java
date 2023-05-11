@@ -53,6 +53,7 @@ public class JwtTokenAuthorizationFilter extends BasicAuthenticationFilter {
 			switch (tokenResDTO.getCode()) {
 				case 0:
 					if (jwtTokenProvider.validateToken(token)) {
+
 						log.info("Access Token Validation - Success");
 
 						String userPk = jwtTokenProvider.getUserPk(token);
