@@ -5,6 +5,7 @@ import b209.docdoc.server.address.dto.Request.AddressEditorReq;
 import b209.docdoc.server.address.dto.Request.AddressRegisterReq;
 import b209.docdoc.server.address.dto.Response.AddressListRes;
 import b209.docdoc.server.address.service.AddressService;
+import b209.docdoc.server.config.security.auth.MemberDTO;
 import b209.docdoc.server.entity.AddressBook;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.repository.AddressBookRepository;
@@ -36,13 +37,16 @@ public class AddressServiceImpl implements AddressService {
         return results;
     }
     @Override
-    public void saveOneAddress(AddressRegisterReq req, String memberEmail) {
-        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
-        if (member.isEmpty()) return;
+    public void saveOneAddress(AddressRegisterReq req, MemberDTO member) {
+//        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
+        if (member.getIsDeleted()) return;
+
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return;
 
         addressBookRepository.save(
                 AddressBook.builder()
-                        .member(member.get())
+                        .member(memberObj.get())
                         .addressName(req.getName())
                         .addresEmail(req.getEmail())
                         .addressPhone(req.getPhone())
@@ -53,12 +57,15 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressListRes getAddressListByGroup(String group, String memberEmail) {
+    public AddressListRes getAddressListByGroup(String group, MemberDTO member) {
         List<AddressBook> list = new ArrayList<>();
         List<AddressInfo> result = new ArrayList<>();
 
-        if (group == null || group.length() == 0) list = addressBookRepository.findAll();
-        else list = addressBookRepository.findAllByAddressGroup(group);
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return null;
+
+        if (group == null || group.length() == 0) list = addressBookRepository.findAllByMember(memberObj.get());
+        else list = addressBookRepository.findAllByMemberAndAddressGroup(memberObj.get(), group);
 
         for (AddressBook address: list) {
             result.add(new AddressInfo(
@@ -72,7 +79,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressListRes getAddressBoolListByName(String name, String memberEmail) {
+    public AddressListRes getAddressBoolListByName(String name, MemberDTO member) {
         List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWith(name);
         List<AddressInfo> result = new ArrayList<>();
 
@@ -89,17 +96,18 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void saveAddressEditor(AddressEditorReq req, String memberEmail) {
-        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
-        if (member.isEmpty()) return;
+    public void saveAddressEditor(AddressEditorReq req, MemberDTO member) {
 
-        HashSet<String> emails = getMemberAddressEmailSet(memberEmail);
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return;
+
+        HashSet<String> emails = getMemberAddressEmailSet(member.getEmail());
 
         for (AddressInfo address: req.getAddresses()) {
             if (emails != null && address.getEmail() != null && !emails.contains(address.getEmail())) {
                 addressBookRepository.save(
                         AddressBook.builder()
-                                .member(member.get())
+                                .member(memberObj.get())
                                 .addressName(address.getName())
                                 .addresEmail(address.getEmail())
                                 .addressPhone(address.getPhone())

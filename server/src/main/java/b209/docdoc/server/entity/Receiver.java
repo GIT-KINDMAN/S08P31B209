@@ -48,7 +48,7 @@ public class Receiver extends BaseDateTime implements Serializable {
 
     @NotNull
     @Convert(converter = BooleanToYNConverter.class)
-    Boolean receiverIsCompeleted;
+    Boolean receiverIsCompleted;
 
     @NotNull
     @Column(length = 10)
@@ -71,7 +71,7 @@ public class Receiver extends BaseDateTime implements Serializable {
         super.prePersist();
     }
 
-    public void updateDelete(boolean templateIsDeleted) {
-        this.templateIsDeleted = templateIsDeleted;
+    public void updateDelete(boolean receiverIsCompleted) {
+        this.receiverIsCompleted = receiverIsCompleted;
     }
 }
