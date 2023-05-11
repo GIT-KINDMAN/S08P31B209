@@ -67,4 +67,8 @@ public interface Msg {
 	String SUCCESS_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 성공하였습니다.";
 	String FAIL_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 실패하였습니다.";
 
+	// address
+	String SUCCESS_ADDRESS_SAVE = "주소록 저장에 성공하습니다.";
+	String SUCCESS_ADDRESS_SEARCH = "주소록 조회에 성공하습니다.";
+
 }
