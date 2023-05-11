@@ -138,7 +138,7 @@ public class TemplateServiceImpl implements TemplateService {
                     .receiverDocsName(documentTemplateSaveReqDTO.getTemplateName())
                     .receiverDeadline(templateDeadline)
                     .receiverIsMember(isMemmber) //수신자가 멤버 인지 확인
-                    .receiverIsCompeleted(false)// 문서 작성 완료 여부
+                    .receiverIsDeleted(false)// 문서 작성 완료 여부
                     .receiverSenderName(member.getMemberName())//발신자 이름
                     .receiverSenderEmail(fromEmail)//발신자 이메일
                     .receiverIsDeleted(false)
