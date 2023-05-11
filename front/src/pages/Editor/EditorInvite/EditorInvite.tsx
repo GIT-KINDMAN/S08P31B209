@@ -8,6 +8,7 @@ const EditorInvite = () => {
 
   const [deadline, setDeadline] = useState("");
   const localDate = new Date();
+  console.log(deadline);
   return (
     <>
       <div

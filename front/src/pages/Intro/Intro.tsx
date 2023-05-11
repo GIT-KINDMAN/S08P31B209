@@ -1,11 +1,12 @@
 import Logo from "@/assets/DocDoc.png";
 
-import Knock from "../../assets/Main/Knock.png";
+// import Knock from "../../assets/Main/Knock.png";
 import MainImg1 from "../../assets/Main/MainImg1.jpg";
 import MainImg2 from "../../assets/Main/MainImg2.jpg";
 
 import { useNavigate } from "react-router-dom";
-import tw, { css } from "twin.macro";
+
+// import tw, { css } from "twin.macro";
 
 const Intro = () => {
   const navigate = useNavigate();

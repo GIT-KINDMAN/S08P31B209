@@ -1,6 +1,5 @@
-import { inputTypes } from "./EditorProgress.types";
-
-import tw, { styled } from "twin.macro";
+// import { inputTypes } from "./EditorProgress.types";
+import { styled } from "twin.macro";
 
 export const ProgressBar = styled.div`
   width: 482px;

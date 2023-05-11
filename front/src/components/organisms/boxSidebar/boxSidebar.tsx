@@ -7,6 +7,7 @@ const Sample = ({ variable }: InputProps) => {
   return (
     <>
       <StyledBoxSidebar>
+        <div> {variable}</div>
         <div id="sidebarHeader">header</div>
         <div id="sidebarProfileOverview">profile</div>
         <div id="sidebarCatalogInfo">catalog</div>

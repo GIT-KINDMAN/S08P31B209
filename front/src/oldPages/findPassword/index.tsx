@@ -1,5 +1,5 @@
 // import LoginButton from "@/components/atoms/LoginButton/LoginButton";
-import { LoginButton, TextArea } from "@/components/atoms";
+import { TextArea } from "@/components/atoms";
 
 import LogoImg from "../../assets/DocDoc.png";
 
@@ -23,8 +23,8 @@ const FindPasswordPage = () => {
         <TextArea variant="email" />
         <TextArea variant="name" />
         <TextArea variant="birth" />
-        <LoginButton text="비밀번호 재설정"></LoginButton>
-        <LoginButton text="회원가입"></LoginButton>
+        {/* <LoginButton text="비밀번호 재설정"></LoginButton>
+        <LoginButton text="회원가입"></LoginButton> */}
       </form>
     </div>
   );

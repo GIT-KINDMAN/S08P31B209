@@ -11,5 +11,6 @@ export const UploadDocs = styled.div`
 `;
 
 export const UploadBox = styled.div(({ upload }: styleProps) => [
-  tw`border-2 border-dashed text-center mx-14 mb-4 py-14 rounded-2xl bg-[#CFDAE2] text-[#657077]`,
+  upload &&
+    tw`border-2 border-dashed text-center mx-14 mb-4 py-14 rounded-2xl bg-[#CFDAE2] text-[#657077]`,
 ]);

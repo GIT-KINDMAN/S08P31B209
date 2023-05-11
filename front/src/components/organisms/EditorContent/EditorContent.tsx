@@ -1,9 +1,8 @@
-import { PdfToolbar } from "@/components/atoms";
-
+// import { PdfToolbar } from "@/components/atoms";
 // import { PdfViewer, WidgetAttribute, WidgetList } from "@/components/molecules";
-import tw, { styled } from "twin.macro";
+// import tw, { styled } from "twin.macro";
 
-const Wrapper = styled.div(tw`border border-black`);
+// const Wrapper = styled.div(tw`border border-black`);
 
 const EditorContent = () => {
   return (

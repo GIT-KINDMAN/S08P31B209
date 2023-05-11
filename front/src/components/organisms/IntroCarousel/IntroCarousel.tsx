@@ -1,6 +1,6 @@
 import { IntroInfo, Slider } from "@/components/molecules/index";
 
-import tw from "twin.macro";
+// import tw from "twin.macro";
 
 const IntroCarousel = () => {
   return (

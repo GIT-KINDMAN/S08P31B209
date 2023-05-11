@@ -1,4 +1,4 @@
-import { LoginButton, Radio, TextArea } from "@/components/atoms";
+import { TextArea } from "@/components/atoms";
 
 import LogoImg from "../../assets/DocDoc.png";
 
@@ -10,11 +10,12 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [checked, setChecked] = useState(false);
+  console.log(checked);
 
   const handleRadioChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(e.target.checked);
   };
-
+  console.log(handleRadioChange);
   return (
     <div tw="flex justify-center">
       <form>
@@ -28,7 +29,7 @@ const RegisterPage = () => {
         <TextArea variant="password"></TextArea>
         <TextArea variant="name"></TextArea>
         <TextArea variant="birth"></TextArea>
-        <LoginButton text="회원가입"></LoginButton>
+        {/* <LoginButton text="회원가입"></LoginButton> */}
       </form>
     </div>
   );

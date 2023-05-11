@@ -4,8 +4,8 @@ import EditorUploadDocs from "@/components/molecules/EditorUploadDocs/EditorUplo
 
 import { CreateContent } from "./EditorCreate.styled";
 
-import { useState } from "react";
-import tw from "twin.macro";
+// import { useState } from "react";
+// import tw from "twin.macro";
 
 const EditorCreate = () => {
   return (

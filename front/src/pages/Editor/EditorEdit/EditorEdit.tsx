@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import tw, { styled } from "twin.macro";
+// import { useNavigate } from "react-router-dom";
+// import tw, { styled } from "twin.macro";
 
 const EditorEdit = () => {
   const dummyFunc = () => console.log("func call");
