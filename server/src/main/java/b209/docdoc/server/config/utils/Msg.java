@@ -15,6 +15,7 @@ public interface Msg {
 	String SUCCESS_TOKEN_VALIDATE = "토큰 검증에 성공하였습니다.";
 	String SUCCESS_MEMBER_ROLE = "유저 역할 확인에 성공하였습니다.";
 	String SUCCESS_ACCESS = "서버 접근에 성공하였습니다.";
+	String SUCCESS_EAMIL_CONFIRM = "이메일 인증 코드 전송을 성공하였습니다.";
 
 	String FAIL_SIGN_IN = "로그인에 실패하였습니다.";
 	String FAIL_SIGN_OUT = "로그아웃에 실패하였습니다.";
@@ -65,5 +66,9 @@ public interface Msg {
 	// box
 	String SUCCESS_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 성공하였습니다.";
 	String FAIL_TEMPLATE_SEARCH = "템플릿 리스트 페이지 조회에 실패하였습니다.";
+
+	// address
+	String SUCCESS_ADDRESS_SAVE = "주소록 저장에 성공하습니다.";
+	String SUCCESS_ADDRESS_SEARCH = "주소록 조회에 성공하습니다.";
 
 }

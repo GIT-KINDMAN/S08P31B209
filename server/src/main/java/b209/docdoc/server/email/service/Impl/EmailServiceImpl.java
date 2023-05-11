@@ -6,6 +6,7 @@ import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import b209.docdoc.server.email.dto.response.EmailConfirmRes;
 import b209.docdoc.server.email.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -18,14 +19,15 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender emailSender;
 
-    public static final String ePw = createKey();
+    public static String ePw;
 
     private MimeMessage createMessage(String to)throws Exception{
+        ePw = createKey();
         System.out.println("보내는 대상 : "+ to);
         System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
 
-        message.addRecipients(RecipientType.TO, to);//보내는 대상
+        message.addRecipients(RecipientType.TO, to.trim());//보내는 대상
         message.setSubject("이메일 인증 테스트");//제목
 
         String msgg="";
@@ -73,7 +75,7 @@ public class EmailServiceImpl implements EmailService {
         return key.toString();
     }
     @Override
-    public String sendSimpleMessage(String to)throws Exception {
+    public EmailConfirmRes sendSimpleMessage(String to)throws Exception {
         // TODO Auto-generated method stub
         MimeMessage message = createMessage(to);
         try{//예외처리
@@ -82,10 +84,10 @@ public class EmailServiceImpl implements EmailService {
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
-        return ePw;
+        return EmailConfirmRes.of(ePw);
     }
 
-    private MimeMessage templateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline)throws Exception{
+    private MimeMessage templateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline, String templateName)throws Exception{
         System.out.println("보내는 대상 : "+ toEmail);
 //        System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
@@ -99,10 +101,9 @@ public class EmailServiceImpl implements EmailService {
         msgg+= "<div style='margin:20px;'>";
         msgg+= "<h1> 안녕하세요. " + toName + " 님! 똑똑입니다. </h1>";
         msgg+= "<br>";
-        msgg+= fromEmail;
-        msgg+= "<p> 님이 탬플릿을 공유하였습니다<p>";
+        msgg+= "<p><b>"+fromEmail+"</b> 님이 <b>"+templateName+"</b> 탬플릿을 공유하였습니다<p>";
         msgg+= "<br>";
-        msgg+= "<p> 템플릿 마감일은 " + templateDeadline + " 입니다<p>";
+        msgg+= "<p> 템플릿 마감일은 <b>" + templateDeadline + "</b> 입니다<p>";
         msgg+= "<br>";
         msgg+= "<p>감사합니다.<p>";
         msgg+= "<br>";
@@ -118,9 +119,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public String sendTemplateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline) throws Exception {
+    public String sendTemplateMessage(String uuid, String toName, String toEmail, String fromEmail, String templateDeadline, String templateName) throws Exception {
         // TODO Auto-generated method stub
-        MimeMessage message = templateMessage(uuid, toName, toEmail, fromEmail, templateDeadline);
+        MimeMessage message = templateMessage(uuid, toName, toEmail, fromEmail, templateDeadline, templateName);
         try{//예외처리
             emailSender.send(message);
         }catch(MailException es){

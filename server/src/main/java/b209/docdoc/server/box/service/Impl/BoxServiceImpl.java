@@ -32,21 +32,6 @@ public class BoxServiceImpl implements BoxService {
 
     private final ReceiverRepository receiverRepository;
 
-
-    @Transactional
-    @Override
-    public Page<Template> getTemplates(String userEmail, List<String> keywords, String nameSort, String createdDateSort, String updatedDateSort, Pageable pageable) {
-        String keyword = keywords.size() > 0 ? keywords.get(0) : "";
-
-        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
-                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"));
-
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
-
-        return boxRepository.findAllByKeyword(userEmail, keyword, sortedPageable);
-    }
-
     @Transactional
     @Override
     public Object deleteTemplates(Long templateId) {
@@ -69,5 +54,29 @@ public class BoxServiceImpl implements BoxService {
         template.updateDelete(true);
         receiverRepository.save(template);
         return null;
+    }
+
+    @Transactional
+    public Page<Receiver> getReceivedTemplates(String receiverEmail, String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
+                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"));
+
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+
+        return boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+    }
+
+    @Transactional
+    public Page<Template> getSentTemplates(String memberEmail, String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
+                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"));
+
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+
+        return boxRepository.findAllSentByMemberEmail(memberEmail, keywords, sortedPageable);
     }
 }

@@ -6,12 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof Label> = {
   title: "Atoms/Label",
   component: Label,
-  argTypes: {
-    labelColor: {
-      control: "color",
-      description: "Color",
-    },
-  },
+  argTypes: {},
 };
 
 export default meta;
@@ -20,6 +15,6 @@ type Story = StoryObj<typeof Label>;
 export const Primary: Story = {
   args: {
     text: "Label Test",
-    size: "md",
+    fontSize: "md",
   },
 };

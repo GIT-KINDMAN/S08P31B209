@@ -1,0 +1,16 @@
+{
+  "widgetResDTO": [
+    {
+      "widgetType": "text",
+      "widgetSx": 10,
+      "widgetDx": 100,
+      "widgetSy": 20,
+      "widgetDy": 200,
+      "widgetContent": "Sample text"
+    }
+  ],
+  "templateDeadline": "2023-12-31",
+  "templateName": "Sample Template",
+  "toName": [한재],
+  "toEmail": [kjs3310502@naver.com]
+}

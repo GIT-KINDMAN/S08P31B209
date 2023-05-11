@@ -1,21 +1,18 @@
 import { CSSProp } from "styled-components";
 import { TwStyle } from "twin.macro";
 
-export interface StyleProps {
-  /**
-   * image Custom
-   */
+export interface SProps {
   custom?: TwStyle | CSSProp;
 }
 
-export interface InputProps extends StyleProps {
-  /**
-   * image Path
-   */
+export interface IProps extends SProps {
+  id?: string;
+  className?: string;
+
   imageUrl?: string;
 
-  /**
-   * image onclick event
-   */
-  onclick?: () => void;
+  isDisabled?: boolean;
+  isHidden?: boolean;
+
+  onClick?: () => void;
 }
