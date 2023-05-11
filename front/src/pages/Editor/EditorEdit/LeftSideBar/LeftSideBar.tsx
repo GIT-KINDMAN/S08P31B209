@@ -1,4 +1,4 @@
-import tw, { styled } from "twin.macro";
+import "twin.macro";
 
 const LeftSideBar = () => {
   return (
