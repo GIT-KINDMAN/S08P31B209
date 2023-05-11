@@ -1,22 +1,15 @@
-import { Button, Icon, Label, TextInput, Wrapper } from "@/components/atoms";
+import { Icon, Label, TextInput, Wrapper } from "@/components/atoms";
 
-import { useState } from "react";
 import tw from "twin.macro";
 
-const DocsBox = () => {
-  const [isEdit, setIsEdit] = useState(false);
-  const handleEdit = () => {
-    setIsEdit(!isEdit);
-  };
-
-  const [editFile, setEditFile] = useState("");
+const SendBox = () => {
   return (
     <div
       className="DocsBoxForm"
       tw="flex flex-col w-full min-w-[40rem] px-6 py-4 bg-white"
     >
       <div className="Header">
-        <label tw="text-3xl">받은 문서함</label>
+        <label tw="text-3xl">보낸 문서함</label>
         <hr tw="my-2 border-t-2 border-blue-600"></hr>
         <div tw="flex justify-between">
           <div>
@@ -74,36 +67,8 @@ const DocsBox = () => {
               <input type="checkbox" />
             </div>
             <div className="DocsName" tw="mx-4 my-3">
-              {isEdit === false ? (
-                <div>
-                  <span>삼성 청년 SW 아카데미 문서.docx</span>{" "}
-                  <Icon
-                    icon="fi-rr-edit"
-                    size="sm"
-                    custom={tw`mx-4`}
-                    onClick={handleEdit}
-                  />
-                </div>
-              ) : (
-                <div tw="flex flex-row">
-                  <TextInput />
-                  <Button
-                    variant="secondary"
-                    isOutline={true}
-                    custom={tw`px-2 mx-1`}
-                    onClick={handleEdit}
-                  >
-                    X
-                  </Button>
-                  <Button
-                    variant="primary"
-                    custom={tw`px-2 mx-1`}
-                    onClick={handleEdit}
-                  >
-                    O
-                  </Button>
-                </div>
-              )}
+              <span>삼성 청년 SW 아카데미 문서.docx</span>
+              <Icon icon="fi-rr-edit" size="sm" custom={tw`mx-4`} />
             </div>
             <div className="DocsStatus" tw="flex ml-auto my-auto">
               <div className="DocsEdit" tw="mx-8 my-3 px-2">
@@ -149,7 +114,7 @@ const DocsBox = () => {
   );
 };
 
-export default DocsBox;
+export default SendBox;
 
 // import { TableHeader } from "@/components/atoms";
 // import { TableViewHeader, TableViewRow } from "@/components/molecules";

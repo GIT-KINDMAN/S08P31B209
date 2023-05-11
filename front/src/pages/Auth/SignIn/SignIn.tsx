@@ -1,7 +1,5 @@
 import { Button, Label, TextInput } from "@/components/atoms";
 
-import { AuthAPI } from "../../../apis/index";
-
 // import SigninButton from "@/pages/Auth/AuthForm/SigninButton";
 // import SigninForm from "@/pages/Auth/AuthForm/SigninForm";
 import { useEffect, useState } from "react";
@@ -43,13 +41,6 @@ const Login = () => {
             className="LoginButton"
             variant="primary"
             custom={tw`w-80 mt-8 mb-2 p-2 rounded-[0.5rem] bg-blue-400 text-white`}
-            onClick={() => {
-              AuthAPI.login(emailText, passwordText)
-                .then((request) => {
-                  console.log("로그인 :", request.data);
-                })
-                .catch((e) => console.log(e));
-            }}
           >
             로그인
           </Button>
