@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,29 +14,26 @@ import java.util.List;
 public class DocumentTemplateSaveReqDTO {
 	List<String> toEmail;
 	List<String> toName;
-	MultipartFile templateFile;
 	String templateDeadline;
 	String templateName;
 
 	List<WidgetResDTO> widgetResDTO;
 
 	@Builder
-	public DocumentTemplateSaveReqDTO(List<String> toEmail, List<String> toName, MultipartFile templateFile,
+	public DocumentTemplateSaveReqDTO(List<String> toEmail, List<String> toName,
 									  String templateDeadline, String templateName, List<WidgetResDTO> widgetResDTO) {
 		this.toEmail = toEmail;
 		this.toName = toName;
-		this.templateFile = templateFile;
 		this.templateDeadline = templateDeadline;
 		this.templateName = templateName;
 		this.widgetResDTO = widgetResDTO;
 	}
 
-	public static DocumentTemplateSaveReqDTO of(List<String> toEmail, List<String> toName, MultipartFile templateFile,
+	public static DocumentTemplateSaveReqDTO of(List<String> toEmail, List<String> toName,
 												String templateDeadline, String templateName, List<WidgetResDTO> widgetResDTO) {
 		return DocumentTemplateSaveReqDTO.builder()
 				.toEmail(toEmail)
 				.toName(toName)
-				.templateFile(templateFile)
 				.templateDeadline(templateDeadline)
 				.templateName(templateName)
 				.widgetResDTO(widgetResDTO)

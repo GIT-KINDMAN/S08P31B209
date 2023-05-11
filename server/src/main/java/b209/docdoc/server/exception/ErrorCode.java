@@ -46,7 +46,11 @@ public enum ErrorCode {
 
     MYPAGE_HISTORY_ERROR(500, "거래 내역 조회 에러입니다."),
 
-    TEMPLATE_NOT_FOUND(500, "템플릿이 존재하지 않습니다.");
+    TEMPLATE_NOT_FOUND(500, "템플릿이 존재하지 않습니다."),
+
+    FOLDER_NOT_FOUND(500, "폴더가 존재하지 않습니다."),
+
+    INVALID_FILE_EXTENSION(500, "유요하지 않는 파일 확장자 입니다");
 
     private final int status;
     private final String message;
