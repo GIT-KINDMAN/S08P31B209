@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(value = "/template")
 @RequiredArgsConstructor
 public class TemplateController {
+
 	private static final String METHOD_NAME = TemplateController.class.getName();
 	private final TemplateService templateService;
 
@@ -35,13 +36,15 @@ public class TemplateController {
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateService.getAllName(principalDetails.getUsername())));
 	}
 
-	@GetMapping("/{template_id}")
-	public ResponseEntity<ResponseDTO> getTemplate(@PathVariable("template_id") long templateId) {
-		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateService.getTemplateByTemplateId(templateId)));
-	}
+    @GetMapping("/{templateId}")
+    public ResponseEntity<ResponseDTO> getMyTemplate(
+            @AuthenticationPrincipal String memberEmail,
+            @PathVariable Long templateId) {
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateService.getTemplateByMemberEmailAndTemplateIdx(memberEmail, templateId)));
+    }
 
-	@GetMapping("/uuid/{template_uuid}")
-	public void getMemberTemplate(@PathVariable String template_uuid) {
-		//  template_uuid인 템플릿의 편집 페이지로 이동
-	}
+    @GetMapping("/uuid/{template_uuid}")
+    public void getMemberTemplate(@PathVariable String template_uuid) {
+        //  template_uuid인 템플릿의 편집 페이지로 이동
+    }
 }

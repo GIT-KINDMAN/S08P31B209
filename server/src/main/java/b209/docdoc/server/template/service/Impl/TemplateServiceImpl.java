@@ -151,11 +151,11 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Transactional
-    public TemplateResDTO getTemplateByTemplateId(Long templateId) {
-        Template template = templateRepository.findById(templateId)
+    public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(String memberEmail, Long templateIdx) {
+        Template template = templateRepository.findByMemberEmailAndTemplateIdx(memberEmail, templateIdx)
                 .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
 
-        List<Widget> widgets = widgetRepository.findByTemplateIdx(templateId);
+        List<Widget> widgets = widgetRepository.findByTemplateIdx(templateIdx);
 
         List<WidgetResDTO> widgetDTOs = widgets.stream().map(widget ->
                 new WidgetResDTO(
@@ -182,6 +182,6 @@ public class TemplateServiceImpl implements TemplateService {
                 templatefile.getTemplatefileSavedPath()
         );
 
-        return new TemplateResDTO(templateId, widgetDTOs, templatefileDTO);
+        return new TemplateResDTO(templateIdx, widgetDTOs, templatefileDTO);
     }
 }
