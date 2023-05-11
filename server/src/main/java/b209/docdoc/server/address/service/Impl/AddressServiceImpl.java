@@ -1,6 +1,8 @@
 package b209.docdoc.server.address.service.Impl;
 
+import b209.docdoc.server.address.dto.AddressInfo;
 import b209.docdoc.server.address.dto.Request.AddressRegisterReq;
+import b209.docdoc.server.address.dto.Response.AddressListRes;
 import b209.docdoc.server.address.service.AddressService;
 import b209.docdoc.server.entity.AddressBook;
 import b209.docdoc.server.entity.Member;
@@ -9,6 +11,8 @@ import b209.docdoc.server.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,7 +21,7 @@ public class AddressServiceImpl implements AddressService {
     private MemberRepository memberRepository;
     private AddressBookRepository addressBookRepository;
     @Override
-    public void addressSaveOne(AddressRegisterReq req, String memberEmail) {
+    public void saveOneaddress(AddressRegisterReq req, String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
         if (member.isEmpty()) return;
 
@@ -32,5 +36,20 @@ public class AddressServiceImpl implements AddressService {
                         .addressIsDeleted(false)
                         .build()
         );
+    }
+
+    @Override
+    public AddressListRes getAddressList(String group, String memberEmail) {
+        List<AddressBook> list = new ArrayList<>();
+        List<AddressInfo> result = new ArrayList<>();
+
+        if (group == null || group.length() == 0) list = addressBookRepository.findAll();
+        else list = addressBookRepository.findAllByAddressGroup(group);
+
+        for (AddressBook address: list) {
+            result.add(new AddressInfo(address.getAddressName(), address.getAddresEmail(), address.getAddressPhone(), address.getAddressGroup()));
+        }
+
+        return AddressListRes.of(result);
     }
 }
