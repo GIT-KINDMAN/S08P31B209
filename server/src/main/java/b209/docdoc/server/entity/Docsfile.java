@@ -38,6 +38,10 @@ public class Docsfile extends BaseDateTime implements Serializable {
     @Column(length = 100)
     private String docsfileSavedPath; // 문서 path
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_idx")
+    private Receiver receiver;
+
     @Override
     public void prePersist() {
         super.prePersist();
