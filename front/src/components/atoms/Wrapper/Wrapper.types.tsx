@@ -9,8 +9,6 @@ export interface IProps extends SProps {
   id?: string;
   className?: string;
 
-  imageUrl?: string;
-
   isDisabled?: boolean;
   isHidden?: boolean;
 
