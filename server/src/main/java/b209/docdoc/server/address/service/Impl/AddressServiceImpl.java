@@ -24,6 +24,9 @@ public class AddressServiceImpl implements AddressService {
     private MemberRepository memberRepository;
     private AddressBookRepository addressBookRepository;
 
+    private final String NOT_GROUP = "그룹없음";
+    private final String NOT_PHONE = "번호없음";
+
     private HashSet<String> getMemberAddressEmailSet(String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
         if (member.isEmpty()) return null;
@@ -37,23 +40,25 @@ public class AddressServiceImpl implements AddressService {
         return results;
     }
     @Override
-    public void saveOneAddress(AddressRegisterReq req, MemberDTO member) {
+    public String saveOneAddress(AddressRegisterReq req, MemberDTO member) {
 //        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
-        if (member.getIsDeleted()) return;
+        if (member.getIsDeleted()) return null;
 
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
-        if (memberObj.isEmpty()) return;
+        if (memberObj.isEmpty()) return null;
 
         addressBookRepository.save(
                 AddressBook.builder()
                         .member(memberObj.get())
                         .addressName(req.getName())
                         .addresEmail(req.getEmail())
-                        .addressPhone(req.getPhone())
-                        .addressGroup(req.getGroup())
+                        .addressPhone(req.getPhone() != null ? req.getPhone() : NOT_PHONE)
+                        .addressGroup(req.getGroup() != null ? req.getGroup() : NOT_GROUP)
                         .addressIsDeleted(false)
                         .build()
         );
+
+        return null;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class AddressServiceImpl implements AddressService {
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
         if (memberObj.isEmpty()) return null;
 
-        if (group == null || group.length() == 0) list = addressBookRepository.findAllByMember(memberObj.get());
+        if (group.equals(NOT_GROUP)) list = addressBookRepository.findAllByMember(memberObj.get());
         else list = addressBookRepository.findAllByMemberAndAddressGroup(memberObj.get(), group);
 
         for (AddressBook address: list) {
@@ -96,10 +101,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void saveAddressEditor(AddressEditorReq req, MemberDTO member) {
+    public String saveAddressEditor(AddressEditorReq req, MemberDTO member) {
 
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
-        if (memberObj.isEmpty()) return;
+        if (memberObj.isEmpty()) return null;
 
         HashSet<String> emails = getMemberAddressEmailSet(member.getEmail());
 
@@ -110,12 +115,14 @@ public class AddressServiceImpl implements AddressService {
                                 .member(memberObj.get())
                                 .addressName(address.getName())
                                 .addresEmail(address.getEmail())
-                                .addressPhone(address.getPhone())
-                                .addressGroup(address.getGroup())
+                                .addressPhone(address.getPhone() != null ? address.getPhone() : NOT_PHONE)
+                                .addressGroup(address.getGroup() != null ? address.getGroup() : NOT_GROUP)
                                 .addressIsDeleted(false)
                                 .build()
                 );
             }
         }
+
+        return null;
     }
 }
