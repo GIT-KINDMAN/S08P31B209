@@ -3,30 +3,28 @@ package b209.docdoc.server.template.service.Impl;
 import b209.docdoc.server.config.utils.UUIDGenerator;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.*;
-import b209.docdoc.server.exception.ErrorCode;
-import b209.docdoc.server.exception.MemberNotFoundException;
-import b209.docdoc.server.exception.SaveFileException;
-import b209.docdoc.server.exception.TemplateNotFoundException;
+import b209.docdoc.server.exception.*;
 import b209.docdoc.server.repository.*;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
-
 import b209.docdoc.server.template.dto.Response.TemplateNameResDTO;
-
 import b209.docdoc.server.template.dto.Response.TemplateResDTO;
 import b209.docdoc.server.template.dto.Response.TemplatefileResDTO;
 import b209.docdoc.server.template.dto.Response.WidgetResDTO;
-
 import b209.docdoc.server.template.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +36,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     private static final String METHOD_NAME = TemplateServiceImpl.class.getName();
 
+    private final ResourceLoader resourceLoader;
     private final TemplateRepository templateRepository;
     private final TemplateFileRepository templateFileRepository;
     private final MemberRepository memberRepository;
@@ -54,39 +53,38 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Transactional
-    public Object saveTemplate(DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
-        MultipartFile pdfFile = documentTemplateSaveReqDTO.getTemplateFile();
+    public Object saveTemplate(MultipartFile pdfFile, DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
         Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
         String fileName = StringUtils.cleanPath(pdfFile.getOriginalFilename());
-        File memberDir = new File(uploadDir + "/" + fromEmail);
-        if (!memberDir.exists()) {
-            memberDir.mkdirs();
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+        // 파일 확장자 확인 및 유효성 검사
+        String[] allowedExtensions = new String[]{"pdf", "png", "jpg", "jpeg"};
+        boolean isValidExtension = Arrays.stream(allowedExtensions).anyMatch(fileExtension::equalsIgnoreCase);
+        if (!isValidExtension) {
+            throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);
+        }
+
+        // 파일 저장 경로를 구합니다.
+        Path memberDir = Paths.get(resourceLoader.getResource(uploadDir).getURI()).resolve(fromEmail);
+        if (!Files.exists(memberDir)) {
+            Files.createDirectories(memberDir);
         }
 
         //1. 파일 저장
         try {
-            pdfFile.transferTo(new File(memberDir, fileName));
+            pdfFile.transferTo(memberDir.resolve(fileName).toFile());
         } catch (IOException e) {
-            throw new SaveFileException(ErrorCode.MEMBER_NOT_FOUND);
+            throw new SaveFileException(ErrorCode.FOLDER_NOT_FOUND);
         }
 
-        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
-        String templateType;
-        if (fileExtension.equalsIgnoreCase("pdf")) {
-            templateType = "PDF";
-        } else if (fileExtension.equalsIgnoreCase("doc") || fileExtension.equalsIgnoreCase("docx")) {
-            templateType = "WORD";
-        } else if (fileExtension.equalsIgnoreCase("xls") || fileExtension.equalsIgnoreCase("xlsx")) {
-            templateType = "EXCEL";
-        } else {
-            templateType = "UNKNOWN";
-        }
 
         //2. 문서파일 위치와 원본이름 DB 저장
         Templatefile templatefile = Templatefile.builder().
                 templatefileOriginalName(fileName).
-                templatefileSavedName(fromEmail + "/" + fileName).
+                templatefileSavedName(fileName).
+                templatefileSavedPath(memberDir+"/"+fileName).
                 build();
         templateFileRepository.save(templatefile);
 
@@ -138,10 +136,10 @@ public class TemplateServiceImpl implements TemplateService {
                     .receiverDocsName(documentTemplateSaveReqDTO.getTemplateName())
                     .receiverDeadline(templateDeadline)
                     .receiverIsMember(isMemmber) //수신자가 멤버 인지 확인
-                    .receiverIsDeleted(false)// 문서 작성 완료 여부
+                    .receiverIsCompleted(false)// 문서 작성 완료 여부
                     .receiverSenderName(member.getMemberName())//발신자 이름
                     .receiverSenderEmail(fromEmail)//발신자 이메일
-                    .receiverIsDeleted(false)
+                    .receiverIsDeleted(false)// 문서 삭제 완료 여부
                     .receiverEmail(toEmail)//수신자 이메일
                     .build();
 
