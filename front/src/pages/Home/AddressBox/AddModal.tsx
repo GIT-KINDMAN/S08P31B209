@@ -1,16 +1,31 @@
-import React, { PropsWithChildren } from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
+import "@flaticon/flaticon-uicons/css/all/all.css";
+import React, { useState } from "react";
 import "twin.macro";
 
 interface ModalDefaultType {
-  handelToggleModal: () => void;
+  handleToggleModal: () => void;
 }
 
-const Modal = ({ handelToggleModal }: ModalDefaultType) => {
+const Modal = ({ handleToggleModal }: ModalDefaultType) => {
+  const [isOptionalInfo, setIsOptionalInfo] = useState(false);
+
   return (
-    <ModalContainer>
-      <DialogBox>
-        <div tw="text-2xl m-2">주소록 추가</div>
+    <div
+      className="ModalContainer"
+      tw="w-fit h-full flex items-center justify-center fixed   overflow-y-scroll"
+    >
+      {/* <div onClick={() => handleToggleModal()}>X</div> */}
+      <div
+        className="Dialog"
+        tw="min-w-[50rem] max-w-[50rem] min-h-[25rem] max-h-[25rem] flex flex-col border-2 border-black rounded-[16px] py-4  bg-white z-[1000] overflow-y-scroll"
+      >
+        <div tw="flex justify-between">
+          <div tw="text-2xl m-2">주소록 추가</div>
+          <div tw="p-4 mx-4" onClick={handleToggleModal}>
+            <i className="fi fi-rr-cross" />
+          </div>
+        </div>
         <span tw="ml-12 text-xl font-bold">필수 정보</span>
         <div
           className="requiredInfo"
@@ -25,47 +40,90 @@ const Modal = ({ handelToggleModal }: ModalDefaultType) => {
             <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
           </div>
         </div>
-      </DialogBox>
+        <hr tw="my-4" />
+        <div tw="flex flex-col justify-center">
+          <button onClick={() => setIsOptionalInfo(!isOptionalInfo)}>
+            {isOptionalInfo === false ? (
+              <div tw="border-2 w-[12rem] h-fit  rounded-[16px] mx-auto">
+                부가 정보 입력
+              </div>
+            ) : (
+              <div tw="border-2 w-[4rem] h-fit  rounded-full mx-auto">접기</div>
+            )}
+          </button>
+
+          {isOptionalInfo === true ? (
+            <div>
+              <span tw="ml-12 text-xl font-bold">부가 정보</span>
+              <div
+                className="OptionalInfo"
+                tw=" text-xl font-bold flex flex-col text-center"
+              >
+                <div className="UserPhone" tw=" pt-4 pb-2 font-medium">
+                  연락처
+                  <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+                </div>
+                <div className="UserGroup" tw=" py-2 font-medium">
+                  소속
+                  <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+                </div>
+                <div className="UserGroup" tw=" py-2 font-medium">
+                  직책
+                  <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <button
+          type="submit"
+          tw="border-2 text-center w-fit px-40 py-1 rounded-[4px] mx-auto my-auto"
+        >
+          등록
+        </button>
+      </div>
       <div
+        tw="min-w-[100rem] max-w-fit h-full fixed top-0 z-[999] bg-black opacity-60"
         onClick={(e: React.MouseEvent) => {
           e.preventDefault();
 
-          if (handelToggleModal) {
-            handelToggleModal();
+          if (handleToggleModal) {
+            handleToggleModal();
           }
         }}
       />
-    </ModalContainer>
+    </div>
   );
 };
 
 export default Modal;
 
-const ModalContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-`;
+// const ModalContainer = styled.div`
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   position: fixed;
+// `;
 
-const DialogBox = styled.dialog`
-  min-width: 800px;
-  max-width: 800px;
-  min-height: 400px;
-  max-height: 400px;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  border: solid 1px black;
-  border-radius: 3px;
-  box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
-  box-sizing: border-box;
-  background-color: white;
-  z-index: 10000;
-  overflow-y: scroll;
-`;
+// const DialogBox = styled.dialog`
+//   min-width: 800px;
+//   max-width: 800px;
+//   min-height: 400px;
+//   max-height: 400px;
+//   display: flex;
+//   flex-direction: column;
+//   /* align-items: center; */
+//   border: solid 1px black;
+//   border-radius: 3px;
+//   box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
+//   box-sizing: border-box;
+//   background-color: white;
+//   z-index: 10000;
+//   overflow-y: scroll;
+// `;
 
 // const Backdrop = styled.div`
 //   min-width: 100%;

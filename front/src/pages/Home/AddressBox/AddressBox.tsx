@@ -6,7 +6,7 @@ import "twin.macro";
 
 const AddressBox = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const handelToggleModal = () => {
+  const handleToggleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
   return (
@@ -51,7 +51,7 @@ const AddressBox = () => {
               tw="flex text-xl font-bold my-4 ml-8 justify-between"
             >
               <div>그룹원 보기</div>
-              <div tw=" text-sm pt-2" onClick={() => handelToggleModal()}>
+              <div tw=" text-sm pt-2" onClick={() => handleToggleModal()}>
                 주소록 추가 <i className="fi fi-br-plus-small" />
               </div>
             </div>
@@ -141,7 +141,7 @@ const AddressBox = () => {
           </div>
         </div>
         {isOpenModal === true ? (
-          <AddModal handelToggleModal={handelToggleModal} />
+          <AddModal handleToggleModal={handleToggleModal} />
         ) : null}
       </div>
     </>
