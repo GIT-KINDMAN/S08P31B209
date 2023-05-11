@@ -225,7 +225,7 @@ public class JwtTokenProvider {
     public boolean banAccessToken(String accessToken) {
         log.info(METHOD_NAME + "- banAccessToken() ...");
         try {
-            redisRepository.setValue(accessToken, String.format("%s logout at %s", SecurityManager.getCurrentMember().getEmail(), LocalDateTime.now()), Duration.ofMillis(accessValidTime));
+            redisRepository.setValue(accessToken.replace(typeAccess, ""), String.format("%s logout at %s", SecurityManager.getCurrentMember().getEmail(), LocalDateTime.now()), Duration.ofMillis(accessValidTime));
             return true;
         } catch (Exception e) {
             log.error("redis 키 등록중 에러가 발생했습니다. " + METHOD_NAME, e);
