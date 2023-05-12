@@ -1,4 +1,4 @@
-import { memberAPI } from "@/apis/api";
+import { signup } from "@/apis/memberAPI";
 import { Button, Image, Label, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
@@ -44,20 +44,20 @@ const Register = () => {
     userGroup,
     userPosition,
   }: signupProps) => {
-    memberAPI
-      .signup(
-        emailText,
-        passwordText,
-        userName,
-        userBirth,
-        userGender,
-        userPhone,
-        userAddress,
-        userGroup,
-        userPosition,
-      )
+    signup(
+      emailText,
+      passwordText,
+      userName,
+      userBirth,
+      userGender,
+      userPhone,
+      userAddress,
+      userGroup,
+      userPosition,
+    )
       .then((request) => {
         console.log("회원가입성공", request.data);
+        navigate("/home/create");
       })
       .catch((e) => console.log(e));
   };

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   AddressBox,
-  Auth, // Test,
+  Auth,
+  ChangeUserInfo, // Test,
   DocsBox,
   Editor,
   EditorCreate,
@@ -66,6 +67,10 @@ const router = createBrowserRouter(
         {
           path: "setting",
           element: <Setting />,
+        },
+        {
+          path: "/home/setting/change",
+          element: <ChangeUserInfo />,
         },
       ],
     },
