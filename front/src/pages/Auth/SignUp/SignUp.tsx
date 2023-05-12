@@ -82,10 +82,10 @@ const Register = () => {
   const localDate = new Date();
   return (
     <>
-      <div tw="flex flex-col w-[30rem]">
+      <div tw="flex flex-col w-[20rem]">
         {/* 사용자 사진 입력 */}
-        <div className="ImageForm" tw="flex flex-col">
-          <div className="ImageField" tw="flex flex-col">
+        <div className="ImageForm" tw="flex flex-col ">
+          <div className="ImageField" tw="flex flex-col ">
             <label> 증명사진 업로드 </label>
 
             {fileUrl ? (
@@ -94,7 +94,9 @@ const Register = () => {
               </div>
             ) : (
               <div>
-                <div tw="border-2 bg-gray-400 w-[144px]">증명사진 업로드</div>
+                <div tw="border-2 py-1 bg-gray-400 w-[144px]">
+                  증명사진 업로드
+                </div>
               </div>
             )}
           </div>
@@ -106,7 +108,7 @@ const Register = () => {
             <Label text="이메일" isBold />
             <TextInput
               type="email"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setEmailText(e.target.value)}
             />
           </div>
@@ -114,19 +116,19 @@ const Register = () => {
             <Label text="비밀번호 입력" isBold />
             <TextInput
               type="password"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setPasswordText(e.target.value)}
             />
           </div>
           <div className="InputField" tw="flex flex-col">
             <Label text="비밀번호 확인" isBold />
-            <TextInput type="password" custom={tw`border-2`} />
+            <TextInput type="password" custom={tw`border-2 py-1`} />
           </div>
           <div className="InputField" tw="flex flex-col">
             <Label text="이름" isBold />
             <TextInput
               type="text"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
@@ -134,7 +136,7 @@ const Register = () => {
             <Label text="생년월일" isBold />
             <input
               type="date"
-              tw="border-2 "
+              tw="border-2 py-1 "
               max={localDate.toISOString().split("T")[0]}
               defaultValue={localDate.toISOString().split("T")[0]}
               onKeyDown={(e) => e.preventDefault()}
@@ -147,7 +149,7 @@ const Register = () => {
               <div className="RadioItem">
                 <input
                   type="radio"
-                  tw="border-2"
+                  tw="border-2 py-1"
                   value="남자"
                   name="gender"
                   onClick={() => setUserGender("male")}
@@ -157,7 +159,7 @@ const Register = () => {
               <div className="RadioItem">
                 <input
                   type="radio"
-                  tw="border-2"
+                  tw="border-2 py-1"
                   value="여자"
                   name="gender"
                   onClick={() => setUserGender("female")}
@@ -175,7 +177,7 @@ const Register = () => {
             <Label text="연락처" isBold />
             <TextInput
               type="tel"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setUserPhone(e.target.value)}
             />
           </div>
@@ -183,7 +185,7 @@ const Register = () => {
             <Label text="거주지" isBold />
             <TextInput
               type="text"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setUserAddress(e.target.value)}
             />
           </div>
@@ -191,7 +193,7 @@ const Register = () => {
             <Label text="소속" isBold />
             <TextInput
               type="text"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setUserGroup(e.target.value)}
             />
           </div>
@@ -199,7 +201,7 @@ const Register = () => {
             <Label text="직위" isBold />
             <TextInput
               type="text"
-              custom={tw`border-2`}
+              custom={tw`border-2 py-1`}
               onChange={(e) => setUserPosition(e.target.value)}
             />
           </div>
