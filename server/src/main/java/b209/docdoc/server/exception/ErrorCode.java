@@ -32,6 +32,8 @@ public enum ErrorCode {
     TYPE_MISMATCH(400, "타입이 맞지 않습니다."),
     MISSING_REQUEST_PARAMETER(400, "요청 파라미터를 잃어버렸습니다."),
     METHOD_NOT_ALLOWED(400, "허락되지 않은 메소드 입니다."),
+    INVALID_FILE_ACCESS(400, "상위 디렉토리로의 접근은 불가능합니다."),
+    FILE_NOT_FOUND(404, "파일을 찾을 수 없습니다."),
 
     NOT_PRIMARY_KEY(400, "고유 키가 존재 하지 않습니다."),
     //end point
@@ -50,7 +52,10 @@ public enum ErrorCode {
 
     FOLDER_NOT_FOUND(500, "폴더가 존재하지 않습니다."),
 
-    INVALID_FILE_EXTENSION(500, "유요하지 않는 파일 확장자 입니다");
+    FILE_IS_NULL(500, "파일이 존재하지 않습니다."),
+
+    INVALID_FILE_EXTENSION(500, "유효하지 않는 파일 확장자 입니다"),
+    FILE_CANNOT_SAVE(500, "파일을 저장하는 도중 에러가 발생했습니다.");
 
     private final int status;
     private final String message;

@@ -7,9 +7,9 @@ import b209.docdoc.server.config.security.auth.MemberDTO;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
 import b209.docdoc.server.config.utils.SecurityManager;
-import b209.docdoc.server.member.dto.Request.LoginReqDTO;
-import b209.docdoc.server.member.dto.Request.SignupReqDTO;
-import b209.docdoc.server.member.dto.Request.UpdateUserReqDTO;
+import b209.docdoc.server.member.dto.request.LoginReqDTO;
+import b209.docdoc.server.member.dto.request.SignupReqDTO;
+import b209.docdoc.server.member.dto.request.UpdateUserReqDTO;
 import b209.docdoc.server.member.service.MemberService;
 import com.google.common.net.HttpHeaders;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
 
 @Slf4j
 @RestController
@@ -33,7 +30,7 @@ public class MemberController {
 
 	@PostMapping("/sign")
 	public ResponseEntity<ResponseDTO> signup(@RequestBody SignupReqDTO signupReqDTO) {
-		memberService.signupUser(signupReqDTO);
+		memberService.signupMember(signupReqDTO);
 		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_REGISTER));
 	}
 
@@ -59,6 +56,12 @@ public class MemberController {
 			return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_OUT));
 		}
 		return ResponseEntity.internalServerError().body(ResponseDTO.of(HttpStatus.INTERNAL_SERVER_ERROR, Msg.FAIL_SIGN_OUT));
+	}
+
+	@PutMapping
+	public ResponseEntity<ResponseDTO> updateUser(@RequestBody UpdateUserReqDTO updateUserReqDTO) {
+		memberService.updateMember(updateUserReqDTO);
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_IN));
 	}
 
 

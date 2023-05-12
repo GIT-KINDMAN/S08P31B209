@@ -16,7 +16,7 @@ public class EmailController {
 
     @GetMapping("/confirm")
     public ResponseEntity<ResponseDTO> emailConfirm(@RequestParam("email") String email) throws Exception {
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_EAMIL_CONFIRM, emailService.sendSimpleMessage(email)));
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_EMAIL_CONFIRM, emailService.sendSimpleMessage(email)));
     }
 
 }
