@@ -19,7 +19,7 @@ export const memberAPI = {
   signup: (
     email: string,
     password: string,
-    userName: string,
+    name: string,
     birth: string,
     gender: string,
     phone: string,
@@ -30,7 +30,7 @@ export const memberAPI = {
     api.post(`/member/sign`, {
       email,
       password,
-      userName,
+      name,
       birth,
       gender,
       phone,
