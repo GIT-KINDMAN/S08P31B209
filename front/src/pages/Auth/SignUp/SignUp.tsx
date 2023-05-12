@@ -58,6 +58,7 @@ const Register = () => {
       )
       .then((request) => {
         console.log("회원가입성공", request.data);
+        navigate("/home/create");
       })
       .catch((e) => console.log(e));
   };
