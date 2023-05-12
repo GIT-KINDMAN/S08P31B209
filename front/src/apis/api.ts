@@ -39,3 +39,7 @@ export const memberAPI = {
       position,
     }),
 };
+
+export const boxAPI = {};
+export const templateAPI = {};
+export const addressAPI = {};
