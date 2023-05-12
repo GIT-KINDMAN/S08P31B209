@@ -15,7 +15,8 @@ public interface Msg {
 	String SUCCESS_TOKEN_VALIDATE = "토큰 검증에 성공하였습니다.";
 	String SUCCESS_MEMBER_ROLE = "유저 역할 확인에 성공하였습니다.";
 	String SUCCESS_ACCESS = "서버 접근에 성공하였습니다.";
-	String SUCCESS_EAMIL_CONFIRM = "이메일 인증 코드 전송을 성공하였습니다.";
+	String SUCCESS_EMAIL_CONFIRM = "이메일 인증 코드 전송을 성공하였습니다.";
+	String SUCCESS_TOKEN_REISSUE = "토큰 갱신을 성공했습니다.";
 
 	String FAIL_SIGN_IN = "로그인에 실패하였습니다.";
 	String FAIL_SIGN_OUT = "로그아웃에 실패하였습니다.";

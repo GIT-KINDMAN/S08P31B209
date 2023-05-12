@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
@@ -124,6 +126,13 @@ public class JwtTokenProvider {
         log.info(METHOD_NAME + "- requestCheckToken() ...");
         try {
             String token = request.getHeader(headerKeyAccess);
+            if (request.getServletPath().equals("/auth/reissue")) {
+                Cookie rtk = WebUtils.getCookie(request, "rtk");
+                return TokenResDTO.builder()
+                        .code(1)
+                        .token(rtk.getValue().replace(typeAccess, ""))
+                        .build();
+            }
 
             if (token.startsWith(typeAccess)) {
                 return TokenResDTO.builder()

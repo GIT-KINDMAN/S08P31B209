@@ -14,8 +14,7 @@ export const TextBox = ({ size, label, isAsc, onClick }: InputProps) => {
       {isAsc === undefined ? (
         <Icon
           size={size}
-          icon={isAsc ? "caret-up" : "caret-down"}
-          iconColor="#ffffff"
+          icon={isAsc ? "fi-rr-caret-up" : "fi-rr-caret-down"}
           tw="cursor-pointer"
         ></Icon>
       ) : (

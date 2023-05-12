@@ -26,7 +26,7 @@ const EditorFinish = () => {
             name="DocsLink"
             disabled
             readOnly
-            value={"www.naver.com"}
+            value={docsLink}
             tw="text-xl mx-4"
           />
         </div>
@@ -35,7 +35,7 @@ const EditorFinish = () => {
             className="fi fi-br-link"
             tw=" text-blue-500 text-2xl"
             onClick={() => {
-              console.log(docsLink), handleClipCopy(docsLink);
+              console.log(setDocsLink), handleClipCopy(docsLink);
             }}
           />
         </button>

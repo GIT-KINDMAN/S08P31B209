@@ -14,14 +14,14 @@ import { IProps } from "./Icon.types";
 const Icon = ({
   id,
   className,
-  icon = "rs-home",
+  icon = "fi-rs-home",
   size = "md",
   custom,
   isDisabled = false,
   isHidden = false,
   onClick,
 }: IProps) => {
-  const iconName = className + " fi fi-" + icon;
+  const iconName = className + " fi " + icon;
   return (
     <>
       <SIcon

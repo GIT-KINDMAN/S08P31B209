@@ -1,13 +1,11 @@
-import { Image, Label } from "@/components/atoms";
 import IntroNav from "@/pages/Intro/IntroNav/IntroNav";
-import IntroPage1 from "@/pages/Intro/IntroPage/IntroPage1";
-import IntroPage2 from "@/pages/Intro/IntroPage/IntroPage2";
-import IntroPage3 from "@/pages/Intro/IntroPage/IntroPage3";
+import IntroPage1 from "@/pages/Intro/IntroPage.tsx/IntroPage1";
+import IntroPage2 from "@/pages/Intro/IntroPage.tsx/IntroPage2";
+import IntroPage3 from "@/pages/Intro/IntroPage.tsx/IntroPage3";
 
-import Knock from "../../assets/Main/Knock.png";
-
-import { useNavigate } from "react-router-dom";
-import tw from "twin.macro";
+// import Knock from "../../assets/Main/Knock.png";
+// import { useNavigate } from "react-router-dom";
+import "twin.macro";
 
 const Intro = () => {
   // const navigate = useNavigate();

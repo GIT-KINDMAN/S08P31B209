@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   AddressBox,
-  Auth, // DocsBox,
+  Auth, // Test,
+  DocsBox,
   Editor,
   EditorCreate,
   EditorEdit,
   EditorFinish,
   EditorInvite,
   Home,
-  Intro,
+  Intro, // DocsBox,
+  SendBox,
   Setting,
   SignIn,
-  SignUp, // Test,
+  SignUp,
 } from "@/pages";
 
+// import DocsBox from "@/pages/Home/DocsBox/DocsBox";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter(
@@ -41,12 +44,12 @@ const router = createBrowserRouter(
       element: <Home />,
       children: [
         {
-          path: "/home",
-          element: <Setting />,
+          path: "/home/mybox/receive",
+          element: <DocsBox />,
         },
         {
-          path: "/home/mybox",
-          element: <Setting />,
+          path: "/home/mybox/send",
+          element: <SendBox />,
         },
         {
           path: "/home/address",

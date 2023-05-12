@@ -18,4 +18,6 @@ public interface TemplateRepository extends JpaRepository<Template, Long> {
 	@Query("SELECT t FROM Template t JOIN t.member m WHERE m.memberEmail = :memberEmail AND t.templateIdx = :templateIdx")
 	Optional<Template> findByMemberEmailAndTemplateIdx(@Param("memberEmail") String memberEmail, @Param("templateIdx") Long templateIdx);
 
+	Optional<Template> findByTemplateIdx(Long templateIdx);
+
 }

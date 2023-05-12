@@ -1,9 +1,6 @@
-import { Wrapper } from "@/components/atoms";
-import { DropZone } from "@/components/molecules";
-
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { ChangeEvent, useState } from "react";
-import tw from "twin.macro";
+import { useState } from "react";
+import "twin.macro";
 
 const TemplateLoadForm = () => {
   // 템플릿 불러오기 -> 문서목록 드롭다운
