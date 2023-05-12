@@ -1,7 +1,7 @@
 import { Button, Icon, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import tw from "twin.macro";
 
 const DocsList = () => {
