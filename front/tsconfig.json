@@ -26,6 +26,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@atomic/*": ["./src/components/*"],
+      "@hook/*": ["./src/hooks/*"],
       "@store/*": ["./src/store/*"],
       "#root/*": ["./*"]
     }
