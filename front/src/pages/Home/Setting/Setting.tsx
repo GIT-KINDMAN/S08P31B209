@@ -1,4 +1,4 @@
-import { memberAPI } from "@/apis/api";
+import { fetchUserInfo } from "@/apis/memberAPI";
 
 import AccountWrap from "./MoleculeSetting/AccountWrap";
 import SettingHeader from "./MoleculeSetting/SettingHeader";
@@ -25,8 +25,7 @@ const Setting = () => {
 
   useEffect(() => {
     const UserInfo = async () => {
-      await memberAPI
-        .fetchUserInfo()
+      await fetchUserInfo()
         .then((request) => {
           console.log("request.data:", request.data), setUserData(request.data);
         })
