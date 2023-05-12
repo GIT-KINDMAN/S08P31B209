@@ -30,7 +30,11 @@ const router = createBrowserRouter(
       element: <Auth />,
       children: [
         {
-          path: "/auth",
+          path: "",
+          element: <SignIn />,
+        },
+        {
+          path: "signin",
           element: <SignIn />,
         },
         {
@@ -44,19 +48,23 @@ const router = createBrowserRouter(
       element: <Home />,
       children: [
         {
-          path: "/home/mybox/receive",
+          path: "",
           element: <DocsBox />,
         },
         {
-          path: "/home/mybox/send",
+          path: "mybox/receive",
+          element: <DocsBox />,
+        },
+        {
+          path: "mybox/send",
           element: <SendBox />,
         },
         {
-          path: "/home/address",
+          path: "address",
           element: <AddressBox />,
         },
         {
-          path: "/home/setting",
+          path: "setting",
           element: <Setting />,
         },
       ],
@@ -66,7 +74,7 @@ const router = createBrowserRouter(
       element: <Editor />,
       children: [
         {
-          path: "/editor",
+          path: "",
           element: <EditorCreate />,
         },
         {
