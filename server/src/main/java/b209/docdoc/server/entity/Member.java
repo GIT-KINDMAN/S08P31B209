@@ -2,11 +2,8 @@ package b209.docdoc.server.entity;
 
 import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
-import b209.docdoc.server.member.dto.Request.UpdateUserReqDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import b209.docdoc.server.member.dto.request.UpdateUserReqDTO;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -20,6 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "member")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

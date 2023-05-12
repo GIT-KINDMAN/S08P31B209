@@ -1,4 +1,4 @@
-package b209.docdoc.server.member.dto.Response;
+package b209.docdoc.server.member.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
