@@ -1,4 +1,4 @@
-import { loginAPI } from "@/api/api";
+import { loginAPI } from "@/apis/api";
 import { Button } from "@/components/atoms";
 
 import { useRef, useState } from "react";
