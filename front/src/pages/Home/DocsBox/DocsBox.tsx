@@ -191,7 +191,6 @@ export default DocsBox;
 // } from "@/components/organisms";
 
 // import "twin.macro";
-
 // const DocsBox = () => {
 //   const tableData: string[] = [
 //     "1",

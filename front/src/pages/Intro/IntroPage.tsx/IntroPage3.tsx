@@ -1,4 +1,4 @@
-import tw from "twin.macro";
+import "twin.macro";
 
 const IntroPage3 = () => {
   return (

@@ -1,10 +1,10 @@
-import { Button, Wrapper } from "@/components/atoms";
+import { Button } from "@/components/atoms";
 
 import TemplateCreateForm from "./TemplateCreateForm/TemplateCreateForm";
 import TemplateLoadForm from "./TemplateLoadForm/TemplateLoadForm";
 
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import tw from "twin.macro";
 
 const EditorCreate = () => {
