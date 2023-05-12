@@ -2,7 +2,7 @@ import { Label } from "@/components/atoms";
 
 import { UserProps } from "../Setting";
 
-// import tw from "twin.macro";
+import "twin.macro";
 
 const AccountWrap = ({
   email,
