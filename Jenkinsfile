@@ -43,7 +43,7 @@ pipeline {
                 sh "docker-compose -f docker-compose-client.yml up -d --build"
                 sh "docker ps"
                 sh '''
-                    sed -i 's/location \/ {/location \/ {\n\t\ttry_files \$uri \$uri\/ \/index.html;/g' nginx.conf
+                    sed -i 's/location \\/ {/location \\/ {\\n\\t\\ttry_files \\$uri \\$uri\\/ \\/index.html;/g' nginx.conf
                 '''
             }
             post {
