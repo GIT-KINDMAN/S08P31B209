@@ -6,6 +6,7 @@ import b209.docdoc.server.entity.Docsfile;
 import b209.docdoc.server.entity.Receiver;
 import b209.docdoc.server.entity.Template;
 import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.InvalidFileExtensionException;
 import b209.docdoc.server.exception.TemplateNotFoundException;
 import b209.docdoc.server.repository.BoxRepository;
 import b209.docdoc.server.repository.DocsfileRepository;
@@ -13,6 +14,7 @@ import b209.docdoc.server.repository.ReceiverRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 
 public class BoxServiceImpl implements BoxService {
+    private final ResourceLoader resourceLoader;
 
     private final BoxRepository boxRepository;
 
@@ -44,7 +47,7 @@ public class BoxServiceImpl implements BoxService {
 
     private final DocsfileRepository docsfileRepository;
 
-    @Value("${file.upload_dir2}") // application.properties에 설정된 파일 업로드 디렉터리 경로
+    @Value("${file.upload_dir}") // application.properties에 설정된 파일 업로드 디렉터리 경로
     private String uploadDir;
 
     @Transactional
@@ -96,21 +99,27 @@ public class BoxServiceImpl implements BoxService {
     }
 
     @Transactional
-//    public Long saveFile(MultipartFile file) {
-    public Long saveFile(MultipartFile file, String receiverEmail) {
+    public Long saveFile(MultipartFile file) {
+//    public Long saveFile(MultipartFile file, String receiverEmail) {
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
         String savedFileName = UUID.randomUUID().toString() + "_" + originalFileName;
         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
 
-        // 파일 확장자 확인 및 유효성 검사
         String[] allowedExtensions = new String[]{"pdf", "png", "jpg", "jpeg"};
         boolean isValidExtension = Arrays.stream(allowedExtensions).anyMatch(fileExtension::equalsIgnoreCase);
-//        if (!isValidExtension) {
-//            throw new InvalidFileExtensionException("Invalid file extension");
-//        }
+        if (!isValidExtension) {
+            throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);
+        }
 
-        // 파일 저장 경로를 구합니다.
-        Path savePath = Paths.get(uploadDir).resolve(savedFileName);
+        log.info("uploadDir: {}", uploadDir);
+
+        Path savePath = null;
+        try {
+            savePath = Paths.get(resourceLoader.getResource(uploadDir).getURI()).resolve(savedFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("savePath: {}", savePath);
         if (!Files.exists(savePath.getParent())) {
             try {
                 Files.createDirectories(savePath.getParent());
@@ -127,14 +136,14 @@ public class BoxServiceImpl implements BoxService {
         }
 
         // 파일 정보 DB에 저장
-        Receiver receiver = receiverRepository.findByReceiverEmail(receiverEmail)
-                .orElseThrow(() -> new RuntimeException("Receiver not found"));
+//        Receiver receiver = receiverRepository.findByReceiverEmail(receiverEmail)
+//                .orElseThrow(() -> new RuntimeException("Receiver not found"));
 
         Docsfile docsfile = Docsfile.builder()
                 .docsfileOriginalName(originalFileName)
                 .docsfileSavedName(savedFileName)
                 .docsfileSavedPath(savePath.toString())
-                .receiver(receiver)
+//                .receiver(receiver)
                 .build();
 
         docsfileRepository.save(docsfile);

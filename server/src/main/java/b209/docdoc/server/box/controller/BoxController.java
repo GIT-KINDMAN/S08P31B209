@@ -76,9 +76,11 @@ public class BoxController {
 
 
     @PostMapping(value = "/docsfile/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("receiver_email") String receiverEmail) {
+    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) {
+//    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("receiverEmail") String receiverEmail) {
 //        Long savedFileId = boxService.saveFile(file, receiverId);
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file, receiverEmail)));
+//        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file, receiverEmail)));
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file)));
     }
 
     @GetMapping("/docsfile/{docsfileIdx}")

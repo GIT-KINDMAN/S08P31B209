@@ -31,11 +31,11 @@ public class Docsfile extends BaseDateTime implements Serializable {
     private String docsfileOriginalName; // 문서 name
 
     @NotBlank
-    @Column(length = 50)
+    @Column(length = 255)
     private String docsfileSavedName; // 문서 name
 
     @NotBlank
-    @Column(length = 100)
+    @Column(length = 255)
     private String docsfileSavedPath; // 문서 path
 
     @ManyToOne(fetch = FetchType.LAZY)
