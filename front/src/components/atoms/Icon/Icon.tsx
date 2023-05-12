@@ -8,36 +8,29 @@
  * 4. icon은 onclick 이벤트를 처리할 수 있어야 한다.
  * 5. 그외의 나머지 속성을 custom 할 수 있어야 한다.
  */
-import StyledIcon from "./Icon.styled";
-import { InputProps } from "./Icon.types";
-
-import tw, { css } from "twin.macro";
+import SIcon from "./Icon.styled";
+import { IProps } from "./Icon.types";
 
 const Icon = ({
-  icon = "home",
-  iconType = "rs",
-  iconColor = tw`text-inherit`,
+  id,
+  className,
+  icon = "fi-rs-home",
   size = "md",
   custom,
-  onclick,
-}: InputProps) => {
-  const iconName = "fi fi-" + { iconType }.iconType + "-" + { icon }.icon;
-
-  let color = iconColor;
-  if (typeof iconColor == "string") {
-    color = css`
-      color: ${iconColor};
-    `;
-  }
-
+  isDisabled = false,
+  isHidden = false,
+  onClick,
+}: IProps) => {
+  const iconName = className + " fi " + icon;
   return (
     <>
-      <StyledIcon
+      <SIcon
+        id={id}
         className={iconName}
-        iconColor={color}
         size={size}
         custom={custom}
-        onClick={onclick}
+        onClick={isDisabled === true ? () => null : onClick}
+        hidden={isHidden}
       />
     </>
   );

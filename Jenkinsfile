@@ -45,7 +45,7 @@ pipeline {
                 failure {
                     echo "docker run failed"
                 }
-            }        
+            }
         }
     }
 }

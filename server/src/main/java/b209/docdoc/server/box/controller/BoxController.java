@@ -1,11 +1,9 @@
 package b209.docdoc.server.box.controller;
 
 import b209.docdoc.server.box.service.BoxService;
+import b209.docdoc.server.box.service.Impl.BoxServiceImpl;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -27,21 +25,46 @@ public class BoxController {
 
     private final BoxService boxService;
 
-    @GetMapping("/{path}/templates")
-    public ResponseEntity<ResponseDTO> getTemplates(
-            @PathVariable("path") String path,
-            @RequestParam(value = "keywords", required = false) List<String> keywords,
+    @GetMapping("/received-templates")
+    public ResponseEntity<ResponseDTO> getReceivedTemplates(
+            @RequestParam(value = "keywords", required = false) String keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
-            @AuthenticationPrincipal String userEmail,
-            @PageableDefault(size = 9, page = 1) Pageable pageable) {
+            @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
+            @AuthenticationPrincipal String receiverEmail,
+            @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getTemplates(path, userEmail, keywords, nameSort, createdDateSort, updatedDateSort, pageable)));
+                        boxService.getReceivedTemplates(receiverEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
 
+    @GetMapping("/sent-templates")
+    public ResponseEntity<ResponseDTO> getSentTemplates(
+            @RequestParam(value = "keywords", required = false) String keywords,
+            @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
+            @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
+            @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
+            @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
+            @AuthenticationPrincipal String memberEmail,
+            @PageableDefault(size = 10, page = 1) Pageable pageable) {
+
+        return ResponseEntity.ok()
+                .body(ResponseDTO.of(HttpStatus.OK,
+                        Msg.SUCCESS_TEMPLATE_SEARCH,
+                        boxService.getSentTemplates(memberEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
+    }
+
+    @DeleteMapping("/sent/{template_id}")
+    public ResponseEntity<ResponseDTO> deleteTemplates(@PathVariable("template_id") Long templateId){
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteTemplates(templateId)));
+    }
+
+    @DeleteMapping("/received/{receiver_id}")
+    public ResponseEntity<ResponseDTO> deleteReceiverTemplates(@PathVariable("receiver_id") Long receiverId){
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteReceiverTemplates(receiverId)));
+    }
 
 }

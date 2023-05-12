@@ -7,12 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 @DynamicInsert
 @DynamicUpdate
@@ -22,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Imagefile extends BaseDateTime {
+public class Imagefile extends BaseDateTime implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,7 @@ public class Imagefile extends BaseDateTime {
 
     @NotNull
     @Column(length = 50)
-    String imagefileOrifinalName;
+    String imagefileOriginalName;
 
     @NotNull
     @Column(length = 50)
@@ -40,4 +38,7 @@ public class Imagefile extends BaseDateTime {
     @NotNull
     @Column(length = 100)
     String imagefileSavedPath;
+
+    @Override
+    public void prePersist(){super.prePersist();}
 }

@@ -11,10 +11,10 @@ const Editor = () => {
 
   return (
     <>
-      <div>
+      <div tw="min-w-[64rem]">
         <div
           className="EditorHeader"
-          tw="z-50 fixed w-full top-0 flex justify-between bg-blue-800 px-4 py-2 h-[3rem]"
+          tw="z-50 fixed w-full min-w-[64rem] top-0 flex justify-between bg-blue-800 px-4 py-2 h-[3rem]"
         >
           <div className="Title">
             <label tw="text-2xl font-bold text-sliver-100">
@@ -58,7 +58,7 @@ const Editor = () => {
         </div>
         <div
           className="NavButtonWrap"
-          tw="z-50 fixed w-full bottom-0 flex flex-row justify-center bg-blue-800 px-4 h-[4rem]"
+          tw="z-50 fixed w-full min-w-[64rem] bottom-0 flex flex-row justify-center bg-blue-800 px-4 h-[4rem]"
         >
           <div tw="flex flex-row justify-center w-[43rem]">
             <button

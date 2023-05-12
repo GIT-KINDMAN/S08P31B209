@@ -8,37 +8,33 @@
  * 4. label은 onclick 이벤트를 처리할 수 있어야 한다.
  * 5. 그외의 나머지 속성을 custom 할 수 있어야 한다.
  */
-import StyledLabel from "./Label.styled";
-import { InputProps } from "./Label.types";
-
-import tw, { css } from "twin.macro";
+import SLabel from "./Label.styled";
+import { IProps } from "./Label.types";
 
 const Label = ({
+  id,
+  className,
   text = "Label",
-  labelColor = tw`text-inherit`,
-  size = "md",
+  fontSize = "md",
   isBold = false,
   custom,
-  onclick,
-}: InputProps) => {
-  let color = labelColor;
-  if (typeof labelColor === "string") {
-    color = css`
-      color: ${labelColor};
-    `;
-  }
-
+  isDisabled = false,
+  isHidden = false,
+  onClick,
+}: IProps) => {
   return (
     <>
-      <StyledLabel
-        size={size}
-        labelColor={color}
+      <SLabel
+        id={id}
+        className={className}
+        fontSize={fontSize}
         isBold={isBold}
         custom={custom}
-        onClick={onclick}
+        onClick={isDisabled === true ? () => null : onClick}
+        hidden={isHidden}
       >
         {text}
-      </StyledLabel>
+      </SLabel>
     </>
   );
 };

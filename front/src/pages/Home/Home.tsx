@@ -67,7 +67,7 @@ const Home = () => {
                   <li className="CategoryMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
-                      onClick={() => navigate("/home/recive")}
+                      onClick={() => navigate("/home/mybox/receive")}
                     >
                       <i
                         className="fi fi-rr-folder"
@@ -79,7 +79,7 @@ const Home = () => {
                   <li className="CategoryMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
-                      onClick={() => navigate("/home/send")}
+                      onClick={() => navigate("/home/mybox/send")}
                     >
                       <i
                         className="fi fi-rr-folder"
@@ -204,7 +204,7 @@ const Home = () => {
           </div>
           <div
             className="ContentWrap"
-            tw="flex w-full min-w-[40rem] justify-center bg-lightgray-800"
+            tw="flex w-full min-w-[40rem] justify-center bg-white"
           >
             <Outlet />
           </div>

@@ -35,6 +35,10 @@ public class Templatefile extends BaseDateTime implements Serializable {
 	@Column(length = 50)
 	private String templatefileSavedName; // 문서 name
 
+	@NotBlank
+	@Column(length = 255)
+	private String templatefileSavedPath; // 문서 path
+
 	@Override
 	public void prePersist(){super.prePersist();}
 }

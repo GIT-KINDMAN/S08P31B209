@@ -4,16 +4,20 @@ import b209.docdoc.server.config.jwt.dto.CommonTokenDTO;
 import b209.docdoc.server.config.jwt.dto.ReIssuanceTokenDTO;
 import b209.docdoc.server.config.jwt.dto.TokenResDTO;
 import b209.docdoc.server.config.redis.RedisRepository;
+import b209.docdoc.server.config.utils.SecurityManager;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.token.Token;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
@@ -95,6 +99,10 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         log.info(METHOD_NAME + "- validateToken() ...");
+        if (redisRepository.getValue(token) != null) {
+            log.error("로그아웃한 토큰 " + METHOD_NAME);
+            return false;
+        }
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
@@ -118,6 +126,13 @@ public class JwtTokenProvider {
         log.info(METHOD_NAME + "- requestCheckToken() ...");
         try {
             String token = request.getHeader(headerKeyAccess);
+            if (request.getServletPath().equals("/auth/reissue")) {
+                Cookie rtk = WebUtils.getCookie(request, "rtk");
+                return TokenResDTO.builder()
+                        .code(1)
+                        .token(rtk.getValue().replace(typeAccess, ""))
+                        .build();
+            }
 
             if (token.startsWith(typeAccess)) {
                 return TokenResDTO.builder()
@@ -189,9 +204,41 @@ public class JwtTokenProvider {
         return cookie;
     }
 
+    public ResponseCookie generateResponseCookie(String refreshToken) {
+        log.info(METHOD_NAME + "- generateResponseCookie() ...");
+        return ResponseCookie.from("rtk", refreshToken)
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(accessValidTime)
+                .build();
+    }
+
     public Long getMemberIdx(String token) {
         Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
         String member_idx = String.valueOf(claims.getBody().get("idx"));
         return Long.parseLong(member_idx);
+    }
+
+    public boolean deleteRefresh(String email) {
+        log.info(METHOD_NAME + "- deleteRefresh() ...");
+        try {
+            redisRepository.deleteValue(email);
+            return true;
+        } catch (Exception e) {
+            log.error("redis 키 삭제중 에러가 발생했습니다. " + METHOD_NAME, e);
+        }
+        return false;
+    }
+
+    public boolean banAccessToken(String accessToken) {
+        log.info(METHOD_NAME + "- banAccessToken() ...");
+        try {
+            redisRepository.setValue(accessToken.replace(typeAccess, ""), String.format("%s logout at %s", SecurityManager.getCurrentMember().getEmail(), LocalDateTime.now()), Duration.ofMillis(accessValidTime));
+            return true;
+        } catch (Exception e) {
+            log.error("redis 키 등록중 에러가 발생했습니다. " + METHOD_NAME, e);
+        }
+        return false;
     }
 }
