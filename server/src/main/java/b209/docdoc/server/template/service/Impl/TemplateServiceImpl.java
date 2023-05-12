@@ -116,7 +116,8 @@ public class TemplateServiceImpl implements TemplateService {
                     .receiverSenderName(member.getMemberName())//발신자 이름
                     .receiverSenderEmail(fromEmail)//발신자 이메일
                     .receiverIsDeleted(false)// 문서 삭제 완료 여부
-                    .receiverEmail(toEmail)//수신자 이메일
+                    .receiverEmail(toEmail) //수신자 이메일
+                    .receiverName(toName) // 수신자 이름
                     .build();
 
             receiverRepository.save(receiver);
