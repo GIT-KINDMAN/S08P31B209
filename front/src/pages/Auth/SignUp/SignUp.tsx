@@ -30,7 +30,7 @@ const Register = () => {
   const [userGroup, setUserGroup] = useState("");
   const [userPosition, setUserPosition] = useState("");
 
-  const [file, setFile] = useState<File | null>(null);
+  // const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
 
   const SignUp = ({
@@ -61,7 +61,18 @@ const Register = () => {
       })
       .catch((e) => console.log(e));
   };
-
+  console.log(
+    emailText,
+    passwordText,
+    userName,
+    userAddress,
+    userBirth,
+    userGender,
+    userGroup,
+    userPhone,
+    userPosition,
+    setFileUrl,
+  );
   // const handleFileUpload = <T extends File>(acceptedFiles: T[]) => {
   //   setFile(acceptedFiles[0]);
   //   const url = URL.createObjectURL(acceptedFiles[0]);
@@ -115,7 +126,7 @@ const Register = () => {
             <TextInput
               type="text"
               custom={tw`border-2`}
-              onChange={(e) => console}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           <div className="InputField" tw="flex flex-col">
@@ -183,10 +194,14 @@ const Register = () => {
               onChange={(e) => setUserGroup(e.target.value)}
             />
           </div>
-          {/* <div className="InputField" tw="flex flex-col">
-            <Label text="직위" isBold  />
-            <TextInput type="text" custom={tw`border-2`}/>
-          </div> */}
+          <div className="InputField" tw="flex flex-col">
+            <Label text="직위" isBold />
+            <TextInput
+              type="text"
+              custom={tw`border-2`}
+              onChange={(e) => setUserPosition(e.target.value)}
+            />
+          </div>
         </div>
         <div className="ButtonWrap" tw="flex flex-col mx-auto my-4">
           <Button
