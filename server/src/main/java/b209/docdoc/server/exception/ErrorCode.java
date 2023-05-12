@@ -44,8 +44,13 @@ public enum ErrorCode {
 
     SOCKET_NOT_CLOSE_ERROR(500, "소켓이 정상적으로 종료되지 않았습니다."),
 
-    MYPAGE_HISTORY_ERROR(500, "거래 내역 조회 에러입니다.");
+    MYPAGE_HISTORY_ERROR(500, "거래 내역 조회 에러입니다."),
 
+    TEMPLATE_NOT_FOUND(500, "템플릿이 존재하지 않습니다."),
+
+    FOLDER_NOT_FOUND(500, "폴더가 존재하지 않습니다."),
+
+    INVALID_FILE_EXTENSION(500, "유요하지 않는 파일 확장자 입니다");
 
     private final int status;
     private final String message;

@@ -1,4 +1,5 @@
 import Logo from "@/assets/DocDoc.png";
+import { Image } from "@/components/atoms";
 
 import { Outlet, useNavigate } from "react-router-dom";
 import "twin.macro";
@@ -8,9 +9,9 @@ const Auth = () => {
 
   return (
     <>
-      <div>
+      <div tw="min-w-[60rem] max-w-[80rem]">
         <div className="AuthHeader" tw="flex justify-center">
-          <img src={Logo} onClick={() => navigate("/")} />
+          <Image imageUrl={Logo} onClick={() => navigate("/")} />
         </div>
         <div className="ContentWrap" tw="flex w-full justify-center">
           <Outlet />

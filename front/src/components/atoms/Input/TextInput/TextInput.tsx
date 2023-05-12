@@ -6,46 +6,50 @@
  * 2. textInput은 각종 이벤트를 처리할 수 있어야 한다.
  * 3. 그외의 나머지 속성을 custom 할 수 있어야 한다.
  */
-import StyledTextInput from "./TextInput.styled";
-import { InputProps } from "./TextInput.types";
+import STextInput from "./TextInput.styled";
+import { IProps } from "./TextInput.types";
 
 const TextInput = ({
   id,
+  className,
   type,
   value,
   placeholder,
-  variant,
   fontSize = "md",
-  isDisabled = false,
+  variant,
   custom,
-  onclick,
-  onchange,
-  oninput,
-  onkeyup,
-  onfocus,
-  onblur,
-}: InputProps) => {
+  isDisabled = false,
+  isHidden = false,
+  onClick,
+  onChange,
+  onInput,
+  onKeyup,
+  onFocus,
+  onBlur,
+}: IProps) => {
   if (isDisabled) {
     variant = "disabled";
   }
 
   return (
     <>
-      <StyledTextInput
+      <STextInput
         id={id}
+        className={className}
         type={type}
         value={value}
         placeholder={placeholder}
-        variant={variant}
         fontSize={fontSize}
+        variant={variant}
         custom={custom}
-        onClick={onclick}
-        onChange={onchange}
-        onInput={oninput}
-        onKeyUp={onkeyup}
-        onFocus={onfocus}
-        onBlur={onblur}
+        onClick={isDisabled === true ? () => null : onClick}
+        onChange={isDisabled === true ? () => null : onChange}
+        onInput={isDisabled === true ? () => null : onInput}
+        onKeyUp={isDisabled === true ? () => null : onKeyup}
+        onFocus={isDisabled === true ? () => null : onFocus}
+        onBlur={isDisabled === true ? () => null : onBlur}
         disabled={isDisabled}
+        hidden={isHidden}
       />
     </>
   );

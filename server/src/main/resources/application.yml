@@ -13,7 +13,7 @@ spring:
     mongodb:
       host: ${datasource}
       port: 27017
-      authentication-database: admin
+      authentication-database: devdb
       database: ${schema}
       username: ${dbUser}
       password: ${dbPwd}
@@ -53,7 +53,13 @@ spring:
     allow-circular-references: true
   web:
     resources:
+      static-locations: classpath:/static/
       add-mappings: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 100MB
 
 jwt:
   header:
@@ -67,6 +73,7 @@ jwt:
     refresh: 6048000000
   secret:
     key: ${jwt_secret_key}
+
 
 user:
   url:
@@ -102,7 +109,7 @@ logging:
               BasicBinder: TRACE
 
 file:
-  upload-dir: "/files/"
+  upload-dir: "classpath:static/files/"
 
 mail:
   smtp:
@@ -117,5 +124,5 @@ mail:
       required: true
 
   AdminMail:
-    id: 'ssafy@ssafy.com'
-    password: '1234'
+    id: 'docdocb209@gmail.com'
+    password: 'hclrpgdynnjylohi'
