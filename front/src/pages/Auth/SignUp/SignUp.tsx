@@ -62,11 +62,11 @@ const Register = () => {
       .catch((e) => console.log(e));
   };
 
-  const handleFileUpload = <T extends File>(acceptedFiles: T[]) => {
-    setFile(acceptedFiles[0]);
-    const url = URL.createObjectURL(acceptedFiles[0]);
-    setFileUrl(url);
-  };
+  // const handleFileUpload = <T extends File>(acceptedFiles: T[]) => {
+  //   setFile(acceptedFiles[0]);
+  //   const url = URL.createObjectURL(acceptedFiles[0]);
+  //   setFileUrl(url);
+  // };
   const localDate = new Date();
   return (
     <>
