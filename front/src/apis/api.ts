@@ -12,7 +12,7 @@ export const api = axios.create({
 
 export default api;
 
-export const loginAPI = {
+export const memberAPI = {
   login: (email: string, password: string) =>
     api.post(`/member/login`, { email, password }),
   logout: () => api.delete(`/member/logout`),

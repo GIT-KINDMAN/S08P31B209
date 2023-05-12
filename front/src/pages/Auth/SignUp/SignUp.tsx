@@ -1,4 +1,4 @@
-import { loginAPI } from "@/apis/api";
+import { memberAPI } from "@/apis/api";
 import { Button, Image, Label, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
@@ -44,7 +44,7 @@ const Register = () => {
     userGroup,
     userPosition,
   }: signupProps) => {
-    loginAPI
+    memberAPI
       .signup(
         emailText,
         passwordText,
