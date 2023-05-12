@@ -20,9 +20,6 @@ pipeline {
         }
 
         stage('frontend build') {
-            when {
-                changeset "front/package.json"
-            }
             steps {
                 dir('front') {
                     nodejs(nodeJSInstallationName: 'NodeJS18') {
@@ -43,7 +40,7 @@ pipeline {
         stage('Deploy') {
             steps{
                 sh "pwd"
-                sh "docker-compose --file /var/jenkins_home/workspace/docdoc_client/docker-compose-client.yml up -d --build"
+                sh "docker-compose -f docker-compose-client.yml up -d --build"
                 sh "docker ps"
             }
             post {
