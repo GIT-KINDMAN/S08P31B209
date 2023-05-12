@@ -16,4 +16,26 @@ export const loginAPI = {
   login: (email: string, password: string) =>
     api.post(`/member/login`, { email, password }),
   logout: () => api.delete(`/member/logout`),
+  signup: (
+    email: string,
+    password: string,
+    userName: string,
+    birth: string,
+    gender: string,
+    phone: string,
+    address: string,
+    group: string,
+    position: string,
+  ) =>
+    api.post(`/member/sign/`, {
+      email,
+      password,
+      userName,
+      birth,
+      gender,
+      phone,
+      address,
+      group,
+      position,
+    }),
 };
