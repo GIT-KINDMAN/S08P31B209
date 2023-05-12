@@ -1,4 +1,4 @@
-import { loginAPI } from "@/apis/api";
+import { memberAPI } from "@/apis/api";
 import { Button } from "@/components/atoms";
 
 import { useState } from "react";
@@ -57,7 +57,7 @@ const Login = () => {
             tw="m-2 p-2 rounded-[0.5rem] bg-blue-400"
             onClick={() => {
               console.log(emailText, passwordText);
-              loginAPI
+              memberAPI
                 .login(emailText, passwordText)
                 .then((request) => console.log("로그인 성공!", request.data))
                 .catch((e) => console.log(e));

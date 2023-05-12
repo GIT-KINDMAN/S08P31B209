@@ -12,14 +12,14 @@ export const api = axios.create({
 
 export default api;
 
-export const loginAPI = {
+export const memberAPI = {
   login: (email: string, password: string) =>
     api.post(`/member/login`, { email, password }),
   logout: () => api.delete(`/member/logout`),
   signup: (
     email: string,
     password: string,
-    userName: string,
+    name: string,
     birth: string,
     gender: string,
     phone: string,
@@ -30,7 +30,7 @@ export const loginAPI = {
     api.post(`/member/sign`, {
       email,
       password,
-      userName,
+      name,
       birth,
       gender,
       phone,
@@ -38,4 +38,27 @@ export const loginAPI = {
       group,
       position,
     }),
+  fetchUserInfo: () => api.get(`/member`),
+  reIssue: () => api.post(`/member/auth/reissue`),
+  emailVerification: (email: string) =>
+    api.post(`/member/email/confirm`, { email }),
+  updateUserInfo: (
+    phone: string,
+    address: string,
+    group: string,
+    position: string,
+  ) => api.put(`/member`, { phone, address, group, position }),
 };
+
+export const addressAPI = {
+  saveAddress: (name: string, email: string, phone: string, group: string) =>
+    api.post("/api/address/save", { name, email, phone, group }),
+  fetchAddressList: () => api.get("/api/address/list"),
+  fetchEditorAddressList: () => api.get("/api/address/list/editor"),
+  saveEditorAddress: (addressData: object) =>
+    api.post("/api/address/save/editor", addressData),
+};
+
+export const boxAPI = {};
+export const templateAPI = {};
+export const fileAPI = {};
