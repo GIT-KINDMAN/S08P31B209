@@ -27,7 +27,7 @@ export const loginAPI = {
     group: string,
     position: string,
   ) =>
-    api.post(`/member/sign/`, {
+    api.post(`/member/sign`, {
       email,
       password,
       userName,

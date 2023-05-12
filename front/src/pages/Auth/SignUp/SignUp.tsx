@@ -115,7 +115,7 @@ const Register = () => {
             <TextInput
               type="text"
               custom={tw`border-2`}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e) => console}
             />
           </div>
           <div className="InputField" tw="flex flex-col">
