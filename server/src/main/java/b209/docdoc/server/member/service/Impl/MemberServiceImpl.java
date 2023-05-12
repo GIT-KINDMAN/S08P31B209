@@ -2,14 +2,15 @@ package b209.docdoc.server.member.service.Impl;
 
 import b209.docdoc.server.config.security.auth.MemberDTO;
 import b209.docdoc.server.config.security.handler.DecodeEncodeHandler;
+import b209.docdoc.server.config.utils.SecurityManager;
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberAlreadyExistException;
 import b209.docdoc.server.exception.MemberNotFoundException;
 import b209.docdoc.server.exception.PasswordNotMatchException;
-import b209.docdoc.server.member.dto.Request.LoginReqDTO;
-import b209.docdoc.server.member.dto.Request.SignupReqDTO;
-import b209.docdoc.server.member.dto.Request.UpdateUserReqDTO;
+import b209.docdoc.server.member.dto.request.LoginReqDTO;
+import b209.docdoc.server.member.dto.request.SignupReqDTO;
+import b209.docdoc.server.member.dto.request.UpdateUserReqDTO;
 import b209.docdoc.server.member.service.MemberService;
 import b209.docdoc.server.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Transactional
 	@Override
-	public void signupUser(SignupReqDTO signupReqDTO) {
+	public void signupMember(SignupReqDTO signupReqDTO) {
 		if (memberRepository.existsByMemberEmail(signupReqDTO.getEmail())) throw new MemberAlreadyExistException(ErrorCode.MEMBER_ALREADY_EXIST);
 		String password = decodeEncodeHandler.passwordEncode(signupReqDTO.getPassword());
 		Member member = Member.builder()
@@ -53,5 +54,13 @@ public class MemberServiceImpl implements MemberService {
 		return MemberDTO.of(member);
 	}
 
-
+	@Transactional
+	@Override
+	public MemberDTO updateMember(UpdateUserReqDTO updateUserReqDTO) {
+		MemberDTO memberDTO = SecurityManager.getCurrentMember();
+		Member member = memberRepository.findByMemberEmail(memberDTO.getEmail()).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+		member.update(updateUserReqDTO);
+		member = memberRepository.save(member);
+		return MemberDTO.of(member);
+	}
 }
