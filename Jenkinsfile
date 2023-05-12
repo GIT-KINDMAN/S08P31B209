@@ -46,6 +46,7 @@ pipeline {
             post {
                 success {
                     echo "docker-compose success"
+                    sh "docker exec -it docdoc_client_client_1 sh -c \"sed -i '/location \/ {/a \        try_files $uri $uri/ /index.html;' /etc/nginx/conf.d/default.conf;nginx -s reload;\""
                 }
 
                 failure {
