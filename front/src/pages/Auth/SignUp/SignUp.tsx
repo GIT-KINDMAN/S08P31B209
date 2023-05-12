@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import tw, { styled } from "twin.macro";
+
+// import tw, { styled } from "twin.macro";
 
 const Register = () => {
   const navigate = useNavigate();

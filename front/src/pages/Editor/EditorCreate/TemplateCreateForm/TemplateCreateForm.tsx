@@ -2,8 +2,8 @@ import { Button, Icon, TextInput, Wrapper } from "@/components/atoms";
 
 // import { DropZone } from "@/components/molecules";
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { ChangeEvent, useState } from "react";
-import Dropzone, { DropEvent, FileRejection } from "react-dropzone";
+import { useState } from "react";
+import Dropzone from "react-dropzone";
 import tw from "twin.macro";
 
 const TemplateCreateForm = () => {
