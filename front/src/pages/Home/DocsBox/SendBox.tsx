@@ -1,6 +1,11 @@
 import TemplateDocs from "./TemplateDocs/TemplateDocs";
 
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import "twin.macro";
+
 const SendBox = () => {
+  //   const navigate = useNavigate();
   return (
     <div
       className="SendBoxForm"

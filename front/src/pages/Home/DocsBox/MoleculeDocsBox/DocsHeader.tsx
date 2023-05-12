@@ -12,8 +12,8 @@ const DocsHeader = ({ header }: HeaderProps) => {
   return (
     <div className="Header ">
       <label tw="text-3xl">{header}</label>
-      <hr tw="my-2 border-t-2 border-blue-600"></hr>
-      <div tw="flex justify-between min-w-[64rem]">
+      <hr tw="my-2 min-w-[64rem] max-w-[64rem]  border-t-2 border-blue-600"></hr>
+      <div tw="flex justify-between min-w-[60rem] max-w-[60rem]">
         <div>
           <Icon icon="fi fi-br-search" custom={tw` ml-8 my-10`} />
           <TextInput
