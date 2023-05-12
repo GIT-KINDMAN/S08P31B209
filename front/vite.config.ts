@@ -29,6 +29,7 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "./src"),
       "@atomic": resolve(__dirname, "./src/components"),
+      "@store": resolve(__dirname, "./src/store"),
       "#root": resolve(__dirname),
     },
   },

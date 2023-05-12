@@ -21,6 +21,7 @@ module.exports = {
       alias: [
         ["@", "./src"],
         ["@atomic", "./src/component"],
+        ["@store", "./src/store"],
       ],
     },
   },
