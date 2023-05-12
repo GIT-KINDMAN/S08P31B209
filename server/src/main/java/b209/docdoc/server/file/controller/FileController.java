@@ -28,21 +28,30 @@ public class FileController {
 
     private final FileService fileService;
 
-    @GetMapping("/{type}/{date}/{savedName}")
-    public ResponseEntity<?> getFile(@PathVariable String type, @PathVariable String savedName, @PathVariable String date) throws MalformedURLException {
-        Pattern pattern = Pattern.compile("\\.\\.");
-        if (pattern.matcher(date).matches() || pattern.matcher(savedName).matches()) {
-            throw new InvalidFileAccessException(ErrorCode.INVALID_FILE_ACCESS);
-        }
-        FileDTO fileDTO = null;
-        switch (type) {
-            case "image": fileDTO = fileService.getImageFile(savedName); break;
-            case "docs": fileDTO = fileService.getDocsFile(savedName); break;
-            case "template": fileDTO = fileService.getTemplateFile((savedName)); break;
-        }
+    @GetMapping("/template/{idx}")
+    public ResponseEntity<?> getTemplateFile(@PathVariable Long idx) throws MalformedURLException {
+        FileDTO fileDTO = fileService.getTemplateFile(idx);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
                 .body(new UrlResource("file:" + fileDTO.getSavedPath()));
     }
+
+    @GetMapping("/docs/{savedName}")
+    public ResponseEntity<?> getDocsFile(@PathVariable String savedName) throws MalformedURLException {
+        FileDTO fileDTO = fileService.getDocsFile(savedName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
+                .body(new UrlResource("file:" + fileDTO.getSavedPath()));
+    }
+
+    @GetMapping("/image/{savedName}")
+    public ResponseEntity<?> getImageFile(@PathVariable String savedName) throws MalformedURLException {
+        FileDTO fileDTO = fileService.getImageFile(savedName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new UrlResource("file:" + fileDTO.getSavedPath()));
+    }
+
 }
