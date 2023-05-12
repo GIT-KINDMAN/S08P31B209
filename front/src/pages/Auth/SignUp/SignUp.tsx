@@ -149,7 +149,7 @@ const Register = () => {
                   tw="border-2"
                   value="남자"
                   name="gender"
-                  onClick={(e) => setUserGender("male")}
+                  onClick={() => setUserGender("male")}
                 ></input>
                 <label> 남자 </label>
               </div>
@@ -159,7 +159,7 @@ const Register = () => {
                   tw="border-2"
                   value="여자"
                   name="gender"
-                  onClick={(e) => setUserGender("female")}
+                  onClick={() => setUserGender("female")}
                 ></input>
                 <label> 여자 </label>
               </div>
@@ -207,7 +207,19 @@ const Register = () => {
           <Button
             className="RegisterBtn"
             custom={tw`m-2 p-2 rounded-[0.5rem] bg-blue-400 min-w-[28rem] max-w-[28rem]`}
-            onClick={SignUp}
+            onClick={() =>
+              SignUp({
+                emailText,
+                passwordText,
+                userName,
+                userBirth,
+                userGender,
+                userPhone,
+                userAddress,
+                userGroup,
+                userPosition,
+              })
+            }
           >
             회원가입
           </Button>
