@@ -42,11 +42,13 @@ pipeline {
                 sh "pwd"
                 sh "docker-compose -f docker-compose-client.yml up -d --build"
                 sh "docker ps"
+                sh '''
+                    sed -i 's/location \/ {/location \/ {\n\t\ttry_files \$uri \$uri\/ \/index.html;/g' nginx.conf
+                '''
             }
             post {
                 success {
                     echo "docker-compose success"
-                    sh "docker exec -it docdoc_client_client_1 sh -c \"sed -i '/location / {/a         try_files $uri $uri/ /index.html;' /etc/nginx/conf.d/default.conf;nginx -s reload;\""
                 }
 
                 failure {
