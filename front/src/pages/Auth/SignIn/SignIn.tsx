@@ -1,12 +1,12 @@
 import { Button } from "@atomic/atoms";
 
 import { setAuth } from "@store/slice/authSlice";
-import type { RootState } from "@store/store";
 
+// import type { RootState } from "@store/store";
 import { login } from "@/apis/memberAPI";
 
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import SigninButton from "@/pages/Auth/AuthForm/SigninButton";
 // import SigninForm from "@/pages/Auth/AuthForm/SigninForm";
 import { useNavigate } from "react-router-dom";
