@@ -32,12 +32,11 @@ const Setting = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        if (token) {
-          const response = await axios.get("/member", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setUserData(response.data);
-        }
+        const response = await axios.get("/member", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUserData(response.data);
+
         console.log("token", token);
         console.log("userData:", UserData);
       } catch (error) {
