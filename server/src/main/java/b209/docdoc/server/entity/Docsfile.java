@@ -26,18 +26,32 @@ public class Docsfile extends BaseDateTime implements Serializable {
     @Column(name = "docsfile_idx")
     private Long docsfileIdx;
 
-@NotBlank
-@Column(length = 50)
-private String docsfileOriginalName; // 문서 name
+    @NotBlank
+    @Column(length = 50)
+    private String docsfileOriginalName; // 문서 name
 
-@NotBlank
-@Column(length = 50)
-private String docsfileSavedName; // 문서 name
+    @NotBlank
+    @Column(length = 255)
+    private String docsfileSavedName; // 문서 name
 
-@NotBlank
-@Column(length = 100)
-private String docsfileSavedPath; // 문서 path
+    @NotBlank
+    @Column(length = 255)
+    private String docsfileSavedPath; // 문서 path
 
-@Override
-public void prePersist(){super.prePersist();}
+    @NotBlank
+    @Column(length = 255)
+    private String uuid; // 템플릿 uuid
+
+    @NotBlank
+    @Column(length = 50)
+    private String toEmail; // 수신자 email;
+
+    @NotBlank
+    @Column(length = 50)
+    private String fromEmail; // 발신자 email;
+
+    @Override
+    public void prePersist() {
+        super.prePersist();
+    }
 }

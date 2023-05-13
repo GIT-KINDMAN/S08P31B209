@@ -1,19 +1,28 @@
 package b209.docdoc.server.box.controller;
 
 import b209.docdoc.server.box.service.BoxService;
-import b209.docdoc.server.box.service.Impl.BoxServiceImpl;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
+import b209.docdoc.server.entity.Docsfile;
+import b209.docdoc.server.entity.Receiver;
+import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Slf4j
 @RestController
@@ -58,13 +67,12 @@ public class BoxController {
     }
 
     @DeleteMapping("/sent/{template_id}")
-    public ResponseEntity<ResponseDTO> deleteTemplates(@PathVariable("template_id") Long templateId){
+    public ResponseEntity<ResponseDTO> deleteTemplates(@PathVariable("template_id") Long templateId) {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteTemplates(templateId)));
     }
 
     @DeleteMapping("/received/{receiver_id}")
-    public ResponseEntity<ResponseDTO> deleteReceiverTemplates(@PathVariable("receiver_id") Long receiverId){
+    public ResponseEntity<ResponseDTO> deleteReceiverTemplates(@PathVariable("receiver_id") Long receiverId) {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteReceiverTemplates(receiverId)));
     }
-
 }

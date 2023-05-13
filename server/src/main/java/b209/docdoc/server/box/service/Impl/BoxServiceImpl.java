@@ -1,25 +1,39 @@
 package b209.docdoc.server.box.service.Impl;
 
 import b209.docdoc.server.box.service.BoxService;
+import b209.docdoc.server.config.utils.FileHandler;
 import b209.docdoc.server.config.utils.SecurityManager;
+import b209.docdoc.server.entity.Docsfile;
 import b209.docdoc.server.entity.Receiver;
 import b209.docdoc.server.entity.Template;
 import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.InvalidFileExtensionException;
 import b209.docdoc.server.exception.TemplateNotFoundException;
+import b209.docdoc.server.file.dto.FileDTO;
 import b209.docdoc.server.repository.BoxRepository;
+import b209.docdoc.server.repository.DocsfileRepository;
 import b209.docdoc.server.repository.ReceiverRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidParameterException;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service

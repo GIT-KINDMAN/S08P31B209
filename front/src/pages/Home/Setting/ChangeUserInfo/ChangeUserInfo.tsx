@@ -1,32 +1,15 @@
-import { fetchUserInfo, updateUserInfo } from "@/apis/memberAPI";
+import { updateUserInfo } from "@/apis/memberAPI";
 import { Button, Label, TextInput } from "@/components/atoms";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import tw from "twin.macro";
 
 const ChangeUserInfo = () => {
-  const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [userGroup, setUserGroup] = useState("");
   const [userPosition, setUserPosition] = useState("");
-
-  useEffect(() => {
-    // 기존 유저 정보 불러오기
-    const userInfo = async () => {
-      await fetchUserInfo()
-        .then((request: any) => {
-          setUserName(request.data.name);
-          setUserAddress(request.data.email);
-          setUserPhone(request.data.phone);
-          setUserGroup(request.data.group);
-          setUserPosition(request.data.position);
-        })
-        .catch((e) => console.log(e));
-    };
-    userInfo();
-  }, []);
 
   // 유저 정보 변경
   const infoUpdate = () => {
@@ -44,15 +27,6 @@ const ChangeUserInfo = () => {
         className="changeInputWrap"
         tw="flex flex-col min-w-[20rem] max-w-[20rem] mx-auto"
       >
-        <div className="InputField" tw="flex flex-col">
-          <Label text="이름" isBold />
-          <TextInput
-            type="tel"
-            placeholder={userName}
-            custom={tw`border-2 py-1`}
-            onChange={(e) => setUserPhone(e.target.value)}
-          />
-        </div>
         <div className="InputField" tw="flex flex-col">
           <Label text="연락처" isBold />
           <TextInput
