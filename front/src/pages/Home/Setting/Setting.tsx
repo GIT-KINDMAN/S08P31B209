@@ -27,11 +27,13 @@ const Setting = () => {
   const [UserData, setUserData] = useState<UserProps | null>(null);
 
   useEffect(() => {
+    console.log(authState.authToken);
     fetchUserInfo({
       headers: { Authorization: `Bearer ${authState.authToken}` },
     })
       .then((request) => {
         setUserData(request.data);
+        console.log(request.data);
       })
       .catch((error) => {
         console.error(error);
@@ -46,16 +48,18 @@ const Setting = () => {
       >
         <SettingHeader />
         <div className="Content">
-          <AccountWrap
-            email={UserData?.email}
-            name={UserData?.name}
-            birth={UserData?.birth}
-            gender={UserData?.gender}
-            phone={UserData?.phone}
-            address={UserData?.address}
-            group={UserData?.group}
-            position={UserData?.position}
-          />
+          {UserData && (
+            <AccountWrap
+              email={UserData?.email}
+              name={UserData?.name}
+              birth={UserData?.birth}
+              gender={UserData?.gender}
+              phone={UserData?.phone}
+              address={UserData?.address}
+              group={UserData?.group}
+              position={UserData?.position}
+            />
+          )}
 
           <div
             className="AccountController"
