@@ -41,7 +41,10 @@ const Login = () => {
             onClick={() => {
               console.log(emailText, passwordText);
               login(emailText, passwordText)
-                .then((request) => console.log("로그인 성공!", request.data))
+                .then((request) => {
+                  console.log("로그인 성공!", request.data),
+                    navigate("/home/receive");
+                })
                 .catch((e) => console.log(e));
             }}
           >
