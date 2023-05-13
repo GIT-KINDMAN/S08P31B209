@@ -37,6 +37,8 @@ const Setting = () => {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUserData(response.data);
+          console.log(token);
+          console.log(UserData);
         }
       } catch (error) {
         console.log(error);
