@@ -42,15 +42,9 @@ import java.util.UUID;
 
 public class BoxServiceImpl implements BoxService {
 
-    private final FileHandler fileHandler;
-
-    private final ResourceLoader resourceLoader;
-
     private final BoxRepository boxRepository;
 
     private final ReceiverRepository receiverRepository;
-
-    private final DocsfileRepository docsfileRepository;
 
     @Transactional
     @Override
@@ -98,24 +92,5 @@ public class BoxServiceImpl implements BoxService {
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
         return boxRepository.findAllSentByMemberEmail(memberEmail, keywords, sortedPageable);
-    }
-
-
-    @Transactional
-    public Docsfile saveFile(MultipartFile file) {
-        FileDTO fileDTO = fileHandler.savedFile(file, new String[] {"doc", "docx", "pdf"});
-//        String uuid = fileHandler.extractUUID(fileDTO);
-
-        Docsfile docsfile = Docsfile.builder()
-                .docsfileOriginalName(fileDTO.getOriginalName())
-                .docsfileSavedName(fileDTO.getSavedName())
-                .docsfileSavedPath(fileDTO.getSavedPath())
-                .build();
-        return docsfileRepository.save(docsfile);
-    }
-
-    @Transactional
-    public Docsfile getFile(Long id) {
-        return docsfileRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid file Id:" + id));
     }
 }

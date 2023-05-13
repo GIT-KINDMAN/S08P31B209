@@ -5,6 +5,8 @@ import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
 import b209.docdoc.server.entity.Docsfile;
 import b209.docdoc.server.entity.Receiver;
+import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -72,39 +74,5 @@ public class BoxController {
     @DeleteMapping("/received/{receiver_id}")
     public ResponseEntity<ResponseDTO> deleteReceiverTemplates(@PathVariable("receiver_id") Long receiverId) {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteReceiverTemplates(receiverId)));
-    }
-
-
-    @PostMapping(value = "/docsfile/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) {
-//    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("receiverEmail") String receiverEmail) {
-//        Long savedFileId = boxService.saveFile(file, receiverId);
-//        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully", boxService.saveFile(file, receiverEmail)));
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file)));
-    }
-
-    @GetMapping("/docsfile/{docsfileIdx}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long docsfileIdx, @AuthenticationPrincipal String userEmail) {
-        Docsfile docsfile = boxService.getFile(docsfileIdx);
-        Receiver receiver = docsfile.getReceiver();
-
-        if (!userEmail.equals(receiver.getReceiverEmail()) && !userEmail.equals(receiver.getReceiverSenderEmail())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-        Path path = Paths.get(docsfile.getDocsfileSavedPath());
-        byte[] data = null;
-
-        try {
-            data = Files.readAllBytes(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + docsfile.getDocsfileOriginalName());
-
-        return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 }
