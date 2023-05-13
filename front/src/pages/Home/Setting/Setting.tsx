@@ -46,7 +46,7 @@ const Setting = () => {
     if (token) {
       fetchUserData();
     }
-  }, [token]);
+  }, []);
 
   return (
     <>
