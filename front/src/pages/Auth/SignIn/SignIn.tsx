@@ -55,7 +55,7 @@ const Login = () => {
                       authToken: request.data.value,
                     }),
                   );
-                  return navigate("/home/mybox/receive");
+                  navigate("/home/mybox/receive");
                 })
 
                 .catch((e) => console.log(e));
