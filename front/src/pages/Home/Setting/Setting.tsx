@@ -1,12 +1,13 @@
 import type { RootState } from "@store/store";
 
+import { fetchUserInfo } from "@/apis/memberAPI";
+
 import AccountWrap from "./MoleculeSetting/AccountWrap";
 import SettingHeader from "./MoleculeSetting/SettingHeader";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 export interface UserProps {
@@ -26,21 +27,16 @@ const Setting = () => {
   const [UserData, setUserData] = useState<UserProps | null>(null);
 
   useEffect(() => {
-    console.log("token", authState);
-    console.log("userData:", UserData);
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("/member", {
-          headers: { Authorization: `Bearer ${authState.authToken}` },
-        });
-        setUserData(response.data);
-        console.log(UserData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchUserData();
-  }, []);
+    fetchUserInfo({
+      headers: { Authorization: `Bearer ${authState.authToken}` },
+    })
+      .then((request) => {
+        setUserData(request.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [authState.authToken]);
 
   return (
     <>
