@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/address")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:5173/")
 public class AddressController {
 
     private AddressService addressService;

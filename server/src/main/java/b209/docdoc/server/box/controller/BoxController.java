@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/box")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:5173/")
 public class BoxController {
 
     private static final String METHOD_NAME = BoxController.class.getName();
