@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/member")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://k8b209.p.ssafy.io", "http://localhost:5173/"})
+@CrossOrigin(origins = {"https://k8b209.p.ssafy.io", "http://localhost:5173"})
 public class MemberController {
 	private static final String METHOD_NAME = MemberController.class.getName();
 	private final MemberService memberService;

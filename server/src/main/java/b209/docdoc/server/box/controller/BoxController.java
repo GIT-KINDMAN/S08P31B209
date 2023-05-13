@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/box")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://k8b209.p.ssafy.io", "http://localhost:5173/"})
+@CrossOrigin(origins = {"https://k8b209.p.ssafy.io", "http://localhost:5173"})
 public class BoxController {
 
     private static final String METHOD_NAME = BoxController.class.getName();
