@@ -13,7 +13,6 @@ import static b209.docdoc.server.config.utils.Msg.SUCCESS_TEMPLATE_SEARCH;
 @RestController
 @RequestMapping(value = "/boxTemp")
 @AllArgsConstructor
-@CrossOrigin(origins = {"https://k8b209.p.ssafy.io", "http://localhost:5173/"})
 public class BoxTempController {
     private BoxTempService boxTempService;
     @GetMapping("/progress")
