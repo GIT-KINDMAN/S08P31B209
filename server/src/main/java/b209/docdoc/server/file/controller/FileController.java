@@ -37,7 +37,7 @@ public class FileController {
                 .body(new UrlResource("file:" + fileDTO.getSavedPath()));
     }
 
-    @GetMapping("/docs/{savedName}")
+    @GetMapping("/docsfile/{savedName}")
     public ResponseEntity<?> getDocsFile(@PathVariable String savedName) throws MalformedURLException {
         FileDTO fileDTO = fileService.getDocsFile(savedName);
         return ResponseEntity.ok()
