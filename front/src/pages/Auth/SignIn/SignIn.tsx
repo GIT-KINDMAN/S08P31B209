@@ -1,7 +1,12 @@
+import { Button } from "@atomic/atoms";
+
+import { setAuth } from "@store/slice/authSlice";
+import type { RootState } from "@store/store";
+
 import { login } from "@/apis/memberAPI";
-import { Button } from "@/components/atoms";
 
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // import SigninButton from "@/pages/Auth/AuthForm/SigninButton";
 // import SigninForm from "@/pages/Auth/AuthForm/SigninForm";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +14,8 @@ import tw from "twin.macro";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [emailText, setEmailText] = useState<string>("");
   const [passwordText, setPasswordText] = useState<string>("");
 
@@ -43,6 +50,11 @@ const Login = () => {
               login(emailText, passwordText)
                 .then((request) => {
                   console.log("로그인 성공!", request.data);
+                  dispatch(
+                    setAuth({
+                      authToken: request.data.value,
+                    }),
+                  );
                   return navigate("/home/mybox/receive");
                 })
 
