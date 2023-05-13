@@ -30,6 +30,8 @@ const Setting = () => {
   );
 
   useEffect(() => {
+    console.log("token", token);
+    console.log("userData:", UserData);
     const fetchUserData = async () => {
       try {
         const response = await axios.get("/member", {
