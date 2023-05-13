@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/test")
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"https://k8b209.p.ssafy.io", "http://localhost:5173"})
 public class TestController {
 
     private static final String METHOD_NAME = TestController.class.getName();
