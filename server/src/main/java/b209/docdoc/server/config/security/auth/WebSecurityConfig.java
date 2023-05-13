@@ -24,7 +24,7 @@ public class WebSecurityConfig {
     @Order(0)
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/member/sign", "/member/login", "/email/confirm");
+        return (web) -> web.ignoring().antMatchers("/member/sign", "/member/login", "/email/confirm", "/file/**");
     }
 
     @Bean

@@ -1,9 +1,11 @@
 package b209.docdoc.server.template.service.Impl;
 
+import b209.docdoc.server.config.utils.FileHandler;
 import b209.docdoc.server.config.utils.UUIDGenerator;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.*;
 import b209.docdoc.server.exception.*;
+import b209.docdoc.server.file.dto.FileDTO;
 import b209.docdoc.server.repository.*;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.template.dto.Response.TemplateNameResDTO;
@@ -36,17 +38,14 @@ public class TemplateServiceImpl implements TemplateService {
 
     private static final String METHOD_NAME = TemplateServiceImpl.class.getName();
 
-    private final ResourceLoader resourceLoader;
     private final TemplateRepository templateRepository;
     private final TemplateFileRepository templateFileRepository;
     private final MemberRepository memberRepository;
     private final WidgetRepository widgetRepository;
     private final EmailService emailService;
+    private final FileHandler fileHandler;
 
     private final ReceiverRepository receiverRepository;
-
-    @Value("${file.upload-dir}") // application.properties에 설정된 파일 업로드 디렉터리 경로
-    private String uploadDir;
 
     public List<TemplateNameResDTO> getAllName(String memberEmail) {
         return templateRepository.findTemplatesByMemberEmail(memberEmail);
@@ -56,39 +55,15 @@ public class TemplateServiceImpl implements TemplateService {
     public Object saveTemplate(MultipartFile pdfFile, DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
         Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
-        String fileName = StringUtils.cleanPath(pdfFile.getOriginalFilename());
-        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-        // 파일 확장자 확인 및 유효성 검사
-        String[] allowedExtensions = new String[]{"pdf", "png", "jpg", "jpeg"};
-        boolean isValidExtension = Arrays.stream(allowedExtensions).anyMatch(fileExtension::equalsIgnoreCase);
-        if (!isValidExtension) {
-            throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);
-        }
-
-        // 파일 저장 경로를 구합니다.
-        Path memberDir = Paths.get(resourceLoader.getResource(uploadDir).getURI()).resolve(fromEmail);
-        if (!Files.exists(memberDir)) {
-            Files.createDirectories(memberDir);
-        }
-
-        //1. 파일 저장
-        try {
-            pdfFile.transferTo(memberDir.resolve(fileName).toFile());
-        } catch (IOException e) {
-            throw new SaveFileException(ErrorCode.FOLDER_NOT_FOUND);
-        }
-
-        String uuid = UUIDGenerator.generateUUID(); // 템플릿 uuid
-
-
+        FileDTO fileDTO = fileHandler.savedFile(pdfFile, new String[] {"pdf, jpg, png, jpeg"});
+        String uuid = fileHandler.extractUUID(fileDTO);
         //2. 문서파일 위치와 원본이름 DB 저장
         Templatefile templatefile = Templatefile.builder().
-                templatefileOriginalName(fileName).
-                templatefileSavedName(uuid).
-                templatefileSavedPath(memberDir+"/"+uuid).
+                templatefileOriginalName(fileDTO.getOriginalName()).
+                templatefileSavedName(fileDTO.getSavedName()).
+                templatefileSavedPath(fileDTO.getSavedPath()).
                 build();
-        templateFileRepository.save(templatefile);
+        templatefile = templateFileRepository.save(templatefile);
 
         // 4. 사용자 위젯 생성 및 저장
         List<WidgetResDTO> templateWidget = documentTemplateSaveReqDTO.getWidgetResDTO();

@@ -1,4 +1,4 @@
-package b209.docdoc.server.member.dto.Request;
+package b209.docdoc.server.member.dto.request;
 
 import b209.docdoc.server.entity.Member;
 import b209.docdoc.server.member.dto.mod;

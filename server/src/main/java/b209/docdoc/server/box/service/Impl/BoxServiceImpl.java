@@ -1,6 +1,7 @@
 package b209.docdoc.server.box.service.Impl;
 
 import b209.docdoc.server.box.service.BoxService;
+import b209.docdoc.server.config.utils.FileHandler;
 import b209.docdoc.server.config.utils.SecurityManager;
 import b209.docdoc.server.entity.Docsfile;
 import b209.docdoc.server.entity.Receiver;
@@ -8,6 +9,7 @@ import b209.docdoc.server.entity.Template;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.InvalidFileExtensionException;
 import b209.docdoc.server.exception.TemplateNotFoundException;
+import b209.docdoc.server.file.dto.FileDTO;
 import b209.docdoc.server.repository.BoxRepository;
 import b209.docdoc.server.repository.DocsfileRepository;
 import b209.docdoc.server.repository.ReceiverRepository;
@@ -39,6 +41,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 
 public class BoxServiceImpl implements BoxService {
+
+    private final FileHandler fileHandler;
+
     private final ResourceLoader resourceLoader;
 
     private final BoxRepository boxRepository;
@@ -46,9 +51,6 @@ public class BoxServiceImpl implements BoxService {
     private final ReceiverRepository receiverRepository;
 
     private final DocsfileRepository docsfileRepository;
-
-    @Value("${file.upload_dir}") // application.properties에 설정된 파일 업로드 디렉터리 경로
-    private String uploadDir;
 
     @Transactional
     @Override
@@ -98,57 +100,18 @@ public class BoxServiceImpl implements BoxService {
         return boxRepository.findAllSentByMemberEmail(memberEmail, keywords, sortedPageable);
     }
 
+
     @Transactional
-    public Long saveFile(MultipartFile file) {
-//    public Long saveFile(MultipartFile file, String receiverEmail) {
-        String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String savedFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-
-        String[] allowedExtensions = new String[]{"pdf", "png", "jpg", "jpeg"};
-        boolean isValidExtension = Arrays.stream(allowedExtensions).anyMatch(fileExtension::equalsIgnoreCase);
-        if (!isValidExtension) {
-            throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);
-        }
-
-        log.info("uploadDir: {}", uploadDir);
-
-        Path savePath = null;
-        try {
-            savePath = Paths.get(resourceLoader.getResource(uploadDir).getURI()).resolve(savedFileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        log.info("savePath: {}", savePath);
-        if (!Files.exists(savePath.getParent())) {
-            try {
-                Files.createDirectories(savePath.getParent());
-            } catch (IOException e) {
-                throw new RuntimeException("Could not create directory", e);
-            }
-        }
-
-        // 파일 저장
-        try {
-            file.transferTo(savePath.toFile());
-        } catch (IOException e) {
-            throw new RuntimeException("Could not save file", e);
-        }
-
-        // 파일 정보 DB에 저장
-//        Receiver receiver = receiverRepository.findByReceiverEmail(receiverEmail)
-//                .orElseThrow(() -> new RuntimeException("Receiver not found"));
+    public Docsfile saveFile(MultipartFile file) {
+        FileDTO fileDTO = fileHandler.savedFile(file, new String[] {"doc", "docx", "pdf"});
+//        String uuid = fileHandler.extractUUID(fileDTO);
 
         Docsfile docsfile = Docsfile.builder()
-                .docsfileOriginalName(originalFileName)
-                .docsfileSavedName(savedFileName)
-                .docsfileSavedPath(savePath.toString())
-//                .receiver(receiver)
+                .docsfileOriginalName(fileDTO.getOriginalName())
+                .docsfileSavedName(fileDTO.getSavedName())
+                .docsfileSavedPath(fileDTO.getSavedPath())
                 .build();
-
-        docsfileRepository.save(docsfile);
-
-        return docsfile.getDocsfileIdx();
+        return docsfileRepository.save(docsfile);
     }
 
     @Transactional

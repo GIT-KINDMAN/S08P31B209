@@ -79,7 +79,7 @@ public class BoxController {
     public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) {
 //    public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("receiverEmail") String receiverEmail) {
 //        Long savedFileId = boxService.saveFile(file, receiverId);
-//        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file, receiverEmail)));
+//        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully", boxService.saveFile(file, receiverEmail)));
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "File saved successfully",  boxService.saveFile(file)));
     }
 

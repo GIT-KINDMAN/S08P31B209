@@ -109,9 +109,8 @@ logging:
               BasicBinder: TRACE
 
 file:
-  upload-dir: "classpath:static/files/"
-  upload_dir: "classpath:static/files/"
-  upload_dir2: "static/files/"
+#  dir: /var/docdoc/
+  dir: C:\docdoc\
 
 mail:
   smtp:
