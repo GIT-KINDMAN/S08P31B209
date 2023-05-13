@@ -1,4 +1,4 @@
-import { memberAPI } from "@/apis/api";
+import { fetchUserInfo, updateUserInfo } from "@/apis/memberAPI";
 import { Button, Label, TextInput } from "@/components/atoms";
 
 import { useEffect, useState } from "react";
@@ -15,9 +15,8 @@ const ChangeUserInfo = () => {
   useEffect(() => {
     // 기존 유저 정보 불러오기
     const userInfo = async () => {
-      await memberAPI
-        .fetchUserInfo()
-        .then((request) => {
+      await fetchUserInfo()
+        .then((request: any) => {
           setUserName(request.data.name);
           setUserAddress(request.data.email);
           setUserPhone(request.data.phone);
@@ -31,8 +30,7 @@ const ChangeUserInfo = () => {
 
   // 유저 정보 변경
   const infoUpdate = () => {
-    memberAPI
-      .updateUserInfo(userPhone, userAddress, userGroup, userPosition)
+    updateUserInfo(userPhone, userAddress, userGroup, userPosition)
       .then((request) => console.log(request.data))
       .catch((e) => console.log(e));
   };
