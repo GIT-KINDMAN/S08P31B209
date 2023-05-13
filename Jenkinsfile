@@ -20,6 +20,9 @@ pipeline {
         }
 
         stage('frontend build') {
+            when {
+                changeset "front/package.json"
+            }
             steps {
                 dir('front') {
                     nodejs(nodeJSInstallationName: 'NodeJS18') {
