@@ -1,10 +1,12 @@
-import { fetchUserInfo } from "@/apis/memberAPI";
+import type { RootState } from "@store/store";
 
 import AccountWrap from "./MoleculeSetting/AccountWrap";
 import SettingHeader from "./MoleculeSetting/SettingHeader";
 
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import "twin.macro";
 
 export interface UserProps {
@@ -20,18 +22,24 @@ export interface UserProps {
 
 const Setting = () => {
   const navigate = useNavigate();
-
+  const authState = useSelector((state: RootState) => state.auth);
   const [UserData, setUserData] = useState<UserProps | null>(null);
 
   useEffect(() => {
-    const UserInfo = async () => {
-      await fetchUserInfo()
-        .then((request) => {
-          console.log("request.data:", request.data), setUserData(request.data);
-        })
-        .catch((e) => console.log(e));
+    console.log("token", authState);
+    console.log("userData:", UserData);
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("/member", {
+          headers: { Authorization: `Bearer ${authState.authToken}` },
+        });
+        setUserData(response.data);
+        console.log(UserData);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    UserInfo();
+    fetchUserData();
   }, []);
 
   return (

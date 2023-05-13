@@ -1,3 +1,4 @@
+import AuthReducer from "./slice/authSlice";
 import editStepReducer from "./slice/editStepSlice";
 import metaDocReducer from "./slice/metaDocSlice";
 
@@ -8,6 +9,7 @@ import storage from "redux-persist/lib/storage/session";
 const rootReducer = combineReducers({
   editStep: editStepReducer,
   metaDoc: metaDocReducer,
+  auth: AuthReducer,
 });
 
 const persistConfig = {
@@ -18,11 +20,10 @@ const persistConfig = {
   blacklist: ["editStep"],
 
   // 또는 persist를 적용하고 싶은 부분 따로 설정하지 않으면 모두다 저장된다.
-  whitelist: ["metaDoc"],
+  whitelist: ["metaDoc", "auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (defaultMiddleware) =>
