@@ -43,7 +43,7 @@ const Login = () => {
               login(emailText, passwordText)
                 .then((request) => {
                   console.log("로그인 성공!", request.data);
-                  return navigate("/home/receive");
+                  return navigate("/home/mybox/receive");
                 })
 
                 .catch((e) => console.log(e));
