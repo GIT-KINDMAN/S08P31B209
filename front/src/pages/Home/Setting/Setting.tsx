@@ -5,8 +5,8 @@ import SettingHeader from "./MoleculeSetting/SettingHeader";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 export interface UserProps {
