@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping(value = "/template")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:5173/")
 public class TemplateController {
 
 	private static final String METHOD_NAME = TemplateController.class.getName();
