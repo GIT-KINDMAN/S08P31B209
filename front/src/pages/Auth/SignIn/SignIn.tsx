@@ -12,23 +12,6 @@ const Login = () => {
   const [emailText, setEmailText] = useState<string>("");
   const [passwordText, setPasswordText] = useState<string>("");
 
-  // const signIn = async (email: string, password: string) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const response = await loginAPI.login(email, password);
-  //     setIsLoading(false);
-
-  //     if (response.status === 200) {
-  //       navigate("/");
-  //     } else {
-  //       alert("로그인에 실패했습니다.");
-  //     }
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     alert("로그인에 실패했습니다.");
-  //   }
-  // };
-
   return (
     <>
       <div tw="flex flex-col w-[30rem]">
