@@ -28,7 +28,7 @@ export const signup = (
     position,
   });
 
-export const fetchUserInfo = () => api.get(`/member`);
+export const fetchUserInfo = (config: any) => api.get(`/member`, config);
 
 export const reIssue = () => api.post(`/member/auth/reissue`);
 
