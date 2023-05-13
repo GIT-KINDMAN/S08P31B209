@@ -1,32 +1,27 @@
-import { Button, Icon, TextInput, Wrapper } from "@/components/atoms";
+import { Button, Icon, TextInput, Wrapper } from "@atomic/atoms";
 
-// import { DropZone } from "@/components/molecules";
-import "@flaticon/flaticon-uicons/css/all/all.css";
-import { useState } from "react";
+import {
+  fileDelete,
+  fileUpload,
+  setMetaDocName,
+} from "@store/slice/metaDocSlice";
+import type { RootState } from "@store/store";
+
 import Dropzone from "react-dropzone";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "twin.macro";
 
 const TemplateCreateForm = () => {
   // 파일 업로드, 삭제 관련
-  const [file, setFile] = useState<File | null>(null);
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
-
-  const handleFileUpload = <T extends File>(acceptedFiles: T[]) => {
-    setFile(acceptedFiles[0]);
-    const url = URL.createObjectURL(acceptedFiles[0]);
-    setFileUrl(url);
-  };
-
-  const handleFileDelete = () => {
-    setFile(null);
-    setFileUrl(null);
-  };
+  const dispatch = useDispatch();
+  const metaDocState = useSelector((state: RootState) => state.metaDoc);
+  const fileState = useSelector((state: RootState) => state.metaDoc.file);
 
   const fileSize =
-    file &&
-    (file.size / 1024 / 1024 > 1
-      ? Math.ceil(file.size / 1024 / 1024) + "MB"
-      : Math.ceil(file.size / 1024) + "KB");
+    fileState &&
+    (fileState.file.size / 1024 / 1024 > 1
+      ? Math.ceil(fileState.file.size / 1024 / 1024) + "MB"
+      : Math.ceil(fileState.file.size / 1024) + "KB");
 
   return (
     <>
@@ -40,9 +35,8 @@ const TemplateCreateForm = () => {
             <TextInput
               custom={tw`mx-2`}
               placeholder="새 템플릿의 이름을 작성해 주세요."
-              onBlur={(e) => {
-                console.log(e.target.value);
-              }}
+              onChange={(e) => dispatch(setMetaDocName(e.target.value))}
+              value={metaDocState.name}
             />
           </div>
         </Wrapper>
@@ -53,10 +47,10 @@ const TemplateCreateForm = () => {
             문서 업로드
           </label>
 
-          {file === null ? (
+          {fileState === null ? (
             <Dropzone
               multiple={false}
-              onDrop={(acceptedFiles) => handleFileUpload(acceptedFiles)}
+              onDrop={(acceptedFiles) => dispatch(fileUpload(acceptedFiles[0]))}
             >
               {({ getRootProps, getInputProps }) => (
                 <Wrapper
@@ -93,18 +87,19 @@ const TemplateCreateForm = () => {
                 custom={tw`border-dashed text-base text-center items-center my-4 border-blue-600 bg-lightgray-300 text-blue-600`}
               >
                 <img
-                  src={fileUrl ?? "미리보기 없음.png"}
+                  src={fileState.fileUrl ?? "미리보기 없음.png"}
                   alt="Uploaded file"
                   tw="rounded-[0.5rem]"
+                  onClick={() => console.log(fileState)}
                 />
                 <div>
                   <p>
-                    {file?.name}
+                    {fileState.file?.name}
                     <Icon
                       icon="fi-bs-cross-small"
                       size="xs"
                       custom={tw`mx-1`}
-                      onClick={() => handleFileDelete()}
+                      onClick={() => dispatch(fileDelete())}
                     />
                   </p>
                   <div className="FileSize"> {fileSize} </div>

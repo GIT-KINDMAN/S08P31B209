@@ -1,7 +1,12 @@
-import { memberAPI } from "@/apis/api";
-import { Button } from "@/components/atoms";
+import { Button } from "@atomic/atoms";
+
+import { setAuth } from "@store/slice/authSlice";
+import type { RootState } from "@store/store";
+
+import { login } from "@/apis/memberAPI";
 
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // import SigninButton from "@/pages/Auth/AuthForm/SigninButton";
 // import SigninForm from "@/pages/Auth/AuthForm/SigninForm";
 import { useNavigate } from "react-router-dom";
@@ -9,25 +14,10 @@ import tw from "twin.macro";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [emailText, setEmailText] = useState<string>("");
   const [passwordText, setPasswordText] = useState<string>("");
-
-  // const signIn = async (email: string, password: string) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const response = await loginAPI.login(email, password);
-  //     setIsLoading(false);
-
-  //     if (response.status === 200) {
-  //       navigate("/");
-  //     } else {
-  //       alert("로그인에 실패했습니다.");
-  //     }
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     alert("로그인에 실패했습니다.");
-  //   }
-  // };
 
   return (
     <>
@@ -57,9 +47,17 @@ const Login = () => {
             tw="m-2 p-2 rounded-[0.5rem] bg-blue-400"
             onClick={() => {
               console.log(emailText, passwordText);
-              memberAPI
-                .login(emailText, passwordText)
-                .then((request) => console.log("로그인 성공!", request.data))
+              login(emailText, passwordText)
+                .then((request) => {
+                  console.log("로그인 성공!", request.data);
+                  dispatch(
+                    setAuth({
+                      authToken: request.data.value,
+                    }),
+                  );
+                  return navigate("/home/mybox/receive");
+                })
+
                 .catch((e) => console.log(e));
             }}
           >
