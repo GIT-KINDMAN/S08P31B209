@@ -1,4 +1,4 @@
-import { loginAPI } from "@/apis/api";
+import { login } from "@/apis/memberAPI";
 import { Button } from "@/components/atoms";
 
 import { useState } from "react";
@@ -11,23 +11,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [emailText, setEmailText] = useState<string>("");
   const [passwordText, setPasswordText] = useState<string>("");
-
-  // const signIn = async (email: string, password: string) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const response = await loginAPI.login(email, password);
-  //     setIsLoading(false);
-
-  //     if (response.status === 200) {
-  //       navigate("/");
-  //     } else {
-  //       alert("로그인에 실패했습니다.");
-  //     }
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     alert("로그인에 실패했습니다.");
-  //   }
-  // };
 
   return (
     <>
@@ -57,9 +40,11 @@ const Login = () => {
             tw="m-2 p-2 rounded-[0.5rem] bg-blue-400"
             onClick={() => {
               console.log(emailText, passwordText);
-              loginAPI
-                .login(emailText, passwordText)
-                .then((request) => console.log("로그인 성공!", request.data))
+              login(emailText, passwordText)
+                .then((request) => {
+                  console.log("로그인 성공!", request.data);
+                })
+                .then(() => navigate("/home/receive"))
                 .catch((e) => console.log(e));
             }}
           >
