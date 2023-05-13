@@ -16,4 +16,3 @@ export { default as DocsBox } from "./Home/DocsBox/DocsBox";
 export { default as SendBox } from "./Home/DocsBox/SendBox";
 export { default as Setting } from "./Home/Setting/Setting";
 export { default as ChangeUserInfo } from "./Home/Setting/ChangeUserInfo/ChangeUserInfo";
-export { default as InfoChange } from "./Home/Setting/MoleculeSetting/InfoChange";

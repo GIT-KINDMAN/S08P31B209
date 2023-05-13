@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import tw from "twin.macro";
 
 const ChangeUserInfo = () => {
+  const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [userGroup, setUserGroup] = useState("");
@@ -17,6 +18,7 @@ const ChangeUserInfo = () => {
       await memberAPI
         .fetchUserInfo()
         .then((request) => {
+          setUserName(request.data.name);
           setUserAddress(request.data.email);
           setUserPhone(request.data.phone);
           setUserGroup(request.data.group);
@@ -44,6 +46,15 @@ const ChangeUserInfo = () => {
         className="changeInputWrap"
         tw="flex flex-col min-w-[20rem] max-w-[20rem] mx-auto"
       >
+        <div className="InputField" tw="flex flex-col">
+          <Label text="이름" isBold />
+          <TextInput
+            type="tel"
+            placeholder={userName}
+            custom={tw`border-2 py-1`}
+            onChange={(e) => setUserPhone(e.target.value)}
+          />
+        </div>
         <div className="InputField" tw="flex flex-col">
           <Label text="연락처" isBold />
           <TextInput
