@@ -42,9 +42,9 @@ const Login = () => {
               console.log(emailText, passwordText);
               login(emailText, passwordText)
                 .then((request) => {
-                  console.log("로그인 성공!", request.data),
-                    navigate("/home/receive");
+                  console.log("로그인 성공!", request.data);
                 })
+                .then(() => navigate("/home/receive"))
                 .catch((e) => console.log(e));
             }}
           >
