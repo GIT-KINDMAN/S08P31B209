@@ -28,10 +28,11 @@ const Setting = () => {
 
   useEffect(() => {
     // console.log(authState);
-    console.log(authState.authToken);
-    console.log(typeof authState.authToken);
+    console.log(authState.authToken?.toString());
+    console.log(typeof authState.authToken?.toString());
+
     fetchUserInfo({
-      headers: { Authorization: `Bearer ${authState.authToken}` },
+      headers: { Authorization: `Bearer ${authState.authToken?.toString()}` },
     })
       .then((response) => {
         setUserData(response.data);
