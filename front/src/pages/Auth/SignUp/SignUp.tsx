@@ -57,7 +57,7 @@ const Register = () => {
     )
       .then((request) => {
         console.log("회원가입성공", request.data);
-        navigate("/home/create");
+        navigate("/auth");
       })
       .catch((e) => console.log(e));
   };
