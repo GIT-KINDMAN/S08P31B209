@@ -29,6 +29,7 @@ const Setting = () => {
   useEffect(() => {
     // console.log(authState);
     console.log(authState.authToken);
+    console.log(typeof authState.authToken);
     fetchUserInfo({
       headers: { Authorization: `Bearer ${authState.authToken}` },
     })
