@@ -24,7 +24,7 @@ export interface UserProps {
 const Setting = () => {
   const navigate = useNavigate();
   const authState = useSelector((state: RootState) => state.auth);
-  const [UserData, setUserData] = useState<UserProps | null>(null);
+  const [userData, setUserData] = useState<UserProps | null>(null);
 
   useEffect(() => {
     // console.log(authState);
@@ -32,9 +32,9 @@ const Setting = () => {
     fetchUserInfo({
       headers: { Authorization: `Bearer ${authState.authToken}` },
     })
-      .then((request) => {
-        setUserData(request.data);
-        console.log(request.data);
+      .then((response) => {
+        setUserData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -49,16 +49,16 @@ const Setting = () => {
       >
         <SettingHeader />
         <div className="Content">
-          {UserData && (
+          {userData && (
             <AccountWrap
-              email={UserData?.email}
-              name={UserData?.name}
-              birth={UserData?.birth}
-              gender={UserData?.gender}
-              phone={UserData?.phone}
-              address={UserData?.address}
-              group={UserData?.group}
-              position={UserData?.position}
+              email={userData?.email}
+              name={userData?.name}
+              birth={userData?.birth}
+              gender={userData?.gender}
+              phone={userData?.phone}
+              address={userData?.address}
+              group={userData?.group}
+              position={userData?.position}
             />
           )}
 
