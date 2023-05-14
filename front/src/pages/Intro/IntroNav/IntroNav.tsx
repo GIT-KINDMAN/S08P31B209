@@ -41,7 +41,9 @@ const IntroNav = () => {
           // tw="m-2 p-2 rounded-[0.5rem] bg-gray-400"
           custom={tw`justify-center m-4 p-2 rounded-[0.5rem] text-sliver-700 `}
           onClick={() => {
-            logout()
+            logout({
+              headers: { Authorization: `Bearer ${authState.authToken}` },
+            })
               .then((request) => console.log("로그아웃", request.data))
               .then(() => navigate("/auth"))
               .catch((e) => console.log(e));

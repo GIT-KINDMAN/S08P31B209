@@ -27,7 +27,7 @@ const Setting = () => {
   const [UserData, setUserData] = useState<UserProps | null>(null);
 
   useEffect(() => {
-    console.log(authState);
+    // console.log(authState);
     console.log(authState.authToken);
     fetchUserInfo({
       headers: { Authorization: `Bearer ${authState.authToken}` },
