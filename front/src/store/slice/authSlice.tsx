@@ -2,14 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface authState {
   authToken: string | null;
-  email: string | null;
-  name: string | null;
 }
 
 const initialState: authState = {
   authToken: null,
-  email: null,
-  name: null,
 };
 
 export const authSlice = createSlice({
