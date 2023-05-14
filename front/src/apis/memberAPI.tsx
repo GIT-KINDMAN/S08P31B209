@@ -1,5 +1,7 @@
 import api from "./api";
 
+import { AxiosRequestConfig } from "axios";
+
 export const login = (email: string, password: string) =>
   api.post(`/member/login`, { email, password });
 
@@ -28,7 +30,8 @@ export const signup = (
     position,
   });
 
-export const fetchUserInfo = (config: any) => api.get(`/member`, config);
+export const fetchUserInfo = (config: AxiosRequestConfig) =>
+  api.get(`/member`, config);
 
 export const reIssue = () => api.post(`/member/auth/reissue`);
 
