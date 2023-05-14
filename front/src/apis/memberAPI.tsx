@@ -5,7 +5,8 @@ import { AxiosRequestConfig } from "axios";
 export const login = (email: string, password: string) =>
   api.post(`/member/login`, { email, password });
 
-export const logout = () => api.delete(`/member/logout`);
+export const logout = (config: AxiosRequestConfig) =>
+  api.delete(`/member/logout`, config);
 
 export const signup = (
   email: string,
