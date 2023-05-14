@@ -1,7 +1,6 @@
 //package b209.docdoc.server.controller;
 //
 //import b209.docdoc.server.config.utils.Msg;
-//import b209.docdoc.server.config.utils.ResponseDTO;
 //import b209.docdoc.server.dto.member.SignModReqDTO;
 //import b209.docdoc.server.dto.member.signUp;
 //import b209.docdoc.server.service.AuthService;
