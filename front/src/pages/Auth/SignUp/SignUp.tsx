@@ -1,5 +1,5 @@
 import { signup } from "@/apis/memberAPI";
-import { Button, Image, Label, TextInput } from "@/components/atoms";
+import { Button, Label, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ const Register = () => {
   const [userPosition, setUserPosition] = useState("");
 
   // const [file, setFile] = useState<File | null>(null);
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  // const [fileUrl, setFileUrl] = useState<string | null>(null);
 
   const SignUp = ({
     emailText,
@@ -71,7 +71,7 @@ const Register = () => {
     userGroup,
     userPhone,
     userPosition,
-    setFileUrl,
+    // setFileUrl,
   );
 
   const [isOptionalInfo, setISOptionalInfo] = useState(false);
