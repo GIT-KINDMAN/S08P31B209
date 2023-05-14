@@ -1,12 +1,13 @@
 import type { RootState } from "@store/store";
 
+import { fetchUserInfo } from "@/apis/memberAPI";
+
 import AccountWrap from "./MoleculeSetting/AccountWrap";
 import SettingHeader from "./MoleculeSetting/SettingHeader";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 export interface UserProps {
@@ -23,24 +24,31 @@ export interface UserProps {
 const Setting = () => {
   const navigate = useNavigate();
   const authState = useSelector((state: RootState) => state.auth);
-  const [UserData, setUserData] = useState<UserProps | null>(null);
+  const [userData, setUserData] = useState<UserProps | null>(null);
 
   useEffect(() => {
-    console.log("token", authState);
-    console.log("userData:", UserData);
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("/member", {
-          headers: { Authorization: `Bearer ${authState.authToken}` },
+    // console.log(authState);
+    if (authState.authToken) {
+      console.log("authState", authState);
+      console.log("authState.authToken", authState.authToken.valueOf());
+      console.log(
+        "authState.authToken type",
+        typeof authState.authToken.valueOf(),
+      );
+      console.log(authState.authToken.toString());
+      console.log(typeof authState.authToken.toString());
+      fetchUserInfo({
+        headers: { Authorization: `Bearer ${authState.authToken.toString()}` },
+      })
+        .then((response) => {
+          setUserData(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
         });
-        setUserData(response.data);
-        console.log(UserData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchUserData();
-  }, []);
+    }
+  }, [authState.authToken]);
 
   return (
     <>
@@ -50,16 +58,18 @@ const Setting = () => {
       >
         <SettingHeader />
         <div className="Content">
-          <AccountWrap
-            email={UserData?.email}
-            name={UserData?.name}
-            birth={UserData?.birth}
-            gender={UserData?.gender}
-            phone={UserData?.phone}
-            address={UserData?.address}
-            group={UserData?.group}
-            position={UserData?.position}
-          />
+          {userData && (
+            <AccountWrap
+              email={userData?.email}
+              name={userData?.name}
+              birth={userData?.birth}
+              gender={userData?.gender}
+              phone={userData?.phone}
+              address={userData?.address}
+              group={userData?.group}
+              position={userData?.position}
+            />
+          )}
 
           <div
             className="AccountController"

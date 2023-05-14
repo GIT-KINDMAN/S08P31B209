@@ -16,7 +16,7 @@ pipeline {
     }
     stages {
 
-        stage('clone') {
+        stage('Clone') {
             steps {
                 git url: "$SOURCE_CODE_URL",
                     branch: "$RELEASE_BRANCH",

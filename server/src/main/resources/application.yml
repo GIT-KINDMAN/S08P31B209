@@ -112,7 +112,6 @@ file:
   dir: /var/docdoc/
 #  dir: C:\docdoc\
 
-
 mail:
   smtp:
     port: 465

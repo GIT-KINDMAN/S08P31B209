@@ -1,12 +1,12 @@
-import { Button } from "@atomic/atoms";
+import { Button, TextInput } from "@atomic/atoms";
 
 import { setAuth } from "@store/slice/authSlice";
-import type { RootState } from "@store/store";
 
+// import type { RootState } from "@store/store";
 import { login } from "@/apis/memberAPI";
 
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import SigninButton from "@/pages/Auth/AuthForm/SigninButton";
 // import SigninForm from "@/pages/Auth/AuthForm/SigninForm";
 import { useNavigate } from "react-router-dom";
@@ -22,29 +22,30 @@ const Login = () => {
   return (
     <>
       <div tw="flex flex-col w-[30rem]">
-        <div className="LoginForm" tw="flex flex-col">
+        <div className="LoginForm" tw="flex flex-col mx-auto">
           <div className="InputField" tw="flex flex-col">
             <label> 이메일 </label>
-            <input
+            <TextInput
               onChange={(e) => setEmailText(e.target.value)}
               type="email"
-              tw="border-2"
-            ></input>
+              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+            ></TextInput>
           </div>
           <div className="InputField" tw="flex flex-col">
             <label> 비밀번호 </label>
-            <input
+            <TextInput
               onChange={(e) => setPasswordText(e.target.value)}
               type="password"
-              tw="border-2"
-            ></input>
+              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+            ></TextInput>
           </div>
         </div>
 
-        <div className="ButtonWrap" tw="flex flex-col">
+        <div className="ButtonWrap" tw="flex flex-col my-8 mx-auto">
           <Button
             className="LoginBtn"
-            tw="m-2 p-2 rounded-[0.5rem] bg-blue-400"
+            tw="w-80 my-2 p-2 rounded-[0.5rem] bg-blue-400 text-white"
+            isBold
             onClick={() => {
               console.log(emailText, passwordText);
               login(emailText, passwordText)
@@ -55,9 +56,8 @@ const Login = () => {
                       authToken: request.data.value,
                     }),
                   );
-                  return navigate("/home/mybox/receive");
                 })
-
+                .then(() => navigate("/home/mybox/receive"))
                 .catch((e) => console.log(e));
             }}
           >
@@ -66,7 +66,6 @@ const Login = () => {
           <Button
             className="SignupButton"
             variant="primary"
-            // isOutline={true}
             custom={tw`w-80 my-2 p-2 rounded-[0.5rem] bg-white text-blue-400 border-2`}
             onClick={() => navigate("/auth/signup")}
           >

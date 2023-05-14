@@ -1,9 +1,12 @@
 import api from "./api";
 
+import { AxiosRequestConfig } from "axios";
+
 export const login = (email: string, password: string) =>
   api.post(`/member/login`, { email, password });
 
-export const logout = () => api.delete(`/member/logout`);
+export const logout = (config: AxiosRequestConfig) =>
+  api.delete(`/member/logout`, config);
 
 export const signup = (
   email: string,
@@ -28,7 +31,8 @@ export const signup = (
     position,
   });
 
-export const fetchUserInfo = () => api.get(`/member`);
+export const fetchUserInfo = (config: AxiosRequestConfig) =>
+  api.get(`/member`, config);
 
 export const reIssue = () => api.post(`/member/auth/reissue`);
 

@@ -1,5 +1,5 @@
 import { signup } from "@/apis/memberAPI";
-import { Button, Image, Label, TextInput } from "@/components/atoms";
+import { Button, Label, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ const Register = () => {
   const [userPosition, setUserPosition] = useState("");
 
   // const [file, setFile] = useState<File | null>(null);
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  // const [fileUrl, setFileUrl] = useState<string | null>(null);
 
   const SignUp = ({
     emailText,
@@ -57,7 +57,7 @@ const Register = () => {
     )
       .then((request) => {
         console.log("회원가입성공", request.data);
-        navigate("/home/create");
+        navigate("/auth");
       })
       .catch((e) => console.log(e));
   };
@@ -71,8 +71,10 @@ const Register = () => {
     userGroup,
     userPhone,
     userPosition,
-    setFileUrl,
+    // setFileUrl,
   );
+
+  const [isOptionalInfo, setISOptionalInfo] = useState(false);
   // const handleFileUpload = <T extends File>(acceptedFiles: T[]) => {
   //   setFile(acceptedFiles[0]);
   //   const url = URL.createObjectURL(acceptedFiles[0]);
@@ -83,7 +85,7 @@ const Register = () => {
     <>
       <div tw="flex flex-col w-[20rem]">
         {/* 사용자 사진 입력 */}
-        <div className="ImageForm" tw="flex flex-col ">
+        {/* <div className="ImageForm" tw="flex flex-col ">
           <div className="ImageField" tw="flex flex-col ">
             <label> 증명사진 업로드 </label>
 
@@ -96,42 +98,50 @@ const Register = () => {
                 <div tw="border-2 py-1 bg-gray-400 w-[144px]">
                   증명사진 업로드
                 </div>
+                <input type="file" />
               </div>
             )}
           </div>
-        </div>
+        </div> */}
         {/* 필수 입력 */}
-        <div className="RequireInputWrap" tw="flex flex-col">
-          <label>필수 입력란</label>
-          <div className="InputField" tw="flex flex-col">
+        <div className="RequireInputWrap" tw="flex flex-col my-2">
+          <label tw="text-xs text-red-300">
+            * 회원 가입을 위한 필수 사항입니다.
+          </label>
+          <div className="InputField" tw="flex flex-col my-2">
             <Label text="이메일" isBold />
+
             <TextInput
               type="email"
-              custom={tw`border-2 py-1`}
+              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
               onChange={(e) => setEmailText(e.target.value)}
             />
           </div>
-          <div className="InputField" tw="flex flex-col">
+          <div className="InputField" tw="flex flex-col my-2">
             <Label text="비밀번호 입력" isBold />
             <TextInput
               type="password"
-              custom={tw`border-2 py-1`}
+              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
               onChange={(e) => setPasswordText(e.target.value)}
             />
           </div>
-          <div className="InputField" tw="flex flex-col">
+          <div className="InputField" tw="flex flex-col my-2">
             <Label text="비밀번호 확인" isBold />
-            <TextInput type="password" custom={tw`border-2 py-1`} />
+            <TextInput
+              type="password"
+              placeholder="입력한 비밀번호를 입력해주세요"
+              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+            />
           </div>
-          <div className="InputField" tw="flex flex-col">
+          <div className="InputField" tw="flex flex-col my-2">
             <Label text="이름" isBold />
             <TextInput
               type="text"
-              custom={tw`border-2 py-1`}
+              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
-          <div className="InputField" tw="flex flex-col">
+          <div className="InputField" tw="flex flex-col my-2">
             <Label text="생년월일" isBold />
             <input
               type="date"
@@ -142,7 +152,7 @@ const Register = () => {
               onChange={(e) => setUserBirth(e.target.value)}
             />
           </div>
-          <div className="InputField" tw="flex flex-col">
+          <div className="InputField" tw="flex flex-col my-2">
             <Label text="성별" isBold />
             <div tw="flex flex-row justify-around">
               <div className="RadioItem">
@@ -169,46 +179,69 @@ const Register = () => {
           </div>
         </div>
         {/* 선택 입력(접혀있음) */}
-        <div className="OptionalInputWrap" tw="flex flex-col">
-          <hr tw="my-4" />
-          <label>선택 입력란</label>
-          <div className="InputField" tw="flex flex-col">
-            <Label text="연락처" isBold />
-            <TextInput
-              type="tel"
-              custom={tw`border-2 py-1`}
-              onChange={(e) => setUserPhone(e.target.value)}
-            />
+        {isOptionalInfo === false ? (
+          <Button
+            className="optionalbutton"
+            variant="primary"
+            isOutline={true}
+            custom={tw`mx-auto`}
+            onClick={() => setISOptionalInfo(true)}
+          >
+            추가입력
+          </Button>
+        ) : (
+          <Button
+            className="optionalbutton"
+            variant="primary"
+            isOutline={true}
+            custom={tw`mx-auto px-6`}
+            onClick={() => setISOptionalInfo(false)}
+          >
+            접기
+          </Button>
+        )}
+        {isOptionalInfo === true ? (
+          <div className="OptionalInputWrap" tw="flex flex-col my-2 mx-auto">
+            <label tw="text-xs">추가 정보는 필수 사항이 아닙니다.</label>
+            <div className="InputField" tw="flex flex-col my-2">
+              <Label text="연락처" isBold />
+              <TextInput
+                type="tel"
+                custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setUserPhone(e.target.value)}
+              />
+            </div>
+            <div className="InputField" tw="flex flex-col my-2">
+              <Label text="거주지" isBold />
+              <TextInput
+                type="text"
+                custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setUserAddress(e.target.value)}
+              />
+            </div>
+            <div className="InputField" tw="flex flex-col my-2">
+              <Label text="소속" isBold />
+              <TextInput
+                type="text"
+                custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setUserGroup(e.target.value)}
+              />
+            </div>
+            <div className="InputField" tw="flex flex-col my-2">
+              <Label text="직위" isBold />
+              <TextInput
+                type="text"
+                custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setUserPosition(e.target.value)}
+              />
+            </div>
           </div>
-          <div className="InputField" tw="flex flex-col">
-            <Label text="거주지" isBold />
-            <TextInput
-              type="text"
-              custom={tw`border-2 py-1`}
-              onChange={(e) => setUserAddress(e.target.value)}
-            />
-          </div>
-          <div className="InputField" tw="flex flex-col">
-            <Label text="소속" isBold />
-            <TextInput
-              type="text"
-              custom={tw`border-2 py-1`}
-              onChange={(e) => setUserGroup(e.target.value)}
-            />
-          </div>
-          <div className="InputField" tw="flex flex-col">
-            <Label text="직위" isBold />
-            <TextInput
-              type="text"
-              custom={tw`border-2 py-1`}
-              onChange={(e) => setUserPosition(e.target.value)}
-            />
-          </div>
-        </div>
+        ) : null}
         <div className="ButtonWrap" tw="flex flex-col mx-auto my-4">
           <Button
             className="RegisterBtn"
-            custom={tw`m-2 p-2 rounded-[0.5rem] bg-blue-400 min-w-[28rem] max-w-[28rem]`}
+            custom={tw`mr-1 p-2 rounded-[0.5rem] bg-blue-400 min-w-[20rem] max-w-[20rem] text-white`}
+            isBold
             onClick={() =>
               SignUp({
                 emailText,
@@ -227,7 +260,7 @@ const Register = () => {
           </Button>
           <Button
             className="HomeBtn"
-            custom={tw`m-2 p-2 rounded-[0.5rem] bg-gray-400 min-w-[28rem] max-w-[28rem]`}
+            custom={tw`mr-1 my-4 p-2 rounded-[0.5rem] bg-gray-400 min-w-[20rem] max-w-[20rem]`}
             onClick={() => navigate(-1)}
           >
             돌아가기

@@ -4,6 +4,7 @@ import b209.docdoc.server.config.security.auth.PrincipalDetails;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
+import b209.docdoc.server.template.dto.Request.TemplateCopyReqDTO;
 import b209.docdoc.server.template.service.TemplateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -47,4 +48,9 @@ public class TemplateController {
     public void getMemberTemplate(@PathVariable String template_uuid) {
         //  template_uuid인 템플릿의 편집 페이지로 이동
     }
+
+	@PostMapping("/copy")
+	public ResponseEntity<ResponseDTO> copyTemplate(@RequestBody TemplateCopyReqDTO templateCopyReqDTO) {
+		return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_COPY, templateService.copyTemplate(templateCopyReqDTO)));
+	}
 }

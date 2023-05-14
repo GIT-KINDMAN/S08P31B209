@@ -1,33 +1,25 @@
 package b209.docdoc.server.template.service.Impl;
 
 import b209.docdoc.server.config.utils.FileHandler;
-import b209.docdoc.server.config.utils.UUIDGenerator;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.*;
-import b209.docdoc.server.exception.*;
+import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.MemberNotFoundException;
+import b209.docdoc.server.exception.TemplateNotFoundException;
 import b209.docdoc.server.file.dto.FileDTO;
 import b209.docdoc.server.repository.*;
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
-import b209.docdoc.server.template.dto.Response.TemplateNameResDTO;
-import b209.docdoc.server.template.dto.Response.TemplateResDTO;
-import b209.docdoc.server.template.dto.Response.TemplatefileResDTO;
-import b209.docdoc.server.template.dto.Response.WidgetResDTO;
+import b209.docdoc.server.template.dto.Request.TemplateCopyReqDTO;
+import b209.docdoc.server.template.dto.Response.*;
 import b209.docdoc.server.template.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -55,7 +47,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Object saveTemplate(MultipartFile pdfFile, DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
         Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
-        FileDTO fileDTO = fileHandler.savedFile(pdfFile, new String[] {"pdf, jpg, png, jpeg"});
+        FileDTO fileDTO = fileHandler.savedFile(pdfFile, new String[]{"pdf, jpg, png, jpeg"});
         String uuid = fileHandler.extractUUID(fileDTO);
         //2. 문서파일 위치와 원본이름 DB 저장
         Templatefile templatefile = Templatefile.builder().
@@ -160,5 +152,31 @@ public class TemplateServiceImpl implements TemplateService {
         );
 
         return new TemplateResDTO(templateIdx, widgetDTOs, templatefileDTO);
+    }
+
+    @Transactional
+    public TemplateCopyResDTO copyTemplate(TemplateCopyReqDTO templateCopyReqDTO) {
+
+        log.info("oldUuid: {}", templateCopyReqDTO.getOldTemplateUuid());
+        // 원본 템플릿 가져오기
+        Template originalTemplate = templateRepository.findByTemplateUuid(templateCopyReqDTO.getOldTemplateUuid())
+                .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
+
+        // 새로운 UUID 생성
+        String newUuid = UUID.randomUUID().toString();
+
+        // 원본 템플릿 복사하되, UUID만 새로운 값으로 변경
+        Template copiedTemplate = Template.builder()
+                .member(originalTemplate.getMember())
+                .templatefile(originalTemplate.getTemplatefile())
+                .templateUuid(newUuid)
+                .templateName(originalTemplate.getTemplateName())
+                .templateIsDeleted(originalTemplate.getTemplateIsDeleted())
+                .templateDeadline(originalTemplate.getTemplateDeadline())
+                .build();
+
+        templateRepository.save(copiedTemplate);
+
+        return new TemplateCopyResDTO(newUuid);
     }
 }

@@ -1,6 +1,8 @@
 package b209.docdoc.server.template.service;
 
 import b209.docdoc.server.template.dto.Request.DocumentTemplateSaveReqDTO;
+import b209.docdoc.server.template.dto.Request.TemplateCopyReqDTO;
+import b209.docdoc.server.template.dto.Response.TemplateCopyResDTO;
 import b209.docdoc.server.template.dto.Response.TemplateNameResDTO;
 import b209.docdoc.server.template.dto.Response.TemplateResDTO;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,4 +16,6 @@ public interface TemplateService {
     public Object saveTemplate(MultipartFile pdfFile, DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) throws Exception;
 
     public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(String memberEmail, Long templateIdx);
+
+    TemplateCopyResDTO copyTemplate(TemplateCopyReqDTO templateCopyReqDTO);
 }
