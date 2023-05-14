@@ -1,8 +1,8 @@
-import { Icon } from "@/components/atoms";
-
+// import { Icon } from "@/components/atoms";
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import React from "react";
-import tw from "twin.macro";
+
+// import tw from "twin.macro";
 
 interface NextArrowProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
