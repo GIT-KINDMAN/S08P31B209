@@ -15,16 +15,16 @@ const DocsHeader = ({ header }: HeaderProps) => {
       <hr tw="my-2 min-w-[64rem] max-w-[64rem]  border-t-2 border-blue-600"></hr>
       <div tw="flex justify-between min-w-[60rem] max-w-[60rem]">
         <div>
-          <Icon icon="fi fi-br-search" custom={tw` ml-8 my-10`} />
           <TextInput
             className="DocsSearch"
             placeholder="문서 검색"
-            custom={tw`min-w-[20rem] max-w-[20rem]  my-10`}
+            custom={tw`min-w-[20rem] max-w-[20rem]  my-10  py-2`}
             onChange={(e) => {
               setSearchText(e.target.value);
               console.log(searchText);
             }}
           />
+          <Icon icon="fi fi-br-search" custom={tw`mx-2  `} />
         </div>
         <div tw="mx-8 my-10 ">
           {/* 문서추가 */}
