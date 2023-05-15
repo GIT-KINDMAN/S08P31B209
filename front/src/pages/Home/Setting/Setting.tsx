@@ -29,16 +29,9 @@ const Setting = () => {
   useEffect(() => {
     // console.log(authState);
     if (authState.authToken) {
-      console.log("authState", authState);
-      console.log("authState.authToken", authState.authToken.valueOf());
-      console.log(
-        "authState.authToken type",
-        typeof authState.authToken.valueOf(),
-      );
-      console.log(authState.authToken.toString());
-      console.log(typeof authState.authToken.toString());
+      const token = authState.authToken;
       fetchUserInfo({
-        headers: { Authorization: `Bearer ${authState.authToken.toString()}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => {
           setUserData(response.data);
