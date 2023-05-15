@@ -6,7 +6,7 @@ export const login = (email: string, password: string) =>
   api.post(`/member/login`, { email, password });
 
 export const logout = (token: string) =>
-  api.delete(`/member/logout`, {
+  api.post(`/member/logout`, {
     headers: {
       Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
     },

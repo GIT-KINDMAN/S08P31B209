@@ -49,9 +49,9 @@ const IntroNav = () => {
               console.log(token);
               const headers = { Authorization: `Bearer ${token}` };
               console.log(headers.Authorization);
-              logout(headers)
+              logout(token)
                 .then((request) => {
-                  console.log(request.data.value);
+                  console.log("logout:", request.data);
                   dispatch(setAuth(null));
                 })
                 .then(() => navigate("/auth"))

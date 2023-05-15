@@ -42,7 +42,13 @@ const ChangeUserInfo = () => {
   const infoUpdate = () => {
     const token = authState.authToken;
 
-    updateUserInfo(userPhone, userAddress, userGroup, userPosition, token)
+    updateUserInfo(
+      userPhone ?? "",
+      userAddress ?? "",
+      userGroup ?? "",
+      userPosition ?? "",
+      token,
+    )
       .then((request) => {
         console.log(request);
       })
