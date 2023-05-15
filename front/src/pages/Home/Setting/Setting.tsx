@@ -30,11 +30,11 @@ const Setting = () => {
     // console.log(authState);
     if (authState.authToken) {
       const token = JSON.parse(authState.authToken);
-      console.log(token);
-      console.log(typeof token);
-      console.log(" authToken", token[0]);
+      console.log(token.authToken);
+      console.log(typeof token.authToken);
+      console.log(" authToken", token.authToken);
       fetchUserInfo({
-        headers: { Authorization: "Bearer " + token },
+        headers: { Authorization: "Bearer " + token.authToken },
       })
         .then((response) => {
           setUserData(response.data);
