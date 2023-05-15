@@ -22,6 +22,7 @@ const SendBox = () => {
           // console.log(request);
           setBoxData(request.data);
           console.log("sent:", request.data);
+          console.log(boxData);
         })
         .catch((error) => {
           console.error(error);

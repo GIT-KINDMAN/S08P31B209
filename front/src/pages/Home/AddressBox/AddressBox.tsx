@@ -34,9 +34,16 @@ const AddressBox = () => {
     setIsOpenModal(!isOpenModal);
   };
 
+  interface addressState {
+    name: string;
+    email: string;
+    group: string;
+    phone: string;
+  }
+
   const addressList =
     addressData &&
-    addressData.map((addressItem, i) => {
+    addressData.map((addressItem: addressState, i: number) => {
       return (
         <div key={i}>
           <ul
