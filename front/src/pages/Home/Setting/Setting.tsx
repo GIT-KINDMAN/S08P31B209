@@ -31,6 +31,8 @@ const Setting = () => {
     if (authState.authToken) {
       const token = authState.authToken;
       console.log(token);
+      console.log(typeof token);
+      console.log("    authToken", token[0]);
       fetchUserInfo({
         headers: { Authorization: "Bearer " + token },
       })
