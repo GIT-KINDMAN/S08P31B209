@@ -31,7 +31,7 @@ const Setting = () => {
     if (authState.authToken) {
       const token = authState.authToken;
       fetchUserInfo({
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: "Bearer " + token },
       })
         .then((response) => {
           setUserData(response.data);
