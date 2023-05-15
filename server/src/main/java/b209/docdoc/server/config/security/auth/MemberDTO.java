@@ -20,13 +20,14 @@ public class MemberDTO {
     private String phone;
     private String gender;
     private String address;
+    private String group;
     private String position;
     private String birthday;
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean isDeleted;
 
     @Builder
-    public MemberDTO(Long idx, String password, String name, String email, String phone, String gender, String address, String position, String birthday, Boolean isDeleted) {
+    public MemberDTO(Long idx, String password, String name, String email, String phone, String gender, String address, String group, String position, String birthday, Boolean isDeleted) {
         this.idx = idx;
         this.password = password;
         this.name = name;
@@ -34,6 +35,7 @@ public class MemberDTO {
         this.phone = phone;
         this.gender = gender;
         this.address = address;
+        this.group = group;
         this.position = position;
         this.birthday = birthday;
         this.isDeleted = isDeleted;
@@ -48,6 +50,7 @@ public class MemberDTO {
                 .phone(member.getMemberPhone())
                 .gender(member.getMemberGender())
                 .address(member.getMemberAddress())
+                .group(member.getMemberGroup())
                 .position(member.getMemberPosition())
                 .birthday(member.getMemberBirthday())
                 .isDeleted(member.getMemberIsDeleted())
