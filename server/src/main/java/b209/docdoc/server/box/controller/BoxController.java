@@ -41,13 +41,12 @@ public class BoxController {
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
             @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
-            @AuthenticationPrincipal String receiverEmail,
             @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getReceivedTemplates(receiverEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
+                        boxService.getReceivedTemplates(keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
 
     @GetMapping("/sent-templates")
@@ -57,13 +56,12 @@ public class BoxController {
             @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
             @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
             @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
-            @AuthenticationPrincipal String memberEmail,
             @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
                 .body(ResponseDTO.of(HttpStatus.OK,
                         Msg.SUCCESS_TEMPLATE_SEARCH,
-                        boxService.getSentTemplates(memberEmail, keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
+                        boxService.getSentTemplates(keywords, nameSort, createdDateSort, updatedDateSort, deadlineSort, pageable)));
     }
 
     @DeleteMapping("/sent/{template_id}")
