@@ -29,12 +29,12 @@ const Setting = () => {
   useEffect(() => {
     // console.log(authState);
     if (authState.authToken) {
-      const token = JSON.parse(authState.authToken);
-      console.log(token.authToken);
-      console.log(typeof token.authToken);
-      console.log(" authToken", token.authToken);
+      const token = authState.authToken;
+      console.log(token);
+      console.log(typeof token);
+
       fetchUserInfo({
-        headers: { Authorization: "Bearer " + token.authToken },
+        headers: { Authorization: "Bearer " + token },
       })
         .then((response) => {
           setUserData(response.data);
