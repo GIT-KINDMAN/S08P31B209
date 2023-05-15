@@ -57,16 +57,30 @@ public class GlobalFilter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOriginPattern(corsPattern);
-		config.addAllowedOrigin(clientURL);
-		config.addAllowedHeader(corsHeader);
-		config.addAllowedMethod(corsMethod);
+		config.addAllowedOriginPattern("*"); // all origins
+		config.addAllowedHeader("*"); // all headers
+		config.addAllowedMethod("*"); // all methods
 		config.addExposedHeader(headerAccess);
 		config.addExposedHeader(headerRefresh);
 		config.setAllowCredentials(cookieConfig);
-		source.registerCorsConfiguration(corsSource, config);
+		source.registerCorsConfiguration("/**", config); // apply to all paths
 		return new CorsFilter(source);
 	}
+
+//	public CorsFilter corsFilter() {
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.addAllowedOriginPattern(corsPattern);
+//		config.addAllowedOrigin(clientURL);
+//		config.addAllowedHeader(corsHeader);
+//		config.addAllowedMethod(corsMethod);
+//		config.addExposedHeader(headerAccess);
+//		config.addExposedHeader(headerRefresh);
+//		config.setAllowCredentials(cookieConfig);
+//		source.registerCorsConfiguration(corsSource, config);
+//		return new CorsFilter(source);
+//	}
 
 	public UserAuthenticationFilter authenticationFilter() {
 		UserAuthenticationFilter userAuthenticationFilter = new UserAuthenticationFilter(userAuthenticationManager, jwtTokenProvider, redisRepository);
