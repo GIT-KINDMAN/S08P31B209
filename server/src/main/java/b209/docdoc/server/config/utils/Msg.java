@@ -79,4 +79,5 @@ public interface Msg {
 	String SUCCESS_TEMPLATE_COPY = "템플릿 복사에 성공하였습니다.";
 	String FAIL_TEMPLATE_COPY = "템플릿 복사에 실패하였습니다.";
 
+	String SUCCESS_SEARCH_TEMPLATE = "템플릿 조회에 성공하였습니다.";
 }

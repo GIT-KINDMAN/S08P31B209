@@ -15,7 +15,7 @@ public interface TemplateService {
 
     public Object saveTemplate(MultipartFile pdfFile, DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String memberEmail) throws Exception;
 
-    public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(String memberEmail, Long templateIdx);
+    public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(Long templateIdx);
 
     TemplateCopyResDTO copyTemplate(TemplateCopyReqDTO templateCopyReqDTO);
 }
