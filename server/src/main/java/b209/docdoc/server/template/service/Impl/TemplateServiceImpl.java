@@ -1,6 +1,7 @@
 package b209.docdoc.server.template.service.Impl;
 
 import b209.docdoc.server.config.utils.FileHandler;
+import b209.docdoc.server.config.utils.SecurityManager;
 import b209.docdoc.server.email.service.EmailService;
 import b209.docdoc.server.entity.*;
 import b209.docdoc.server.exception.ErrorCode;
@@ -120,7 +121,8 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Transactional
-    public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(String memberEmail, Long templateIdx) {
+    public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(Long templateIdx) {
+        String memberEmail = SecurityManager.getCurrentMember().getEmail();
         Template template = templateRepository.findByMemberEmailAndTemplateIdx(memberEmail, templateIdx)
                 .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
 
