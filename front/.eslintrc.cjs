@@ -18,12 +18,6 @@ module.exports = {
   settings: {
     "import/resolver": {
       typescript: {},
-      alias: [
-        ["@", "./src"],
-        ["@atomic", "./src/component"],
-        ["@hook", "./src/hook"],
-        ["@store", "./src/store"],
-      ],
     },
   },
   parserOptions: {

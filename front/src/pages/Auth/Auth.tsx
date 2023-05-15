@@ -9,11 +9,15 @@ const Auth = () => {
 
   return (
     <>
-      <div tw="min-w-[60rem] max-w-[80rem]">
-        <div className="AuthHeader" tw="flex justify-center">
-          <Image imageUrl={Logo} onClick={() => navigate("/")} />
+      <div tw="min-w-[60rem]">
+        <div tw="flex justify-center">
+          <Image
+            tw="cursor-pointer"
+            imageUrl={Logo}
+            onClick={() => navigate("/")}
+          />
         </div>
-        <div className="ContentWrap" tw="flex w-full justify-center">
+        <div tw="flex w-full justify-center">
           <Outlet />
         </div>
       </div>
