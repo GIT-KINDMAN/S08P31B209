@@ -32,7 +32,7 @@ const Setting = () => {
       const token = authState.authToken;
       console.log(token);
       fetchUserInfo({
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: "Bearer " + token },
       })
         .then((response) => {
           setUserData(response.data);
