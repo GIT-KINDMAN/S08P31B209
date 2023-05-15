@@ -1,14 +1,11 @@
 import { Button, TextInput } from "@atomic/atoms";
 
-import { setAuth } from "@store/slice/authSlice";
+import { login } from "@api/memberAPI";
 
-// import type { RootState } from "@store/store";
-import { login } from "@/apis/memberAPI";
+import { setAuth } from "@store/slice/authSlice";
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import SigninButton from "@/pages/Auth/AuthForm/SigninButton";
-// import SigninForm from "@/pages/Auth/AuthForm/SigninForm";
 import { useNavigate } from "react-router-dom";
 import tw from "twin.macro";
 

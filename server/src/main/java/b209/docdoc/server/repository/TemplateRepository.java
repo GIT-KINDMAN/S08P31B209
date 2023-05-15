@@ -20,4 +20,6 @@ public interface TemplateRepository extends JpaRepository<Template, Long> {
 
 	Optional<Template> findByTemplateIdx(Long templateIdx);
 
+	Optional<Template> findByTemplateUuid(String templateUuid);
+
 }
