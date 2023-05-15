@@ -47,8 +47,7 @@ const IntroNav = () => {
           onClick={() => {
             if (token) {
               console.log(token);
-              const headers = { Authorization: `Bearer ${token}` };
-              console.log(headers.Authorization);
+
               logout(token)
                 .then((request) => {
                   console.log("logout:", request.data);

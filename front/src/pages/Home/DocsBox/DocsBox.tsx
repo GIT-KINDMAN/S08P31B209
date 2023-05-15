@@ -22,15 +22,14 @@ const DocsBox = () => {
           // console.log(request);
           setBoxData(request.data);
           console.log(request.data);
+          console.log("boxData : ", boxData);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [authState.authToken]);
-  if (boxData) {
-    console.log(boxData);
-  }
+  }, []);
+
   return (
     <div
       className="ReceivedBoxForm"

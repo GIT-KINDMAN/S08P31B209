@@ -7,7 +7,20 @@ export const saveAddress = (
   group: string,
 ) => api.post("/api/address/save", { name, email, phone, group });
 
-export const fetchAddressList = () => api.get("/api/address/list");
+export const fetchAddressList = (token: string, group: string) => {
+  const params = {
+    token,
+    group,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+
+  return api.get("/address/list", config);
+};
 
 export const fetchEditorAddressList = () => api.get("/api/address/list/editor");
 

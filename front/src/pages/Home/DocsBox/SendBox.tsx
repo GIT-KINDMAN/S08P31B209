@@ -21,16 +21,14 @@ const SendBox = () => {
         .then((request) => {
           // console.log(request);
           setBoxData(request.data);
-          console.log(request.data);
+          console.log("sent:", request.data);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [authState.authToken]);
-  if (boxData) {
-    console.log(boxData);
-  }
+  }, []);
+
   return (
     <div
       className="SendBoxForm"
