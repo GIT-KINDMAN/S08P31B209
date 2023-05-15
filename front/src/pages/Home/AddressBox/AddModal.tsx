@@ -144,8 +144,6 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
 
           if (handleToggleModal) {
             handleToggleModal();
-
-            navigate("/home/address");
           }
         }}
       />

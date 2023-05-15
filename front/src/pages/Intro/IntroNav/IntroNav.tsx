@@ -22,6 +22,28 @@ const IntroNav = () => {
       tw="z-50 fixed w-full top-0 flex justify-between bg-gradient-to-b from-lightgray-600  "
     >
       <Image imageUrl={Logo} />
+      {token ? (
+        <div tw="flex ml-auto text-xl text-white items-center">
+          <div
+            tw="mx-12 cursor-pointer"
+            onClick={() => navigate("/home/mybox/receive")}
+          >
+            보관함
+          </div>
+          <div
+            tw="mx-12 cursor-pointer"
+            onClick={() => navigate("/editor/create")}
+          >
+            문서 보내기
+          </div>
+          <div
+            tw="mx-12 cursor-pointer"
+            onClick={() => navigate("/home/address")}
+          >
+            주소록 관리
+          </div>
+        </div>
+      ) : null}
       {token === null ? (
         <Button
           className="SignInBtn"

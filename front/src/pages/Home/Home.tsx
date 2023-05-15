@@ -1,6 +1,14 @@
+import { setAuth } from "@store/slice/authSlice";
+import type { RootState } from "@store/store";
+
+import { fetchUserInfo, logout } from "@/apis/memberAPI";
 import Logo from "@/assets/DocDoc-white.png";
 import ThumbnailDump from "@/assets/react.svg";
 
+import { UserProps } from "./Setting/Setting";
+
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import "twin.macro";
 
@@ -9,6 +17,28 @@ const footerCSInfo = "문의: support @ssafy.com";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authState = useSelector((state: RootState) => state.auth);
+  const token = authState.authToken;
+  const [userData, setUserData] = useState<UserProps | null>(null);
+  useEffect(() => {
+    // console.log(authState);
+    if (authState.authToken) {
+      const token = authState.authToken;
+
+      fetchUserInfo({
+        headers: { Authorization: "Bearer " + token },
+      })
+        .then((request) => {
+          // console.log(request);
+          setUserData(request.data.value);
+          console.log(request.data.value);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [authState.authToken]);
 
   return (
     <>
@@ -43,10 +73,10 @@ const Home = () => {
                 </div>
                 <div tw="flex flex-col text-white">
                   <label className="UserName" tw="text-lg">
-                    User01
+                    {userData?.name}
                   </label>
                   <label className="UserState" tw="text-xs">
-                    대충 알림이나 기타 등등
+                    {userData?.email}
                   </label>
                 </div>
               </div>
@@ -88,15 +118,7 @@ const Home = () => {
                       <label tw="cursor-pointer">보낸 문서함</label>
                     </div>
                   </li>
-                  <li className="CategoryMenuListItem">
-                    <div
-                      tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
-                      onClick={() => navigate("/home/bookmark")}
-                    >
-                      <i className="fi fi-rr-star" tw="pr-1 cursor-pointer"></i>
-                      <label tw="cursor-pointer">중요 항목</label>
-                    </div>
-                  </li>
+
                   <li className="CategoryMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
@@ -152,7 +174,19 @@ const Home = () => {
                   <li className="SettingMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
-                      onClick={() => navigate("/logout")}
+                      onClick={() => {
+                        if (token) {
+                          console.log(token);
+
+                          logout(token)
+                            .then((request) => {
+                              console.log("logout:", request.data);
+                              dispatch(setAuth(null));
+                            })
+                            .then(() => navigate("/auth"))
+                            .catch((e) => console.log(e));
+                        }
+                      }}
                     >
                       <i
                         className="fi fi-sr-settings"
