@@ -8,4 +8,5 @@ public class AddressRegisterReq {
     String email;
     String phone;
     String group;
+    String position;
 }

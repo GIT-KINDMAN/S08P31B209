@@ -41,7 +41,6 @@ public class AddressServiceImpl implements AddressService {
     }
     @Override
     public String saveOneAddress(AddressRegisterReq req, MemberDTO member) {
-//        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
         if (member.getIsDeleted()) return null;
 
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
@@ -54,6 +53,7 @@ public class AddressServiceImpl implements AddressService {
                         .addresEmail(req.getEmail())
                         .addressPhone(req.getPhone() != null ? req.getPhone() : NOT_PHONE)
                         .addressGroup(req.getGroup() != null ? req.getGroup() : NOT_GROUP)
+                        .addressPosition(req.getPosition())
                         .addressIsDeleted(false)
                         .build()
         );

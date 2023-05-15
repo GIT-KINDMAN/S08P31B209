@@ -46,6 +46,9 @@ public class AddressBook extends BaseDateTime implements Serializable {
     @Column(length = 20)
     private String addressGroup;
 
+    @Column(length = 20)
+    private String addressPosition;
+
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean addressIsDeleted;
 
