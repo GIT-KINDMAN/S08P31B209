@@ -122,6 +122,18 @@ const Home = () => {
                   <li className="CategoryMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
+                      onClick={() => navigate("/home/address")}
+                    >
+                      <i
+                        className="fi fi-rr-briefcase"
+                        tw="pr-1 cursor-pointer"
+                      ></i>
+                      <label tw="cursor-pointer">주소록 관리</label>
+                    </div>
+                  </li>
+                  <li className="CategoryMenuListItem">
+                    <div
+                      tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
                       onClick={() => navigate("/home/template")}
                     >
                       <i

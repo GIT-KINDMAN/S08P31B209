@@ -19,25 +19,25 @@ const IntroNav = () => {
   return (
     <div
       className="NavBar"
-      tw="z-50 fixed w-full top-0 flex justify-between bg-gradient-to-b from-lightgray-600  "
+      tw="z-50 fixed w-full top-0 flex justify-between bg-gradient-to-b from-lightgray-700  "
     >
-      <Image imageUrl={Logo} />
+      <Image imageUrl={Logo} custom={tw`min-w-[16rem]`} />
       {token ? (
         <div tw="flex ml-auto text-xl text-white items-center">
           <div
-            tw="mx-12 cursor-pointer"
+            tw="min-w-[8rem] mx-12 cursor-pointer hover:text-orange-500 hover:underline hover:underline-offset-8 hover:scale-110"
             onClick={() => navigate("/home/mybox/receive")}
           >
             보관함
           </div>
           <div
-            tw="mx-12 cursor-pointer"
+            tw="min-w-[8rem] mx-12 cursor-pointer hover:text-orange-500 hover:underline hover:underline-offset-8 hover:scale-110"
             onClick={() => navigate("/editor/create")}
           >
             문서 보내기
           </div>
           <div
-            tw="mx-12 cursor-pointer"
+            tw="min-w-[8rem] mx-12 cursor-pointer hover:text-orange-500 hover:underline hover:underline-offset-8 hover:scale-110"
             onClick={() => navigate("/home/address")}
           >
             주소록 관리
@@ -52,7 +52,7 @@ const IntroNav = () => {
           variant={"secondary"}
           isBold={true}
           // tw="m-2 p-2 rounded-[0.5rem] bg-gray-400"
-          custom={tw`justify-center m-4 p-2 rounded-[0.5rem] text-sliver-700 `}
+          custom={tw`justify-center m-4 p-2 rounded-[0.5rem] text-sliver-700 hover:scale-110 `}
           onClick={() => navigate("/auth")}
         >
           Login
@@ -65,7 +65,7 @@ const IntroNav = () => {
           variant={"secondary"}
           isBold={true}
           // tw="m-2 p-2 rounded-[0.5rem] bg-gray-400"
-          custom={tw`justify-center m-4 p-2 rounded-[0.5rem] text-sliver-700 `}
+          custom={tw`justify-center m-4 p-2 rounded-[0.5rem] text-sliver-700  hover:scale-110`}
           onClick={() => {
             if (token) {
               console.log(token);

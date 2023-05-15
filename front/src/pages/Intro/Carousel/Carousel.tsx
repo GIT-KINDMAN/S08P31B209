@@ -35,8 +35,8 @@ const ShowCase = () => {
     setSlideState(currentImageIndex);
   };
   return (
-    <div tw="flex ">
-      <div className="page-carousel" tw="w-96 flex flex-col ml-40 my-20">
+    <div tw="flex justify-center scale-110 ">
+      <div className="page-carousel" tw="w-96 flex flex-col  my-20">
         <Slider beforeChange={handleBeforeChange} {...settings}>
           <div>
             <p tw="text-4xl text-[#2E6888] font-bold">문서를 보내나요?</p>
@@ -52,7 +52,7 @@ const ShowCase = () => {
           </div>
         </Slider>
       </div>
-      <div tw="mt-20 ml-20 text-3xl font-bold">
+      <div tw="mt-20 ml-40 text-3xl font-bold">
         <div tw="flex">
           <div tw="text-4xl text-[#2E6888] px-2 animate-bounce "> 똑똑</div>
           <div> 의 </div>
@@ -62,7 +62,7 @@ const ShowCase = () => {
         <div tw="ml-10">
           <div tw="my-12">
             {slideState === 0 ? (
-              <p tw="text-[#FF5B4E]"> 템플릿 관리</p>
+              <p tw="text-[#FF5B4E] "> 템플릿 관리</p>
             ) : (
               <p tw="text-[#DA2200]"> 템플릿 관리</p>
             )}

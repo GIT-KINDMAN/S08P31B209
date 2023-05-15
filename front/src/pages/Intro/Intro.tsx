@@ -2,6 +2,7 @@ import IntroNav from "@/pages/Intro/IntroNav/IntroNav";
 import IntroPage1 from "@/pages/Intro/IntroPage.tsx/IntroPage1";
 import IntroPage2 from "@/pages/Intro/IntroPage.tsx/IntroPage2";
 import IntroPage3 from "@/pages/Intro/IntroPage.tsx/IntroPage3";
+import IntroPage4 from "@/pages/Intro/IntroPage.tsx/IntroPage4";
 
 // import Knock from "../../assets/Main/Knock.png";
 // import { useNavigate } from "react-router-dom";
@@ -20,13 +21,7 @@ const Intro = () => {
       <IntroPage2 />
       {/* 캐러셀 영역*/}
       <IntroPage3 />
-      <div>
-        <div>
-          <div> Intro-Page4-Text </div>
-          <div> Intro-Page4-Image </div>
-          <div> Intro-Page4-LoginButton </div>
-        </div>
-      </div>
+      <IntroPage4 />
     </>
   );
 };
