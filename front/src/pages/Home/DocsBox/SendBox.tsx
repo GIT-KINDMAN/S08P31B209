@@ -1,11 +1,36 @@
+import type { RootState } from "@store/store";
+
+import { sentbox } from "@/apis/boxAPI";
+
 import TemplateDocs from "./TemplateDocs/TemplateDocs";
 
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "twin.macro";
 
 const SendBox = () => {
-  //   const navigate = useNavigate();
+  const authState = useSelector((state: RootState) => state.auth);
+  const [boxData, setBoxData] = useState(null);
+
+  useEffect(() => {
+    // console.log(authState);
+    if (authState.authToken) {
+      const token = authState.authToken;
+
+      sentbox("keyword", "asc", "desc", "asc", "asc", token)
+        .then((request) => {
+          // console.log(request);
+          setBoxData(request.data);
+          console.log(request.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [authState.authToken]);
+  if (boxData) {
+    console.log(boxData);
+  }
   return (
     <div
       className="SendBoxForm"

@@ -69,7 +69,7 @@ public class AddressServiceImpl implements AddressService {
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
         if (memberObj.isEmpty()) return null;
 
-        if (group.equals(NOT_GROUP)) list = addressBookRepository.findAllByMember(memberObj.get());
+        if (group.equals("전체그룹")) list = addressBookRepository.findAllByMember(memberObj.get());
         else list = addressBookRepository.findAllByMemberAndAddressGroup(memberObj.get(), group);
 
         for (AddressBook address: list) {
@@ -80,7 +80,7 @@ public class AddressServiceImpl implements AddressService {
                     address.getAddressGroup()));
         }
 
-        return AddressListRes.of(result);
+        return AddressListRes.of(addressBookRepository.findAllGroups(), result);
     }
 
     @Override
