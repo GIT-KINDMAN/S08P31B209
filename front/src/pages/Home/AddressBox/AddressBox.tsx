@@ -13,10 +13,11 @@ const AddressBox = () => {
   const authState = useSelector((state: RootState) => state.auth);
   const [addressData, setAddressData] = useState([]);
   const [addressGroups, setAddressGroups] = useState([]);
+  const [groupName, setGroupName] = useState("");
   useEffect(() => {
     if (authState.authToken) {
       const token = authState.authToken;
-      const group = "전체그룹";
+      const group = groupName;
       console.log(token);
       fetchAddressList(token, group)
         .then((request) => {
@@ -27,7 +28,7 @@ const AddressBox = () => {
         })
         .catch((e) => console.log(e));
     }
-  }, [authState.authToken]);
+  }, [authState.authToken, groupName]);
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const handleToggleModal = () => {
@@ -35,6 +36,7 @@ const AddressBox = () => {
   };
 
   interface addressState {
+    id: number;
     name: string;
     email: string;
     group: string;
@@ -78,12 +80,15 @@ const AddressBox = () => {
           className="GroupItem"
           tw="border-b border-dashed mx-4 my-2"
           key={i}
+          onClick={() => handleGroupClick(GroupItem)}
         >
           {GroupItem}
         </div>
       );
     });
-
+  const handleGroupClick = (group: string) => {
+    setGroupName(group);
+  };
   return (
     <>
       <div tw=" bg-white w-full h-full flex flex-col">
