@@ -6,7 +6,6 @@ import { saveAddress } from "@/apis/addressAPI";
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 interface ModalDefaultType {
@@ -34,8 +33,6 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
         .catch((e) => console.log(e));
     }
   };
-
-  // const navigate = useNavigate();
 
   return (
     <div
