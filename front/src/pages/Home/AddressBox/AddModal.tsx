@@ -35,7 +35,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
     }
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div
