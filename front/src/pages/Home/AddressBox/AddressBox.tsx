@@ -1,13 +1,93 @@
+import type { RootState } from "@store/store";
+
+import { fetchAddressList } from "@/apis/addressAPI";
+
 import AddModal from "./AddModal";
 
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "twin.macro";
 
 const AddressBox = () => {
+  const authState = useSelector((state: RootState) => state.auth);
+  const [addressData, setAddressData] = useState([]);
+  const [addressGroups, setAddressGroups] = useState([]);
+  const [groupName, setGroupName] = useState("");
+  useEffect(() => {
+    if (authState.authToken) {
+      const token = authState.authToken;
+      const group = groupName;
+      console.log(token);
+      fetchAddressList(token, group)
+        .then((request) => {
+          setAddressGroups(request.data.value.groups);
+          setAddressData(request.data.value.addresses);
+          console.log("address", request.data.value.addresses);
+          console.log("address", request.data.value.groups);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [authState.authToken, groupName]);
+
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const handleToggleModal = () => {
     setIsOpenModal(!isOpenModal);
+  };
+
+  interface addressState {
+    id: number;
+    name: string;
+    email: string;
+    group: string;
+    phone: string;
+  }
+
+  const addressList =
+    addressData &&
+    addressData.map((addressItem: addressState, i: number) => {
+      return (
+        <div key={i}>
+          <ul
+            className="MemberItem"
+            tw="text-sm border-b border-dashed  my-2 flex justify-around"
+          >
+            <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+              {addressItem?.name}
+            </li>
+            <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+              {addressItem?.group}
+            </li>
+            <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+              {addressItem?.email}
+            </li>
+            <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+              {addressItem?.phone}
+            </li>
+            <li tw="py-4">
+              <i className="fi fi-br-menu-dots" />
+            </li>
+          </ul>
+        </div>
+      );
+    });
+
+  const groupList =
+    addressGroups &&
+    addressGroups.map((GroupItem, i) => {
+      return (
+        <div
+          className="GroupItem"
+          tw="border-b border-dashed mx-4 my-2"
+          key={i}
+          onClick={() => handleGroupClick(GroupItem)}
+        >
+          {GroupItem}
+        </div>
+      );
+    });
+  const handleGroupClick = (group: string) => {
+    setGroupName(group);
   };
   return (
     <>
@@ -29,18 +109,7 @@ const AddressBox = () => {
               className="GroupsBox"
               tw="border-2 text-start min-h-[30rem] max-h-[30rem] text-xl overflow-y-scroll"
             >
-              <div className="GroupItem" tw="border-b border-dashed mx-4 my-2">
-                전체보기
-              </div>
-              <div className="GroupItem" tw="border-b border-dashed mx-4 my-2">
-                그룹없음
-              </div>
-              <div className="GroupItem" tw="border-b border-dashed mx-4 my-2 ">
-                서울 1반
-              </div>
-              <div className="GroupItem" tw="border-b border-dashed mx-4 my-2">
-                서울 2반
-              </div>
+              {groupList}
             </div>
           </div>
 
@@ -63,80 +132,22 @@ const AddressBox = () => {
                 className="MemberHeader"
                 tw="border-b border-b-2 px-8 my-2 flex justify-between px-4"
               >
-                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words ">
+                <div tw="py-2 min-w-[10rem] max-w-[10rem] break-words ">
                   이름
                 </div>
-                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                <div tw="py-2 min-w-[10rem] max-w-[10rem] break-words">
                   조직
                 </div>
-                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                <div tw="py-2 min-w-[10rem] max-w-[10rem] break-words">
                   이메일
                 </div>
-                <div tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
+                <div tw="py-2 min-w-[10rem] max-w-[10rem] break-words">
                   전화번호
                 </div>
-                <div tw="py-4  max-w-[10rem] break-words"></div>
+                <div tw="py-2  max-w-[10rem] break-words"></div>
               </div>
-              <ul
-                className="MemberItem"
-                tw="text-sm border-b border-dashed  my-2 flex justify-around"
-              >
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  홍길동
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  대전 1반
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  gindong123@naver.com
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  010-1234-5678
-                </li>
-                <li tw="py-4">
-                  <i className="fi fi-br-menu-dots" />
-                </li>
-              </ul>
-              <ul
-                className="MemberItem"
-                tw="text-sm border-b border-dashed  my-2 flex justify-around"
-              >
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  홍길동
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  대전 1반
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words break-words">
-                  gindong123@naver.com
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words break-words">
-                  010-1234-5678
-                </li>
-                <li tw="py-4">
-                  <i className="fi fi-br-menu-dots" />
-                </li>
-              </ul>
-              <ul
-                className="MemberItem"
-                tw="text-sm border-b border-dashed  my-2 flex justify-around"
-              >
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  홍길동
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  대전 1반
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  gindong123@naver.com
-                </li>
-                <li tw="py-4 min-w-[10rem] max-w-[10rem] break-words">
-                  010-1234-5678
-                </li>
-                <li tw="py-4">
-                  <i className="fi fi-br-menu-dots" />
-                </li>
-              </ul>
+              {/*  */}
+              {addressList}
             </div>
           </div>
         </div>

@@ -1,6 +1,12 @@
 // import styled from "styled-components";
+import type { RootState } from "@store/store";
+
+import { saveAddress } from "@/apis/addressAPI";
+
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "twin.macro";
 
 interface ModalDefaultType {
@@ -8,7 +14,28 @@ interface ModalDefaultType {
 }
 
 const Modal = ({ handleToggleModal }: ModalDefaultType) => {
+  const authState = useSelector((state: RootState) => state.auth);
+
+  const [addName, setAddName] = useState("");
+  const [addEmail, setaddEmail] = useState("");
+  const [addPhone, setAddPhone] = useState("");
+  const [addGroup, setAddGroup] = useState("");
+  const [addPosition, setAddPosition] = useState("");
   const [isOptionalInfo, setIsOptionalInfo] = useState(false);
+
+  const addnewaddress = () => {
+    if (authState.authToken) {
+      const token = authState.authToken;
+
+      saveAddress(addName, addEmail, addPhone, addGroup, addPosition, token)
+        .then((request) => {
+          console.log(request.data);
+        })
+        .catch((e) => console.log(e));
+    }
+  };
+
+  const navigate = useNavigate();
 
   return (
     <div
@@ -33,11 +60,19 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
         >
           <div className="UserName" tw="ml-40 px-9 py-4 font-medium">
             이름
-            <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+            <input
+              type="text"
+              tw="border-2 ml-4 px-2 py-1 text-base"
+              onChange={(e) => setAddName(e.target.value)}
+            />
           </div>
           <div className="UserName" tw="ml-40 px-4 font-medium">
             이메일
-            <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+            <input
+              type="text"
+              tw="border-2 ml-4 px-2 py-1 text-base"
+              onChange={(e) => setaddEmail(e.target.value)}
+            />
           </div>
         </div>
         <hr tw="my-4" />
@@ -61,15 +96,27 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
               >
                 <div className="UserPhone" tw=" pt-4 pb-2 font-medium">
                   연락처
-                  <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+                  <input
+                    type="text"
+                    tw="border-2 ml-4 px-2 py-1 text-base"
+                    onChange={(e) => setAddPhone(e.target.value)}
+                  />
                 </div>
                 <div className="UserGroup" tw=" py-2 font-medium">
                   소속
-                  <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+                  <input
+                    type="text"
+                    tw="border-2 ml-4 px-2 py-1 text-base"
+                    onChange={(e) => setAddGroup(e.target.value)}
+                  />
                 </div>
                 <div className="UserGroup" tw=" py-2 font-medium">
                   직책
-                  <input type="text" tw="border-2 ml-4 px-2 py-1 text-base" />
+                  <input
+                    type="text"
+                    tw="border-2 ml-4 px-2 py-1 text-base"
+                    onChange={(e) => setAddPosition(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -79,6 +126,13 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
         <button
           type="submit"
           tw="border-2 text-center w-fit px-40 py-1 rounded-[4px] mx-auto my-auto"
+          onClick={(e) => {
+            addnewaddress();
+            e.preventDefault();
+            if (handleToggleModal) {
+              handleToggleModal();
+            }
+          }}
         >
           등록
         </button>
