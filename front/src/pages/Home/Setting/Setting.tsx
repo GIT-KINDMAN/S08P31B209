@@ -13,7 +13,7 @@ import "twin.macro";
 export interface UserProps {
   email?: string;
   name?: string;
-  birth?: string;
+  birthday?: string;
   gender?: string;
   phone?: string;
   address?: string;
@@ -25,20 +25,18 @@ const Setting = () => {
   const navigate = useNavigate();
   const authState = useSelector((state: RootState) => state.auth);
   const [userData, setUserData] = useState<UserProps | null>(null);
-
   useEffect(() => {
     // console.log(authState);
     if (authState.authToken) {
       const token = authState.authToken;
-      console.log(token);
-      console.log(typeof token);
-      console.log("    authToken", token[0]);
+
       fetchUserInfo({
         headers: { Authorization: "Bearer " + token },
       })
-        .then((response) => {
-          setUserData(response.data);
-          console.log(response.data);
+        .then((request) => {
+          // console.log(request);
+          setUserData(request.data.value);
+          console.log(request.data.value);
         })
         .catch((error) => {
           console.error(error);
@@ -58,7 +56,7 @@ const Setting = () => {
             <AccountWrap
               email={userData?.email}
               name={userData?.name}
-              birth={userData?.birth}
+              birthday={userData?.birthday}
               gender={userData?.gender}
               phone={userData?.phone}
               address={userData?.address}

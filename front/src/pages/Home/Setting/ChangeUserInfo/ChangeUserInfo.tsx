@@ -1,24 +1,60 @@
-import { updateUserInfo } from "@/apis/memberAPI";
+import type { RootState } from "@store/store";
+
+import { fetchUserInfo, updateUserInfo } from "@/apis/memberAPI";
 import { Button, Label, TextInput } from "@/components/atoms";
 
-import { useState } from "react";
+import { UserProps } from "../Setting";
+
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import tw from "twin.macro";
 
 const ChangeUserInfo = () => {
-  const [userPhone, setUserPhone] = useState("");
-  const [userAddress, setUserAddress] = useState("");
-  const [userGroup, setUserGroup] = useState("");
-  const [userPosition, setUserPosition] = useState("");
+  const [userData, setUserData] = useState<UserProps | null>(null);
+  const [userPhone, setUserPhone] = useState(userData?.phone);
+  const [userAddress, setUserAddress] = useState(userData?.address);
+  const [userGroup, setUserGroup] = useState(userData?.group);
+  const [userPosition, setUserPosition] = useState(userData?.position);
+  const navigate = useNavigate();
+  const authState = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    // console.log(authState);
+    if (authState.authToken) {
+      const token = authState.authToken;
+
+      fetchUserInfo({
+        headers: { Authorization: "Bearer " + token },
+      })
+        .then((request) => {
+          // console.log(request);
+          setUserData(request.data.value);
+          console.log(request.data.value);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [authState.authToken]);
 
   // 유저 정보 변경
   const infoUpdate = () => {
-    updateUserInfo(userPhone, userAddress, userGroup, userPosition)
-      .then((request) => console.log(request.data))
+    const token = authState.authToken;
+
+    updateUserInfo(
+      userPhone ?? "",
+      userAddress ?? "",
+      userGroup ?? "",
+      userPosition ?? "",
+      token,
+    )
+      .then((request) => {
+        console.log(request);
+      })
       .catch((e) => console.log(e));
   };
 
-  const navigate = useNavigate();
   return (
     <div tw="flex flex-col w-full min-w-[40rem] px-6 py-4">
       <label tw="text-3xl">계정 정보 변경</label>
@@ -55,7 +91,7 @@ const ChangeUserInfo = () => {
           />
         </div>
         <div className="InputField" tw="flex flex-col">
-          <Label text="직위" isBold />
+          <Label text="직책" isBold />
           <TextInput
             type="text"
             placeholder={userPosition}

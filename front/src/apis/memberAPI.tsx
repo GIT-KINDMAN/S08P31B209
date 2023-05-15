@@ -5,8 +5,12 @@ import { AxiosRequestConfig } from "axios";
 export const login = (email: string, password: string) =>
   api.post(`/member/login`, { email, password });
 
-export const logout = (config: AxiosRequestConfig) =>
-  api.delete(`/member/logout`, config);
+export const logout = (token: string) =>
+  api.post(`/member/logout`, {
+    headers: {
+      Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+    },
+  });
 
 export const signup = (
   email: string,
@@ -44,4 +48,14 @@ export const updateUserInfo = (
   address: string,
   group: string,
   position: string,
-) => api.put(`/member`, { phone, address, group, position });
+  token: string | null,
+) =>
+  api.put(
+    `/member`,
+    { phone, address, group, position },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+      },
+    },
+  );
