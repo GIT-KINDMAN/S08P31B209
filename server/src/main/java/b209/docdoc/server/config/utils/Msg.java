@@ -78,6 +78,7 @@ public interface Msg {
 	// address
 	String SUCCESS_ADDRESS_SAVE = "주소록 저장에 성공하습니다.";
 	String SUCCESS_ADDRESS_SEARCH = "주소록 조회에 성공하습니다.";
+	String SUCCESS_ADDRESS_DELETE = "주소록 삭제에 성공하습니다.";
 
 	String SUCCESS_TEMPLATE_COPY = "템플릿 복사에 성공하였습니다.";
 	String FAIL_TEMPLATE_COPY = "템플릿 복사에 실패하였습니다.";

@@ -2,11 +2,9 @@ package b209.docdoc.server.entity;
 
 import b209.docdoc.server.config.utils.BaseDateTime;
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
+import b209.docdoc.server.member.dto.request.UpdateUserReqDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -20,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "addressbook")
 @Getter
 @Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressBook extends BaseDateTime implements Serializable {
