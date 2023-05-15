@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class AddressInfo {
+    Long id;
     String name;
     String email;
     String phone;

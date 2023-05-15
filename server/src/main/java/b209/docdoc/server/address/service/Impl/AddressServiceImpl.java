@@ -74,6 +74,7 @@ public class AddressServiceImpl implements AddressService {
 
         for (AddressBook address: list) {
             result.add(new AddressInfo(
+                    address.getAddressIdx(),
                     address.getAddressName(),
                     address.getAddresEmail(),
                     address.getAddressPhone(),
@@ -90,6 +91,7 @@ public class AddressServiceImpl implements AddressService {
 
         for (AddressBook address: list) {
             result.add(new AddressInfo(
+                    address.getAddressIdx(),
                     address.getAddressName(),
                     address.getAddresEmail(),
                     address.getAddressPhone(),
