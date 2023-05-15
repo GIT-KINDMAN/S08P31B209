@@ -1,5 +1,8 @@
 package b209.docdoc.server.box.service.Impl;
 
+import b209.docdoc.server.box.dto.Response.BoxReceivedResDTO;
+import b209.docdoc.server.box.dto.Response.BoxSentResDTO;
+import b209.docdoc.server.box.dto.Response.BoxTemplateResDTO;
 import b209.docdoc.server.box.service.BoxService;
 import b209.docdoc.server.config.utils.FileHandler;
 import b209.docdoc.server.config.utils.SecurityManager;
@@ -70,9 +73,9 @@ public class BoxServiceImpl implements BoxService {
         return null;
     }
 
+    @Override
     @Transactional
-    public Page<Receiver> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
-
+    public Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         String receiverEmail = SecurityManager.getCurrentMember().getEmail();
 
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
@@ -82,12 +85,14 @@ public class BoxServiceImpl implements BoxService {
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
-        return boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+        Page<Receiver> receivers = boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+
+        return receivers.map(receiver -> BoxReceivedResDTO.of(receiver));
     }
 
+    @Override
     @Transactional
-    public Page<Template> getSentTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
-
+    public Page<BoxSentResDTO> getSentTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         String senderEmail = SecurityManager.getCurrentMember().getEmail();
 
         Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
@@ -97,6 +102,42 @@ public class BoxServiceImpl implements BoxService {
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
-        return boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
+        Page<Template> templates = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
+
+        return templates.map(template -> BoxSentResDTO.of(template));
     }
+
+//    @Transactional
+//    public Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+//        String receiverEmail = SecurityManager.getCurrentMember().getEmail();
+//
+//        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
+//                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+//                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+//                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"));
+//
+//        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+//
+//        Page<Receiver> receivers = boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+//
+//        return receivers.map(receiver -> BoxSentResDTO.of(receiver.getReceiverDocsName(), receiver.getReceiverDeadline(), receiver.getReceiverSenderName(), receiver.getReceiverSenderEmail(), receiver.getReceiverEmail(), receiver.getReceiverName(), BoxTemplateResDTO.of(receiver.getTemplate())));
+//    }
+//
+//    @Override
+//    @Transactional
+//    public Page<BoxSentResDTO> getSentTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+//        String senderEmail = SecurityManager.getCurrentMember().getEmail();
+//
+//        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
+//                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+//                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+//                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"));
+//
+//        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+//
+//        Page<BoxSentResDTO> templates = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
+//
+//        return templates.map(template -> BoxSentResDTO.of(template, template.getTemplatefile()));
+//    }
+
 }

@@ -1,5 +1,7 @@
 package b209.docdoc.server.repository;
 
+import b209.docdoc.server.box.dto.Response.BoxReceivedResDTO;
+import b209.docdoc.server.box.dto.Response.BoxSentResDTO;
 import b209.docdoc.server.entity.Receiver;
 import b209.docdoc.server.entity.Template;
 import org.springframework.data.domain.Page;
