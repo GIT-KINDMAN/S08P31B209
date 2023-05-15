@@ -39,9 +39,8 @@ public class TemplateController {
 
     @GetMapping("/{templateId}")
     public ResponseEntity<ResponseDTO> getMyTemplate(
-            @AuthenticationPrincipal String memberEmail,
             @PathVariable Long templateId) {
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MOD, templateService.getTemplateByMemberEmailAndTemplateIdx(memberEmail, templateId)));
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SEARCH_TEMPLATE, templateService.getTemplateByMemberEmailAndTemplateIdx(templateId)));
     }
 
     @GetMapping("/uuid/{template_uuid}")
