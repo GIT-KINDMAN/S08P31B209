@@ -7,13 +7,15 @@ import "twin.macro";
 const AccountWrap = ({
   email,
   name,
-  birth,
+  birthday,
   gender,
   address,
   group,
   phone,
   position,
 }: UserProps) => {
+  const formattedBirthday = birthday?.replace(/-/g, "").slice(2);
+  console.log(formattedBirthday);
   return (
     <div className="AccountWrap">
       <div
@@ -49,46 +51,48 @@ const AccountWrap = ({
               </div>
               <div className="itemValue">{group}</div>
             </li>
-            <li className="DetailListItem" tw="flex pt-1 pb-3">
-              {birth ? (
-                <div>
+            {birthday ? (
+              <div>
+                <li className="DetailListItem" tw="flex pt-1 pb-3">
                   <div className="itemKey" tw="min-w-[4rem] mr-2">
                     <label tw="font-bold">생일</label>
                   </div>
-                  <div className="itemValue">{birth}</div>
-                </div>
-              ) : null}
-            </li>
-            <li className="DetailListItem" tw="flex pt-1 pb-3">
-              {birth ? (
-                <div>
+                  <div className="itemValue">{formattedBirthday}</div>
+                </li>
+              </div>
+            ) : null}
+            {gender ? (
+              <div>
+                <li className="DetailListItem" tw="flex pt-1 pb-3">
                   <div className="itemKey" tw="min-w-[4rem] mr-2">
                     <label tw="font-bold">성별</label>
                   </div>
-                  <div className="itemValue">{gender}</div>
-                </div>
-              ) : null}
-            </li>
-            <li className="DetailListItem" tw="flex pt-1 pb-3">
-              {birth ? (
-                <div>
+                  <div className="itemValue">
+                    {gender === "male" ? <div>남성</div> : <div> 여성</div>}
+                  </div>
+                </li>
+              </div>
+            ) : null}
+            {address ? (
+              <div>
+                <li className="DetailListItem" tw="flex pt-1 pb-3">
                   <div className="itemKey" tw="min-w-[4rem] mr-2">
                     <label tw="font-bold">거주지</label>
                   </div>
                   <div className="itemValue">{address}</div>
-                </div>
-              ) : null}
-            </li>
-            <li className="DetailListItem" tw="flex pt-1 pb-3">
-              {birth ? (
-                <div>
+                </li>
+              </div>
+            ) : null}
+            {position ? (
+              <div>
+                <li className="DetailListItem" tw="flex pt-1 pb-3">
                   <div className="itemKey" tw="min-w-[4rem] mr-2">
                     <label tw="font-bold">직책</label>
                   </div>
                   <div className="itemValue">{position}</div>
-                </div>
-              ) : null}
-            </li>
+                </li>
+              </div>
+            ) : null}
           </ul>
         </div>
       </div>
