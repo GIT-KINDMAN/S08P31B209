@@ -31,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
         if (member.isEmpty()) return null;
 
-        List<AddressBook> list = addressBookRepository.findAllByMember(member.get());
+        List<AddressBook> list = addressBookRepository.findAllByMemberAndAddressIsDeleted(member.get(), false);
         HashSet<String> results = new HashSet<String>();
         for (AddressBook address: list) {
             results.add(address.getAddresEmail());
@@ -69,8 +69,8 @@ public class AddressServiceImpl implements AddressService {
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
         if (memberObj.isEmpty()) return null;
 
-        if (group.equals("전체그룹")) list = addressBookRepository.findAllByMember(memberObj.get());
-        else list = addressBookRepository.findAllByMemberAndAddressGroup(memberObj.get(), group);
+        if (group.equals("전체그룹")) list = addressBookRepository.findAllByMemberAndAddressIsDeleted(memberObj.get(), false);
+        else list = addressBookRepository.findAllByMemberAndAddressGroupAndAddressIsDeleted(memberObj.get(), group, false);
 
         for (AddressBook address: list) {
             result.add(new AddressInfo(
@@ -85,7 +85,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressListRes getAddressBoolListByName(String name, MemberDTO member) {
-        List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWith(name);
+        List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWithAndAddressIsDeleted(name, false);
         List<AddressInfo> result = new ArrayList<>();
 
         for (AddressBook address: list) {
@@ -122,6 +122,20 @@ public class AddressServiceImpl implements AddressService {
                 );
             }
         }
+
+        return null;
+    }
+
+    @Override
+    public String removeAddress(String addressIdx, MemberDTO member) {
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return null;
+
+        AddressBook addressBook = addressBookRepository.findAllByAddressIdx(Long.parseLong(addressIdx));
+        if (addressBook == null) return null;
+
+        addressBook.setAddressIsDeleted(true);
+        addressBookRepository.save(addressBook);
 
         return null;
     }

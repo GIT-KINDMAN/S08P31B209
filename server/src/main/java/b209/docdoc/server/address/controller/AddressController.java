@@ -23,6 +23,11 @@ public class AddressController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SAVE, addressService.saveOneAddress(req, SecurityManager.getCurrentMember())));
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseDTO> saveAddressListEditor(@RequestParam("id") String addressIdx) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_DELETE, addressService.removeAddress(addressIdx, SecurityManager.getCurrentMember())));
+    }
+
     @GetMapping("/list")
     public ResponseEntity<ResponseDTO> getAddressList(@RequestParam("group") String group) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressListByGroup(group, SecurityManager.getCurrentMember())));

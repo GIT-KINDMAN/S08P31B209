@@ -10,4 +10,5 @@ public interface AddressService {
     public AddressListRes getAddressListByGroup(String group, MemberDTO member);
     public AddressListRes getAddressBoolListByName(String name, MemberDTO member);
     public String saveAddressEditor(AddressEditorReq req, MemberDTO member);
+    public String removeAddress(String addressIdx, MemberDTO member);
 }
