@@ -47,8 +47,11 @@ public class FileHandler {
         }
         // 파일 저장
         try {
+            log.info("Attempting to save file at " + savedPath);
             file.transferTo(new File(savedPath));
+            log.info("File saved successfully at " + savedPath);
         } catch (IOException e) {
+            log.error("Failed to save file", e);
             throw new SaveFileException(ErrorCode.FILE_CANNOT_SAVE);
         }
 
