@@ -1,4 +1,4 @@
-import { signup } from "@/apis/memberAPI";
+import { emailVerification, signup } from "@/apis/memberAPI";
 import { Button, Label, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
@@ -29,6 +29,7 @@ const Register = () => {
   const [userAddress, setUserAddress] = useState("");
   const [userGroup, setUserGroup] = useState("");
   const [userPosition, setUserPosition] = useState("");
+  const [emailVerificationCode, setEmailVerificationCode] = useState("");
 
   // const [file, setFile] = useState<File | null>(null);
   // const [fileUrl, setFileUrl] = useState<string | null>(null);
@@ -83,7 +84,7 @@ const Register = () => {
   const localDate = new Date();
   return (
     <>
-      <div tw="flex flex-col w-[20rem]">
+      <div tw="flex ml-[6.1rem] flex-col w-[40rem]">
         {/* 사용자 사진 입력 */}
         {/* <div className="ImageForm" tw="flex flex-col ">
           <div className="ImageField" tw="flex flex-col ">
@@ -104,18 +105,53 @@ const Register = () => {
           </div>
         </div> */}
         {/* 필수 입력 */}
-        <div className="RequireInputWrap" tw="flex flex-col my-2">
+        <div className="RequireInputWrap" tw="flex flex-col mx-auto my-2">
           <label tw="text-xs text-red-300">
             * 회원 가입을 위한 필수 사항입니다.
           </label>
           <div className="InputField" tw="flex flex-col my-2">
             <Label text="이메일" isBold />
+            <div>
+              <TextInput
+                type="email"
+                custom={tw`border-2 w-80 py-1 mr-4 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setEmailText(e.target.value)}
+              />
+              <Button
+                className="optionalbutton"
+                variant="primary"
+                isOutline={true}
+                custom={tw`mx-auto min-w-[6rem] max-w-[6rem] ml-4`}
+                onClick={() =>
+                  emailVerification(emailText).then((request) => {
+                    console.log("aaa");
+                    console.log(request.data);
+                    setEmailVerificationCode(request.data);
+                  })
+                }
+              >
+                인증
+              </Button>
+            </div>
+          </div>
+          <div className="InputField" tw="flex flex-col my-2">
+            <Label text="이메일 인증 코드 입력" isBold />
 
-            <TextInput
-              type="email"
-              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
-              onChange={(e) => setEmailText(e.target.value)}
-            />
+            <div tw="flex">
+              <TextInput
+                type="email"
+                custom={tw`border-2 w-80 py-1 mr-4 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setEmailText(e.target.value)}
+              />
+              <Button
+                className="optionalbutton"
+                variant="primary"
+                isOutline={true}
+                custom={tw`mx-auto min-w-[6rem] max-w-[6rem] ml-4`}
+              >
+                추가입력
+              </Button>
+            </div>
           </div>
           <div className="InputField" tw="flex flex-col my-2">
             <Label text="비밀번호 입력" isBold />
@@ -145,7 +181,7 @@ const Register = () => {
             <Label text="생년월일" isBold />
             <input
               type="date"
-              tw="border-2 py-1 "
+              tw="border-2 py-1 px-2 w-80 rounded-xl border-b border-lightgray-400"
               max={localDate.toISOString().split("T")[0]}
               defaultValue={localDate.toISOString().split("T")[0]}
               onKeyDown={(e) => e.preventDefault()}
