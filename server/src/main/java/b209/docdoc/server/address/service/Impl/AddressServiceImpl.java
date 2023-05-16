@@ -24,9 +24,9 @@ public class AddressServiceImpl implements AddressService {
     private MemberRepository memberRepository;
     private AddressBookRepository addressBookRepository;
 
-    private final String NO_GROUP = "그룹없음";
-    private final String NO_POSITION = "직책없음";
-    private final String NO_PHONE = "번호없음";
+    private final String NO_GROUP = "-";
+    private final String NO_POSITION = "-";
+    private final String NO_PHONE = "-";
 
     private HashSet<String> getMemberAddressEmailSet(String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
@@ -79,7 +79,8 @@ public class AddressServiceImpl implements AddressService {
                     address.getAddressName(),
                     address.getAddresEmail(),
                     address.getAddressPhone(),
-                    address.getAddressGroup()));
+                    address.getAddressGroup().equals(NO_GROUP) ? "소속없음" : address.getAddressGroup()
+            ));
         }
 
         return AddressListRes.of(addressBookRepository.findAllGroups(), result);
@@ -96,7 +97,7 @@ public class AddressServiceImpl implements AddressService {
                     address.getAddressName(),
                     address.getAddresEmail(),
                     address.getAddressPhone(),
-                    address.getAddressGroup()
+                    address.getAddressGroup().equals(NO_GROUP) ? "소속없음" : address.getAddressGroup()
             ));
         }
 
