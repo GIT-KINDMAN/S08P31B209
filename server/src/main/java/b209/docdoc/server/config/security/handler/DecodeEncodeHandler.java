@@ -1,9 +1,9 @@
 package b209.docdoc.server.config.security.handler;
 
-import b209.docdoc.server.entity.Member;
+import b209.docdoc.server.domain.entity.Member;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.MemberNotFoundException;
-import b209.docdoc.server.repository.MemberRepository;
+import b209.docdoc.server.domain.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

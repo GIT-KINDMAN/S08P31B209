@@ -4,7 +4,7 @@ import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.InvalidFileExtensionException;
 import b209.docdoc.server.exception.SaveFileException;
 import b209.docdoc.server.exception.SaveFileNotFoundException;
-import b209.docdoc.server.file.dto.FileDTO;
+import b209.docdoc.server.api.file.dto.FileDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
