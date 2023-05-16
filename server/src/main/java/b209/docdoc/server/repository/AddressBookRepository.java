@@ -14,4 +14,5 @@ public interface AddressBookRepository extends JpaRepository<AddressBook, Long> 
     @Query(value = "SELECT a.addressGroup FROM AddressBook a WHERE a.addressIsDeleted=false GROUP BY a.addressGroup order by a.addressGroup")
     List<String> findAllGroups();
     AddressBook findAllByAddressIdx(Long addressIdx);
+    List<AddressBook> findAllByAddressGroupAndAddressIsDeleted(String group, Boolean isDeleted);
 }

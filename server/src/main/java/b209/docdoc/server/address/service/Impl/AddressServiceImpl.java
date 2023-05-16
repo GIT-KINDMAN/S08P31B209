@@ -141,4 +141,20 @@ public class AddressServiceImpl implements AddressService {
 
         return null;
     }
+
+    @Override
+    public String removeAddressByGroup(String group, MemberDTO member) {
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return null;
+
+        List<AddressBook> addressBooks = addressBookRepository.findAllByAddressGroupAndAddressIsDeleted(group, false);
+        if (addressBooks == null || addressBooks.size() == 0) return null;
+
+        for (AddressBook addressBook: addressBooks) {
+            addressBook.setAddressIsDeleted(true);
+            addressBookRepository.save(addressBook);
+        }
+
+        return null;
+    }
 }

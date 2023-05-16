@@ -5,9 +5,41 @@ export const saveAddress = (
   email: string,
   phone: string,
   group: string,
-) => api.post("/api/address/save", { name, email, phone, group });
+  position: string,
+  token: string,
+) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+    },
+  };
+  return api.post(
+    "/address/save",
+    {
+      name,
+      email,
+      phone,
+      group,
+      position,
+    },
+    config,
+  );
+};
 
-export const fetchAddressList = () => api.get("/api/address/list");
+export const fetchAddressList = (token: string, group: string) => {
+  const params = {
+    token,
+    group,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+
+  return api.get("/address/list", config);
+};
 
 export const fetchEditorAddressList = () => api.get("/api/address/list/editor");
 
