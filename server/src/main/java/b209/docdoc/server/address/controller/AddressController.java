@@ -24,8 +24,13 @@ public class AddressController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDTO> saveAddressListEditor(@RequestParam("id") String addressIdx) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+    public ResponseEntity<ResponseDTO> removeAddress(@RequestParam("id") String addressIdx) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_DELETE, addressService.removeAddress(addressIdx, SecurityManager.getCurrentMember())));
+    }
+
+    @DeleteMapping("/delete-group")
+    public ResponseEntity<ResponseDTO> removeAddressByGroup(@RequestParam("group") String group) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_DELETE_GROUP, addressService.removeAddressByGroup(group, SecurityManager.getCurrentMember())));
     }
 
     @GetMapping("/list")
