@@ -30,9 +30,11 @@ public class FileHandler {
         // 파일없으면 에러
         if (file.isEmpty()) throw new SaveFileNotFoundException(ErrorCode.FILE_IS_NULL);
         String originalName = file.getOriginalFilename();
+        log.info("Original file name: " + originalName);
         String uuid = UUID.randomUUID().toString();
         // 확장자 유효성 검사
         String extension = originalName.substring(originalName.lastIndexOf(".") + 1);
+        log.info("Extracted extension: " + extension);
         boolean isValidExtension = Arrays.stream(extensions).anyMatch(extension::equalsIgnoreCase);
         if (!isValidExtension) throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);
         String savedName = uuid + "." + extension;
