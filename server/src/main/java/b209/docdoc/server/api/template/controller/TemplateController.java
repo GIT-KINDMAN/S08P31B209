@@ -48,7 +48,7 @@ public class TemplateController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SEARCH_TEMPLATE, templateService.getTemplateByMemberEmailAndTemplateIdx(templateId)));
     }
 
-	@GetMapping("/{uuid}")
+	@GetMapping("uuid/{uuid}")
 	public ResponseEntity<?> getTemplateFileByUuid(@PathVariable String uuid) throws MalformedURLException {
 		FileDTO fileDTO = templateService.getTemplateFileByUuid(uuid);
 		return ResponseEntity.ok()
@@ -57,10 +57,10 @@ public class TemplateController {
 				.body(new UrlResource("file:" + fileDTO.getSavedPath()));
 	}
 
-    @GetMapping("/uuid/{template_uuid}")
-    public void getMemberTemplate(@PathVariable String template_uuid) {
-        //  template_uuid인 템플릿의 편집 페이지로 이동
-    }
+//    @GetMapping("/uuid/{template_uuid}")
+//    public void getMemberTemplate(@PathVariable String template_uuid) {
+//        //  template_uuid인 템플릿의 편집 페이지로 이동
+//    }
 
 	@PostMapping("/copy")
 	public ResponseEntity<ResponseDTO> copyTemplate(@RequestBody TemplateCopyReqDTO templateCopyReqDTO) {
