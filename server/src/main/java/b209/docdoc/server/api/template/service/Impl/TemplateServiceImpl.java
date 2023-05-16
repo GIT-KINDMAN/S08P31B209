@@ -157,6 +157,14 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Transactional
+    public FileDTO getTemplateFileByUuid(String uuid) {
+        Templatefile templatefile = templateRepository.findByTemplateUuid(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid uuid"))
+                .getTemplatefile();
+        return FileDTO.of(templatefile);
+    }
+
+    @Transactional
     public TemplateCopyResDTO copyTemplate(TemplateCopyReqDTO templateCopyReqDTO) {
 
         log.info("oldUuid: {}", templateCopyReqDTO.getOldTemplateUuid());

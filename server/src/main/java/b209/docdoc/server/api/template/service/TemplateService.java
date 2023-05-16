@@ -1,5 +1,6 @@
 package b209.docdoc.server.api.template.service;
 
+import b209.docdoc.server.api.file.dto.FileDTO;
 import b209.docdoc.server.api.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.api.template.dto.Request.TemplateCopyReqDTO;
 import b209.docdoc.server.api.template.dto.Response.TemplateCopyResDTO;
@@ -18,4 +19,6 @@ public interface TemplateService {
     public TemplateResDTO getTemplateByMemberEmailAndTemplateIdx(Long templateIdx);
 
     TemplateCopyResDTO copyTemplate(TemplateCopyReqDTO templateCopyReqDTO);
+
+    FileDTO getTemplateFileByUuid(String uuid);
 }

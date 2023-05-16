@@ -40,11 +40,6 @@ public class DocsfileServiceImpl implements DocsfileService {
         return docsfileRepository.save(docsfile);
     }
 
-//    public Docsfile getFileByUuidAndEmail(String uuid, String email) {
-//        return docsfileRepository.findByUuidAndToEmailOrFromEmail(uuid, email, email)
-//                .orElseThrow(() -> new IllegalArgumentException("No file found with this UUID and email: " + uuid + ", " + email));
-//    }
-
     @Transactional
     public FileDTO getDocsfile(String uuid, String email) {
         return docsfileRepository.findByUuidAndToEmailOrFromEmail(uuid, email, email)
