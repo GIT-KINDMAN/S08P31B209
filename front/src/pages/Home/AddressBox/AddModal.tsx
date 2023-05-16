@@ -29,6 +29,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
       saveAddress(addName, addEmail, addPhone, addGroup, addPosition, token)
         .then((request) => {
           console.log(request.data);
+          window.location.reload();
         })
         .catch((e) => console.log(e));
     }
