@@ -109,8 +109,8 @@ logging:
               BasicBinder: TRACE
 
 file:
-  dir: /home/ubuntu/docdoc
-#  dir: /var/docdoc/
+#  dir: /home/ubuntu/docdoc
+  dir: /var/docdoc/
 #  dir: C:\docdoc\
 
 mail:
