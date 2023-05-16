@@ -1,7 +1,7 @@
 // import styled from "styled-components";
 import type { RootState } from "@store/store";
 
-import { saveAddress } from "@/apis/addressAPI";
+import { fetchAddressList, saveAddress } from "@/apis/addressAPI";
 
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { useState } from "react";
@@ -22,6 +22,8 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
   const [addPosition, setAddPosition] = useState("");
   const [isOptionalInfo, setIsOptionalInfo] = useState(false);
 
+  const [addressData, setAddressData] = useState([]);
+  const [addressGroups, setAddressGroups] = useState([]);
   const addnewaddress = () => {
     if (authState.authToken) {
       const token = authState.authToken;
@@ -29,6 +31,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
       saveAddress(addName, addEmail, addPhone, addGroup, addPosition, token)
         .then((request) => {
           console.log(request.data);
+          window.location.reload();
         })
         .catch((e) => console.log(e));
     }
@@ -138,7 +141,18 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
         tw="min-w-[100rem] max-w-fit h-full fixed top-0 z-[999] bg-black opacity-60"
         onClick={(e: React.MouseEvent) => {
           e.preventDefault();
-
+          if (authState.authToken) {
+            const token = authState.authToken;
+            const group = addGroup;
+            console.log(token);
+            fetchAddressList(token, group)
+              .then((request) => {
+                setAddressGroups(request.data.value.groups);
+                setAddressData(request.data.value.addresses);
+                console.log(addressData, addressGroups);
+              })
+              .catch((e) => console.log(e));
+          }
           if (handleToggleModal) {
             handleToggleModal();
           }

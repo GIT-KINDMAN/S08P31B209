@@ -45,3 +45,31 @@ export const fetchEditorAddressList = () => api.get("/api/address/list/editor");
 
 export const saveEditorAddress = (addressData: object) =>
   api.post("/api/address/save/editor", addressData);
+
+export const deleteAddress = (id: number, token: string) => {
+  const params = {
+    id,
+    token,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+  return api.delete("/address/delete", config);
+};
+
+export const deleteGroup = (group: string, token: string) => {
+  const params = {
+    group,
+    token,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+  return api.delete("/address/delete-group", config);
+};
