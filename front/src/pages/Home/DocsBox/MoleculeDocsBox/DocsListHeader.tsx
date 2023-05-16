@@ -1,8 +1,21 @@
 import { Icon, Label } from "@/components/atoms";
 
+import { HeaderProps } from "../TemplateDocs/TemplateDocs";
+
+import { useEffect, useState } from "react";
 import tw from "twin.macro";
 
-const DocsListHeader = () => {
+const DocsListHeader = ({ header }: HeaderProps) => {
+  const [docsTarget, setDocsTarget] = useState("");
+
+  useEffect(() => {
+    if (header === "보낸 문서함") {
+      setDocsTarget("수신자");
+    } else if (header === "받은 문서함") {
+      setDocsTarget("발신자");
+    }
+  }, []);
+
   return (
     <div
       className="FileBox"
@@ -21,9 +34,9 @@ const DocsListHeader = () => {
           <Icon icon="fi-rr-caret-up" custom={tw`py-2`} />
         </div>
         <div className="DocsStatus" tw="flex  grid grid-cols-3 mr-auto my-auto">
-          <div tw="min-w-[10rem] max-w-[10rem]   px-4 ">
+          <div tw="min-w-[10rem] max-w-[10rem] ml-6   px-4 ">
             {/* <Icon icon="fi-rr-caret-down" /> */}
-            문서수정일 <Icon icon="fi-rr-caret-up" />
+            {docsTarget}
           </div>
           <div tw="min-w-[10rem] max-w-[10rem]  px-4">
             문서공유일 <Icon icon="fi-rr-caret-up" />

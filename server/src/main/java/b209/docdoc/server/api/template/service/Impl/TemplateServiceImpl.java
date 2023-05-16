@@ -48,7 +48,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Object saveTemplate(MultipartFile pdfFile, DocumentTemplateSaveReqDTO documentTemplateSaveReqDTO, String fromEmail) throws Exception {
         Member member = memberRepository.findByMemberEmail(fromEmail).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
-        FileDTO fileDTO = fileHandler.savedFile(pdfFile, new String[]{"pdf, jpg, png, jpeg"});
+        FileDTO fileDTO = fileHandler.savedFile(pdfFile, new String[]{"pdf", "jpg", "png", "jpeg"});
         String uuid = fileHandler.extractUUID(fileDTO);
         //2. 문서파일 위치와 원본이름 DB 저장
         Templatefile templatefile = Templatefile.builder().
@@ -154,6 +154,14 @@ public class TemplateServiceImpl implements TemplateService {
         );
 
         return new TemplateResDTO(templateIdx, widgetDTOs, templatefileDTO);
+    }
+
+    @Transactional
+    public FileDTO getTemplateFileByUuid(String uuid) {
+        Templatefile templatefile = templateRepository.findByTemplateUuid(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid uuid"))
+                .getTemplatefile();
+        return FileDTO.of(templatefile);
     }
 
     @Transactional

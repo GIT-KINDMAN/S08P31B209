@@ -10,19 +10,19 @@ import "twin.macro";
 
 const DocsBox = () => {
   const authState = useSelector((state: RootState) => state.auth);
-  const [boxData, setBoxData] = useState(null);
+  const [receiveData, setReceiveData] = useState([]);
 
   useEffect(() => {
     // console.log(authState);
     if (authState.authToken) {
       const token = authState.authToken;
 
-      receivedbox("keyword", "asc", "desc", "asc", "asc", token)
+      receivedbox("", "", "", "", "", token)
         .then((request) => {
           // console.log(request);
-          setBoxData(request.data);
-          console.log(request.data);
-          console.log("boxData : ", boxData);
+          setReceiveData(request.data.value.content);
+          console.log(request.data.value.content);
+          console.log("received : ", receiveData);
         })
         .catch((error) => {
           console.error(error);
@@ -35,7 +35,7 @@ const DocsBox = () => {
       className="ReceivedBoxForm"
       tw="flex flex-col w-full min-w-[40rem] px-6 py-4 bg-white"
     >
-      <TemplateDocs header="받은 문서함" />
+      <TemplateDocs header="받은 문서함" receiveData={receiveData} />
     </div>
   );
 };

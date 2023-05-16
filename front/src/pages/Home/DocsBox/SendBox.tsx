@@ -10,19 +10,19 @@ import "twin.macro";
 
 const SendBox = () => {
   const authState = useSelector((state: RootState) => state.auth);
-  const [boxData, setBoxData] = useState(null);
+  const [sendData, setSendData] = useState([]);
 
   useEffect(() => {
     // console.log(authState);
     if (authState.authToken) {
       const token = authState.authToken;
 
-      sentbox("keyword", "asc", "desc", "asc", "asc", token)
+      sentbox("", "", "", "", "", token)
         .then((request) => {
           // console.log(request);
-          setBoxData(request.data);
-          console.log("sent:", request.data);
-          console.log(boxData);
+          setSendData(request.data.value.content);
+          // console.log("sent1:", request.data.value.content);
+          // console.log("sent2:", sendData);
         })
         .catch((error) => {
           console.error(error);
@@ -35,7 +35,7 @@ const SendBox = () => {
       className="SendBoxForm"
       tw="flex flex-col w-full min-w-[40rem] px-6 py-4 bg-white"
     >
-      <TemplateDocs header="보낸 문서함" />
+      <TemplateDocs header="보낸 문서함" sendData={sendData} />
     </div>
   );
 };

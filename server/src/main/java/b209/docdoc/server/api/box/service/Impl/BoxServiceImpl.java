@@ -90,7 +90,7 @@ public class BoxServiceImpl implements BoxService {
 
         Page<Template> templates = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
 
-        return templates.map(template -> BoxSentResDTO.of(template));
+        return templates.map(template -> BoxSentResDTO.of(template, receiverRepository.findAllReceiverNameByTemplate(template)));
     }
 
     @Override
@@ -98,7 +98,7 @@ public class BoxServiceImpl implements BoxService {
         Optional<Template> template = templateRepository.findByTemplateIdx(templateIdx);
         if (template.isEmpty()) return null;
 
-        List<Receiver> list =  receiverRepository.findAllByTemplate(template.get());
+        List<Receiver> list =  receiverRepository.findAllByTemplateAndReceiverIsDeleted(template.get(), false);
         List<MemberProgressInfo> infos = new ArrayList<>();
         Integer notCompletedCount = 0;
         Integer completedCount = 0;

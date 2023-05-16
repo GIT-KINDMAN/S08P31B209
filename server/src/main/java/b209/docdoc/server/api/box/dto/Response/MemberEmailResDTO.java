@@ -10,15 +10,20 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MemberEmailResDTO {
-    
+
     private String memberEmail;
+    private String memberName;
 
     @Builder
-    public MemberEmailResDTO(String memberEmail) {
+    public MemberEmailResDTO(String memberEmail, String memberName) {
         this.memberEmail = memberEmail;
+        this.memberName = memberName;
     }
 
     public static MemberEmailResDTO of(Member member) {
-        return new MemberEmailResDTO(member.getMemberEmail());
+        return MemberEmailResDTO.builder()
+                .memberEmail(member.getMemberEmail())
+                .memberName(member.getMemberName())
+                .build();
     }
 }
