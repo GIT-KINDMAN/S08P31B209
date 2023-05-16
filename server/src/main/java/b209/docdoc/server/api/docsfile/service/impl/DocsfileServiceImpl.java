@@ -23,7 +23,7 @@ public class DocsfileServiceImpl implements DocsfileService {
 
     @Transactional
     public Docsfile saveFile(MultipartFile file, DocsfileSaveReqDTO docsfileSaveReqDTO) {
-        FileDTO fileDTO = fileHandler.savedFile(file, new String[] {"doc", "docx", "pdf"});
+        FileDTO fileDTO = fileHandler.savedFile(file, new String[] {"jpg", "png", "pdf", "jpeg"});
 
         String uuid = docsfileSaveReqDTO.getUuid(); // 템플릿 uuid
         String toEmail = docsfileSaveReqDTO.getToEmail(); // 수신자 이메일
@@ -39,11 +39,6 @@ public class DocsfileServiceImpl implements DocsfileService {
                 .build();
         return docsfileRepository.save(docsfile);
     }
-
-//    public Docsfile getFileByUuidAndEmail(String uuid, String email) {
-//        return docsfileRepository.findByUuidAndToEmailOrFromEmail(uuid, email, email)
-//                .orElseThrow(() -> new IllegalArgumentException("No file found with this UUID and email: " + uuid + ", " + email));
-//    }
 
     @Transactional
     public FileDTO getDocsfile(String uuid, String email) {
