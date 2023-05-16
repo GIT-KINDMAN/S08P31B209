@@ -23,6 +23,12 @@ public class AddressController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SAVE, addressService.saveOneAddress(req, SecurityManager.getCurrentMember())));
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<ResponseDTO> getAddressList(@RequestParam("group") String group) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressListByGroup(group, SecurityManager.getCurrentMember())));
+    }
+
+
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDTO> removeAddress(@RequestParam("id") String addressIdx) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_DELETE, addressService.removeAddress(addressIdx, SecurityManager.getCurrentMember())));
@@ -33,14 +39,9 @@ public class AddressController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_DELETE_GROUP, addressService.removeAddressByGroup(group, SecurityManager.getCurrentMember())));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<ResponseDTO> getAddressList(@RequestParam("group") String group) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressListByGroup(group, SecurityManager.getCurrentMember())));
-    }
-
     @GetMapping("/list/editor")
     public ResponseEntity<ResponseDTO> getAddressListEditor(@RequestParam("name") String name) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressListByName(name, SecurityManager.getCurrentMember())));
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressEditorListByName(name, SecurityManager.getCurrentMember())));
     }
 
     @PostMapping("/save/editor")

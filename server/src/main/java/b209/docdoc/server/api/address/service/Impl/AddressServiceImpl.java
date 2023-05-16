@@ -1,6 +1,7 @@
 package b209.docdoc.server.api.address.service.Impl;
 
 import b209.docdoc.server.api.address.dto.AddressInfo;
+import b209.docdoc.server.api.address.dto.AddressInfoSimple;
 import b209.docdoc.server.api.address.dto.Request.AddressEditorReq;
 import b209.docdoc.server.api.address.dto.Request.AddressRegisterReq;
 import b209.docdoc.server.api.address.dto.Response.AddressListRes;
@@ -56,7 +57,7 @@ public class AddressServiceImpl implements AddressService {
                         .addresEmail(req.getEmail())
                         .addressPhone((req.getPhone() == null || req.getPhone().trim().length() == 0) ? NO_PHONE : req.getPhone())
                         .addressGroup((req.getGroup() == null || req.getGroup().trim().length() == 0) ? NO_GROUP : req.getGroup())
-                        .addressPosition(req.getPosition() == null || req.getPosition().trim().length() == 0 ? NO_POSITION : req.getPosition())
+                        .addressPosition((req.getPosition() == null || req.getPosition().trim().length() == 0) ? NO_POSITION : req.getPosition())
                         .addressIsDeleted(false)
                         .build()
         );
@@ -73,6 +74,7 @@ public class AddressServiceImpl implements AddressService {
         if (memberObj.isEmpty()) return null;
 
         if (group.equals("전체그룹")) list = addressBookRepository.findAllByMemberAndAddressIsDeleted(memberObj.get(), false);
+        else if (group.equals(NO_GROUP_KO)) list = addressBookRepository.findAllByMemberAndAddressGroupAndAddressIsDeleted(memberObj.get(), NO_GROUP, false);
         else list = addressBookRepository.findAllByMemberAndAddressGroupAndAddressIsDeleted(memberObj.get(), group, false);
 
         for (AddressBook address: list) {
@@ -81,7 +83,8 @@ public class AddressServiceImpl implements AddressService {
                     address.getAddressName(),
                     address.getAddresEmail(),
                     address.getAddressPhone(),
-                    address.getAddressGroup().equals(NO_GROUP) ? NO_GROUP_KO : address.getAddressGroup()
+                    address.getAddressGroup(),
+                    address.getAddressPosition()
             ));
         }
 
@@ -94,51 +97,6 @@ public class AddressServiceImpl implements AddressService {
         }
 
         return AddressListRes.of(groups, result);
-    }
-
-    @Override
-    public AddressListRes getAddressListByName(String name, MemberDTO member) {
-        List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWithAndAddressIsDeleted(name, false);
-        List<AddressInfo> result = new ArrayList<>();
-
-        for (AddressBook address: list) {
-            result.add(new AddressInfo(
-                    address.getAddressIdx(),
-                    address.getAddressName(),
-                    address.getAddresEmail(),
-                    address.getAddressPhone(),
-                    address.getAddressGroup().equals(NO_GROUP) ? NO_GROUP_KO : address.getAddressGroup()
-            ));
-        }
-
-        return AddressListRes.of(result);
-    }
-
-    @Override
-    public String saveAddressEditor(AddressEditorReq req, MemberDTO member) {
-
-        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
-        if (memberObj.isEmpty()) return null;
-
-        HashSet<String> emails = getMemberAddressEmailSet(member.getEmail());
-
-        for (AddressInfo address: req.getAddresses()) {
-            if (emails != null && address.getEmail() != null && !emails.contains(address.getEmail())) {
-                addressBookRepository.save(
-                        AddressBook.builder()
-                                .member(memberObj.get())
-                                .addressName(address.getName())
-                                .addresEmail(address.getEmail())
-                                .addressPhone((address.getPhone() == null || address.getPhone().length() == 0) ? NO_PHONE : address.getPhone())
-                                .addressGroup((address.getGroup() == null || address.getGroup().trim().length() == 0) ? NO_GROUP : address.getGroup())
-                                .addressPosition(NO_POSITION)
-                                .addressIsDeleted(false)
-                                .build()
-                );
-            }
-        }
-
-        return null;
     }
 
     @Override
@@ -159,13 +117,62 @@ public class AddressServiceImpl implements AddressService {
     public String removeAddressByGroup(String group, MemberDTO member) {
         Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
         if (memberObj.isEmpty()) return null;
+        List<AddressBook> addressBooks = new ArrayList<AddressBook>();
 
-        List<AddressBook> addressBooks = addressBookRepository.findAllByMemberAndAddressGroupAndAddressIsDeleted(memberObj.get(), group, false);
+        if (group.equals(NO_GROUP_KO)) addressBooks = addressBookRepository.findAllByMemberAndAddressGroupAndAddressIsDeleted(memberObj.get(), NO_GROUP, false);
+        else addressBooks = addressBookRepository.findAllByMemberAndAddressGroupAndAddressIsDeleted(memberObj.get(), group, false);
+
         if (addressBooks == null || addressBooks.size() == 0) return null;
 
         for (AddressBook addressBook: addressBooks) {
             addressBook.setAddressIsDeleted(true);
             addressBookRepository.save(addressBook);
+        }
+
+        return null;
+    }
+
+    @Override
+    public AddressListRes getAddressEditorListByName(String name, MemberDTO member) {
+        List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWithAndAddressIsDeleted(name, false);
+        List<AddressInfo> result = new ArrayList<>();
+
+        for (AddressBook address: list) {
+            result.add(new AddressInfo(
+                    address.getAddressIdx(),
+                    address.getAddressName(),
+                    address.getAddresEmail(),
+                    address.getAddressPhone(),
+                    address.getAddressGroup(),
+                    address.getAddressPosition()
+            ));
+        }
+
+        return AddressListRes.of(result);
+    }
+
+    @Override
+    public String saveAddressEditor(AddressEditorReq req, MemberDTO member) {
+
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return null;
+
+        HashSet<String> emails = getMemberAddressEmailSet(member.getEmail());
+
+        for (AddressInfoSimple address: req.getAddresses()) {
+            if (emails != null && address.getEmail() != null && !emails.contains(address.getEmail())) {
+                addressBookRepository.save(
+                        AddressBook.builder()
+                                .member(memberObj.get())
+                                .addressName(address.getName())
+                                .addresEmail(address.getEmail())
+                                .addressPhone((address.getPhone() == null || address.getPhone().trim().length() == 0) ? NO_PHONE : address.getPhone())
+                                .addressGroup((address.getGroup() == null || address.getGroup().trim().length() == 0) ? NO_GROUP : address.getGroup())
+                                .addressPosition((address.getPosition() == null || address.getPosition().trim().length() == 0) ? NO_POSITION : address.getPosition())
+                                .addressIsDeleted(false)
+                                .build()
+                );
+            }
         }
 
         return null;
