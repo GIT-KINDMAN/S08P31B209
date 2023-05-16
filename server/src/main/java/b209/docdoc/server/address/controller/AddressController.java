@@ -40,7 +40,7 @@ public class AddressController {
 
     @GetMapping("/list/editor")
     public ResponseEntity<ResponseDTO> getAddressListEditor(@RequestParam("name") String name) {//@AuthenticationPrincipal PrincipalDetails principalDetails,
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressBoolListByName(name, SecurityManager.getCurrentMember())));
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_ADDRESS_SEARCH, addressService.getAddressListByName(name, SecurityManager.getCurrentMember())));
     }
 
     @PostMapping("/save/editor")
