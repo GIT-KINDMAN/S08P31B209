@@ -1,5 +1,6 @@
 package b209.docdoc.server.api.template.controller;
 
+import b209.docdoc.server.api.file.dto.FileDTO;
 import b209.docdoc.server.api.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.config.security.auth.PrincipalDetails;
 import b209.docdoc.server.config.utils.Msg;
@@ -9,12 +10,16 @@ import b209.docdoc.server.api.template.service.TemplateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.net.MalformedURLException;
 
 @Slf4j
 @RestController
@@ -43,10 +48,19 @@ public class TemplateController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SEARCH_TEMPLATE, templateService.getTemplateByMemberEmailAndTemplateIdx(templateId)));
     }
 
-    @GetMapping("/uuid/{template_uuid}")
-    public void getMemberTemplate(@PathVariable String template_uuid) {
-        //  template_uuid인 템플릿의 편집 페이지로 이동
-    }
+	@GetMapping("uuid/{uuid}")
+	public ResponseEntity<?> getTemplateFileByUuid(@PathVariable String uuid) throws MalformedURLException {
+		FileDTO fileDTO = templateService.getTemplateFileByUuid(uuid);
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_OCTET_STREAM)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
+				.body(new UrlResource("file:" + fileDTO.getSavedPath()));
+	}
+
+//    @GetMapping("/uuid/{template_uuid}")
+//    public void getMemberTemplate(@PathVariable String template_uuid) {
+//        //  template_uuid인 템플릿의 편집 페이지로 이동
+//    }
 
 	@PostMapping("/copy")
 	public ResponseEntity<ResponseDTO> copyTemplate(@RequestBody TemplateCopyReqDTO templateCopyReqDTO) {
