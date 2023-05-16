@@ -25,6 +25,7 @@ public class AddressServiceImpl implements AddressService {
     private AddressBookRepository addressBookRepository;
 
     private final String NO_GROUP = "그룹없음";
+    private final String NO_POSITION = "직책없음";
     private final String NO_PHONE = "번호없음";
 
     private HashSet<String> getMemberAddressEmailSet(String memberEmail) {
@@ -51,9 +52,9 @@ public class AddressServiceImpl implements AddressService {
                         .member(memberObj.get())
                         .addressName(req.getName())
                         .addresEmail(req.getEmail())
-                        .addressPhone((req.getPhone() == null || req.getPhone().length() == 0) ? NO_PHONE : req.getPhone())
+                        .addressPhone((req.getPhone() == null || req.getPhone().trim().length() == 0) ? NO_PHONE : req.getPhone())
                         .addressGroup((req.getGroup() == null || req.getGroup().trim().length() == 0) ? NO_GROUP : req.getGroup())
-                        .addressPosition(req.getPosition())
+                        .addressPosition(req.getPosition() == null || req.getPosition().trim().length() == 0 ? NO_POSITION : req.getPosition())
                         .addressIsDeleted(false)
                         .build()
         );
@@ -85,7 +86,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressListRes getAddressBoolListByName(String name, MemberDTO member) {
+    public AddressListRes getAddressListByName(String name, MemberDTO member) {
         List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWithAndAddressIsDeleted(name, false);
         List<AddressInfo> result = new ArrayList<>();
 
@@ -119,6 +120,7 @@ public class AddressServiceImpl implements AddressService {
                                 .addresEmail(address.getEmail())
                                 .addressPhone((address.getPhone() == null || address.getPhone().length() == 0) ? NO_PHONE : address.getPhone())
                                 .addressGroup((address.getGroup() == null || address.getGroup().trim().length() == 0) ? NO_GROUP : address.getGroup())
+                                .addressPosition(NO_POSITION)
                                 .addressIsDeleted(false)
                                 .build()
                 );
