@@ -1,7 +1,7 @@
 package b209.docdoc.server.config.security.auth;
 
 import b209.docdoc.server.config.utils.BooleanToYNConverter;
-import b209.docdoc.server.entity.Member;
+import b209.docdoc.server.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
