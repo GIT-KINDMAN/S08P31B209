@@ -149,6 +149,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
               .then((request) => {
                 setAddressGroups(request.data.value.groups);
                 setAddressData(request.data.value.addresses);
+                console.log(addressData, addressGroups);
               })
               .catch((e) => console.log(e));
           }
