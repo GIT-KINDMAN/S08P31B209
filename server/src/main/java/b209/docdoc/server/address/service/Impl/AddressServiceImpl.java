@@ -24,8 +24,8 @@ public class AddressServiceImpl implements AddressService {
     private MemberRepository memberRepository;
     private AddressBookRepository addressBookRepository;
 
-    private final String NOT_GROUP = "그룹없음";
-    private final String NOT_PHONE = "번호없음";
+    private final String NO_GROUP = "그룹없음";
+    private final String NO_PHONE = "번호없음";
 
     private HashSet<String> getMemberAddressEmailSet(String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
@@ -51,8 +51,8 @@ public class AddressServiceImpl implements AddressService {
                         .member(memberObj.get())
                         .addressName(req.getName())
                         .addresEmail(req.getEmail())
-                        .addressPhone(req.getPhone() != null ? req.getPhone() : NOT_PHONE)
-                        .addressGroup(req.getGroup() != null ? req.getGroup() : NOT_GROUP)
+                        .addressPhone((req.getPhone() == null || req.getPhone().length() == 0) ? NO_PHONE : req.getPhone())
+                        .addressGroup((req.getGroup() == null || req.getGroup().trim().length() == 0) ? NO_GROUP : req.getGroup())
                         .addressPosition(req.getPosition())
                         .addressIsDeleted(false)
                         .build()
@@ -117,8 +117,8 @@ public class AddressServiceImpl implements AddressService {
                                 .member(memberObj.get())
                                 .addressName(address.getName())
                                 .addresEmail(address.getEmail())
-                                .addressPhone(address.getPhone() != null ? address.getPhone() : NOT_PHONE)
-                                .addressGroup(address.getGroup() != null ? address.getGroup() : NOT_GROUP)
+                                .addressPhone((address.getPhone() == null || address.getPhone().length() == 0) ? NO_PHONE : address.getPhone())
+                                .addressGroup((address.getGroup() == null || address.getGroup().trim().length() == 0) ? NO_GROUP : address.getGroup())
                                 .addressIsDeleted(false)
                                 .build()
                 );
