@@ -47,6 +47,7 @@ const AddressBox = () => {
     email: string;
     group: string;
     phone: string;
+    position: string;
   }
   const handleGroupClick = (group: string) => {
     setGroupName(group);
@@ -90,7 +91,9 @@ const AddressBox = () => {
               {addressItem?.name}
             </li>
             <li tw="py-2 my-2 min-w-[8rem] max-w-[8rem] mx-16 break-words  border-x-2">
-              {addressItem?.group}
+              <p>
+                {addressItem?.group} ({addressItem?.position})
+              </p>
             </li>
             <li tw="py-2 my-2 min-w-[8rem] max-w-[8rem] mx-4 break-words ">
               {addressItem?.email}
@@ -121,25 +124,27 @@ const AddressBox = () => {
           >
             {GroupItem}
           </span>
-          <Icon
-            icon=" fi-rs-trash"
-            custom={tw`cursor-pointer hover:scale-110`}
-            onClick={() => {
-              if (authState.authToken) {
-                const token = authState.authToken;
-                console.log(token);
-                deleteGroup(GroupItem, token)
-                  .then((request) => {
-                    console.log(request.data);
-                    fetchAddressList(token, groupName).then((request) => {
-                      setAddressGroups(request.data.value.groups);
-                      setAddressData(request.data.value.addresses);
-                    });
-                  })
-                  .catch((e) => console.log(e));
-              }
-            }}
-          />
+          {i != 0 ? (
+            <Icon
+              icon=" fi-rs-trash"
+              custom={tw`cursor-pointer hover:scale-110`}
+              onClick={() => {
+                if (authState.authToken && i !== 0) {
+                  const token = authState.authToken;
+                  console.log(token);
+                  deleteGroup(GroupItem, token)
+                    .then((request) => {
+                      console.log(request.data);
+                      fetchAddressList(token, groupName).then((request) => {
+                        setAddressGroups(request.data.value.groups);
+                        setAddressData(request.data.value.addresses);
+                      });
+                    })
+                    .catch((e) => console.log(e));
+                }
+              }}
+            />
+          ) : null}
         </div>
       );
     });
@@ -191,7 +196,7 @@ const AddressBox = () => {
                   이름
                 </div>
                 <div tw="py-2 min-w-[10rem] max-w-[10rem] break-words">
-                  소속
+                  소속(직책)
                 </div>
                 <div tw="py-2 min-w-[10rem] max-w-[10rem] break-words">
                   이메일

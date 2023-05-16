@@ -48,7 +48,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
         tw="min-w-[50rem] max-w-[50rem] min-h-[25rem] max-h-[25rem] flex flex-col border-2 border-black rounded-[16px] py-4  bg-white z-[1000] overflow-y-scroll"
       >
         <div tw="flex justify-between">
-          <div tw="text-2xl m-2">주소록 추가</div>
+          <div tw="text-2xl m-2 ml-12">주소록 추가</div>
           <div tw="p-4 mx-4" onClick={handleToggleModal}>
             <i className="fi fi-rr-cross" />
           </div>
@@ -62,7 +62,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
             이름
             <input
               type="text"
-              tw="border-2 ml-4 px-2 py-1 text-base"
+              tw="border-2 ml-4 px-2 py-1 text-base rounded-2xl px-4 py-1"
               onChange={(e) => setAddName(e.target.value)}
             />
           </div>
@@ -70,7 +70,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
             이메일
             <input
               type="text"
-              tw="border-2 ml-4 px-2 py-1 text-base"
+              tw="border-2 ml-4 px-2 py-1 text-base rounded-2xl px-4 py-1"
               onChange={(e) => setaddEmail(e.target.value)}
             />
           </div>
@@ -92,29 +92,29 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
               <span tw="ml-12 text-xl font-bold">부가 정보</span>
               <div
                 className="OptionalInfo"
-                tw=" text-xl font-bold flex flex-col text-center"
+                tw="ml-12 text-xl font-bold flex flex-col"
               >
-                <div className="UserPhone" tw=" pt-4 pb-2 font-medium">
+                <div className="UserPhone" tw="ml-36 px-9 py-4 font-medium">
                   연락처
                   <input
                     type="text"
-                    tw="border-2 ml-4 px-2 py-1 text-base"
+                    tw="border-2 ml-4 px-2 py-1 text-base rounded-2xl px-4 py-1"
                     onChange={(e) => setAddPhone(e.target.value)}
                   />
                 </div>
-                <div className="UserGroup" tw=" py-2 font-medium">
+                <div className="UserGroup" tw="ml-40 px-9 py-4 font-medium">
                   소속
                   <input
                     type="text"
-                    tw="border-2 ml-4 px-2 py-1 text-base"
+                    tw="border-2 ml-4 px-2 py-1 text-base rounded-2xl px-4 py-1"
                     onChange={(e) => setAddGroup(e.target.value)}
                   />
                 </div>
-                <div className="UserGroup" tw=" py-2 font-medium">
+                <div className="UserGroup" tw="ml-40 px-9 py-4 font-medium">
                   직책
                   <input
                     type="text"
-                    tw="border-2 ml-4 px-2 py-1 text-base"
+                    tw="border-2 ml-4 px-2 py-1 text-base rounded-2xl px-4 py-1"
                     onChange={(e) => setAddPosition(e.target.value)}
                   />
                 </div>
@@ -129,6 +129,18 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
           onClick={(e) => {
             addnewaddress();
             e.preventDefault();
+            if (authState.authToken) {
+              const token = authState.authToken;
+              const group = addGroup;
+              console.log(token);
+              fetchAddressList(token, group)
+                .then((request) => {
+                  setAddressGroups(request.data.value.groups);
+                  setAddressData(request.data.value.addresses);
+                  console.log(addressData, addressGroups);
+                })
+                .catch((e) => console.log(e));
+            }
             if (handleToggleModal) {
               handleToggleModal();
             }
@@ -141,18 +153,7 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
         tw="min-w-[100rem] max-w-fit h-full fixed top-0 z-[999] bg-black opacity-60"
         onClick={(e: React.MouseEvent) => {
           e.preventDefault();
-          if (authState.authToken) {
-            const token = authState.authToken;
-            const group = addGroup;
-            console.log(token);
-            fetchAddressList(token, group)
-              .then((request) => {
-                setAddressGroups(request.data.value.groups);
-                setAddressData(request.data.value.addresses);
-                console.log(addressData, addressGroups);
-              })
-              .catch((e) => console.log(e));
-          }
+
           if (handleToggleModal) {
             handleToggleModal();
           }
