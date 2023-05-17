@@ -41,8 +41,8 @@ public class DocsfileServiceImpl implements DocsfileService {
     }
 
     @Transactional
-    public FileDTO getDocsfile(String uuid, String email) {
-        return docsfileRepository.findByUuidAndToEmailOrFromEmail(uuid, email, email)
+    public FileDTO getDocsfile(String savedName, String email) {
+        return docsfileRepository.findByDocsfileSavedNameAndToEmailOrFromEmail(savedName, email, email)
                 .map(FileDTO::of)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid uuid or email"));
     }
