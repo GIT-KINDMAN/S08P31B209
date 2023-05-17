@@ -43,16 +43,20 @@ const Widget = ({ widget, parent }: IProps) => {
       // y: e.clientY * (zoom / 100),
       x:
         (e.clientX -
-          //offsetPosition.x -
+          offsetPosition.x -
           (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2) *
           ((1 / zoom) * 100) +
-        (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2,
+        (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2 -
+        (widgetRef.current?.parentElement?.offsetLeft ??
+          parent?.offsetLeft ??
+          0),
       y:
         (e.clientY -
-          //offsetPosition.y -
+          offsetPosition.y -
           (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2) *
           ((1 / zoom) * 100) +
-        (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2,
+        (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2 -
+        (widgetRef.current?.parentElement?.offsetTop ?? parent?.offsetTop ?? 0),
     };
     setPosition(newPosition);
     dispatch(updateWidget({ ...widget, pos: newPosition }));
@@ -95,12 +99,41 @@ const Widget = ({ widget, parent }: IProps) => {
       <div
         ref={widgetRef}
         tw="absolute z-30 px-3 py-1 min-w-[6rem] text-orange-900 bg-orange-200/50 rounded-[0.25rem] cursor-move"
+        // style={{
+        //   left: `${
+        //     (position.x -
+        //       (widgetRef.current?.parentElement?.offsetLeft ??
+        //         parent?.offsetLeft ??
+        //         0) -
+        //       (widgetRef.current?.parentElement?.offsetWidth ??
+        //         parent?.offsetWidth ??
+        //         0) /
+        //         2) *
+        //       (zoom / 100) +
+        //     (widgetRef.current?.parentElement?.offsetWidth ??
+        //       parent?.offsetWidth ??
+        //       0) /
+        //       2
+        //   }px`,
+        //   top: `${
+        //     (position.y -
+        //       (widgetRef.current?.parentElement?.offsetTop ??
+        //         parent?.offsetTop ??
+        //         0) -
+        //       (widgetRef.current?.parentElement?.offsetHeight ??
+        //         parent?.offsetHeight ??
+        //         0) /
+        //         2) *
+        //       (zoom / 100) +
+        //     (widgetRef.current?.parentElement?.offsetHeight ??
+        //       parent?.offsetHeight ??
+        //       0) /
+        //       2
+        //   }px`,
+        // }}
         style={{
           left: `${
             (position.x -
-              (widgetRef.current?.parentElement?.offsetLeft ??
-                parent?.offsetLeft ??
-                0) -
               (widgetRef.current?.parentElement?.offsetWidth ??
                 parent?.offsetWidth ??
                 0) /
@@ -113,9 +146,6 @@ const Widget = ({ widget, parent }: IProps) => {
           }px`,
           top: `${
             (position.y -
-              (widgetRef.current?.parentElement?.offsetTop ??
-                parent?.offsetTop ??
-                0) -
               (widgetRef.current?.parentElement?.offsetHeight ??
                 parent?.offsetHeight ??
                 0) /
