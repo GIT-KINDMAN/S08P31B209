@@ -9,6 +9,7 @@ import {
   EditorEdit,
   EditorFinish,
   EditorInvite,
+  GatherBox,
   Home,
   Intro, // DocsBox,
   SendBox,
@@ -61,6 +62,7 @@ const router = createBrowserRouter(
           path: "mybox/send",
           element: <SendBox />,
         },
+        { path: "mybox/send/:id", element: <GatherBox /> },
         {
           path: "address",
           element: <AddressBox />,

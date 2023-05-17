@@ -8,6 +8,7 @@ import { HeaderProps } from "../TemplateDocs/TemplateDocs";
 
 // import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { useEffect } from "react";
 import tw from "twin.macro";
 
@@ -59,44 +60,16 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
   // 문서이름 변경
 
   const authState = useSelector((state: RootState) => state.auth);
-
+  const navigate = useNavigate();
   // 문서 리스트 출력
   const sendList = sendData?.map((item: sendDataItem, i: number) => {
     const token = authState.authToken;
-    const extractDownloadFilename = (response: any) => {
-      const disposition = response.headers["content-disposition"];
-      const matchResult = disposition.match(
-        /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/,
-      );
 
-      if (matchResult && matchResult[1]) {
-        const fileName = decodeURI(matchResult[1].replace(/['"]/g, ""));
-        return fileName;
-      }
-      return ""; // 결과를 찾지 못한 경우 빈 문자열을 반환하거나 다른 처리를 수행할 수 있습니다.
-    };
     const download = () => {
       if (token) {
         downfile(item.templateUuid, token)
-          .then((response) => {
-            const blob = new Blob([response.data], { type: "image/png" }); // 이미지 파일 형식에 맞게 type을 설정합니다. 예시로 "image/png"을 사용하였습니다.
-            const fileObjectUrl = window.URL.createObjectURL(blob);
-
-            const link = document.createElement("a");
-            link.href = fileObjectUrl;
-            link.style.display = "none";
-            link.download = extractDownloadFilename(response);
-            console.log(fileObjectUrl, link, blob);
-            console.log(response);
-            console.log(item.templateUuid);
-            console.log(link.href);
-            console.log(link.download);
-
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-
-            window.URL.revokeObjectURL(fileObjectUrl);
+          .then((request) => {
+            console.log(request.data);
           })
           .catch((e) => console.log(e));
       }
@@ -125,7 +98,11 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
                 download();
               }}
             />
-            <span>{item.templateName}</span>
+            <span
+              onClick={() => navigate(`/home/mybox/send/${item.templateIdx}`)}
+            >
+              {item.templateName}
+            </span>
           </div>
         </div>
         <div className="DocsReceiver" tw="flex  my-auto">
