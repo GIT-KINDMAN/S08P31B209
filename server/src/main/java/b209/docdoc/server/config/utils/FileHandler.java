@@ -38,6 +38,7 @@ public class FileHandler {
         boolean isValidExtension = Arrays.stream(extensions).anyMatch(extension::equalsIgnoreCase);
         if (!isValidExtension) throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);
         String savedName = uuid + "." + extension;
+//        String savedName = uuid;
         // 파일저장경로는 업로드일/uuid.확장자로 중복을 피한다. 업로드시간은 백엔드 서버 기준으로한다.
         LocalDateTime now = LocalDateTime.now();
         String uploadDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
