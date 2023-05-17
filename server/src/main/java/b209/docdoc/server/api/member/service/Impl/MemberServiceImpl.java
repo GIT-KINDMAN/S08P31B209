@@ -1,5 +1,6 @@
 package b209.docdoc.server.api.member.service.Impl;
 
+import b209.docdoc.server.api.member.dto.request.UpdateUserPasswordReqDTO;
 import b209.docdoc.server.api.member.dto.request.UpdateUserReqDTO;
 import b209.docdoc.server.api.member.service.MemberService;
 import b209.docdoc.server.config.security.auth.MemberDTO;
@@ -62,5 +63,15 @@ public class MemberServiceImpl implements MemberService {
 		member.update(updateUserReqDTO);
 		member = memberRepository.save(member);
 		return MemberDTO.of(member);
+	}
+
+	@Transactional
+	@Override
+	public void updatePasword(UpdateUserPasswordReqDTO updateUserPasswordReqDTO) {
+		MemberDTO memberDTO = SecurityManager.getCurrentMember();
+		if (!decodeEncodeHandler.passwordValid(memberDTO.getEmail(), updateUserPasswordReqDTO.getOriginalPassword())) throw new PasswordNotMatchException(ErrorCode.PW_NOT_MATCH);
+		Member member = memberRepository.findByMemberEmail(memberDTO.getEmail()).orElseThrow(() -> new MemberNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+		member.setMemberPassword(decodeEncodeHandler.passwordEncode(updateUserPasswordReqDTO.getNewPassword()));
+		memberRepository.save(member);
 	}
 }
