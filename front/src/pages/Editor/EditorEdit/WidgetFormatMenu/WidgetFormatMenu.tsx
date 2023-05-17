@@ -1,6 +1,26 @@
+import {
+  delWidget,
+  updateWidget,
+  widgetState,
+} from "@store/slice/imageViewSlice";
+import { RootState } from "@store/store";
+
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "twin.macro";
 
-const RightSideBar = () => {
+const WidgetFormatMenu = () => {
+  const dispatch = useDispatch();
+
+  const selectedWidgetId = useSelector(
+    (state: RootState) => state.widgetSelect.id,
+  );
+  const widgetState = useSelector((state: RootState) =>
+    state.imageView.widgets.find((widget) => widget.id === selectedWidgetId),
+  );
+
+  const [value, setValue] = useState(widgetState?.value);
+
   return (
     <>
       <div
@@ -12,12 +32,18 @@ const RightSideBar = () => {
           tw="w-full px-4 pt-2 pb-4 border-b-2 bg-white"
         >
           <div className="FormHeader" tw="mb-2 text-base font-bold">
-            {"label.type"}
+            {`${widgetState?.type} type (${widgetState?.id})`}
           </div>
           <div className="FormContent">
             <input
-              className="InputLabelTitle"
+              type="text"
+              value={widgetState?.value}
               tw="w-full p-1 border-b border-black"
+              onChange={(e) =>
+                dispatch(
+                  updateWidget({ ...widgetState, value: e.target.value }),
+                )
+              }
             />
           </div>
         </div>
@@ -81,4 +107,4 @@ const RightSideBar = () => {
   );
 };
 
-export default RightSideBar;
+export default WidgetFormatMenu;
