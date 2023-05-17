@@ -25,6 +25,15 @@ export interface viewState {
   toSends: { email: string; name: string }[];
 }
 
+export interface addressState {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  group: string | null;
+  isCheck: boolean;
+}
+
 const initialState: viewState = {
   id: Math.random().toString(36),
   name: "Empty Document",
