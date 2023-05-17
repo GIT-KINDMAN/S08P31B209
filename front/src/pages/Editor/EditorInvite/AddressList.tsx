@@ -19,8 +19,12 @@ const AddressList = ({ index, idx }: AddressListProps) => {
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [email, setEmail] = useState("");
   const authToken = useSelector((state: RootState) => state.auth.authToken);
+
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+  };
+  const handleEmailInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   useEffect(() => {
@@ -33,7 +37,14 @@ const AddressList = ({ index, idx }: AddressListProps) => {
             "이름을 포함하는 주소록 가져오기 성공",
             request.data.value.addresses,
           );
-          dispatch(updateSend());
+          dispatch(
+            updateSend({
+              email: request.data.value.addresses.email,
+              name: request.data.value.addresses.name,
+              phone: request.data.value.addresses.phone,
+              position: request.data.value.addresses.position,
+            }),
+          );
           setSearchResults(request.data.value.addresses);
         } catch (error) {
           console.error("주소록 가져오기 실패", error);
@@ -42,7 +53,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
     };
 
     fetchSearchResults();
-  }, [authToken, searchQuery]);
+  }, [authToken, dispatch, searchQuery]);
 
   return (
     <>
@@ -63,7 +74,20 @@ const AddressList = ({ index, idx }: AddressListProps) => {
         />
         <datalist id={idx}>
           {searchResults?.map((result, index) => (
-            <option key={index} value={result.name}></option>
+            <option
+              key={index}
+              value={result.name}
+              onClick={() => {
+                setEmail(result.email);
+                if (!isSelfDisable) {
+                  dispatch(
+                    updateSend({
+                      ...result,
+                    }),
+                  );
+                }
+              }}
+            ></option>
           ))}
         </datalist>
         <input
@@ -71,6 +95,8 @@ const AddressList = ({ index, idx }: AddressListProps) => {
           tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
           placeholder="Email"
           required={true}
+          value={email}
+          onChange={handleEmailInputChange}
         />
 
         <div tw="flex justify-around">
