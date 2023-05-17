@@ -9,7 +9,7 @@ const EditorInvite = () => {
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [inviteBoxes, setInviteBoxes] = useState([1]);
   const [deadline, setDeadline] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const localDate = new Date();
   console.log(deadline);
 
@@ -17,7 +17,7 @@ const EditorInvite = () => {
     if (isSearch) {
       fetchEditorAddressList().then((request) => {
         console.log("이름을 포함하는 주소록 가져오기 성공", request.data);
-        setSearchResults(request.data);
+        // setSearchResults(request.data);
       });
     }
   }, [isSearch]);

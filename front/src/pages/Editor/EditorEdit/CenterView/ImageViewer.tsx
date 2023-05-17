@@ -1,5 +1,3 @@
-import { useWindowSizeCustom } from "@hook/index";
-
 import { addWidget } from "@store/slice/imageViewSlice";
 import type { RootState } from "@store/store";
 
@@ -77,8 +75,8 @@ const ImageViewer = () => {
               widget.attributes.fontSize + " " + widget.attributes.font)
           : null;
 
-        const offsetLeft = canvasOrigin.parentElement?.offsetLeft ?? 0;
-        const offsetTop = canvasOrigin.parentElement?.offsetTop ?? 0;
+        // const offsetLeft = canvasOrigin.parentElement?.offsetLeft ?? 0;
+        // const offsetTop = canvasOrigin.parentElement?.offsetTop ?? 0;
         const ratioX =
           window.outerWidth / (canvasOrigin.parentElement?.offsetWidth ?? 0);
         const ratioY =
