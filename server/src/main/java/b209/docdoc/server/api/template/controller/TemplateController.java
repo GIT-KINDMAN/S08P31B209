@@ -1,6 +1,7 @@
 package b209.docdoc.server.api.template.controller;
 
 import b209.docdoc.server.api.file.dto.FileDTO;
+import b209.docdoc.server.api.file.service.FileService;
 import b209.docdoc.server.api.template.dto.Request.DocumentTemplateSaveReqDTO;
 import b209.docdoc.server.config.security.auth.PrincipalDetails;
 import b209.docdoc.server.config.utils.Msg;
@@ -29,6 +30,7 @@ public class TemplateController {
 
 	private static final String METHOD_NAME = TemplateController.class.getName();
 	private final TemplateService templateService;
+	private final FileService fileService;
 
 	@PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<ResponseDTO> saveTemplate(@RequestPart MultipartFile file, @RequestPart("documentTemplateSaveReqDTO") String documentTemplateSaveReqDTOJson, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
@@ -48,14 +50,21 @@ public class TemplateController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SEARCH_TEMPLATE, templateService.getTemplateByMemberEmailAndTemplateIdx(templateId)));
     }
 
-	@GetMapping("uuid/{uuid}")
-	public ResponseEntity<?> getTemplateFileByUuid(@PathVariable String uuid) throws MalformedURLException {
-		FileDTO fileDTO = templateService.getTemplateFileByUuid(uuid);
+	@GetMapping("uuid/{savedName}")
+	public ResponseEntity<?> getTemplatefileBySavedName(@PathVariable String savedName) throws MalformedURLException {
+		FileDTO fileDTO = fileService.getTemplateFileBySavedName(savedName);
 		return ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
 				.body(new UrlResource("file:" + fileDTO.getSavedPath()));
 	}
+
+//	public ResponseEntity<?> getTemplateFileByUuid(@PathVariable String uuid) throws MalformedURLException {
+//		FileDTO fileDTO = templateService.getTemplateFileByUuid(uuid);
+//		return ResponseEntity.ok()
+//				.contentType(MediaType.APPLICATION_OCTET_STREAM)
+//				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
+//				.body(new UrlResource("file:" + fileDTO.getSavedPath()));
+//	}
 
 //    @GetMapping("/uuid/{template_uuid}")
 //    public void getMemberTemplate(@PathVariable String template_uuid) {
