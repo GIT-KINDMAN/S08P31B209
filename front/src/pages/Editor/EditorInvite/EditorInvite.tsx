@@ -1,7 +1,12 @@
+import type { RootState } from "@store/store";
+
 import { fetchEditorAddressList } from "@/apis/addressAPI";
 
+import NameSearchList from "./NameSearchList";
+
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "twin.macro";
 
 const EditorInvite = () => {
@@ -9,18 +14,36 @@ const EditorInvite = () => {
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [inviteBoxes, setInviteBoxes] = useState([1]);
   const [deadline, setDeadline] = useState("");
-  // const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const localDate = new Date();
+  const authState = useSelector((state: RootState) => state.auth);
   console.log(deadline);
 
   useEffect(() => {
-    if (isSearch) {
-      fetchEditorAddressList().then((request) => {
-        console.log("이름을 포함하는 주소록 가져오기 성공", request.data);
-        // setSearchResults(request.data);
-      });
-    }
-  }, [isSearch]);
+    const fetchSearchResults = async () => {
+      if (searchQuery && authState.authToken) {
+        const token = authState.authToken;
+        try {
+          const request = await fetchEditorAddressList(searchQuery, token);
+          console.log(
+            "이름을 포함하는 주소록 가져오기 성공",
+            request.data.value.addresses,
+          );
+          setSearchResults(request.data.value.addresses);
+        } catch (error) {
+          console.error("주소록 가져오기 실패", error);
+        }
+      }
+    };
+
+    fetchSearchResults();
+  }, [searchQuery]);
+
+  const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   const handleAddInviteBox = () => {
     setInviteBoxes([...inviteBoxes, inviteBoxes.length + 1]);
@@ -79,42 +102,17 @@ const EditorInvite = () => {
                 tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
                 placeholder="이름"
                 required={true}
-                onClick={() => setIsSearch(!isSearch)}
+                list="searchQuery"
+                onChange={handleNameInputChange}
               />
-
-              {/* 클릭시 검색목록 출력 */}
-
-              {isSearch === true ? (
-                <div
-                  className="SearchList"
-                  tw="flex flex-col h-10 scale-110 bg-white absolute overflow-y-auto justify-center font-bold"
-                >
-                  <div
-                    tw="flex justify-center border-b-2 border-dashed py-1"
-                    onClick={() => setIsSearch(false)}
-                  >
-                    <div className="SearchName" tw="mx-2">
-                      홍길동
-                    </div>
-                    <div className="SearchEmail" tw="mx-2">
-                      gildong@naver.com
-                    </div>
-                    <div className="SearchPhone" tw="mx-2">
-                      010-1234-5678
-                    </div>
-                    <div className="SearchGender" tw="mx-2">
-                      남성
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-
+              <NameSearchList id="searchQuery" searchResults={searchResults} />
               <input
                 className="InviteEmailInput"
                 tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
                 placeholder="Email"
                 required={true}
               />
+
               <div tw="flex justify-around">
                 <input
                   className="InvitePhoneTag"

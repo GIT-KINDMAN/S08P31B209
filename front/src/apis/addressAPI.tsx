@@ -41,7 +41,16 @@ export const fetchAddressList = (token: string, group: string) => {
   return api.get("/address/list", config);
 };
 
-export const fetchEditorAddressList = () => api.get("/api/address/list/editor");
+export const fetchEditorAddressList = (name: string, token: string) => {
+  const params = { name };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+  return api.get("/address/list/editor", config);
+};
 
 export const saveEditorAddress = (addressData: object) =>
   api.post("/api/address/save/editor", addressData);
