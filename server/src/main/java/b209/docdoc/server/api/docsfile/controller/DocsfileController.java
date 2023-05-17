@@ -39,11 +39,11 @@ public class DocsfileController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_DOCS_SAVE, docsfileService.saveFile(file, docsfileSaveReqDTO)));
     }
 
-    @GetMapping("/{uuid}")
-    public ResponseEntity<?> getDocsFile(@PathVariable String uuid) throws IOException {
+    @GetMapping("/{savedName}")
+    public ResponseEntity<?> getDocsFile(@PathVariable String savedName) throws IOException {
         MemberDTO member = SecurityManager.getCurrentMember();
         String email = member.getEmail();
-        FileDTO fileDTO = docsfileService.getDocsfile(uuid, email);
+        FileDTO fileDTO = docsfileService.getDocsfile(savedName, email);
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(Paths.get(fileDTO.getSavedPath())));
 
         return ResponseEntity.ok()
