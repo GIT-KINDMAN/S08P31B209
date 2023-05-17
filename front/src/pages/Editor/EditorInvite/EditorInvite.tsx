@@ -1,14 +1,31 @@
+import { fetchEditorAddressList } from "@/apis/addressAPI";
+
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "twin.macro";
 
 const EditorInvite = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
-
+  const [inviteBoxes, setInviteBoxes] = useState([1]);
   const [deadline, setDeadline] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const localDate = new Date();
   console.log(deadline);
+
+  useEffect(() => {
+    if (isSearch) {
+      fetchEditorAddressList().then((request) => {
+        console.log("이름을 포함하는 주소록 가져오기 성공", request.data);
+        setSearchResults(request.data);
+      });
+    }
+  }, [isSearch]);
+
+  const handleAddInviteBox = () => {
+    setInviteBoxes([...inviteBoxes, inviteBoxes.length + 1]);
+  };
+
   return (
     <>
       <div
@@ -18,7 +35,7 @@ const EditorInvite = () => {
       >
         <div tw="flex justify-between">
           <div className="InviteCount" tw="py-4 text-xl font-bold">
-            수신인원 ??명
+            수신인원 {inviteBoxes.length}명
           </div>
           <div className="SetDeadline" tw="py-4 text-base ">
             <span className="DeadlineLabel" tw="font-bold">
@@ -48,14 +65,15 @@ const EditorInvite = () => {
         </div>
         {/* 수신인 추가 박스 */}
         <div className="InviteBoxWrap">
-          <div
-            className="InviteBox"
-            tw="flex flex-col border-2 border-lightgray-500 rounded-[16px] pb-4 mb-6"
-          >
-            <span className="InviteNumber" tw="px-4 my-2">
-              1
-            </span>
-            <div>
+          {inviteBoxes.map((inviteBox, index) => (
+            <div
+              key={inviteBox}
+              className="InviteBox"
+              tw="flex flex-col border-2 border-lightgray-500 rounded-[16px] pb-4 mb-6"
+            >
+              <span className="InviteNumber" tw="px-4 my-2">
+                {index + 1}
+              </span>
               <input
                 className="InviteNameInput"
                 tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
@@ -65,6 +83,7 @@ const EditorInvite = () => {
               />
 
               {/* 클릭시 검색목록 출력 */}
+
               {isSearch === true ? (
                 <div
                   className="SearchList"
@@ -89,43 +108,46 @@ const EditorInvite = () => {
                   </div>
                 </div>
               ) : null}
-            </div>
-            <input
-              className="InviteEmailInput"
-              tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
-              placeholder="Email"
-              required={true}
-            />
-            <div tw="flex justify-around">
+
               <input
-                className="InvitePhoneTag"
-                tw="w-44 border border-lightgray-500   my-3 px-4 text-xl"
-                placeholder="연락처"
-                disabled={isSelfDisable}
+                className="InviteEmailInput"
+                tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
+                placeholder="Email"
+                required={true}
               />
-              <input
-                className="InviteGenderTag"
-                tw="w-44 border border-lightgray-500 my-3 px-4 text-xl"
-                placeholder="소속"
-                disabled={isSelfDisable}
-              />
+              <div tw="flex justify-around">
+                <input
+                  className="InvitePhoneTag"
+                  tw="w-44 border border-lightgray-500   my-3 px-4 text-xl"
+                  placeholder="연락처"
+                  disabled={isSelfDisable}
+                />
+                <input
+                  className="InviteGenderTag"
+                  tw="w-44 border border-lightgray-500 my-3 px-4 text-xl"
+                  placeholder="소속"
+                  disabled={isSelfDisable}
+                />
+              </div>
+              <div className="InviteCheckBox" tw="mx-4 align-middle">
+                <input
+                  type="checkbox"
+                  onClick={() => setIsSelfDisable(!isSelfDisable)}
+                />
+                <span tw="text-xs relative bottom-0.5 font-bold">
+                  {" "}
+                  직접 입력할게요
+                </span>
+              </div>
             </div>
-            <div className="InviteCheckBox" tw="mx-4 align-middle">
-              <input
-                type="checkbox"
-                onClick={() => setIsSelfDisable(!isSelfDisable)}
-              />
-              <span tw="text-xs relative bottom-0.5 font-bold">
-                직접 입력할게요
-              </span>
-            </div>
-          </div>
+          ))}
 
           {/* 추가 버튼 */}
           <div className="AddInviteWrap" tw="flex justify-center">
             <button
               className="AddInviteBox"
-              tw="border-2 border-orange-600 rounded-[8px] mb-8 px-2 py-1 "
+              tw="border-2 border-orange-600 rounded-[8px] mb-8 px-2 py-1"
+              onClick={handleAddInviteBox}
             >
               <i className="fi fi-rr-plus" tw="text-lightgray-600" />
               <span tw="ml-1 text-xl text-lightgray-600">추가</span>
