@@ -92,9 +92,9 @@ public class TemplateServiceImpl implements TemplateService {
         widgetRepository.saveAll(templateWidgets);
 
         // 5. 수신자 이메일 전송 및 Receiver DB저장
-        for (int i = 0; i < documentTemplateSaveReqDTO.getToName().size(); i++) { // 수신자들에게 템플릿 전송
-            String toName = documentTemplateSaveReqDTO.getToName().get(i); // 수신자 이름
-            String toEmail = documentTemplateSaveReqDTO.getToEmail().get(i); // 수신자 이메일
+        for (int i = 0; i < documentTemplateSaveReqDTO.getToEmailNameReqDTO().getToName().size(); i++) { // 수신자들에게 템플릿 전송
+            String toName = documentTemplateSaveReqDTO.getToEmailNameReqDTO().getToName().get(i); // 수신자 이름
+            String toEmail = documentTemplateSaveReqDTO.getToEmailNameReqDTO().getToEmail().get(i); // 수신자 이메일
 
             //수신자가 회원가입한 멤버인지 확인
             boolean isMemmber = memberRepository.findByMemberEmail(toEmail).isPresent();
