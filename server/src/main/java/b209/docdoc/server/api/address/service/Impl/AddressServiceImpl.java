@@ -134,7 +134,10 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressListRes getAddressEditorListByName(String name, MemberDTO member) {
-        List<AddressBook> list = addressBookRepository.findAllByAddressNameStartingWithAndAddressIsDeleted(name, false);
+        Optional<Member> memberObj = memberRepository.findByMemberEmail(member.getEmail());
+        if (memberObj.isEmpty()) return null;
+
+        List<AddressBook> list = addressBookRepository.findAllByMemberAndAddressNameStartingWithAndAddressIsDeleted(memberObj.get(), name, false);
         List<AddressInfo> result = new ArrayList<>();
 
         for (AddressBook address: list) {
