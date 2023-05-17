@@ -34,9 +34,9 @@ public class FileController {
                 .body(new UrlResource("file:" + fileDTO.getSavedPath()));
     }
 
-    @GetMapping("/docsfile/{savedName}")
-    public ResponseEntity<?> getDocsFile(@PathVariable String savedName) throws MalformedURLException {
-        FileDTO fileDTO = fileService.getDocsFile(savedName);
+    @GetMapping("/docsfile/{idx}")
+    public ResponseEntity<?> getDocsFile(@PathVariable Long idx) throws MalformedURLException {
+        FileDTO fileDTO = fileService.getDocsFile(idx);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
@@ -56,6 +56,16 @@ public class FileController {
         FileDTO fileDTO = fileService.getTemplateFileBySavedName(savedName);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
+                .body(new UrlResource("file:" + fileDTO.getSavedPath()));
+    }
+
+    @GetMapping("/uuid/docsfile/{savedName}")
+    public ResponseEntity<?> getDocsfileBySavedName(@PathVariable String savedName) throws MalformedURLException {
+        FileDTO fileDTO = fileService.getDocsFileBySavedName(savedName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
                 .body(new UrlResource("file:" + fileDTO.getSavedPath()));
     }
 

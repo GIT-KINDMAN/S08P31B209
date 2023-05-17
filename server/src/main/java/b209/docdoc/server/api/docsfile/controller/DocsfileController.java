@@ -1,5 +1,6 @@
 package b209.docdoc.server.api.docsfile.controller;
 
+import b209.docdoc.server.api.docsfile.dto.response.DocsfileResDTO;
 import b209.docdoc.server.config.security.auth.MemberDTO;
 import b209.docdoc.server.config.utils.Msg;
 import b209.docdoc.server.config.utils.ResponseDTO;
@@ -21,6 +22,7 @@ import b209.docdoc.server.config.utils.SecurityManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -39,17 +41,23 @@ public class DocsfileController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_DOCS_SAVE, docsfileService.saveFile(file, docsfileSaveReqDTO)));
     }
 
-    @GetMapping("/{savedName}")
-    public ResponseEntity<?> getDocsFile(@PathVariable String savedName) throws IOException {
+    @GetMapping("/{uuid}")
+    public ResponseEntity<?> getDocsFile(@PathVariable String uuid) throws IOException {
         MemberDTO member = SecurityManager.getCurrentMember();
         String email = member.getEmail();
-        FileDTO fileDTO = docsfileService.getDocsfile(savedName, email);
+        FileDTO fileDTO = docsfileService.getDocsfile(uuid, email);
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(Paths.get(fileDTO.getSavedPath())));
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + fileDTO.getOriginalName())
                 .body(resource);
+    }
+
+    @GetMapping("/parent/{templateIdx}")
+    public ResponseEntity<ResponseDTO> getTemplateDocs(@PathVariable Long templateIdx) {
+        List<DocsfileResDTO> ret = docsfileService.getDocsFileByTemplateIdx(templateIdx);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_DOCS_READ, ret));
     }
 
 }
