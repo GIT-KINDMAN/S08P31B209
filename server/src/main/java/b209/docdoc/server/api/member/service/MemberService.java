@@ -1,5 +1,6 @@
 package b209.docdoc.server.api.member.service;
 
+import b209.docdoc.server.api.member.dto.request.UpdateUserPasswordReqDTO;
 import b209.docdoc.server.api.member.dto.request.UpdateUserReqDTO;
 import b209.docdoc.server.config.security.auth.MemberDTO;
 import b209.docdoc.server.api.member.dto.request.LoginReqDTO;
@@ -13,5 +14,6 @@ public interface MemberService {
 
 	MemberDTO login(LoginReqDTO loginReqDTO);
 
+	void updatePasword(UpdateUserPasswordReqDTO updateUserPasswordReqDTO);
 
 }

@@ -1,6 +1,7 @@
 package b209.docdoc.server.api.member.controller;
 
 
+import b209.docdoc.server.api.member.dto.request.UpdateUserPasswordReqDTO;
 import b209.docdoc.server.api.member.dto.request.UpdateUserReqDTO;
 import b209.docdoc.server.config.jwt.JwtTokenProvider;
 import b209.docdoc.server.config.jwt.dto.CommonTokenDTO;
@@ -62,6 +63,12 @@ public class MemberController {
     public ResponseEntity<ResponseDTO> updateUser(@RequestBody UpdateUserReqDTO updateUserReqDTO) {
         memberService.updateMember(updateUserReqDTO);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_IN));
+    }
+
+    @PutMapping("/member/reset-password")
+    public ResponseEntity<ResponseDTO> updateUserPassword(@RequestBody UpdateUserPasswordReqDTO updateUserPasswordReqDTO) {
+        memberService.updatePasword(updateUserPasswordReqDTO);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MODPW));
     }
 
 
