@@ -10,4 +10,15 @@ export const api = axios.create({
   },
 });
 
+export const setAuthConfig = <T,>(token: string, params: T) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params, //{},
+  };
+
+  return config;
+};
+
 export default api;

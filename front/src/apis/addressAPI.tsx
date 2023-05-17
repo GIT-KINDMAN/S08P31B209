@@ -1,4 +1,4 @@
-import api from "./api";
+import api, { setAuthConfig } from "./api";
 
 export const saveAddress = (
   name: string,
@@ -8,11 +8,7 @@ export const saveAddress = (
   position: string,
   token: string,
 ) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
-    },
-  };
+  const config = setAuthConfig(token, {});
   return api.post(
     "/address/save",
     {
@@ -31,24 +27,13 @@ export const fetchAddressList = (token: string, group: string) => {
     token,
     group,
   };
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params,
-  };
-
+  const config = setAuthConfig(token, params);
   return api.get("/address/list", config);
 };
 
 export const fetchEditorAddressList = (name: string, token: string) => {
   const params = { name };
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params,
-  };
+  const config = setAuthConfig(token, params);
   return api.get("/address/list/editor", config);
 };
 
@@ -60,12 +45,7 @@ export const deleteAddress = (id: number, token: string) => {
     id,
     token,
   };
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params,
-  };
+  const config = setAuthConfig(token, params);
   return api.delete("/address/delete", config);
 };
 
@@ -74,11 +54,6 @@ export const deleteGroup = (group: string, token: string) => {
     group,
     token,
   };
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params,
-  };
+  const config = setAuthConfig(token, params);
   return api.delete("/address/delete-group", config);
 };
