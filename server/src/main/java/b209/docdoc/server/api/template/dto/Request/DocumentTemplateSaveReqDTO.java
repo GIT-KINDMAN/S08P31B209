@@ -29,8 +29,6 @@ public class DocumentTemplateSaveReqDTO {
 	public static DocumentTemplateSaveReqDTO of(ToEmailNameReqDTO toEmailNameReqDTO,
 												String templateDeadline, String templateName, List<WidgetResDTO> widgetResDTO) {
 		return DocumentTemplateSaveReqDTO.builder()
-//				.toEmail(toEmail)
-//				.toName(toName)
 				.templateDeadline(templateDeadline)
 				.templateName(templateName)
 				.widgetResDTO(widgetResDTO)

@@ -10,6 +10,7 @@ import b209.docdoc.server.config.utils.SecurityManager;
 import b209.docdoc.server.domain.entity.Receiver;
 import b209.docdoc.server.domain.entity.Template;
 import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.ReceiverNotFoundException;
 import b209.docdoc.server.exception.TemplateNotFoundException;
 import b209.docdoc.server.domain.repository.BoxRepository;
 import b209.docdoc.server.domain.repository.ReceiverRepository;
@@ -52,10 +53,10 @@ public class BoxServiceImpl implements BoxService {
     @Override
     @Transactional
     public Object deleteReceiverTemplates(Long receiverId) {
-        Receiver template = receiverRepository.findById(receiverId)
-                .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
-        template.updateDelete(true);
-        receiverRepository.save(template);
+        Receiver receiver = receiverRepository.findById(receiverId)
+                .orElseThrow(() -> new ReceiverNotFoundException(ErrorCode.RECEIVER_NOT_FOUND));
+        receiver.updateDelete(true);
+        receiverRepository.save(receiver);
         return null;
     }
 
