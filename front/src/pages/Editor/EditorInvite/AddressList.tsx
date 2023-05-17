@@ -1,6 +1,6 @@
 import { fetchEditorAddressList } from "@api/addressAPI";
 
-import { updateSend } from "@/store/slice/imageViewSlice";
+import { addSend, updateSend } from "@/store/slice/imageViewSlice";
 import { RootState } from "@/store/store";
 
 import { ChangeEvent, useEffect, useState } from "react";
@@ -18,7 +18,9 @@ const AddressList = ({ index, idx }: AddressListProps) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [email, setEmail] = useState("");
+
   const authToken = useSelector((state: RootState) => state.auth.authToken);
+  const sends = useSelector((state: RootState) => state.imageView.sends);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -28,11 +30,22 @@ const AddressList = ({ index, idx }: AddressListProps) => {
     );
     if (selectedResult) {
       setEmail(selectedResult.email);
-      dispatch(
-        updateSend({
-          email: selectedResult.email,
-        }),
-      );
+      const sendToUpdate = sends.find((send) => send.idx === idx);
+      if (sendToUpdate) {
+        dispatch(
+          updateSend({
+            ...sendToUpdate,
+            email: selectedResult.email,
+          }),
+        );
+      } else {
+        dispatch(
+          addSend({
+            idx,
+            email: selectedResult.email,
+          }),
+        );
+      }
     }
   };
 
@@ -56,6 +69,12 @@ const AddressList = ({ index, idx }: AddressListProps) => {
             request.data.value.addresses,
           );
           setSearchResults(request.data.value.addresses);
+          dispatch(
+            updateSend({
+              idx: request.data.value.addresses.id,
+              email: request.data.value.addresses.email,
+            }),
+          );
         } catch (error) {
           console.error("주소록 가져오기 실패", error);
         }
