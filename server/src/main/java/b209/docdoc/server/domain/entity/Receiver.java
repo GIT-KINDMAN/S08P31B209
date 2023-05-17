@@ -75,7 +75,11 @@ public class Receiver extends BaseDateTime implements Serializable {
         super.prePersist();
     }
 
-    public void updateDelete(boolean receiverIsCompleted) {
+    public void updateDelete(boolean receiverIsDeleted) {
+        this.receiverIsDeleted = receiverIsDeleted;
+    }
+
+    public void updateComplete(boolean receiverIsCompleted) {
         this.receiverIsCompleted = receiverIsCompleted;
     }
 }
