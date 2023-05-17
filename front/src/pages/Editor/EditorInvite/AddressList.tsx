@@ -22,9 +22,27 @@ const AddressList = ({ index, idx }: AddressListProps) => {
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+
+    const selectedResult = searchResults.find(
+      (result) => result.name === e.target.value,
+    );
+    if (selectedResult) {
+      setEmail(selectedResult.email);
+      dispatch(
+        updateSend({
+          email: selectedResult.email,
+        }),
+      );
+    }
   };
+
   const handleEmailInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    dispatch(
+      updateSend({
+        email: e.target.value,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -36,14 +54,6 @@ const AddressList = ({ index, idx }: AddressListProps) => {
           console.log(
             "이름을 포함하는 주소록 가져오기 성공",
             request.data.value.addresses,
-          );
-          dispatch(
-            updateSend({
-              email: request.data.value.addresses.email,
-              name: request.data.value.addresses.name,
-              phone: request.data.value.addresses.phone,
-              position: request.data.value.addresses.position,
-            }),
           );
           setSearchResults(request.data.value.addresses);
         } catch (error) {
@@ -74,20 +84,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
         />
         <datalist id={idx}>
           {searchResults?.map((result, index) => (
-            <option
-              key={index}
-              value={result.name}
-              onClick={() => {
-                setEmail(result.email);
-                if (!isSelfDisable) {
-                  dispatch(
-                    updateSend({
-                      ...result,
-                    }),
-                  );
-                }
-              }}
-            ></option>
+            <option key={index} value={result.name}></option>
           ))}
         </datalist>
         <input
