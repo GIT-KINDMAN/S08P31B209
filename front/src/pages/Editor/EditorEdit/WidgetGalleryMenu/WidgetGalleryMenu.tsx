@@ -1,6 +1,6 @@
 import "twin.macro";
 
-const LeftSideBar = () => {
+const WidgetGalleryMenu = () => {
   return (
     <>
       <div
@@ -127,4 +127,4 @@ const LeftSideBar = () => {
   );
 };
 
-export default LeftSideBar;
+export default WidgetGalleryMenu;
