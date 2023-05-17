@@ -101,7 +101,10 @@ const TemplateCreateForm = () => {
               <Wrapper
                 custom={tw`border-dashed text-base text-center items-center my-4 border-blue-600 bg-lightgray-300 text-blue-600`}
               >
-                <div tw="flex justify-center w-full h-full">
+                <div
+                  ref={canvasFrameRef}
+                  tw="flex justify-center w-full h-full"
+                >
                   <canvas
                     ref={canvasRef}
                     width={200}

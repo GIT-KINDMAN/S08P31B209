@@ -30,7 +30,7 @@ const ViewerToolBar = () => {
               icon="fi-bs-zoom-out"
               size="sm"
               onClick={() => {
-                dispatch(setZoom(zoom - 5));
+                dispatch(setZoom(zoom - 10));
               }}
             />
             <input
@@ -48,7 +48,7 @@ const ViewerToolBar = () => {
               icon="fi-bs-zoom-in"
               size="sm"
               onClick={() => {
-                dispatch(setZoom(zoom + 5));
+                dispatch(setZoom(zoom + 10));
               }}
             />
           </div>
