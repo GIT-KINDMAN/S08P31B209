@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class BoxReceivedResDTO {
+    private Long receiverIdx;
     private String receiverDocsName;
     private String receiverDeadline;
     private String receiverSenderName;
@@ -23,7 +24,8 @@ public class BoxReceivedResDTO {
     private LocalDateTime updatedDate;
 
     @Builder
-    public BoxReceivedResDTO(String receiverDocsName, String receiverDeadline, String receiverSenderName, String receiverSenderEmail, String receiverEmail, String receiverName, BoxTemplateResDTO template, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public BoxReceivedResDTO(Long receiverIdx, String receiverDocsName, String receiverDeadline, String receiverSenderName, String receiverSenderEmail, String receiverEmail, String receiverName, BoxTemplateResDTO template, LocalDateTime createdDate, LocalDateTime updatedDate) {
+        this.receiverIdx = receiverIdx;
         this.receiverDocsName = receiverDocsName;
         this.receiverDeadline = receiverDeadline;
         this.receiverSenderName = receiverSenderName;
@@ -35,8 +37,9 @@ public class BoxReceivedResDTO {
         this.updatedDate = updatedDate;
     }
 
-    public static BoxReceivedResDTO of(String receiverDocsName, String receiverDeadline, String receiverSenderName, String receiverSenderEmail, String receiverEmail, String receiverName, BoxTemplateResDTO template, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public static BoxReceivedResDTO of(Long receiverIdx, String receiverDocsName, String receiverDeadline, String receiverSenderName, String receiverSenderEmail, String receiverEmail, String receiverName, BoxTemplateResDTO template, LocalDateTime createdDate, LocalDateTime updatedDate) {
         return BoxReceivedResDTO.builder()
+                .receiverIdx(receiverIdx)
                 .receiverDocsName(receiverDocsName)
                 .receiverDeadline(receiverDeadline)
                 .receiverDocsName(receiverDocsName)
@@ -53,6 +56,7 @@ public class BoxReceivedResDTO {
 
     public static BoxReceivedResDTO of(Receiver receiver) {
         return BoxReceivedResDTO.builder()
+                .receiverIdx(receiver.getReceiverIdx())
                 .receiverDocsName(receiver.getReceiverDocsName())
                 .receiverDeadline(receiver.getReceiverDeadline())
                 .receiverSenderName(receiver.getReceiverSenderName())

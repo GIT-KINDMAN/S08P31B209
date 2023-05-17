@@ -12,28 +12,25 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class DocumentTemplateSaveReqDTO {
-	List<String> toEmail;
-	List<String> toName;
+	ToEmailNameReqDTO toEmailNameReqDTO;
 	String templateDeadline;
 	String templateName;
 
 	List<WidgetResDTO> widgetResDTO;
 
 	@Builder
-	public DocumentTemplateSaveReqDTO(List<String> toEmail, List<String> toName,
-									  String templateDeadline, String templateName, List<WidgetResDTO> widgetResDTO) {
-		this.toEmail = toEmail;
-		this.toName = toName;
+	public DocumentTemplateSaveReqDTO(ToEmailNameReqDTO toEmailNameReqDTO, String templateDeadline, String templateName, List<WidgetResDTO> widgetResDTO) {
+		this.toEmailNameReqDTO = toEmailNameReqDTO;
 		this.templateDeadline = templateDeadline;
 		this.templateName = templateName;
 		this.widgetResDTO = widgetResDTO;
 	}
 
-	public static DocumentTemplateSaveReqDTO of(List<String> toEmail, List<String> toName,
+	public static DocumentTemplateSaveReqDTO of(ToEmailNameReqDTO toEmailNameReqDTO,
 												String templateDeadline, String templateName, List<WidgetResDTO> widgetResDTO) {
 		return DocumentTemplateSaveReqDTO.builder()
-				.toEmail(toEmail)
-				.toName(toName)
+//				.toEmail(toEmail)
+//				.toName(toName)
 				.templateDeadline(templateDeadline)
 				.templateName(templateName)
 				.widgetResDTO(widgetResDTO)

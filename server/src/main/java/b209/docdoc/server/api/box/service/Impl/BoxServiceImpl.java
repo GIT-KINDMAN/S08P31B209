@@ -64,10 +64,10 @@ public class BoxServiceImpl implements BoxService {
     public Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         String receiverEmail = SecurityManager.getCurrentMember().getEmail();
 
-        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+        Sort sort = Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate")
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"))
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
-                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"));
+                .and(Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName"));
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
@@ -81,10 +81,10 @@ public class BoxServiceImpl implements BoxService {
     public Page<BoxSentResDTO> getSentTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         String senderEmail = SecurityManager.getCurrentMember().getEmail();
 
-        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+        Sort sort = Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate")
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"))
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
-                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"));
+                .and(Sort.by(Sort.Direction.fromString(nameSort), "templateName"));
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
