@@ -1,11 +1,6 @@
-import {
-  delWidget,
-  updateWidget,
-  widgetState,
-} from "@store/slice/imageViewSlice";
+import { updateWidget } from "@store/slice/imageViewSlice";
 import { RootState } from "@store/store";
 
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "twin.macro";
 
@@ -18,8 +13,6 @@ const WidgetFormatMenu = () => {
   const widgetState = useSelector((state: RootState) =>
     state.imageView.widgets.find((widget) => widget.id === selectedWidgetId),
   );
-
-  const [value, setValue] = useState(widgetState?.value);
 
   return (
     <>

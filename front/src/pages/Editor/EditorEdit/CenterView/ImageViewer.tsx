@@ -1,11 +1,9 @@
-import { useWindowSizeCustom } from "@hook/index";
-
-import { addWidget, setFile, setZoom } from "@store/slice/imageViewSlice";
+import { addWidget } from "@store/slice/imageViewSlice";
 import type { RootState } from "@store/store";
 
 import Widget from "./Widget";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "twin.macro";
 
@@ -34,21 +32,30 @@ const ImageViewer = () => {
         //   img.height < img.width
         //     ? img.height / (img.width / ((canvas?.width ?? 0) * 0.95))
         //     : (canvas?.height ?? 0) * 0.95;
-        const width = img.width / (img.height / ((canvas?.height ?? 0) * 0.95));
-        const height = (canvas?.height ?? 0) * 0.95;
+        const width = img.width / (img.height / (canvas?.height ?? 0));
+        const height = canvas?.height ?? 0;
+
+        // const width = img.width;
+        // const height = img.height;
+
         context?.clearRect(0, 0, canvas?.width ?? 0, canvas?.height ?? 0);
         context?.drawImage(
           img,
-          ((canvas?.width ?? 0) - (width * viewState.zoom) / 100) / 2,
-          ((canvas?.height ?? 0) - (height * viewState.zoom) / 100) / 2,
-          (width * viewState.zoom) / 100,
-          (height * viewState.zoom) / 100,
+          ((canvas?.width ?? 0) - width * (viewState.zoom / 100)) / 2,
+          ((canvas?.height ?? 0) - height * (viewState.zoom / 100)) / 2,
+          width * (viewState.zoom / 100),
+          height * (viewState.zoom / 100),
         );
       };
     }
   }, [fileState, viewState.zoom]);
 
   const downloadCanvas = () => {
+    const img = new Image();
+    if (fileState) {
+      img.src = fileState.data;
+    }
+
     const canvasOrigin: HTMLCanvasElement = canvasRef.current
       ? canvasRef.current
       : document.createElement("canvas");
@@ -67,7 +74,27 @@ const ImageViewer = () => {
           ? (ctxWidget.font =
               widget.attributes.fontSize + " " + widget.attributes.font)
           : null;
-        ctxWidget?.fillText(widget.value, widget.pos.x, widget.pos.y);
+
+        // const offsetLeft = canvasOrigin.parentElement?.offsetLeft ?? 0;
+        // const offsetTop = canvasOrigin.parentElement?.offsetTop ?? 0;
+        const ratioX =
+          window.outerWidth / (canvasOrigin.parentElement?.offsetWidth ?? 0);
+        const ratioY =
+          window.outerHeight / (canvasOrigin.parentElement?.offsetHeight ?? 0);
+        // 텍스트 좌표 좌상단
+        ctxWidget ? (ctxWidget.textBaseline = "top") : null;
+        ctxWidget?.fillText(
+          widget.value,
+          ((widget.pos.x - (canvasOrigin.parentElement?.offsetWidth ?? 0) / 2) *
+            (viewState.zoom / 100) +
+            (canvasOrigin.parentElement?.offsetWidth ?? 0) / 2) *
+            ratioX, //+ offsetLeft,
+          ((widget.pos.y -
+            (canvasOrigin.parentElement?.offsetHeight ?? 0) / 2) *
+            (viewState.zoom / 100) +
+            (canvasOrigin.parentElement?.offsetHeight ?? 0) / 2) *
+            ratioY, //+ offsetTop,
+        );
       }
     });
 
@@ -77,7 +104,7 @@ const ImageViewer = () => {
 
     const link = document.createElement("a");
     const fileName = viewState.name;
-    link.download = fileName + ".JPG";
+    link.download = fileName + ".png";
     link.href = canvasResult.toDataURL() ?? "#";
     document.body.appendChild(link);
     link.click();
@@ -98,7 +125,7 @@ const ImageViewer = () => {
                   id: newId,
                   idx: newIdx,
                   type: "text",
-                  pos: { x: 100, y: 100 },
+                  pos: { x: 0, y: 0 },
                   value: "Empty Widget",
                   attributes: {
                     font: "serif",
