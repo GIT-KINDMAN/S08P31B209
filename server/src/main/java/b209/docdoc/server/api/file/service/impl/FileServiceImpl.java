@@ -37,8 +37,8 @@ public class FileServiceImpl implements FileService {
 
     @Transactional(readOnly = true)
     @Override
-    public FileDTO getDocsFile(String savedName) {
-        Docsfile docsfile = docsfileRepository.findByDocsfileSavedName(savedName).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
+    public FileDTO getDocsFile(Long idx) {
+        Docsfile docsfile = docsfileRepository.findById(idx).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
         return FileDTO.of(docsfile);
     }
 
@@ -56,4 +56,10 @@ public class FileServiceImpl implements FileService {
         return FileDTO.of(templatefile);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public FileDTO getDocsFileBySavedName(String savedName) {
+        Docsfile docsfile = docsfileRepository.findByDocsfileSavedName(savedName).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
+        return FileDTO.of(docsfile);
+    }
 }
