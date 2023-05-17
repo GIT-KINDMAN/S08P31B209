@@ -55,7 +55,9 @@ public enum ErrorCode {
     FILE_IS_NULL(500, "파일이 존재하지 않습니다."),
 
     INVALID_FILE_EXTENSION(500, "유효하지 않는 파일 확장자 입니다"),
-    FILE_CANNOT_SAVE(500, "파일을 저장하는 도중 에러가 발생했습니다.");
+    FILE_CANNOT_SAVE(500, "파일을 저장하는 도중 에러가 발생했습니다."),
+
+    RECEIVER_NOT_FOUND(500, "해당하는 수신 데이터가 없습니다.");
 
     private final int status;
     private final String message;
