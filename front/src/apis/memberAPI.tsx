@@ -67,3 +67,18 @@ export const updateUserInfo = (
       },
     },
   );
+
+export const updateUserPassword = (
+  originalPassword: string,
+  newPassword: string,
+  token: string | null,
+) =>
+  api.put(
+    `/member/reset-password`,
+    { originalPassword, newPassword },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
