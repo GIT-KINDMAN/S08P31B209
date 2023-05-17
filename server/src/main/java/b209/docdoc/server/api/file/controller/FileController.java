@@ -51,4 +51,12 @@ public class FileController {
                 .body(new UrlResource("file:" + fileDTO.getSavedPath()));
     }
 
+    @GetMapping("/uuid/template/{savedName}")
+    public ResponseEntity<?> getTemplatefileBySavedName(@PathVariable String savedName) throws MalformedURLException {
+        FileDTO fileDTO = fileService.getTemplateFileBySavedName(savedName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new UrlResource("file:" + fileDTO.getSavedPath()));
+    }
+
 }
