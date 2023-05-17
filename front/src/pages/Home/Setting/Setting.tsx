@@ -85,7 +85,7 @@ const Setting = () => {
                 <li className="DetailListItem" tw="flex pt-1 pb-3">
                   <div
                     tw="w-fit px-2 py-1 border-2 hocus:(text-orange-600 border-orange-600) rounded-lg cursor-pointer"
-                    onClick={() => navigate("/member/password")}
+                    onClick={() => navigate("/home/setting/password")}
                   >
                     <label tw="font-bold cursor-pointer">비밀번호 변경</label>
                   </div>

@@ -5,6 +5,8 @@ import b209.docdoc.server.api.file.service.FileService;
 import b209.docdoc.server.domain.entity.Docsfile;
 import b209.docdoc.server.domain.entity.Imagefile;
 import b209.docdoc.server.domain.entity.Template;
+import b209.docdoc.server.domain.entity.Templatefile;
+import b209.docdoc.server.domain.repository.TemplateFileRepository;
 import b209.docdoc.server.exception.ErrorCode;
 import b209.docdoc.server.exception.SaveFileNotFoundException;
 import b209.docdoc.server.exception.TemplateNotFoundException;
@@ -24,6 +26,7 @@ public class FileServiceImpl implements FileService {
     private final DocsfileRepository docsfileRepository;
     private final ImagefileRepository imagefileRepository;
     private final TemplateRepository templateRepository;
+    private final TemplateFileRepository templateFileRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -34,8 +37,8 @@ public class FileServiceImpl implements FileService {
 
     @Transactional(readOnly = true)
     @Override
-    public FileDTO getDocsFile(String savedName) {
-        Docsfile docsfile = docsfileRepository.findByDocsfileSavedName(savedName).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
+    public FileDTO getDocsFile(Long idx) {
+        Docsfile docsfile = docsfileRepository.findById(idx).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
         return FileDTO.of(docsfile);
     }
 
@@ -44,5 +47,19 @@ public class FileServiceImpl implements FileService {
     public FileDTO getImageFile(String savedName) {
         Imagefile imagefile = imagefileRepository.findByImagefileSavedName((savedName)).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
         return FileDTO.of(imagefile);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public FileDTO getTemplateFileBySavedName(String savedName) {
+        Templatefile templatefile = templateFileRepository.findByTemplatefileSavedName(savedName).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
+        return FileDTO.of(templatefile);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public FileDTO getDocsFileBySavedName(String savedName) {
+        Docsfile docsfile = docsfileRepository.findByDocsfileSavedName(savedName).orElseThrow(() -> new SaveFileNotFoundException(ErrorCode.FILE_NOT_FOUND));
+        return FileDTO.of(docsfile);
     }
 }

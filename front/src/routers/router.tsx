@@ -16,6 +16,7 @@ import {
   SignIn,
   SignUp,
 } from "@/pages";
+import ChangePassword from "@/pages/Home/Setting/ChangePassword/ChangePassword";
 
 // import DocsBox from "@/pages/Home/DocsBox/DocsBox";
 import { createBrowserRouter } from "react-router-dom";
@@ -71,6 +72,10 @@ const router = createBrowserRouter(
         {
           path: "/home/setting/change",
           element: <ChangeUserInfo />,
+        },
+        {
+          path: "/home/setting/password",
+          element: <ChangePassword />,
         },
       ],
     },

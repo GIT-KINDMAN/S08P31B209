@@ -41,6 +41,7 @@ export const fetchUserInfo = (config: AxiosRequestConfig) =>
 export const reIssue = () => api.post(`/member/auth/reissue`);
 
 export const emailVerification = (email: string) => {
+  alert("이메일인증 코드를 전송하였습니다.");
   const params = {
     email,
   };
@@ -63,6 +64,21 @@ export const updateUserInfo = (
     {
       headers: {
         Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+      },
+    },
+  );
+
+export const updateUserPassword = (
+  originalPassword: string,
+  newPassword: string,
+  token: string | null,
+) =>
+  api.put(
+    `/member/reset-password`,
+    { originalPassword, newPassword },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     },
   );
