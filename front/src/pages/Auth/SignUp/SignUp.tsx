@@ -1,4 +1,4 @@
-import { signup } from "@/apis/memberAPI";
+import { emailVerification, signup } from "@/apis/memberAPI";
 import { Button, Label, TextInput } from "@/components/atoms";
 
 import { useState } from "react";
@@ -29,6 +29,9 @@ const Register = () => {
   const [userAddress, setUserAddress] = useState("");
   const [userGroup, setUserGroup] = useState("");
   const [userPosition, setUserPosition] = useState("");
+  const [emailVerificationCode, setEmailVerificationCode] = useState("");
+  const [inputEailVerificationCode, setInputEmailVerificationCode] =
+    useState("");
 
   // const [file, setFile] = useState<File | null>(null);
   // const [fileUrl, setFileUrl] = useState<string | null>(null);
@@ -81,9 +84,18 @@ const Register = () => {
   //   setFileUrl(url);
   // };
   const localDate = new Date();
+
+  const handleEamilVerification = () => {
+    if (inputEailVerificationCode === emailVerificationCode) {
+      alert("이메일인증 코드가 일치합니다.");
+    } else {
+      alert("이메일인증 코드가 불일치합니다.");
+    }
+  };
+
   return (
     <>
-      <div tw="flex flex-col w-[20rem]">
+      <div tw="flex ml-[6.1rem] flex-col w-[40rem]">
         {/* 사용자 사진 입력 */}
         {/* <div className="ImageForm" tw="flex flex-col ">
           <div className="ImageField" tw="flex flex-col ">
@@ -104,19 +116,58 @@ const Register = () => {
           </div>
         </div> */}
         {/* 필수 입력 */}
-        <div className="RequireInputWrap" tw="flex flex-col my-2">
+        <div className="RequireInputWrap" tw="flex flex-col mx-auto my-2">
           <label tw="text-xs text-red-300">
             * 회원 가입을 위한 필수 사항입니다.
           </label>
           <div className="InputField" tw="flex flex-col my-2">
             <Label text="이메일" isBold />
-
-            <TextInput
-              type="email"
-              custom={tw`border-2 w-80 py-1 rounded-xl focus:border-blue-600 focus:scale-110`}
-              onChange={(e) => setEmailText(e.target.value)}
-            />
+            <div>
+              <TextInput
+                type="email"
+                custom={tw`border-2 w-80 py-1 mr-4 rounded-xl focus:border-blue-600 focus:scale-110`}
+                onChange={(e) => setEmailText(e.target.value)}
+              />
+              <Button
+                className="optionalbutton"
+                variant="primary"
+                isOutline={true}
+                custom={tw`mx-auto min-w-[6rem] max-w-[8rem] ml-4`}
+                onClick={() =>
+                  emailVerification(emailText).then((request) => {
+                    setEmailVerificationCode(request.data.value.code);
+                  })
+                }
+              >
+                이메일인증
+              </Button>
+            </div>
           </div>
+          {emailVerificationCode ? (
+            <div className="InputField" tw="flex flex-col my-2">
+              <Label text="이메일 인증 코드 입력" isBold />
+
+              <div tw="flex">
+                <TextInput
+                  type="email"
+                  custom={tw`border-2 w-80 py-1 mr-4 rounded-xl focus:border-blue-600 focus:scale-110`}
+                  onChange={(e) =>
+                    setInputEmailVerificationCode(e.target.value)
+                  }
+                />
+                <Button
+                  className="optionalbutton"
+                  variant="primary"
+                  isOutline={true}
+                  custom={tw`mx-auto min-w-[6rem] max-w-[8rem] ml-4`}
+                  onClick={handleEamilVerification}
+                >
+                  인증코드확인
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
           <div className="InputField" tw="flex flex-col my-2">
             <Label text="비밀번호 입력" isBold />
             <TextInput
@@ -145,7 +196,7 @@ const Register = () => {
             <Label text="생년월일" isBold />
             <input
               type="date"
-              tw="border-2 py-1 "
+              tw="border-2 py-1 px-2 w-80 rounded-xl border-b border-lightgray-400"
               max={localDate.toISOString().split("T")[0]}
               defaultValue={localDate.toISOString().split("T")[0]}
               onKeyDown={(e) => e.preventDefault()}
@@ -154,8 +205,8 @@ const Register = () => {
           </div>
           <div className="InputField" tw="flex flex-col my-2">
             <Label text="성별" isBold />
-            <div tw="flex flex-row justify-around">
-              <div className="RadioItem">
+            <div tw="flex">
+              <div className="RadioItem" tw="ml-20">
                 <input
                   type="radio"
                   tw="border-2 py-1"
@@ -165,7 +216,7 @@ const Register = () => {
                 ></input>
                 <label> 남자 </label>
               </div>
-              <div className="RadioItem">
+              <div className="RadioItem" tw="ml-20">
                 <input
                   type="radio"
                   tw="border-2 py-1"
@@ -184,7 +235,7 @@ const Register = () => {
             className="optionalbutton"
             variant="primary"
             isOutline={true}
-            custom={tw`mx-auto`}
+            custom={tw`mx-auto ml-56`}
             onClick={() => setISOptionalInfo(true)}
           >
             추가입력
@@ -194,14 +245,17 @@ const Register = () => {
             className="optionalbutton"
             variant="primary"
             isOutline={true}
-            custom={tw`mx-auto px-6`}
+            custom={tw`mx-auto px-6 ml-56`}
             onClick={() => setISOptionalInfo(false)}
           >
             접기
           </Button>
         )}
         {isOptionalInfo === true ? (
-          <div className="OptionalInputWrap" tw="flex flex-col my-2 mx-auto">
+          <div
+            className="OptionalInputWrap"
+            tw="flex flex-col my-2 mx-auto ml-24"
+          >
             <label tw="text-xs">추가 정보는 필수 사항이 아닙니다.</label>
             <div className="InputField" tw="flex flex-col my-2">
               <Label text="연락처" isBold />
@@ -237,7 +291,7 @@ const Register = () => {
             </div>
           </div>
         ) : null}
-        <div className="ButtonWrap" tw="flex flex-col mx-auto my-4">
+        <div className="ButtonWrap" tw="flex flex-col mx-auto my-4 ml-24">
           <Button
             className="RegisterBtn"
             custom={tw`mr-1 p-2 rounded-[0.5rem] bg-blue-400 min-w-[20rem] max-w-[20rem] text-white`}
