@@ -65,6 +65,18 @@ const Register = () => {
     setIsValidEmailVerification(isValid);
   };
 
+  const handleEamilVerificationClick = () => {
+    if (!emailError) {
+      emailVerification(emailText).then((request) => {
+        setEmailVerificationCode(request.data.value.code);
+        setEmailError(true);
+        setEmailVerificationError(true);
+      });
+    } else {
+      alert("이메일 형식에 맞지 않습니다");
+    }
+  };
+
   const handlePasswordBlur = () => {
     // 비밀번호 정규식을 사용하여 유효성 검사
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -245,13 +257,7 @@ const Register = () => {
                 variant="primary"
                 isOutline={true}
                 custom={tw`mx-auto min-w-[6rem] max-w-[8rem] ml-4`}
-                onClick={() =>
-                  emailVerification(emailText).then((request) => {
-                    setEmailVerificationCode(request.data.value.code);
-                    setEmailError(true);
-                    setEmailVerificationError(true);
-                  })
-                }
+                onClick={handleEamilVerificationClick}
               >
                 이메일인증
               </Button>
