@@ -1,42 +1,39 @@
 import { fetchEditorAddressList } from "@api/addressAPI";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { updateSend } from "@/store/slice/imageViewSlice";
+import { RootState } from "@/store/store";
 
-interface SearchResultProps {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  group: string;
-  position: string;
-}
+import { ChangeEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "twin.macro";
 
 interface AddressListProps {
-  // searchResults: SearchResultProps[];
-  authToken: string | null;
-  id: string;
+  idx: string;
   index: number;
 }
 
-const AddressList = ({ index, id, authToken }: AddressListProps) => {
+const AddressList = ({ index, idx }: AddressListProps) => {
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
-
+  const [email, setEmail] = useState("");
+  const authToken = useSelector((state: RootState) => state.auth.authToken);
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-      if (searchQuery && authToken) {
-        const token = authToken;
+      if (searchQuery) {
+        const token = authToken ?? "unknown";
         try {
           const request = await fetchEditorAddressList(searchQuery, token);
           console.log(
             "이름을 포함하는 주소록 가져오기 성공",
             request.data.value.addresses,
           );
+          dispatch(updateSend());
           setSearchResults(request.data.value.addresses);
         } catch (error) {
           console.error("주소록 가져오기 실패", error);
@@ -61,10 +58,10 @@ const AddressList = ({ index, id, authToken }: AddressListProps) => {
           tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
           placeholder="이름"
           required={true}
-          list={id}
+          list={idx}
           onChange={handleNameInputChange}
         />
-        <datalist id={id}>
+        <datalist id={idx}>
           {searchResults?.map((result, index) => (
             <option key={index} value={result.name}></option>
           ))}

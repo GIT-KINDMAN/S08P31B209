@@ -16,13 +16,21 @@ export interface widgetState {
   attributes: { font: string; fontSize: string };
 }
 
+export interface sendState {
+  idx: string;
+  email?: string;
+  name?: string;
+  phone?: string;
+  position?: string;
+}
+
 export interface viewState {
   id: string | null;
   name: string;
   file: fileState | null;
   zoom: number;
   widgets: widgetState[];
-  toSends: { email: string; name: string }[];
+  sends: sendState[];
 }
 
 export interface addressState {
@@ -40,7 +48,7 @@ const initialState: viewState = {
   file: null,
   zoom: 100,
   widgets: [],
-  toSends: [],
+  sends: [],
 };
 
 export const imageViewSlice = createSlice({
@@ -78,16 +86,18 @@ export const imageViewSlice = createSlice({
       );
     },
     addSend: (state, action) => {
-      state.toSends = [
-        ...state.toSends,
-        action.payload as { email: string; name: string },
-      ];
+      state.sends = [...state.sends, action.payload as sendState];
     },
     delSend: (state, action) => {
-      state.toSends = state.toSends.filter(
-        (send) =>
-          send.email !==
-          (action.payload as { email: string; name: string }).email,
+      state.sends = state.sends.filter(
+        (send) => send.idx !== (action.payload as sendState).idx,
+      );
+    },
+    updateSend: (state, action) => {
+      state.sends = state.sends.map((send) =>
+        send.idx === (action.payload as sendState).idx
+          ? { ...send, ...(action.payload as sendState) }
+          : send,
       );
     },
   },
@@ -102,5 +112,6 @@ export const {
   updateWidget,
   addSend,
   delSend,
+  updateSend,
 } = imageViewSlice.actions;
 export default imageViewSlice.reducer;
