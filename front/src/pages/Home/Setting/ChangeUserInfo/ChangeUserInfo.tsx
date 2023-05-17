@@ -31,6 +31,10 @@ const ChangeUserInfo = () => {
           // console.log(request);
           setUserData(request.data.value);
           console.log(request.data.value);
+          setUserPhone(request.data.value.phone ?? "");
+          setUserAddress(request.data.value.address ?? "");
+          setUserGroup(request.data.value.group ?? "");
+          setUserPosition(request.data.value.position ?? "");
         })
         .catch((error) => {
           console.error(error);
@@ -50,7 +54,10 @@ const ChangeUserInfo = () => {
       token,
     )
       .then((request) => {
-        console.log(request);
+        {
+          console.log(request);
+          navigate("/home/setting");
+        }
       })
       .catch((e) => console.log(e));
   };
