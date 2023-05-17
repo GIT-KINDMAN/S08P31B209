@@ -23,6 +23,7 @@ interface viewState {
   file: fileState | null;
   zoom: number;
   widgets: widgetState[];
+  toSend: { email: string; name: string }[];
 }
 
 const initialState: viewState = {
@@ -31,6 +32,7 @@ const initialState: viewState = {
   file: null,
   zoom: 100,
   widgets: [],
+  toSend: [],
 };
 
 export const imageViewSlice = createSlice({
