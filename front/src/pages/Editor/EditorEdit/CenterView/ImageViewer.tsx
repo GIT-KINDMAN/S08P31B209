@@ -1,11 +1,11 @@
 import { useWindowSizeCustom } from "@hook/index";
 
-import { addWidget, setFile, setZoom } from "@store/slice/imageViewSlice";
+import { addWidget } from "@store/slice/imageViewSlice";
 import type { RootState } from "@store/store";
 
 import Widget from "./Widget";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "twin.macro";
 
@@ -34,19 +34,19 @@ const ImageViewer = () => {
         //   img.height < img.width
         //     ? img.height / (img.width / ((canvas?.width ?? 0) * 0.95))
         //     : (canvas?.height ?? 0) * 0.95;
-        // const width = img.width / (img.height / (canvas?.height ?? 0));
-        // const height = canvas?.height ?? 0;
+        const width = img.width / (img.height / (canvas?.height ?? 0));
+        const height = canvas?.height ?? 0;
 
-        const width = img.width;
-        const height = img.height;
+        // const width = img.width;
+        // const height = img.height;
 
         context?.clearRect(0, 0, canvas?.width ?? 0, canvas?.height ?? 0);
         context?.drawImage(
           img,
-          0, //((canvas?.width ?? 0) - (width * viewState.zoom) / 100) / 2,
-          0, //((canvas?.height ?? 0) - (height * viewState.zoom) / 100) / 2,
-          (width * viewState.zoom) / 100,
-          (height * viewState.zoom) / 100,
+          ((canvas?.width ?? 0) - width * (viewState.zoom / 100)) / 2,
+          ((canvas?.height ?? 0) - height * (viewState.zoom / 100)) / 2,
+          width * (viewState.zoom / 100),
+          height * (viewState.zoom / 100),
         );
       };
     }
@@ -87,8 +87,15 @@ const ImageViewer = () => {
         ctxWidget ? (ctxWidget.textBaseline = "top") : null;
         ctxWidget?.fillText(
           widget.value,
-          widget.pos.x * ratioX, //+ offsetLeft,
-          widget.pos.y * ratioY, //+ offsetTop,
+          ((widget.pos.x - (canvasOrigin.parentElement?.offsetWidth ?? 0) / 2) *
+            (viewState.zoom / 100) +
+            (canvasOrigin.parentElement?.offsetWidth ?? 0) / 2) *
+            ratioX, //+ offsetLeft,
+          ((widget.pos.y -
+            (canvasOrigin.parentElement?.offsetHeight ?? 0) / 2) *
+            (viewState.zoom / 100) +
+            (canvasOrigin.parentElement?.offsetHeight ?? 0) / 2) *
+            ratioY, //+ offsetTop,
         );
       }
     });

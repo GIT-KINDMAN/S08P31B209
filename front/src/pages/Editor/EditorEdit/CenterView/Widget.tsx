@@ -41,6 +41,23 @@ const Widget = ({ widget, parent }: IProps) => {
     const newPosition = {
       // x: e.clientX * (zoom / 100),
       // y: e.clientY * (zoom / 100),
+      // x:
+      //   (e.clientX -
+      //     offsetPosition.x -
+      //     (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2) *
+      //     ((1 / zoom) * 100) +
+      //   (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2 -
+      //   (widgetRef.current?.parentElement?.offsetLeft ??
+      //     parent?.offsetLeft ??
+      //     0),
+      // y:
+      //   (e.clientY -
+      //     offsetPosition.y -
+      //     (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2) *
+      //     ((1 / zoom) * 100) +
+      //   (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2 -
+      //   (widgetRef.current?.parentElement?.offsetTop ?? parent?.offsetTop ?? 0),
+
       x:
         (e.clientX -
           offsetPosition.x -
@@ -49,14 +66,18 @@ const Widget = ({ widget, parent }: IProps) => {
         (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2 -
         (widgetRef.current?.parentElement?.offsetLeft ??
           parent?.offsetLeft ??
-          0),
+          0) *
+          ((1 / zoom) * 100),
       y:
         (e.clientY -
           offsetPosition.y -
           (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2) *
           ((1 / zoom) * 100) +
         (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2 -
-        (widgetRef.current?.parentElement?.offsetTop ?? parent?.offsetTop ?? 0),
+        (widgetRef.current?.parentElement?.offsetTop ??
+          parent?.offsetTop ??
+          0) *
+          ((1 / zoom) * 100),
     };
     setPosition(newPosition);
     dispatch(updateWidget({ ...widget, pos: newPosition }));
