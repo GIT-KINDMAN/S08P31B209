@@ -65,11 +65,9 @@ public class MemberController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_SIGN_IN));
     }
 
-    @PutMapping("/member/reset-password")
+    @PutMapping("/reset-password")
     public ResponseEntity<ResponseDTO> updateUserPassword(@RequestBody UpdateUserPasswordReqDTO updateUserPasswordReqDTO) {
         memberService.updatePasword(updateUserPasswordReqDTO);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_MEMBER_MODPW));
     }
-
-
 }
