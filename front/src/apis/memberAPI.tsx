@@ -41,6 +41,7 @@ export const fetchUserInfo = (config: AxiosRequestConfig) =>
 export const reIssue = () => api.post(`/member/auth/reissue`);
 
 export const emailVerification = (email: string) => {
+  alert("이메일인증 코드를 전송하였습니다.");
   const params = {
     email,
   };
