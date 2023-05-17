@@ -1,8 +1,12 @@
+import type { RootState } from "@store/store";
+
+import { deleteReceive, deleteSend } from "@/apis/boxAPI";
 import { Button, Icon, TextInput } from "@/components/atoms";
 
 import { HeaderProps } from "../TemplateDocs/TemplateDocs";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 // import { useEffect } from "react";
 import tw from "twin.macro";
 
@@ -13,12 +17,14 @@ export interface receiveDataItem {
   receiverName: string;
   receiverSenderEmail: string;
   receiverSenderName: string;
+  receiverIdx: number;
   template: object;
 }
 
 export interface sendDataItem {
   createdDate: string;
   member: memberType;
+  receivers: string[];
   templateDeadline: string;
   templateIdx: number;
   templateName: string;
@@ -38,10 +44,21 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
   };
   // 문서이름 변경
   const [editFile, setEditFile] = useState("");
+  const authState = useSelector((state: RootState) => state.auth);
 
   // 문서 리스트 출력
   const sendList = sendData?.map((item: sendDataItem, i: number) => {
-    console.log(item);
+    const token = authState.authToken;
+    const handleDeleteSend = () => {
+      if (token) {
+        deleteSend(item.templateIdx, token)
+          .then(() => {
+            // console.log("request", request);
+            window.location.reload();
+          })
+          .catch((e) => console.log(e));
+      }
+    };
     return (
       <div className="FileItem" tw="flex flex-row" key={i}>
         <div tw="mx-4 my-3">
@@ -57,7 +74,6 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
                 custom={tw`mx-4`}
                 onClick={() => {
                   handleOpenEdit();
-                  console.log("이름변경");
                 }}
               />
             </div>
@@ -94,13 +110,23 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
             className="DocsEdit"
             tw="min-w-[10rem] max-w-[10rem]  my-3  grid grid-cols-1 text-center"
           >
-            {item?.member.memberName}
+            {item?.receivers.length > 2 ? (
+              <div>
+                {item?.receivers[0]},{item?.receivers[1]} 외{" "}
+                {item?.receivers.length - 2}명
+              </div>
+            ) : (
+              <div>
+                {item?.receivers[0]} {item?.receivers[1]}
+              </div>
+            )}
           </div>
           <div
             className="DocsShared"
             tw="min-w-[10rem] max-w-[10rem] my-3  grid grid-cols-1 text-center"
           >
-            2023-05-11
+            <span>{item.createdDate.slice(0, 10)}</span>
+            {/* {item.createdDate.slice(11, 16)} */}
           </div>
           <div
             className="DocsDeadline"
@@ -112,7 +138,9 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
             <Icon
               icon=" fi-rr-trash"
               custom={tw`mx-2 px-2`}
-              onClick={() => console.log("삭제")}
+              onClick={() => {
+                handleDeleteSend();
+              }}
             />
           </div>
         </div>
@@ -120,7 +148,18 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
     );
   });
   const receiveList = receiveData?.map((item: receiveDataItem, i: number) => {
-    console.log(item);
+    const token = authState.authToken;
+
+    const handleDeleteReceive = () => {
+      if (token) {
+        deleteReceive(item.receiverIdx, token)
+          .then((request) => {
+            console.log("request", request.data);
+            window.location.reload();
+          })
+          .catch((e) => console.log(e));
+      }
+    };
     return (
       <div className="FileItem" tw="flex flex-row" key={i}>
         <div tw="mx-4 my-3">
@@ -191,7 +230,9 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
             <Icon
               icon=" fi-rr-trash"
               custom={tw`mx-2 px-2`}
-              onClick={() => console.log("삭제")}
+              onClick={() => {
+                handleDeleteReceive();
+              }}
             />
           </div>
         </div>

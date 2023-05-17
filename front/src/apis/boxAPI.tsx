@@ -48,3 +48,35 @@ export const receivedbox = (
   };
   return api.get(`box/received-templates`, config);
 };
+
+export const deleteSend = (idx: number, token: string) => {
+  const params = {
+    idx,
+    token,
+  };
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+  return api.delete(`box/sent/${idx}`, config);
+};
+
+export const deleteReceive = (idx: number, token: string) => {
+  const params = {
+    idx,
+    token,
+  };
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+  return api.delete(`box/received/${idx}`, config);
+};
+
+export const downloadDocs = (idx: number) => api.get(`file/template/${idx}`);
