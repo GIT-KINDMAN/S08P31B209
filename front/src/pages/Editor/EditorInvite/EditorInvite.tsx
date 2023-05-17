@@ -1,15 +1,17 @@
-import type { RootState } from "@store/store";
+import { fetchEditorAddressList } from "@api/addressAPI";
 
-import { fetchEditorAddressList } from "@/apis/addressAPI";
+import { addSend, delSend } from "@store/slice/imageViewSlice";
+import type { RootState } from "@store/store";
 
 import NameSearchList from "./NameSearchList";
 
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "twin.macro";
 
 const EditorInvite = () => {
+  const dispatch = useDispatch;
   const [isSearch, setIsSearch] = useState(false);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [inviteBoxes, setInviteBoxes] = useState([1]);
