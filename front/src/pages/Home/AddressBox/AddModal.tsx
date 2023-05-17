@@ -40,12 +40,12 @@ const Modal = ({ handleToggleModal }: ModalDefaultType) => {
   return (
     <div
       className="ModalContainer"
-      tw="w-fit h-full flex items-center justify-center fixed   overflow-y-scroll"
+      tw="w-fit h-full flex items-center justify-center fixed "
     >
       {/* <div onClick={() => handleToggleModal()}>X</div> */}
       <div
         className="Dialog"
-        tw="min-w-[50rem] max-w-[50rem] min-h-[25rem] max-h-[25rem] flex flex-col border-2 border-black rounded-[16px] py-4  bg-white z-[1000] overflow-y-scroll"
+        tw="min-w-[50rem] max-w-[50rem] min-h-[25rem] max-h-[25rem] flex flex-col border-2 border-black rounded-[16px] py-4  bg-white z-[1000] overflow-y-auto"
       >
         <div tw="flex justify-between">
           <div tw="text-2xl m-2 ml-12">주소록 추가</div>
