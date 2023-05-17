@@ -69,7 +69,7 @@ public class Member extends BaseDateTime implements Serializable {
 
     public void update(UpdateUserReqDTO updateUserReqDTO) {
         this.memberPhone = updateUserReqDTO.getPhone();
-        this.memberAddress = updateUserReqDTO.getGroup();
+        this.memberAddress = updateUserReqDTO.getAddress();
         this.memberGroup = updateUserReqDTO.getGroup();
 		this.memberPosition = updateUserReqDTO.getPosition();
     }

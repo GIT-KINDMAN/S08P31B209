@@ -40,8 +40,15 @@ export const fetchUserInfo = (config: AxiosRequestConfig) =>
 
 export const reIssue = () => api.post(`/member/auth/reissue`);
 
-export const emailVerification = (email: string) =>
-  api.post(`/member/email/confirm`, { email });
+export const emailVerification = (email: string) => {
+  const params = {
+    email,
+  };
+  const config = {
+    params,
+  };
+  return api.get(`/email/confirm`, config);
+};
 
 export const updateUserInfo = (
   phone: string,

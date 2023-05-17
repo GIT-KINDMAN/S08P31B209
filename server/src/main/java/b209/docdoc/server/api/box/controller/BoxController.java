@@ -28,9 +28,9 @@ public class BoxController {
     public ResponseEntity<ResponseDTO> getReceivedTemplates(
             @RequestParam(value = "keywords", required = false) String keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
-            @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
-            @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
-            @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
+            @RequestParam(value = "createdDateSort", defaultValue = "desc") String createdDateSort,
+            @RequestParam(value = "updatedDateSort", defaultValue = "desc") String updatedDateSort,
+            @RequestParam(value = "deadlineSort", defaultValue = "desc") String deadlineSort,
             @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()
@@ -43,9 +43,9 @@ public class BoxController {
     public ResponseEntity<ResponseDTO> getSentTemplates(
             @RequestParam(value = "keywords", required = false) String keywords,
             @RequestParam(value = "nameSort", defaultValue = "asc") String nameSort,
-            @RequestParam(value = "createdDateSort", defaultValue = "asc") String createdDateSort,
-            @RequestParam(value = "updatedDateSort", defaultValue = "asc") String updatedDateSort,
-            @RequestParam(value = "deadlineSort", defaultValue = "asc") String deadlineSort,
+            @RequestParam(value = "createdDateSort", defaultValue = "desc") String createdDateSort,
+            @RequestParam(value = "updatedDateSort", defaultValue = "desc") String updatedDateSort,
+            @RequestParam(value = "deadlineSort", defaultValue = "desc") String deadlineSort,
             @PageableDefault(size = 10, page = 1) Pageable pageable) {
 
         return ResponseEntity.ok()

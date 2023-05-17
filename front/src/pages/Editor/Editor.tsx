@@ -26,18 +26,21 @@ const stepTitle = [
 ];
 
 const Editor = () => {
+  const editStepState = useSelector((state: RootState) => state.editStep);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const editStepState = useSelector((state: RootState) => state.editStep);
 
   const nextStep = () => {
     dispatch(moveNext());
     navigate(stepLink[editStepState.step + 1]);
+    console.log(navigate);
   };
+
   const prevStep = () => {
     dispatch(movePrev());
     navigate(-1);
+    console.log(navigate);
   };
 
   return (

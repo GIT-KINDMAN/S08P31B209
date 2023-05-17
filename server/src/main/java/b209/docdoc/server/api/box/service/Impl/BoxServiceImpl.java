@@ -10,6 +10,7 @@ import b209.docdoc.server.config.utils.SecurityManager;
 import b209.docdoc.server.domain.entity.Receiver;
 import b209.docdoc.server.domain.entity.Template;
 import b209.docdoc.server.exception.ErrorCode;
+import b209.docdoc.server.exception.ReceiverNotFoundException;
 import b209.docdoc.server.exception.TemplateNotFoundException;
 import b209.docdoc.server.domain.repository.BoxRepository;
 import b209.docdoc.server.domain.repository.ReceiverRepository;
@@ -52,10 +53,10 @@ public class BoxServiceImpl implements BoxService {
     @Override
     @Transactional
     public Object deleteReceiverTemplates(Long receiverId) {
-        Receiver template = receiverRepository.findById(receiverId)
-                .orElseThrow(() -> new TemplateNotFoundException(ErrorCode.TEMPLATE_NOT_FOUND));
-        template.updateDelete(true);
-        receiverRepository.save(template);
+        Receiver receiver = receiverRepository.findById(receiverId)
+                .orElseThrow(() -> new ReceiverNotFoundException(ErrorCode.RECEIVER_NOT_FOUND));
+        receiver.updateDelete(true);
+        receiverRepository.save(receiver);
         return null;
     }
 
@@ -64,10 +65,10 @@ public class BoxServiceImpl implements BoxService {
     public Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         String receiverEmail = SecurityManager.getCurrentMember().getEmail();
 
-        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+        Sort sort = Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate")
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"))
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
-                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"));
+                .and(Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName"));
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
@@ -81,16 +82,16 @@ public class BoxServiceImpl implements BoxService {
     public Page<BoxSentResDTO> getSentTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
         String senderEmail = SecurityManager.getCurrentMember().getEmail();
 
-        Sort sort = Sort.by(Sort.Direction.fromString(nameSort), "templateName")
-                .and(Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate"))
+        Sort sort = Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate")
+                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"))
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
-                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"));
+                .and(Sort.by(Sort.Direction.fromString(nameSort), "templateName"));
 
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
 
         Page<Template> templates = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
 
-        return templates.map(template -> BoxSentResDTO.of(template));
+        return templates.map(template -> BoxSentResDTO.of(template, receiverRepository.findAllReceiverNameByTemplate(template)));
     }
 
     @Override
@@ -98,7 +99,7 @@ public class BoxServiceImpl implements BoxService {
         Optional<Template> template = templateRepository.findByTemplateIdx(templateIdx);
         if (template.isEmpty()) return null;
 
-        List<Receiver> list =  receiverRepository.findAllByTemplate(template.get());
+        List<Receiver> list =  receiverRepository.findAllByTemplateAndReceiverIsDeleted(template.get(), false);
         List<MemberProgressInfo> infos = new ArrayList<>();
         Integer notCompletedCount = 0;
         Integer completedCount = 0;
