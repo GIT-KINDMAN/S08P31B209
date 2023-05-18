@@ -1,4 +1,3 @@
-import addressListReducer from "./slice/addressListSlice";
 import AuthReducer from "./slice/authSlice";
 import editStepReducer from "./slice/editStepSlice";
 import imageViewReducer from "./slice/imageViewSlice";
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
   auth: AuthReducer,
   imageView: imageViewReducer,
   widgetSelect: widgetSelectReducer,
-  addressList: addressListReducer,
 });
 
 const persistConfig = {

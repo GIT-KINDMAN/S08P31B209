@@ -77,7 +77,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
           setSearchResults(request.data.value.addresses);
           dispatch(
             updateSend({
-              idx: request.data.value.addresses.id,
+              idx: request.data.value.addresses.idx,
               email: request.data.value.addresses.email,
               name: request.data.value.addresses.name,
             }),

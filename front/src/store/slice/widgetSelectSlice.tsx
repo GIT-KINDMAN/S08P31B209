@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface selectedWidgetState {
-  id: string | null;
+  idx: string | null;
 }
 
 const initialState: selectedWidgetState = {
-  id: null,
+  idx: null,
 };
 
 export const widgetSelectSlice = createSlice({
@@ -13,7 +13,7 @@ export const widgetSelectSlice = createSlice({
   initialState,
   reducers: {
     setSelectedWidget: (state, action) => {
-      state.id = action.payload as string;
+      state.idx = action.payload as string;
     },
   },
 });
