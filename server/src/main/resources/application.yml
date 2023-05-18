@@ -125,6 +125,5 @@ mail:
       required: true
 
   AdminMail:
-    id: ${email}
-    password: ${app_password}
-
+    id: 'docdocb209@gmail.com'
+    password: 'xdyihsbuardjvuoy'
