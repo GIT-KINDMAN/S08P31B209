@@ -62,7 +62,7 @@ const router = createBrowserRouter(
           path: "mybox/send",
           element: <SendBox />,
         },
-        { path: "mybox/send/:id", element: <GatherBox /> },
+        { path: "mybox/send/:idx", element: <GatherBox /> },
         {
           path: "address",
           element: <AddressBox />,

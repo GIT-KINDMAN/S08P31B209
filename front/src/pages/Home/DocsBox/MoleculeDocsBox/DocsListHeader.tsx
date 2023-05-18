@@ -41,9 +41,6 @@ const DocsListHeader = ({ header }: HeaderProps) => {
               <div tw="min-w-[4rem] max-w-[4rem] text-center"> 번호 </div>
               <div tw="min-w-[6rem] max-w-[6rem] mx-4 text-center"> 이름 </div>
               <div tw="min-w-[18rem] max-w-[18rem] text-center">이메일</div>
-              <div tw="min-w-[12rem] max-w-[12rem] mr-4 text-center">
-                연락처
-              </div>
             </div>
           )}
         </div>

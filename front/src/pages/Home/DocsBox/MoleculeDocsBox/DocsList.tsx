@@ -93,12 +93,13 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
             <Icon
               icon="fi-br-download"
               size="sm"
-              custom={tw`mx-2 hover:scale-110 hover:text-blue-500`}
+              custom={tw`mx-2 hover:scale-110 hover:text-blue-500 cursor-pointer`}
               onClick={() => {
                 download();
               }}
             />
             <span
+              tw="cursor-pointer"
               onClick={() => navigate(`/home/mybox/send/${item.templateIdx}`)}
             >
               {item.templateName}

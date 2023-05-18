@@ -7,5 +7,6 @@ export const downfile = (Uuid: string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   };
+
   return api.get(`/file/docsfile/${Uuid}.png`, config);
 };

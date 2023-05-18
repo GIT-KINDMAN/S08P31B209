@@ -39,6 +39,9 @@ const Home = () => {
         });
     }
   }, [authState.authToken]);
+  // const [isHovered, setIsHovered] = useState(false);
+  // const handleMouseEnter = () => setIsHovered(true);
+  // const handleMouseLeave = () => setIsHovered(false);
 
   return (
     <>
@@ -46,7 +49,13 @@ const Home = () => {
         <div tw="flex flex-row ">
           <div
             className="HomeSidebar"
-            tw="flex flex-col justify-between min-w-[16rem] max-w-[16rem] min-h-screen max-h-fit bg-blue-900"
+            tw="flex flex-col justify-between max-w-[16rem] min-h-screen max-h-fit bg-blue-900"
+            // onMouseEnter={handleMouseEnter}
+            // onMouseLeave={handleMouseLeave}
+            // style={{
+            //   width: isHovered ? "16rem" : "8rem",
+            //   transition: "width 0.5s",
+            // }}
           >
             <div className="SideHeader">
               <div
@@ -66,6 +75,12 @@ const Home = () => {
                 tw="flex items-center px-4 pt-2 pb-4"
               >
                 <div className="UserThumbnail">
+                  {/* {isHovered ? (
+                    <img
+                      src={ThumbnailDump}
+                      tw="m-2 w-[2.5rem] h-[2.5rem] border rounded-[50%] border-white"
+                    />
+                    ) : null} */}
                   <img
                     src={ThumbnailDump}
                     tw="m-2 w-[2.5rem] h-[2.5rem] border rounded-[50%] border-white"
@@ -103,6 +118,9 @@ const Home = () => {
                         className="fi fi-rr-folder"
                         tw="pr-1 cursor-pointer"
                       ></i>
+                      {/* {isHovered ? (
+                        <label tw="cursor-pointer">받은 문서함</label>
+                        ) : null} */}
                       <label tw="cursor-pointer">받은 문서함</label>
                     </div>
                   </li>
@@ -115,6 +133,9 @@ const Home = () => {
                         className="fi fi-rr-folder"
                         tw="pr-1 cursor-pointer"
                       ></i>
+                      {/* {isHovered ? (
+                        <label tw="cursor-pointer">보낸 문서함</label>
+                        ) : null} */}
                       <label tw="cursor-pointer">보낸 문서함</label>
                     </div>
                   </li>
@@ -128,10 +149,13 @@ const Home = () => {
                         className="fi fi-rr-briefcase"
                         tw="pr-1 cursor-pointer"
                       ></i>
+                      {/* {isHovered ? (
+                        <label tw="cursor-pointer">주소록 관리</label>
+                        ) : null} */}
                       <label tw="cursor-pointer">주소록 관리</label>
                     </div>
                   </li>
-                  <li className="CategoryMenuListItem">
+                  {/* <li className="CategoryMenuListItem">
                     <div
                       tw="w-fit pt-1 pb-2 hocus:(text-orange-600) cursor-pointer"
                       onClick={() => navigate("/home/template")}
@@ -154,7 +178,7 @@ const Home = () => {
                       ></i>
                       <label tw="cursor-pointer">휴지통</label>
                     </div>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <div className="SettingMenu" tw="px-4 py-2 text-white">
@@ -212,6 +236,40 @@ const Home = () => {
                 </ul>
               </div>
             </div>
+            {/* {isHovered ? (
+              <div
+                className="SideFooter"
+                tw="flex flex-col justify-around min-h-[8rem] bg-lightgray-900"
+              >
+                <label tw="text-xs text-white pl-4">{footerCSInfo}</label>
+                <div
+                  className="FooterNav"
+                  tw="flex flex-row text-xs text-white pl-4"
+                >
+                  <label
+                    className="FooterNavItem"
+                    tw="text-xs text-white cursor-pointer"
+                  >
+                    이용약관
+                  </label>
+                  <div className="NavSep" tw="w-[1px] h-full mx-2 bg-white" />
+                  <label
+                    className="FooterNavItem"
+                    tw="text-xs text-white cursor-pointer"
+                  >
+                    개인정보처리방침
+                  </label>
+                  <div className="NavSep" tw="w-[1px] h-full mx-2 bg-white" />
+                  <label
+                    className="FooterNavItem"
+                    tw="text-xs text-white cursor-pointer"
+                  >
+                    고객센터
+                  </label>
+                </div>
+                <label tw="text-xs text-white pl-4">{footerCopyRight}</label>
+              </div>
+            ) : null} */}
             <div
               className="SideFooter"
               tw="flex flex-col justify-around min-h-[8rem] bg-lightgray-900"
@@ -224,7 +282,6 @@ const Home = () => {
                 <label
                   className="FooterNavItem"
                   tw="text-xs text-white cursor-pointer"
-                  onClick={() => navigate("/policy/service")}
                 >
                   이용약관
                 </label>
@@ -232,7 +289,6 @@ const Home = () => {
                 <label
                   className="FooterNavItem"
                   tw="text-xs text-white cursor-pointer"
-                  onClick={() => navigate("/policy/privacy")}
                 >
                   개인정보처리방침
                 </label>
@@ -240,7 +296,6 @@ const Home = () => {
                 <label
                   className="FooterNavItem"
                   tw="text-xs text-white cursor-pointer"
-                  onClick={() => navigate("/help")}
                 >
                   고객센터
                 </label>

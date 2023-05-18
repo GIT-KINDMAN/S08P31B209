@@ -79,4 +79,22 @@ export const deleteReceive = (idx: number, token: string) => {
   return api.delete(`box/received/${idx}`, config);
 };
 
+// 다운로드
 export const downloadDocs = (idx: number) => api.get(`file/template/${idx}`);
+
+// 문서취합페이지
+export const progressDocs = (idx: number, token: string) => {
+  const params = {
+    idx,
+    token,
+  };
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+
+  return api.get(`box/progress/${idx}`, config);
+};
