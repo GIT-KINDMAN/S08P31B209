@@ -28,7 +28,7 @@ public class EmailServiceImpl implements EmailService {
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to.trim());//보내는 대상
-        message.setSubject("이메일 인증 테스트");//제목
+        message.setSubject("이메일 인증 코드입니다");//제목
 
         String msgg="";
         msgg+= "<div style='margin:20px;'>";
@@ -91,11 +91,11 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("보내는 대상 : "+ toEmail);
 //        System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
-        String host = "https://k8b209.p.ssafy.io";
+        String host = "http://localhost:5173";
         String uri = host + "/write?uuid="+uuid+"&fromEmail="+fromEmail+"&toEmail="+toEmail;
 
         message.addRecipients(RecipientType.TO, toEmail);//보내는 대상
-        message.setSubject("템플릿 전송 테스트");//제목
+        message.setSubject("똑똑이 문서 작성을 요청했습니다");//제목
 
         String msgg="";
         msgg+= "<div style='margin:20px;'>";
