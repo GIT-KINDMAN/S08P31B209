@@ -39,7 +39,7 @@ export interface addressState {
   email: string;
   phone: string | null;
   group: string | null;
-  isCheck: boolean;
+  isCheck?: boolean;
 }
 
 const initialState: viewState = {

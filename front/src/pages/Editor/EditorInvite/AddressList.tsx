@@ -1,6 +1,10 @@
 import { fetchEditorAddressList } from "@api/addressAPI";
 
-import { addSend, updateSend } from "@/store/slice/imageViewSlice";
+import {
+  addSend,
+  addressState,
+  updateSend,
+} from "@/store/slice/imageViewSlice";
 import { RootState } from "@/store/store";
 
 import { ChangeEvent, useEffect, useState } from "react";
@@ -15,10 +19,9 @@ interface AddressListProps {
 const AddressList = ({ index, idx }: AddressListProps) => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<addressState[]>([]);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
 
   const authToken = useSelector((state: RootState) => state.auth.authToken);
   const sends = useSelector((state: RootState) => state.imageView.sends);

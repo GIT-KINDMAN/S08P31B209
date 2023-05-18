@@ -14,7 +14,7 @@ export interface addressState {
   email: string;
   phone: string | null;
   position: string | null;
-  isCheck: boolean;
+  isCheck?: boolean;
 }
 
 export const addressListSlice = createSlice({

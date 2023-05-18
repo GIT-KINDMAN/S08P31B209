@@ -27,11 +27,7 @@ const EditorInvite = () => {
         {/* 수신인 추가 박스 */}
         <div className="InviteBoxWrap">
           {sendState.map((send) => (
-            <AddressList
-              key={send.idx}
-              index={index++}
-              idx={`searchQuery${send.idx}`}
-            />
+            <AddressList key={send.idx} index={index++} idx={send.idx} />
           ))}
           {/* 추가 버튼 */}
           <div className="AddInviteWrap" tw="flex justify-center">
