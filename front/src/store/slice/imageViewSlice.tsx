@@ -16,13 +16,30 @@ export interface widgetState {
   attributes: { font: string; fontSize: string };
 }
 
-interface viewState {
+export interface sendState {
+  idx: string;
+  email?: string;
+  name?: string;
+  phone?: string;
+  position?: string;
+}
+
+export interface viewState {
   id: string | null;
   name: string;
   file: fileState | null;
   zoom: number;
   widgets: widgetState[];
-  toSend: { email: string; name: string }[];
+  sends: sendState[];
+}
+
+export interface addressState {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  group: string | null;
+  isCheck?: boolean;
 }
 
 const initialState: viewState = {
@@ -31,7 +48,7 @@ const initialState: viewState = {
   file: null,
   zoom: 100,
   widgets: [],
-  toSend: [],
+  sends: [],
 };
 
 export const imageViewSlice = createSlice({
@@ -68,9 +85,33 @@ export const imageViewSlice = createSlice({
           : widget,
       );
     },
+    addSend: (state, action) => {
+      state.sends = [...state.sends, action.payload as sendState];
+    },
+    delSend: (state, action) => {
+      state.sends = state.sends.filter(
+        (send) => send.idx !== (action.payload as sendState).idx,
+      );
+    },
+    updateSend: (state, action) => {
+      state.sends = state.sends.map((send) =>
+        send.idx === (action.payload as sendState).idx
+          ? { ...send, ...(action.payload as sendState) }
+          : send,
+      );
+    },
   },
 });
 
-export const { setName, setFile, setZoom, addWidget, delWidget, updateWidget } =
-  imageViewSlice.actions;
+export const {
+  setName,
+  setFile,
+  setZoom,
+  addWidget,
+  delWidget,
+  updateWidget,
+  addSend,
+  delSend,
+  updateSend,
+} = imageViewSlice.actions;
 export default imageViewSlice.reducer;
