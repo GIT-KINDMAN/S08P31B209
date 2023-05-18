@@ -64,8 +64,8 @@ public class BoxController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, Msg.SUCCESS_TEMPLATE_SEARCH, boxService.deleteReceiverTemplates(receiverId)));
     }
 
-    @GetMapping("/progress")
-    public ResponseEntity<ResponseDTO> getProgressInfo(@RequestParam("template_id") String templatedId) {
+    @GetMapping("/progress/{template_id}")
+    public ResponseEntity<ResponseDTO> getProgressInfo(@PathVariable("template_id") String templatedId) {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, SUCCESS_TEMPLATE_SEARCH, boxService.getMemberProgress(Long.parseLong(templatedId), SecurityManager.getCurrentMember())));
     }
 }

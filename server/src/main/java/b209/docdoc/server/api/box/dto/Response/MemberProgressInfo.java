@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 public class MemberProgressInfo {
     @JsonProperty("is_completed")
     Boolean isCompleted;
+
     String email;
+
     String name;
 }
