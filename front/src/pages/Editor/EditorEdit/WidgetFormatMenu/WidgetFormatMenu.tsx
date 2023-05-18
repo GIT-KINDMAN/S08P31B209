@@ -8,7 +8,7 @@ const WidgetFormatMenu = () => {
   const dispatch = useDispatch();
 
   const selectedWidgetId = useSelector(
-    (state: RootState) => state.widgetSelect.id,
+    (state: RootState) => state.widgetSelect.idx,
   );
   const widgetState = useSelector((state: RootState) =>
     state.imageView.widgets.find((widget) => widget.idx === selectedWidgetId),

@@ -16,14 +16,31 @@ export interface widgetState {
   attributes: { font: string; fontSize: string };
 }
 
-interface viewState {
+export interface sendState {
+  idx: string;
+  email?: string;
+  name?: string;
+  phone?: string;
+  position?: string;
+}
+
+export interface viewState {
   idx: string | null;
   name: string;
   deadLine: Date;
   zoom: number;
   file: fileState | null;
   widgets: widgetState[];
-  toSend: { email: string; name: string }[];
+  sends: sendState[];
+}
+
+export interface addressState {
+  idx: string | null;
+  name: string;
+  email: string;
+  phone: string | null;
+  group: string | null;
+  isCheck?: boolean;
 }
 
 // 일주일 후 오후 6시를 기본 값으로 설정
@@ -43,7 +60,7 @@ const initialState: viewState = {
   zoom: 100,
   file: null,
   widgets: [],
-  toSend: [],
+  sends: [],
 };
 
 export const imageViewSlice = createSlice({
@@ -83,6 +100,21 @@ export const imageViewSlice = createSlice({
           : widget,
       );
     },
+    addSend: (state, action) => {
+      state.sends = [...state.sends, action.payload as sendState];
+    },
+    delSend: (state, action) => {
+      state.sends = state.sends.filter(
+        (send) => send.idx !== (action.payload as sendState).idx,
+      );
+    },
+    updateSend: (state, action) => {
+      state.sends = state.sends.map((send) =>
+        send.idx === (action.payload as sendState).idx
+          ? { ...send, ...(action.payload as sendState) }
+          : send,
+      );
+    },
   },
 });
 
@@ -94,5 +126,8 @@ export const {
   addWidget,
   delWidget,
   updateWidget,
+  addSend,
+  delSend,
+  updateSend,
 } = imageViewSlice.actions;
 export default imageViewSlice.reducer;

@@ -33,7 +33,7 @@ public class FileHandler {
         log.info("Original file name: " + originalName);
         String uuid = UUID.randomUUID().toString();
         // 확장자 유효성 검사
-        String extension = originalName.substring(originalName.lastIndexOf(".") + 1);
+        String extension = originalName.substring(originalName.lastIndexOf(".") + 1).toLowerCase();
         log.info("Extracted extension: " + extension);
         boolean isValidExtension = Arrays.stream(extensions).anyMatch(extension::equalsIgnoreCase);
         if (!isValidExtension) throw new InvalidFileExtensionException(ErrorCode.INVALID_FILE_EXTENSION);

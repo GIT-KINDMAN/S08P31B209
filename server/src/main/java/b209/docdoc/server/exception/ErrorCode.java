@@ -57,7 +57,9 @@ public enum ErrorCode {
     INVALID_FILE_EXTENSION(500, "유효하지 않는 파일 확장자 입니다"),
     FILE_CANNOT_SAVE(500, "파일을 저장하는 도중 에러가 발생했습니다."),
 
-    RECEIVER_NOT_FOUND(500, "해당하는 수신 데이터가 없습니다.");
+    RECEIVER_NOT_FOUND(500, "해당하는 수신 데이터가 없습니다."),
+
+    TEMPLATE_AUTHOR_NOT_MATCHED(401, "템플릿의 작성자가 아니기때문에 회신 문서들에 접근할 수 없습니다.");
 
     private final int status;
     private final String message;
