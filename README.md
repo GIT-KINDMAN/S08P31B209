@@ -92,15 +92,15 @@ MySQL, MongoDB
 
 ### 📬배포 방법
 
-> - [[링크 참조](/exec/1_2_TechStack.md)]
+> - [[링크 참조](/exec/포팅매뉴얼.md)]
 <br>
 ## 💼기획/설계
 
 ### 📑기능 요구 명세서
-![요구사항명세서.png](/docs/요구 명세서/요구 명세서.png)
+![요구사항명세서.png](/docs/요구 명세서/요구 명세서.pdf)
 <br>
 ### 📑ERD
-![erd.png](/docs/erd/erd.png)
+![erd.png](/docs/erd/img/erd.png)
 <br>
 
 ## 🛰프로젝트 관리/운영
