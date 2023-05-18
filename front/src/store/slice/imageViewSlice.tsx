@@ -34,6 +34,14 @@ export interface viewState {
   sends: sendState[];
 }
 
+export interface templateSaveState {
+  toEmailNameReqDTO: sendState[];
+  templateDeadline: string;
+  templateName: string;
+  widgetResDTO: widgetState[];
+  file: fileState;
+}
+
 export interface addressState {
   idx: string | null;
   name: string;

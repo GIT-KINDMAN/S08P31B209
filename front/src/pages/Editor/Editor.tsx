@@ -3,7 +3,15 @@ import { Button, Icon, Label } from "@atomic/atoms";
 import { moveNext, movePrev } from "@store/slice/editStepSlice";
 import type { RootState } from "@store/store";
 
+import { templateSave } from "@/apis/templateAPI";
+import {
+  fileState,
+  templateSaveState,
+  viewState,
+} from "@/store/slice/imageViewSlice";
+
 import "@flaticon/flaticon-uicons/css/all/all.css";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import tw from "twin.macro";
@@ -25,8 +33,24 @@ const stepTitle = [
   "unknown",
 ];
 
+// const dataURLtoBlob = (dataURL: string): Blob => {
+//   const byteString = window.atob(dataURL.split(",")[1]);
+//   const mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0];
+//   const arrayBuffer = new ArrayBuffer(byteString.length);
+//   const ia = new Uint8Array(arrayBuffer);
+
+//   for (let i = 0; i < byteString.length; i++) {
+//     ia[i] = byteString.charCodeAt(i);
+//   }
+
+//   const blob = new Blob([arrayBuffer], { type: mimeString });
+//   return blob;
+// };
+
 const Editor = () => {
   const editStepState = useSelector((state: RootState) => state.editStep);
+  const authToken = useSelector((state: RootState) => state.auth.authToken);
+  const imageView = useSelector((state: RootState) => state.imageView);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,6 +66,29 @@ const Editor = () => {
     navigate(-1);
     console.log(navigate);
   };
+
+  const mapImageViewToTemplateSaveState = (
+    imageView: viewState,
+  ): templateSaveState => {
+    return {
+      toEmailNameReqDTO: imageView.sends,
+      templateDeadline: imageView.deadLine.toISOString(),
+      templateName: imageView.name,
+      widgetResDTO: imageView.widgets,
+      file: imageView.file as fileState,
+    };
+  };
+
+  useEffect(() => {
+    if (editStepState.step === 4 && imageView.file !== null) {
+      console.log("템플릿 저장 및 이메일 전송");
+      const mappedData = mapImageViewToTemplateSaveState(imageView);
+      templateSave(mappedData, authToken ?? "").then((request) => {
+        console.log("템플릿 저장완료", request.data);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editStepState]);
 
   return (
     <>
