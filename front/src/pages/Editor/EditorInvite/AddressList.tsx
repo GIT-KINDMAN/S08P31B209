@@ -18,6 +18,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
 
   const authToken = useSelector((state: RootState) => state.auth.authToken);
   const sends = useSelector((state: RootState) => state.imageView.sends);
@@ -36,6 +37,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
           updateSend({
             ...sendToUpdate,
             email: selectedResult.email,
+            name: selectedResult.name,
           }),
         );
       } else {
@@ -43,6 +45,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
           addSend({
             idx,
             email: selectedResult.email,
+            name: selectedResult.name,
           }),
         );
       }
@@ -73,6 +76,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
             updateSend({
               idx: request.data.value.addresses.id,
               email: request.data.value.addresses.email,
+              name: request.data.value.addresses.name,
             }),
           );
         } catch (error) {
