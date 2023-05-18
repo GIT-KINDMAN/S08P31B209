@@ -10,10 +10,10 @@ public class MemberProgressRes {
     @JsonProperty("not_completed_count")
     Integer notCompletedCount;
 
-    @JsonProperty("completed_count")
+    @JsonProperty(value = "completed_count", access = JsonProperty.Access.READ_WRITE)
     Integer completedCount;
 
-    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    @JsonProperty(value = "members", access = JsonProperty.Access.READ_WRITE)
     List<MemberProgressInfo> members;
 
     public static MemberProgressRes of(Integer notCompletedCount, Integer completedCount, List<MemberProgressInfo> list) {
