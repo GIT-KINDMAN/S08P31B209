@@ -92,7 +92,7 @@ public class EmailServiceImpl implements EmailService {
 //        System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
         String host = "https://k8b209.p.ssafy.io";
-        String uri = host + "/editor/create?uuid="+uuid+"&fromEmail="+fromEmail+"&toEmail="+toEmail;
+        String uri = host + "/write?uuid="+uuid+"&fromEmail="+fromEmail+"&toEmail="+toEmail;
 
         message.addRecipients(RecipientType.TO, toEmail);//보내는 대상
         message.setSubject("템플릿 전송 테스트");//제목
