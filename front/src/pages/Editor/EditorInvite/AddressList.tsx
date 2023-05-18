@@ -121,7 +121,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
           value={email}
           onChange={handleEmailInputChange}
         />
-
+        {/* 
         <div tw="flex justify-around">
           <input
             className="InvitePhoneTag"
@@ -145,7 +145,7 @@ const AddressList = ({ index, idx }: AddressListProps) => {
             {" "}
             직접 입력할게요
           </span>
-        </div>
+        </div> */}
       </div>
     </>
   );

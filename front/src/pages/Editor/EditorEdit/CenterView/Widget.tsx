@@ -140,30 +140,8 @@ const Widget = ({ widget, parent }: IProps) => {
         ref={widgetRef}
         tw="absolute z-30 p-2 text-orange-900 bg-orange-200/50 rounded-[0.25rem] cursor-move"
         style={{
-          left: `${
-            (position.x -
-              (widgetRef.current?.parentElement?.offsetWidth ??
-                parent?.offsetWidth ??
-                0) /
-                2) *
-              (zoom / 100) +
-            (widgetRef.current?.parentElement?.offsetWidth ??
-              parent?.offsetWidth ??
-              0) /
-              2
-          }px`,
-          top: `${
-            (position.y -
-              (widgetRef.current?.parentElement?.offsetHeight ??
-                parent?.offsetHeight ??
-                0) /
-                2) *
-              (zoom / 100) +
-            (widgetRef.current?.parentElement?.offsetHeight ??
-              parent?.offsetHeight ??
-              0) /
-              2
-          }px`,
+          left: `${calcPosX()}px`,
+          top: `${calcPosY()}px`,
         }}
         // hidden={ }
         tabIndex={0}
