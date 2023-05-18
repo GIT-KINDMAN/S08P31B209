@@ -50,22 +50,15 @@ const ImageViewer = () => {
     }
   }, [fileState, viewState.zoom]);
 
+  // 캔버스를 이미지로 다운로드 받는 메소드
   const downloadCanvas = () => {
-    const img = new Image();
-    if (fileState) {
-      img.src = fileState.data;
-    }
-
     const canvasOrigin: HTMLCanvasElement = canvasRef.current
       ? canvasRef.current
       : document.createElement("canvas");
+
     const canvasWidget: HTMLCanvasElement = document.createElement("canvas");
     canvasWidget.width = window.outerWidth;
     canvasWidget.height = window.outerHeight;
-
-    const canvasResult: HTMLCanvasElement = document.createElement("canvas");
-    canvasResult.width = window.outerWidth;
-    canvasResult.height = window.outerHeight;
 
     const ctxWidget = canvasWidget.getContext("2d");
     viewState.widgets.map((widget) => {
@@ -98,14 +91,43 @@ const ImageViewer = () => {
       }
     });
 
-    const ctxResult = canvasResult.getContext("2d");
-    ctxResult?.drawImage(canvasOrigin, 0, 0);
-    ctxResult?.drawImage(canvasWidget, 0, 0);
+    const canvasCombine: HTMLCanvasElement = document.createElement("canvas");
+    canvasCombine.width = window.outerWidth;
+    canvasCombine.height = window.outerHeight;
+
+    const ctxCombine = canvasCombine.getContext("2d");
+    ctxCombine?.drawImage(canvasOrigin, 0, 0);
+    ctxCombine?.drawImage(canvasWidget, 0, 0);
+
+    const img = new Image();
+    if (fileState) {
+      img.src = fileState.data;
+    }
+
+    const width = img.width / (img.height / canvasOrigin.height);
+    const height = canvasOrigin.height;
+
+    const canvasOutput: HTMLCanvasElement = document.createElement("canvas");
+    canvasOutput.width = width;
+    canvasOutput.height = height;
+
+    const ctxOutput = canvasOutput.getContext("2d");
+    ctxOutput?.drawImage(
+      canvasCombine,
+      (canvasOrigin.width - width * (viewState.zoom / 100)) / 2,
+      (canvasOrigin.height - height * (viewState.zoom / 100)) / 2,
+      width * (viewState.zoom / 100),
+      height * (viewState.zoom / 100),
+      0,
+      0,
+      width,
+      height,
+    );
 
     const link = document.createElement("a");
-    const fileName = viewState.name;
-    link.download = fileName + ".png";
-    link.href = canvasResult.toDataURL() ?? "#";
+    link.href = canvasOutput.toDataURL("image/png") ?? "#";
+    link.download = viewState.name + ".png";
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -118,12 +140,10 @@ const ImageViewer = () => {
           <button
             tw="mx-2 px-1 border border-black"
             onClick={() => {
-              const newId = Math.random().toString(36);
-              const newIdx = 1;
               dispatch(
                 addWidget({
-                  id: newId,
-                  idx: newIdx,
+                  idx: Math.random().toString(36),
+                  name: "Name",
                   type: "text",
                   pos: { x: 0, y: 0 },
                   value: "Empty Widget",
@@ -154,7 +174,7 @@ const ImageViewer = () => {
           <Widget
             widget={widget}
             parent={canvasFrameRef.current}
-            key={widget.id}
+            key={widget.idx}
             {...widget}
           />
         ))}

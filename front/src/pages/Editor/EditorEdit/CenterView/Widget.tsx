@@ -38,29 +38,14 @@ const Widget = ({ widget, parent }: IProps) => {
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
-    const newPosition = {
-      // x: e.clientX * (zoom / 100),
-      // y: e.clientY * (zoom / 100),
-      // x:
-      //   (e.clientX -
-      //     offsetPosition.x -
-      //     (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2) *
-      //     ((1 / zoom) * 100) +
-      //   (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2 -
-      //   (widgetRef.current?.parentElement?.offsetLeft ??
-      //     parent?.offsetLeft ??
-      //     0),
-      // y:
-      //   (e.clientY -
-      //     offsetPosition.y -
-      //     (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2) *
-      //     ((1 / zoom) * 100) +
-      //   (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2 -
-      //   (widgetRef.current?.parentElement?.offsetTop ?? parent?.offsetTop ?? 0),
+    const computedStyles = getComputedStyle(widgetRef.current ?? new Element());
 
+    const newPosition = {
       x:
         (e.clientX -
           offsetPosition.x -
+          parseInt(computedStyles.marginLeft) -
+          parseInt(computedStyles.paddingLeft) -
           (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2) *
           ((1 / zoom) * 100) +
         (widgetRef.current?.parentElement?.offsetWidth ?? 0) / 2 -
@@ -71,6 +56,8 @@ const Widget = ({ widget, parent }: IProps) => {
       y:
         (e.clientY -
           offsetPosition.y -
+          parseInt(computedStyles.marginTop) -
+          parseInt(computedStyles.paddingTop) -
           (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2) *
           ((1 / zoom) * 100) +
         (widgetRef.current?.parentElement?.offsetHeight ?? 0) / 2 -
@@ -84,7 +71,7 @@ const Widget = ({ widget, parent }: IProps) => {
   };
 
   const handleFocus = () => {
-    dispatch(setSelectedWidget(widget.id));
+    dispatch(setSelectedWidget(widget.idx));
     // console.log("Focus: " + widget.id);
   };
 
@@ -95,15 +82,17 @@ const Widget = ({ widget, parent }: IProps) => {
       case "text":
         content = (
           <>
-            <label>텍스트</label>
-            <input
-              type="text"
-              value={widget.value}
-              tw="w-full p-1 border-b-2 text-black border-orange-900 focus:(outline-0)"
-              onChange={(e) =>
-                dispatch(updateWidget({ ...widget, value: e.target.value }))
-              }
-            />
+            <div>
+              <div tw="mb-2">[ {widget.name} ]</div>
+              <input
+                type="text"
+                value={widget.value}
+                tw="w-full p-1 border-b-2 text-black border-orange-900 focus:(outline-0)"
+                onChange={(e) =>
+                  dispatch(updateWidget({ ...widget, value: e.target.value }))
+                }
+              />
+            </div>
           </>
         );
         break;
@@ -115,43 +104,41 @@ const Widget = ({ widget, parent }: IProps) => {
     return content;
   };
 
+  const calcPosX = () => {
+    return (
+      (position.x -
+        (widgetRef.current?.parentElement?.offsetWidth ??
+          parent?.offsetWidth ??
+          0) /
+          2) *
+        (zoom / 100) +
+      (widgetRef.current?.parentElement?.offsetWidth ??
+        parent?.offsetWidth ??
+        0) /
+        2
+    );
+  };
+
+  const calcPosY = () => {
+    return (
+      (position.y -
+        (widgetRef.current?.parentElement?.offsetHeight ??
+          parent?.offsetHeight ??
+          0) /
+          2) *
+        (zoom / 100) +
+      (widgetRef.current?.parentElement?.offsetHeight ??
+        parent?.offsetHeight ??
+        0) /
+        2
+    );
+  };
+
   return (
     <>
       <div
         ref={widgetRef}
-        tw="absolute z-30 px-3 py-1 min-w-[6rem] text-orange-900 bg-orange-200/50 rounded-[0.25rem] cursor-move"
-        // style={{
-        //   left: `${
-        //     (position.x -
-        //       (widgetRef.current?.parentElement?.offsetLeft ??
-        //         parent?.offsetLeft ??
-        //         0) -
-        //       (widgetRef.current?.parentElement?.offsetWidth ??
-        //         parent?.offsetWidth ??
-        //         0) /
-        //         2) *
-        //       (zoom / 100) +
-        //     (widgetRef.current?.parentElement?.offsetWidth ??
-        //       parent?.offsetWidth ??
-        //       0) /
-        //       2
-        //   }px`,
-        //   top: `${
-        //     (position.y -
-        //       (widgetRef.current?.parentElement?.offsetTop ??
-        //         parent?.offsetTop ??
-        //         0) -
-        //       (widgetRef.current?.parentElement?.offsetHeight ??
-        //         parent?.offsetHeight ??
-        //         0) /
-        //         2) *
-        //       (zoom / 100) +
-        //     (widgetRef.current?.parentElement?.offsetHeight ??
-        //       parent?.offsetHeight ??
-        //       0) /
-        //       2
-        //   }px`,
-        // }}
+        tw="absolute z-30 p-2 text-orange-900 bg-orange-200/50 rounded-[0.25rem] cursor-move"
         style={{
           left: `${
             (position.x -
@@ -178,6 +165,7 @@ const Widget = ({ widget, parent }: IProps) => {
               2
           }px`,
         }}
+        // hidden={ }
         tabIndex={0}
         draggable={true}
         onDragEnd={handleDragEnd}

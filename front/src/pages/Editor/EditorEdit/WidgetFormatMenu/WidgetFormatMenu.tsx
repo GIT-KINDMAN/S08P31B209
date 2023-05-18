@@ -11,31 +11,37 @@ const WidgetFormatMenu = () => {
     (state: RootState) => state.widgetSelect.id,
   );
   const widgetState = useSelector((state: RootState) =>
-    state.imageView.widgets.find((widget) => widget.id === selectedWidgetId),
+    state.imageView.widgets.find((widget) => widget.idx === selectedWidgetId),
   );
 
   return (
     <>
       <div
-        className="RightSidebar"
+        className="WidgetTypeInfoForm"
         tw="flex flex-col min-w-[15rem] max-w-[15rem] bg-orange-100"
       >
+        <div tw="w-full px-4 pb-2 border-b-2 bg-white">
+          <div tw="my-2 text-base font-bold">
+            {`위젯 ID : ${widgetState?.idx ?? ""}`}
+          </div>
+          <div tw="my-2 text-base font-bold">
+            {`위젯 타입 : ${widgetState?.type ?? ""}`}
+          </div>
+        </div>
         <div
-          className="LabelTilteForm"
+          className="WidgetNameForm"
           tw="w-full px-4 pt-2 pb-4 border-b-2 bg-white"
         >
-          <div className="FormHeader" tw="mb-2 text-base font-bold">
-            {`${widgetState?.type} type (${widgetState?.id})`}
+          <div className="FormTitle" tw="mb-2 text-base font-bold">
+            위젯 이름
           </div>
           <div className="FormContent">
             <input
               type="text"
-              value={widgetState?.value}
+              value={widgetState?.name}
               tw="w-full p-1 border-b border-black"
               onChange={(e) =>
-                dispatch(
-                  updateWidget({ ...widgetState, value: e.target.value }),
-                )
+                dispatch(updateWidget({ ...widgetState, name: e.target.value }))
               }
             />
           </div>

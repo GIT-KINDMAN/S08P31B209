@@ -1,6 +1,17 @@
+import { setDeadLine } from "@store/slice/imageViewSlice";
+import { RootState } from "@store/store";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
 import "twin.macro";
 
 const WidgetGalleryMenu = () => {
+  const dispatch = useDispatch();
+
+  const deadLine = useSelector((state: RootState) => state.imageView.deadLine);
+  console.log(deadLine);
+
   return (
     <>
       <div
@@ -12,17 +23,17 @@ const WidgetGalleryMenu = () => {
           tw="w-full px-4 pt-2 pb-4 border-b-2 bg-white"
         >
           <div className="FormHeader" tw="mb-2 text-base font-bold">
-            대상자
+            마감일
           </div>
           <div className="FormContent">
-            <select
-              className="SelectSubject"
-              tw="w-full p-1 border rounded border-black"
-            >
-              <option value="작성자">작성자</option>
-              <option value="User A">User A</option>
-              <option value="User B">User B</option>
-            </select>
+            <DatePicker
+              selected={deadLine}
+              showTimeSelect
+              dateFormat="Pp"
+              onChange={(date) => {
+                dispatch(setDeadLine(date));
+              }}
+            />
           </div>
         </div>
         <div

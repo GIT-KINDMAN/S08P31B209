@@ -2,7 +2,7 @@ import type { RootState } from "@store/store";
 
 import { fetchEditorAddressList } from "@/apis/addressAPI";
 
-import NameSearchList from "./NameSearchList";
+import NameSearchList, { SearchResultProps } from "./NameSearchList";
 
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -14,8 +14,9 @@ const EditorInvite = () => {
   const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [inviteBoxes, setInviteBoxes] = useState([1]);
   const [deadline, setDeadline] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResultProps[]>();
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchEmail, setSearchEmail] = useState("");
 
   const localDate = new Date();
   const authState = useSelector((state: RootState) => state.auth);
@@ -32,6 +33,7 @@ const EditorInvite = () => {
             request.data.value.addresses,
           );
           setSearchResults(request.data.value.addresses);
+          setSearchEmail(request.data.value.addresses.email);
         } catch (error) {
           console.error("주소록 가져오기 실패", error);
         }
@@ -39,7 +41,7 @@ const EditorInvite = () => {
     };
 
     fetchSearchResults();
-  }, [searchQuery]);
+  }, [authState.authToken, searchQuery]);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -105,12 +107,18 @@ const EditorInvite = () => {
                 list="searchQuery"
                 onChange={handleNameInputChange}
               />
-              <NameSearchList id="searchQuery" searchResults={searchResults} />
+              <NameSearchList
+                id="searchQuery"
+                searchResults={searchResults ?? []}
+              />
               <input
                 className="InviteEmailInput"
                 tw="w-96 border border-lightgray-500 mx-4 my-3 px-4 text-xl"
                 placeholder="Email"
                 required={true}
+                value={
+                  searchResults?.map((searchResult) => searchResult.email) ?? ""
+                }
               />
 
               <div tw="flex justify-around">

@@ -1,5 +1,5 @@
 // NameSearchList.tsx
-interface SearchResultProps {
+export interface SearchResultProps {
   id: number;
   name: string;
   email: string;
@@ -17,7 +17,7 @@ const NameSearchList = ({ id, searchResults }: NameSearchListProps) => {
   return (
     <datalist id={id}>
       {searchResults?.map((result, index) => (
-        <option key={index} value={result.name + " " + result.email}></option>
+        <option key={index} value={result.name}></option>
       ))}
     </datalist>
   );
