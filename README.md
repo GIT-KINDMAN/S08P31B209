@@ -100,7 +100,7 @@ MySQL, MongoDB
 ![요구사항명세서.png](/docs/요구 명세서/요구 명세서.pdf)
 <br>
 ### 📑ERD
-![erd.png](/docs/erd/img/erd.png)
+![erd.png](/docs/erd/img/DOCDOCERD_V2.0.png)
 <br>
 
 ## 🛰프로젝트 관리/운영
