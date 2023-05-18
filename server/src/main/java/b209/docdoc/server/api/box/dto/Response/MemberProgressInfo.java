@@ -11,4 +11,6 @@ public class MemberProgressInfo {
     String email;
 
     String name;
+
+    String phone;
 }

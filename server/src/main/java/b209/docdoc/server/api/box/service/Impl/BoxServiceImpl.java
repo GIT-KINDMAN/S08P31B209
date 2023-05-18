@@ -151,7 +151,7 @@ public class BoxServiceImpl implements BoxService {
         for (Receiver receiver: list) {
             if (receiver.getReceiverIsCompleted()) completedCount++;
             else notCompletedCount++;
-            infos.add(new MemberProgressInfo(receiver.getReceiverIsCompleted(), receiver.getReceiverEmail(), receiver.getReceiverName()));
+            infos.add(new MemberProgressInfo(receiver.getReceiverIsCompleted(), receiver.getReceiverEmail(), receiver.getReceiverName(), receiver.getReceiverPhone()));
         }
 
         return MemberProgressRes.of(notCompletedCount, completedCount, infos);
