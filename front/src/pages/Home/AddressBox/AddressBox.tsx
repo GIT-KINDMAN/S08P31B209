@@ -42,7 +42,7 @@ const AddressBox = () => {
   };
 
   interface addressState {
-    id: number;
+    idx: number;
     name: string;
     email: string;
     group: string;
@@ -72,7 +72,7 @@ const AddressBox = () => {
                   if (authState.authToken) {
                     const token = authState.authToken;
                     console.log(token);
-                    deleteAddress(addressItem.id, token)
+                    deleteAddress(addressItem.idx, token)
                       .then((request) => {
                         console.log(request.data);
                         fetchAddressList(token, groupName)
