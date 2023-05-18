@@ -1,8 +1,14 @@
-import { Button, Icon, TextInput } from "@/components/atoms";
+import type { RootState } from "@store/store";
+
+import { deleteReceive, deleteSend } from "@/apis/boxAPI";
+import { downfile } from "@/apis/fileAPI";
+import { Icon } from "@/components/atoms";
 
 import { HeaderProps } from "../TemplateDocs/TemplateDocs";
 
-import { useState } from "react";
+// import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { useEffect } from "react";
 import tw from "twin.macro";
 
@@ -13,16 +19,20 @@ export interface receiveDataItem {
   receiverName: string;
   receiverSenderEmail: string;
   receiverSenderName: string;
-  template: object;
+  receiverIdx: number;
+  template: templateType;
+  updatedDate: string;
 }
 
 export interface sendDataItem {
   createdDate: string;
   member: memberType;
+  receivers: string[];
   templateDeadline: string;
   templateIdx: number;
   templateName: string;
-  templatefile: object;
+  templatefile: templatefileType;
+  templateUuid: string;
   updatedDate: string;
 }
 
@@ -31,88 +41,107 @@ interface memberType {
   memberName: string;
 }
 
-const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const handleOpenEdit = () => {
-    setIsOpenEdit(!isOpenEdit);
-  };
-  // 문서이름 변경
-  const [editFile, setEditFile] = useState("");
+interface templateType {
+  member: object;
+  templateDeadline: string;
+  templateName: string;
+  templateUuid: string;
+  templatefile: templatefileType;
+}
 
+interface templatefileType {
+  templatefileIdx: number;
+  templatefileOriginalName: string;
+  templatefileSavedName: string;
+  templatefileSavedPath: string;
+}
+
+const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
+  // 문서이름 변경
+
+  const authState = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
   // 문서 리스트 출력
   const sendList = sendData?.map((item: sendDataItem, i: number) => {
-    console.log(item);
+    const token = authState.authToken;
+
+    const download = () => {
+      if (token) {
+        downfile(item.templateUuid, token)
+          .then((request) => {
+            console.log(request.data);
+          })
+          .catch((e) => console.log(e));
+      }
+    };
+
+    const handleDeleteSend = () => {
+      if (token) {
+        deleteSend(item.templateIdx, token)
+          .then((request) => {
+            request;
+            window.location.reload();
+          })
+          .catch((e) => console.log(e));
+      }
+    };
+
     return (
       <div className="FileItem" tw="flex flex-row" key={i}>
-        <div tw="mx-4 my-3">
-          <input type="checkbox" />
-        </div>
-        <div className="DocsName" tw="min-w-[20rem] max-w-[20rem]  mx-4 my-3">
-          {isOpenEdit === false ? (
-            <div>
-              <span>{item.templateName}</span>
-              <Icon
-                icon="fi-rr-edit"
-                size="sm"
-                custom={tw`mx-4`}
-                onClick={() => {
-                  handleOpenEdit();
-                  console.log("이름변경");
-                }}
-              />
-            </div>
-          ) : (
-            <div tw="flex flex-row">
-              <TextInput
-                variant="primary"
-                custom={tw`border-2 rounded-sm`}
-                onChange={(e) => {
-                  setEditFile(e.target.value);
-                  console.log(editFile);
-                }}
-              />
-              <Button
-                variant="secondary"
-                isOutline={true}
-                custom={tw`px-2 mx-1`}
-                onClick={handleOpenEdit}
-              >
-                x
-              </Button>
-              <Button
-                variant="primary"
-                custom={tw`px-2 mx-1`}
-                onClick={handleOpenEdit}
-              >
-                O
-              </Button>
-            </div>
-          )}
+        <div className="DocsName" tw="min-w-[16rem] max-w-[16rem]  mx-4 my-3">
+          <div>
+            <Icon
+              icon="fi-br-download"
+              size="sm"
+              custom={tw`mx-2 hover:scale-110 hover:text-blue-500 cursor-pointer`}
+              onClick={() => {
+                download();
+              }}
+            />
+            <span
+              tw="cursor-pointer"
+              onClick={() => navigate(`/home/mybox/send/${item.templateIdx}`)}
+            >
+              {item.templateName}
+            </span>
+          </div>
         </div>
         <div className="DocsReceiver" tw="flex  my-auto">
           <div
             className="DocsEdit"
-            tw="min-w-[10rem] max-w-[10rem]  my-3  grid grid-cols-1 text-center"
+            tw="min-w-[10rem] max-w-[10rem]  my-3   text-center"
           >
-            {item?.member.memberName}
+            {item?.receivers.length > 2 ? (
+              <div>
+                {item?.receivers[0]},{item?.receivers[1]} 외{" "}
+                {item?.receivers.length - 2}명
+              </div>
+            ) : (
+              <div>
+                {item?.receivers[0]} {item?.receivers[1]}
+              </div>
+            )}
           </div>
           <div
             className="DocsShared"
-            tw="min-w-[10rem] max-w-[10rem] my-3  grid grid-cols-1 text-center"
+            tw="min-w-[10rem] max-w-[10rem] my-3   text-center"
           >
-            2023-05-11
+            <span>{item.createdDate.slice(0, 10)}</span>
+            {/* {item.createdDate.slice(11, 16)} */}
           </div>
           <div
             className="DocsDeadline"
-            tw="min-w-[10rem] max-w-[10rem] grid grid-cols-1 my-3 text-center"
+            tw="min-w-[10rem] max-w-[10rem]  my-3 text-center"
           >
             {item?.templateDeadline}
           </div>
           <div className="Doctrash" tw="mx-2 mt-2 px-2">
             <Icon
               icon=" fi-rr-trash"
-              custom={tw`mx-2 px-2`}
-              onClick={() => console.log("삭제")}
+              custom={tw`mx-2 px-2 hover:scale-90 hover:text-orange-400 `}
+              onClick={() => {
+                handleDeleteSend();
+              }}
             />
           </div>
         </div>
@@ -120,78 +149,51 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
     );
   });
   const receiveList = receiveData?.map((item: receiveDataItem, i: number) => {
-    console.log(item);
+    const token = authState.authToken;
+
+    const handleDeleteReceive = () => {
+      if (token) {
+        deleteReceive(item.receiverIdx, token)
+          .then(() => {
+            // console.log("request", request.data);
+            window.location.reload();
+          })
+          .catch((e) => console.log(e));
+      }
+    };
     return (
       <div className="FileItem" tw="flex flex-row" key={i}>
-        <div tw="mx-4 my-3">
-          <input type="checkbox" />
-        </div>
-        <div className="DocsName" tw="min-w-[20rem] max-w-[20rem]  mx-4 my-3">
-          {isOpenEdit === false ? (
-            <div>
-              <span>{item.receiverDocsName}</span>
-              <Icon
-                icon="fi-rr-edit"
-                size="sm"
-                custom={tw`mx-4`}
-                onClick={() => {
-                  handleOpenEdit();
-                  console.log("이름변경");
-                }}
-              />
-            </div>
-          ) : (
-            <div tw="flex flex-row">
-              <TextInput
-                variant="primary"
-                custom={tw`border-2 rounded-sm`}
-                onChange={(e) => {
-                  setEditFile(e.target.value);
-                  console.log(editFile);
-                }}
-              />
-              <Button
-                variant="secondary"
-                isOutline={true}
-                custom={tw`px-2 mx-1`}
-                onClick={handleOpenEdit}
-              >
-                x
-              </Button>
-              <Button
-                variant="primary"
-                custom={tw`px-2 mx-1`}
-                onClick={handleOpenEdit}
-              >
-                O
-              </Button>
-            </div>
-          )}
+        <div className="DocsName" tw="min-w-[16rem] max-w-[20rem]  mx-4 my-3">
+          <div>
+            <span>{item.receiverDocsName}</span>
+          </div>
         </div>
         <div className="DocsSender" tw="flex  my-auto">
           <div
             className="DocsEdit"
-            tw="min-w-[10rem] max-w-[10rem]  my-3  grid grid-cols-1 text-center"
+            tw="min-w-[10rem] max-w-[10rem]  my-3  text-center"
           >
             {item?.receiverSenderName}
           </div>
           <div
             className="DocsShared"
-            tw="min-w-[10rem] max-w-[10rem] my-3  grid grid-cols-1 text-center"
+            tw="min-w-[10rem] max-w-[10rem] my-3   text-center"
           >
-            2023-05-11
+            {item?.updatedDate.slice(0, 10)}
           </div>
           <div
             className="DocsDeadline"
-            tw="min-w-[10rem] max-w-[10rem] grid grid-cols-1 my-3 text-center"
+            tw="min-w-[10rem] max-w-[10rem]  my-3 text-center"
           >
             {item?.receiverDeadline}
           </div>
           <div className="Doctrash" tw="mx-2 mt-2 px-2">
             <Icon
               icon=" fi-rr-trash"
-              custom={tw`mx-2 px-2`}
-              onClick={() => console.log("삭제")}
+              custom={tw`mx-2 px-2 hover:scale-90 hover:text-orange-400`}
+              onClick={() => {
+                handleDeleteReceive();
+              }}
             />
           </div>
         </div>

@@ -21,7 +21,7 @@ const SendBox = () => {
         .then((request) => {
           // console.log(request);
           setSendData(request.data.value.content);
-          // console.log("sent1:", request.data.value.content);
+          console.log("sent1:", request.data.value.content);
           // console.log("sent2:", sendData);
         })
         .catch((error) => {
