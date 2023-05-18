@@ -1,7 +1,6 @@
 import type { RootState } from "@store/store";
 
 import { deleteReceive, deleteSend } from "@/apis/boxAPI";
-import { downfile } from "@/apis/fileAPI";
 import { Icon } from "@/components/atoms";
 
 import { HeaderProps } from "../TemplateDocs/TemplateDocs";
@@ -65,16 +64,6 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
   const sendList = sendData?.map((item: sendDataItem, i: number) => {
     const token = authState.authToken;
 
-    const download = () => {
-      if (token) {
-        downfile(item.templateUuid, token)
-          .then((request) => {
-            console.log(request.data);
-          })
-          .catch((e) => console.log(e));
-      }
-    };
-
     const handleDeleteSend = () => {
       if (token) {
         deleteSend(item.templateIdx, token)
@@ -90,14 +79,6 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
       <div className="FileItem" tw="flex flex-row" key={i}>
         <div className="DocsName" tw="min-w-[16rem] max-w-[16rem]  mx-4 my-3">
           <div>
-            <Icon
-              icon="fi-br-download"
-              size="sm"
-              custom={tw`mx-2 hover:scale-110 hover:text-blue-500 cursor-pointer`}
-              onClick={() => {
-                download();
-              }}
-            />
             <span
               tw="cursor-pointer"
               onClick={() => navigate(`/home/mybox/send/${item.templateIdx}`)}
@@ -205,8 +186,14 @@ const DocsList = ({ header, sendData, receiveData }: HeaderProps) => {
       className="FileList"
       tw="border-2 min-w-[60rem] max-w-[60rem] flex flex-col "
     >
-      {header === "보낸 문서함" ? <div>{sendList} </div> : null}
-      {header === "받은 문서함" ? <div>{receiveList} </div> : null}
+      {header === "보낸 문서함" ? (
+        <div tw="overflow-y-auto min-h-[28rem] max-h-[28rem]">{sendList} </div>
+      ) : null}
+      {header === "받은 문서함" ? (
+        <div tw="overflow-y-auto min-h-[28rem] max-h-[28rem]">
+          {receiveList}
+        </div>
+      ) : null}
     </div>
   );
 };

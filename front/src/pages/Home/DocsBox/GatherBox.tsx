@@ -1,6 +1,7 @@
 import type { RootState } from "@store/store";
 
 import { progressDocs } from "@/apis/boxAPI";
+import { downfile } from "@/apis/fileAPI";
 import { Icon } from "@/components/atoms";
 
 import DocsHeader from "./MoleculeDocsBox/DocsHeader";
@@ -9,7 +10,6 @@ import DocsListHeader from "./MoleculeDocsBox/DocsListHeader";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-// import
 import tw from "twin.macro";
 
 interface gatherDataItem {
@@ -23,7 +23,6 @@ interface memberTypes {
   name: string;
   phone: string;
 }
-
 const GatherBox = () => {
   const authState = useSelector((state: RootState) => state.auth);
   const [gatherData, setGatherData] = useState<gatherDataItem | null>(null);
@@ -40,21 +39,29 @@ const GatherBox = () => {
     }
   }, [authState.authToken]);
 
-  if (gatherData) {
-    console.log("gatherData", gatherData);
-  }
+  const downloadFile = () => {
+    const token = authState.authToken;
+
+    downfile(idx, token);
+  };
 
   const memberData = gatherData?.members?.map(
     (item: memberTypes, i: number) => {
+      console.log(item);
+
       return (
         <div
           className="DocsReceiver"
-          tw="flex my-auto items-center border-b-2"
+          tw="flex my-auto items-center border-b-2 py-2 overflow-y-auto"
           key={i}
         >
           <div className="DocsStatus" tw="min-w-[2rem] max-w-[2rem]  mx-8 my-3">
             <span>
-              <div tw="min-w-[1.5rem] max-w-[1.5rem] min-h-[1.5rem] max-h-[1.5rem] bg-red-700 border-2 rounded-full " />
+              {item.is_completed ? (
+                <div tw="min-w-[1.5rem] max-w-[1.5rem] min-h-[1.5rem] max-h-[1.5rem] bg-green-500 border-2 rounded-full " />
+              ) : (
+                <div tw="min-w-[1.5rem] max-w-[1.5rem] min-h-[1.5rem] max-h-[1.5rem] bg-red-700 border-2 rounded-full " />
+              )}
             </span>
           </div>
           <div
@@ -75,14 +82,14 @@ const GatherBox = () => {
           >
             {item?.email}
           </div>
-
-          <div
-            className="DocsDelete"
-            tw="min-w-[12rem] max-w-[12rem] my-3 text-center"
-          >
+          <div>
             <Icon
-              icon=" fi-rr-trash"
-              custom={tw` hover:scale-90 hover:text-orange-400 `}
+              icon="fi-br-download"
+              size="sm"
+              custom={tw`mx-2 hover:scale-110 hover:text-blue-500 cursor-pointer`}
+              onClick={() => {
+                // download();
+              }}
             />
           </div>
         </div>

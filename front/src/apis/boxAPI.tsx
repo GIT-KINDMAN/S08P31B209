@@ -80,7 +80,7 @@ export const deleteReceive = (idx: number, token: string) => {
 };
 
 // 다운로드
-export const downloadDocs = (idx: number) => api.get(`file/template/${idx}`);
+// export const downloadDocs = (idx: number) => api.get(`file/template/${idx}`);
 
 // 문서취합페이지
 export const progressDocs = (idx: number, token: string) => {
