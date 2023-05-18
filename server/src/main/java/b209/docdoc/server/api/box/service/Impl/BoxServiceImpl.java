@@ -17,10 +17,7 @@ import b209.docdoc.server.domain.repository.ReceiverRepository;
 import b209.docdoc.server.domain.repository.TemplateRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.security.InvalidParameterException;
@@ -60,6 +57,40 @@ public class BoxServiceImpl implements BoxService {
         return null;
     }
 
+//    @Override
+//    @Transactional
+//    public Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+//        String receiverEmail = SecurityManager.getCurrentMember().getEmail();
+//
+//        Sort sort = Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate")
+//                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "receiverDeadline"))
+//                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+//                .and(Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName"));
+//
+//        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+//
+//        Page<Receiver> receivers = boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+//
+//        return receivers.map(receiver -> BoxReceivedResDTO.of(receiver));
+//    }
+//
+//    @Override
+//    @Transactional
+//    public Page<BoxSentResDTO> getSentTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
+//        String senderEmail = SecurityManager.getCurrentMember().getEmail();
+//
+//        Sort sort = Sort.by(Sort.Direction.fromString(createdDateSort), "createdDate")
+//                .and(Sort.by(Sort.Direction.fromString(deadlineSort), "templateDeadline"))
+//                .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
+//                .and(Sort.by(Sort.Direction.fromString(nameSort), "templateName"));
+//
+//        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+//
+//        Page<Template> templates = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
+//
+//        return templates.map(template -> BoxSentResDTO.of(template, receiverRepository.findAllReceiverNameByTemplate(template)));
+//    }
+
     @Override
     @Transactional
     public Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable) {
@@ -70,11 +101,18 @@ public class BoxServiceImpl implements BoxService {
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
                 .and(Sort.by(Sort.Direction.fromString(nameSort), "receiverDocsName"));
 
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+        List<BoxReceivedResDTO> resultList = new ArrayList<>();
 
-        Page<Receiver> receivers = boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+        int pageNum = 0;
+        Page<Receiver> page;
+        do {
+            Pageable sortedPageable = PageRequest.of(pageNum, pageable.getPageSize(), sort);
+            page = boxRepository.findAllReceivedByReceiverEmail(receiverEmail, keywords, sortedPageable);
+            resultList.addAll(page.map(receiver -> BoxReceivedResDTO.of(receiver)).getContent());
+            pageNum++;
+        } while (pageNum < page.getTotalPages());
 
-        return receivers.map(receiver -> BoxReceivedResDTO.of(receiver));
+        return new PageImpl<>(resultList, pageable, page.getTotalElements());
     }
 
     @Override
@@ -87,11 +125,18 @@ public class BoxServiceImpl implements BoxService {
                 .and(Sort.by(Sort.Direction.fromString(updatedDateSort), "updatedDate"))
                 .and(Sort.by(Sort.Direction.fromString(nameSort), "templateName"));
 
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), sort);
+        List<BoxSentResDTO> resultList = new ArrayList<>();
 
-        Page<Template> templates = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
+        int pageNum = 0;
+        Page<Template> page;
+        do {
+            Pageable sortedPageable = PageRequest.of(pageNum, pageable.getPageSize(), sort);
+            page = boxRepository.findAllSentByMemberEmail(senderEmail, keywords, sortedPageable);
+            page.forEach(template -> resultList.add(BoxSentResDTO.of(template, receiverRepository.findAllReceiverNameByTemplate(template))));
+            pageNum++;
+        } while (pageNum < page.getTotalPages());
 
-        return templates.map(template -> BoxSentResDTO.of(template, receiverRepository.findAllReceiverNameByTemplate(template)));
+        return new PageImpl<>(resultList, pageable, page.getTotalElements());
     }
 
     @Override
@@ -106,10 +151,10 @@ public class BoxServiceImpl implements BoxService {
         for (Receiver receiver: list) {
             if (receiver.getReceiverIsCompleted()) completedCount++;
             else notCompletedCount++;
-            infos.add(new MemberProgressInfo(receiver.getReceiverIsCompleted(), receiver.getReceiverEmail(), receiver.getReceiverName()));
+            infos.add(new MemberProgressInfo(receiver.getReceiverIsCompleted(), receiver.getReceiverEmail(), receiver.getReceiverName(), receiver.getReceiverPhone()));
         }
 
-        return MemberProgressRes.of(notCompletedCount, completedCount, infos);
+        return MemberProgressRes.of(completedCount, notCompletedCount, infos);
     }
 
 

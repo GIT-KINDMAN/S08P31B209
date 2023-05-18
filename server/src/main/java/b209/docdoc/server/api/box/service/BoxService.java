@@ -7,6 +7,8 @@ import b209.docdoc.server.config.security.auth.MemberDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BoxService {
 
     Page<BoxReceivedResDTO> getReceivedTemplates(String keywords, String nameSort, String createdDateSort, String updatedDateSort, String deadlineSort, Pageable pageable);
@@ -19,6 +21,6 @@ public interface BoxService {
 
     Object deleteReceiverTemplates(Long receiverId);
 
-    public MemberProgressRes getMemberProgress(Long templateIdx, MemberDTO member);
+    MemberProgressRes getMemberProgress(Long templateIdx, MemberDTO member);
 
 }

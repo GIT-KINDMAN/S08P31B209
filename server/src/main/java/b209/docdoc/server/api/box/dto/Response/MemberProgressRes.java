@@ -7,19 +7,19 @@ import java.util.List;
 
 @Setter
 public class MemberProgressRes {
+    @JsonProperty(value = "completed_count", access = JsonProperty.Access.READ_WRITE)
+    Integer completedCount;
+
     @JsonProperty("not_completed_count")
     Integer notCompletedCount;
 
-    @JsonProperty("completed_count")
-    Integer completedCount;
-
-    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    @JsonProperty(value = "members", access = JsonProperty.Access.READ_WRITE)
     List<MemberProgressInfo> members;
 
-    public static MemberProgressRes of(Integer notCompletedCount, Integer completedCount, List<MemberProgressInfo> list) {
+    public static MemberProgressRes of(Integer completedCount, Integer notCompletedCount, List<MemberProgressInfo> list) {
         MemberProgressRes res = new MemberProgressRes();
+        res.setCompletedCount(completedCount);
         res.setNotCompletedCount(notCompletedCount);
-        res.setNotCompletedCount(completedCount);
         res.setMembers(list);
 
         return res;

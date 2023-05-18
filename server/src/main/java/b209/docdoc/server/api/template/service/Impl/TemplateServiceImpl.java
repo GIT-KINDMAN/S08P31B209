@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -95,6 +96,8 @@ public class TemplateServiceImpl implements TemplateService {
         for (int i = 0; i < documentTemplateSaveReqDTO.getToEmailNameReqDTO().getToName().size(); i++) { // 수신자들에게 템플릿 전송
             String toName = documentTemplateSaveReqDTO.getToEmailNameReqDTO().getToName().get(i); // 수신자 이름
             String toEmail = documentTemplateSaveReqDTO.getToEmailNameReqDTO().getToEmail().get(i); // 수신자 이메일
+            Optional<Member> toMember = memberRepository.findByMemberEmail(toEmail);
+            String toPhone = toMember.isEmpty() ? "-" : toMember.get().getMemberPhone(); // 수신자 전화번호
 
             //수신자가 회원가입한 멤버인지 확인
             boolean isMemmber = memberRepository.findByMemberEmail(toEmail).isPresent();
@@ -111,6 +114,7 @@ public class TemplateServiceImpl implements TemplateService {
                     .receiverIsDeleted(false)// 문서 삭제 완료 여부
                     .receiverEmail(toEmail) //수신자 이메일
                     .receiverName(toName) // 수신자 이름
+                    .receiverPhone(toPhone) // 수신자 전화번호
                     .build();
 
             receiverRepository.save(receiver);

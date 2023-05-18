@@ -20,7 +20,6 @@ const AddressList = ({ index, idx }: AddressListProps) => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<addressState[]>([]);
-  const [isSelfDisable, setIsSelfDisable] = useState(true);
   const [email, setEmail] = useState("");
 
   const authToken = useSelector((state: RootState) => state.auth.authToken);
