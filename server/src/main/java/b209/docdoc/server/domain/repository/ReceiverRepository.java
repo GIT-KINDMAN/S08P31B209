@@ -12,6 +12,6 @@ public interface ReceiverRepository extends JpaRepository<Receiver, Long> {
     List<Receiver> findAllByTemplateAndReceiverIsDeleted(Template template, Boolean isDeleted);
 
     @Query("SELECT r.receiverName FROM Receiver r WHERE r.template =:template AND r.receiverIsDeleted=false ")
-    List<String> findAllReceiverNameByTemplate(Template template);
+    List<String> findAllReceiverNameByTemplate(Object template);
 
 }

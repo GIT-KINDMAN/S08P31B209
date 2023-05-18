@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface BoxRepository extends JpaRepository<Template, Long> {
     @Query("SELECT r FROM Receiver r WHERE r.receiverEmail LIKE %:receiverEmail% AND r.receiverDocsName LIKE %:keywords% AND r.receiverIsDeleted=false")
     Page<Receiver> findAllReceivedByReceiverEmail(@Param("receiverEmail") String receiverEmail, @Param("keywords") String keywords, Pageable pageable);
