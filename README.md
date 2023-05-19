@@ -24,7 +24,7 @@
 | [👨🏻‍💻 김주성](https://github.com/{}) [📧](mailto:@gmail.com) | 팀장, React<br />정보 페이지, 푸터&네비바, 기본 틀 및 API, redux상태관리 <br />                                                     |
 | [👨🏻‍💻 권동규](https://github.com/{}) [📧](mailto:@gmail.com) | 부팀장, React<br /> 아이디어/디자인 기획, 프론트 엔드 요소 설계, 에디터 및 서명 페이지 구현, redux 관리, 코드 템플릿 관리           |
 | [👨🏻‍💻 김성태](https://github.com/{}) [📧](mailto:@gmail.com) | React<br /> 아이디어 기획, 메인페이지, 소개페이지 디자인 및 구현                                                                    |
-| [👨🏻‍💻 유헌상](https://github.com/{}) [📧](mailto:@gmail.com) | React, Typescript<br /> 인트로화면, 유저 로그인, 문서 보관함 및 문서취합페이지지, 유저 주소록,  <br>                                                              |
+| [👨🏻‍💻 유헌상](https://github.com/{}) [📧](mailto:@gmail.com) | 프론트엔트 React, Typescript<br /> 인트로화면, 유저 로그인, 문서 보관함 및 문서취합페이지지, 유저 주소록,  <br>                                                              |
 | [👨🏻‍💻 이동훈](https://github.com/{}) [📧](mailto:@gmail.com) | Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD <br /> 송신함 API, 수신함 API, Template API, Docsfile API, Templatefile API |
 | [👨🏻‍💻 한재욱](https://github.com/{}) [📧](mailto:@gmail.com) | React<br/> Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD                                                                  |
 
