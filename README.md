@@ -19,14 +19,14 @@
 
 ## 🤝팀 소개
 
-| 이름                                                       | 개발 내용                                             |
-| ---------------------------------------------------------- | ----------------------------------------------------- |
-| [👨🏻‍💻 김주성](https://github.com/{}) [📧](mailto:@gmail.com) | 팀장, React<br />정보 페이지, 푸터&네비바, 기본 틀 및 API, redux상태관리 <br /> |
-| [👨🏻‍💻 권동규](https://github.com/{}) [📧](mailto:@gmail.com) | 부팀장, React<br /> 원두 조회 페이지 및 프로필 디자인 및 키워드 검색 기능 구현,                                                |
-| [👨🏻‍💻 김성태](https://github.com/{}) [📧](mailto:@gmail.com) | React<br /> 아이디어 기획, 메인페이지, 소개페이지 디자인 및 구현                                                 |
-| [👨🏻‍💻 유헌상](https://github.com/{}) [📧](mailto:@gmail.com) | 팀장 <br /> Spring Boot REST API<br /> Fast API, 추천알고리즘 설계<br>                               |
-| [👨🏻‍💻 이동훈](https://github.com/{}) [📧](mailto:@gmail.com) | Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD <br /> 송신함 API, 수신함 API, Template API, Docsfile API, Templatefile API
-| [👨🏻‍💻 한재욱](https://github.com/{}) [📧](mailto:@gmail.com) | React<br/> Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD|
+| 이름                                                       | 개발 내용                                                                                                                           |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| [👨🏻‍💻 김주성](https://github.com/{}) [📧](mailto:@gmail.com) | 팀장, React<br />정보 페이지, 푸터&네비바, 기본 틀 및 API, redux상태관리 <br />                                                     |
+| [👨🏻‍💻 권동규](https://github.com/{}) [📧](mailto:@gmail.com) | 부팀장, React<br /> 아이디어/디자인 기획, 프론트 엔드 요소 설계, 에디터 및 서명 페이지 구현, redux 관리, 코드 템플릿 관리           |
+| [👨🏻‍💻 김성태](https://github.com/{}) [📧](mailto:@gmail.com) | React<br /> 아이디어 기획, 메인페이지, 소개페이지 디자인 및 구현                                                                    |
+| [👨🏻‍💻 유헌상](https://github.com/{}) [📧](mailto:@gmail.com) | 팀장 <br /> Spring Boot REST API<br /> Fast API, 추천알고리즘 설계<br>                                                              |
+| [👨🏻‍💻 이동훈](https://github.com/{}) [📧](mailto:@gmail.com) | Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD <br /> 송신함 API, 수신함 API, Template API, Docsfile API, Templatefile API |
+| [👨🏻‍💻 한재욱](https://github.com/{}) [📧](mailto:@gmail.com) | React<br/> Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD                                                                  |
 
 ### 🏁목표
 
@@ -82,7 +82,7 @@ MySQL, MongoDB
   > | &nbsp;   | Spring            | Boot               | 2.7.9   |
   > | &nbsp;   | &nbsp;            | Security           | 5.6.1   |
   > | &nbsp;   | DB                | Mysql              | 8.0.32  |
-  > | &nbsp;   | &nbsp;            | Spring-Data-jpa    | 2.6.0  |
+  > | &nbsp;   | &nbsp;            | Spring-Data-jpa    | 2.6.0   |
   > | &nbsp;   | IDE               | IntelliJ           | 22.3.1  |
   > | Server   | AWS EC2           | Ubuntu             | 20.04   |
   > | &nbsp;   | 배포              | Docker             | 23.0.0  |
@@ -90,14 +90,16 @@ MySQL, MongoDB
   > | &nbsp;   | &nbsp;            | Jenkins            | 2.375.2 |
   > | &nbsp;   | WebServer         | Nginx              | 1.23.3  |
 
-
 <br>
 ## 💼기획/설계
 
 ### 📑기능 요구 명세서
+
 ![요구사항명세서.png](/docs/요구 명세서/요구 명세서.pdf)
 <br>
+
 ### 📑ERD
+
 ![erd.png](/docs/erd/img/DOCDOCERD_V2.0.png)
 <br>
 
@@ -245,7 +247,7 @@ MySQL, MongoDB
 >
 > ```conf
 > # /etc/nginx/sites-available/docdoc.conf
->server {
+> server {
 >    server_name k8b209.p.ssafy.io;
 >
 >    location /api {
@@ -267,9 +269,9 @@ MySQL, MongoDB
 >
 >    access_log /logs/access.log;
 >    error_log /logs/error.log;
->}
+> }
 >
->server {
+> server {
 >    if ($host = k8b209.p.ssafy.io) {
 >        return 301 https://$host$request_uri;
 >    } # managed by Certbot
@@ -277,14 +279,14 @@ MySQL, MongoDB
 >    listen 80;
 >    server_name k8b209.p.ssafy.io;
 >    return 404; # managed by Certbot
->}
+> }
 > ```
 >
 > ```
 > # DB(mysql, redis, mongodb) 구성하는 docker-compose.yml
->version: "3"
->  
->services:
+> version: "3"
+>
+> services:
 >       mysql:
 >                image: mysql:8.0
 >                container_name: mysql
@@ -329,11 +331,12 @@ MySQL, MongoDB
 >
 >                mem_limit: 900m
 > ```
+>
 > ```
 > # jenkins 구성하는 docker-compose.yml
->version: "3"
->  
->services:
+> version: "3"
+>
+> services:
 > jenkins:
 >   container_name: jenkins
 >   image: jenkins/jenkins:lts
@@ -348,11 +351,12 @@ MySQL, MongoDB
 >     - TZ=Asia/Seoul
 >   privileged: true
 >   restart: "unless-stopped"
->```
->```
->> # server(backend) 구성하는 docker-compose.yml
->version: "3"
->services:
+> ```
+>
+> ```
+> > # server(backend) 구성하는 docker-compose.yml
+> version: "3"
+> services:
 > api:
 >   build:
 >     context: ./server
@@ -378,16 +382,16 @@ MySQL, MongoDB
 >   networks:
 >     - web
 >
->networks:
+> networks:
 >       web:
 >               external: true
->```
+> ```
 >
->```
+> ```
 > # client(frontend) 구성하는 docker-compose.yml
 >
->version: "3"
->services:
+> version: "3"
+> services:
 >        client:
 >                build:
 >                        context: ./front
@@ -402,16 +406,16 @@ MySQL, MongoDB
 >                networks:
 >                        - web
 >
->networks:
+> networks:
 >        web:
 >                external: true
->```
+> ```
 >
->```
+> ```
 > # client(추천 서버) 구성하는 docker-composer-client.yml
 >
->version: "3"
->services:
+> version: "3"
+> services:
 >       client:
 >               build:
 >                       context: ./front
@@ -426,15 +430,17 @@ MySQL, MongoDB
 >               networks:
 >                       - web
 >
->networks:
+> networks:
 >       web:
 >               external: true
->```
->```
+> ```
+>
+> ```
 > # 각 환경변수의 값은 Jenkinsfile의 credential Secret text에 설정
 > ![image](/uploads/f4954ad830ad3a8cb8c4be7cdbc1cb8b/image.png)
->```
->```
+> ```
+>
+> ```
 > # jenkins frontend pipeline
 >
 > pipeline {
@@ -505,16 +511,17 @@ MySQL, MongoDB
 >                failure {
 >                    echo "docker-compose failed"
 >                }
->            }       
+>            }
 >        }
 >    }
->}
+> }
 >
 > ```
+>
 > ```
 > # jenkins backend pipeline
 >
->pipeline {
+> pipeline {
 >    agent any
 >    options {
 >        timeout(time: 1, unit: 'HOURS')
@@ -540,7 +547,7 @@ MySQL, MongoDB
 >                sh "ls -al"
 >            }
 >        }
->    
+>
 >        stage('backend dockerizing') {
 >            steps {
 >                sh "pwd"
@@ -564,25 +571,27 @@ MySQL, MongoDB
 >            }
 >        }
 >    }
->}
+> }
 >
 > ```
+>
 > ```
 > # Frontend Dockerfile
 >
->FROM nginx:stable-alpine
->COPY dist /usr/share/nginx/html
->EXPOSE 80
->CMD ["nginx", "-g", "daemon off;"]
+> FROM nginx:stable-alpine
+> COPY dist /usr/share/nginx/html
+> EXPOSE 80
+> CMD ["nginx", "-g", "daemon off;"]
 >
->```
->```
+> ```
+>
+> ```
 > # Backend Dockerfile
 >
->FROM openjdk:11
->COPY build/libs/server-0.0.1-SNAPSHOT.jar /app/server.jar
->WORKDIR /app
->ENTRYPOINT ["java", "-jar", "-Duser.timezone=Asia/Seoul", "server.jar"]
+> FROM openjdk:11
+> COPY build/libs/server-0.0.1-SNAPSHOT.jar /app/server.jar
+> WORKDIR /app
+> ENTRYPOINT ["java", "-jar", "-Duser.timezone=Asia/Seoul", "server.jar"]
 >
 >
->```
+> ```
