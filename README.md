@@ -26,7 +26,7 @@
 | [👨🏻‍💻 김성태](https://github.com/{}) [📧](mailto:@gmail.com) | React<br /> 아이디어 기획, 메인페이지, 소개페이지 디자인 및 구현                                                 |
 | [👨🏻‍💻 유헌상](https://github.com/{}) [📧](mailto:@gmail.com) | 팀장 <br /> Spring Boot REST API<br /> Fast API, 추천알고리즘 설계<br>                               |
 | [👨🏻‍💻 이동훈](https://github.com/{}) [📧](mailto:@gmail.com) | Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD <br /> 송신함 API, 수신함 API, Template API, Docsfile API, Templatefile API
-| [👨🏻‍💻 한재욱](https://github.com/{}) [📧](mailto:@gmail.com) | Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD <br /> Social login, 리뷰 관련 API, 마이페이지 관련API|
+| [👨🏻‍💻 한재욱](https://github.com/{}) [📧](mailto:@gmail.com) | React<br/> Spring Boot REST API<br /> 젠킨스와 도커를 활용한 CI/CD|
 
 ### 🏁목표
 
